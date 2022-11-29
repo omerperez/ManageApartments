@@ -1,0 +1,51 @@
+.edit-layout {
+  margin: 1.5% 3%;
+}
+.edit-apartment {
+  padding: 25px;
+  border-radius: 8px;
+  border: solid 4px #809fff;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.edit-save-btn {
+  text-transform: capitalize !important;
+  font-size: 20px !important;
+  height: 40px !important;
+  font-family: "Rubik", sans-serif !important;
+  width: 220px !important;
+  border-radius: 8px !important;
+  background-color: #809fff !important;
+  color: white !important;
+  font-weight: 700 !important;
+  padding: 30px !important;
+  margin-right: 20px !important;
+}
+
+.edit-cancel-btn {
+  text-transform: capitalize !important;
+  font-size: 20px !important;
+  height: 40px !important;
+  font-family: "Rubik", sans-serif !important;
+  width: 220px !important;
+  border-radius: 8px !important;
+  background-color: #ff5370 !important;
+  color: white !important;
+  font-weight: 700 !important;
+  padding: 30px !important;
+  margin-right: 20px !important;
+}
+
+.edit-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin: 20px 0;
+}
+
+.edit-tenant-btns {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}

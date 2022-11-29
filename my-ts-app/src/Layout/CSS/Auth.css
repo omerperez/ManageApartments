@@ -1,0 +1,117 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(208, 234, 240, 1) 36%,
+    rgba(114, 209, 221, 1) 100%
+  );
+
+  /* background: linear-gradient(
+    to left bottom,
+    #ffffff,
+    #ecebf8,
+    #d6d8f2,
+    #bdc7ec,
+    #a0b6e6,
+    #9ba9e3,
+    #999cde,
+    #9b8dd7,
+    #ba7bc4,
+    #d267a5,
+    #de587e,
+    #dc5353
+  ); */
+}
+
+.login-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+  max-width: 1000px;
+  background-color: white;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 12px;
+  min-height: 450px;
+}
+.illustration-wrapper {
+  display: flex;
+  align-items: flex-end;
+  max-width: 800px;
+  min-height: 100%;
+}
+
+@media screen and (max-width: 1023px) {
+  .login-box {
+    flex-direction: column;
+    box-shadow: none;
+  }
+
+  .illustration-wrapper {
+    max-width: 100%;
+    min-height: auto;
+  }
+
+  #login-form {
+    max-width: 100%;
+  }
+}
+
+.login-card {
+  width: 550px;
+  height: auto;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 15px 9px 20px 5px rgba(0, 0, 0, 0.67);
+  background: white;
+  opacity: 80%;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.btn-pos {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.global-font {
+  font-family: "Rubik", sans-serif !important;
+}
+
+.label-title {
+  margin: 0 10px 0 10px !important;
+  font-family: "Rubik", sans-serif !important;
+  margin-left: auto !important;
+}
+
+.auth-input {
+  margin: 10px !important;
+}
+
+.login-btn {
+  background-color: #4b86c5 !important;
+  border: solid 1px black !important;
+  font-family: "Rubik", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.login-btn-after-vertification-code {
+  background-color: #40964b !important;
+  border: solid 1px black !important;
+  font-family: "Rubik", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+}
+
+.visibility-cur {
+  cursor: pointer !important;
+}
