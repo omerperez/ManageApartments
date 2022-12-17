@@ -2,32 +2,11 @@ import { Apartment } from "../Data/builders/Apartment";
 import { Tenant } from "../Data/builders/Tenant";
 import { IUser } from "../Data/interfaces/IUser";
 
-const emptyApartment = new Apartment(
-  "",
-  "",
-  "",
-  "",
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  -1,
-  "",
-  "",
-  "",
-  -1,
-  [],
-  "",
-);
-
 const defaultApartment = new Apartment(
   "הדירה של עומר",
-  "הרצליה",
+  "הרצליה ",
   "נווה עמל",
-  "הרצליה",
+  "יציאת אירופה",
   1,
   2,
   3,
@@ -49,30 +28,6 @@ const defaultApartment = new Apartment(
   "209543214",
 );
 
-// name: "הדירה של עומר",
-//   city: "הרצליה",
-//   neighborhood: "נווה עמל",
-//   street: "הרצליה",
-//   number: 1,
-//   floor: 2,
-//   apartmentNumber: 3,
-//   postCode: 46375,
-//   price: 4500,
-//   area: 45,
-//   bedrooms: 1,
-//   toilet: 1,
-//   animals: "הרצליה",
-//   includes: "הרצליה",
-//   comments: "מוכן לכניסה מידית",
-//   mainImageIndex: 2,
-//   images: [
-//     "/staticImages/apartment.jpeg",
-//     "/staticImages/apa2.png",
-//     "/staticImages/apa2.png",
-//     "/staticImages/apa2.png",
-//   ],
-//   currentTenantId: "209543214",
-
 const defaultTenant: Tenant = new Tenant(
   "209543214",
   "עומר",
@@ -81,10 +36,24 @@ const defaultTenant: Tenant = new Tenant(
   "0523671766",
   "omerperez222@gmail.com",
   "male",
-  "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-  new Date(),
-  new Date(),
-  new Date(),
+  "/testPdf.pdf",
+  new Date(1998, 1, 20),
+  new Date(2020, 1, 20),
+  new Date(2022, 1, 20),
+);
+
+const defaultTenant2: Tenant = new Tenant(
+  "209543214",
+  "עידו",
+  "פרץ",
+  "0523671766",
+  "0545546468",
+  "idoperez2@gmail.com",
+  "male",
+  "/testPdf.pdf",
+  new Date(1998, 10, 18),
+  new Date(2020, 1, 20),
+  new Date(2022, 1, 20),
 );
 
 //DELETE AFTER CREATE BACKEND SIDE
@@ -98,4 +67,4 @@ const tempUser: IUser = {
   language: "he",
 };
 
-export { defaultTenant, defaultApartment, emptyApartment, tempUser };
+export { defaultTenant, defaultApartment, tempUser, defaultTenant2 };

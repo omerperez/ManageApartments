@@ -107,18 +107,10 @@ const apartmentMenuItems = [
     label: "פרטי דירה",
     icon: <HomeWork />,
   },
-  // {
-  //   label: "דייר נוכחי",
-  //   icon: <ManageAccounts />,
-  // },
   {
     label: "חוזה נוכחי",
     icon: <FilePresent />,
   },
-  // {
-  //   label: "עריכת תמונות",
-  //   icon: <Filter />,
-  // },
   {
     label: "חשבונות חשמל",
     icon: <Power />,
@@ -127,14 +119,6 @@ const apartmentMenuItems = [
     label: "חשבונות מים",
     icon: <Shower />,
   },
-  // {
-  //   label: "הסטוריית דיירים",
-  //   icon: <Groups />,
-  // },
-  // {
-  //   label: "הסטוריית חוזים",
-  //   icon: <FindInPage />,
-  // },
 ];
 
 export {

@@ -11,7 +11,7 @@ import { Fragment, useState } from "react";
 import { pageLabels } from "../../../Assets/Apartments";
 import { Apartment } from "../../../Data/builders/Apartment";
 import { MuiCard } from "../../../Layout/Mui/Home";
-import ThemeStyleRTL from "../../Global/ThemeStyleRTL";
+import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import CardMenuActions from "./CardMenuActions";
 
 type ApartmentCardProps = {

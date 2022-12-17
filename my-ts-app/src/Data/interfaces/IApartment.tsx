@@ -31,6 +31,11 @@ interface IApartment {
 interface IContext {
   apartment: IApartment;
   tenant: ITenant;
+  steps: {
+    apartment: boolean;
+    tenant: boolean;
+    files: boolean;
+  };
 }
 
 export type { IApartment, IContext, PrivatePoviderProps };

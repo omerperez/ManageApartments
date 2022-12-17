@@ -1,10 +1,11 @@
 import { Edit } from "@mui/icons-material";
-import { Dialog, DialogContent, IconButton } from "@mui/material";
+import { Button, Dialog, DialogContent, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
-import { defaultTenant } from "../../Assets/StaticData";
-import { Tenant } from "../../Data/builders/Tenant";
-import { DialogTenantMui } from "../../Layout/Mui/Edit";
-import ThemeStyleRTL from "../Global/ThemeStyleRTL";
+import { defaultTenant } from "../../../Assets/StaticData";
+import { Tenant } from "../../../Data/builders/Tenant";
+import Loading from "../../../Layout/Loading";
+import { DialogTenantMui } from "../../../Layout/Mui/Edit";
+import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import EditTenant from "./EditTenant";
 
 interface TenantDialogProps {
@@ -25,6 +26,10 @@ export default function TenantDialog({ tenantId }: TenantDialogProps) {
     }
   }, [tenantId]);
 
+  if (!tenant) {
+    return <Loading />;
+  }
+
   return (
     <>
       <IconButton className="edit-tenant-btn" onClick={handleClickOpen}>
@@ -37,9 +42,7 @@ export default function TenantDialog({ tenantId }: TenantDialogProps) {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogContent>
-            {<EditTenant tenant={tenant} setOpen={setOpen} />}
-          </DialogContent>
+          <DialogContent>{<EditTenant editTenant={tenant} />}</DialogContent>
         </Dialog>
       </ThemeStyleRTL>
     </>

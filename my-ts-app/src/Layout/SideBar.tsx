@@ -15,20 +15,20 @@ export default function SideBar() {
         <Divider className="side-nav-divider" />
       </div>
       <div className="side-nav-icons">
-        {bodyCards.map((bodyCard, key) => {
-          return (
-            <div className="side-nav-icons-space">
-              <IconButton
-                onClick={() => {
-                  navigate(bodyCard.to);
-                }}
-                key={`homepage-btn${key}`}
-              >
-                {bodyCard.icon}
-              </IconButton>
-            </div>
-          );
-        })}
+        {bodyCards.map((bodyCard, key) => (
+          <div
+            className="side-nav-icons-space"
+            key={`homepage-btn-sidebar${key}`}
+          >
+            <IconButton
+              onClick={() => {
+                navigate(bodyCard.to);
+              }}
+            >
+              {bodyCard.icon}
+            </IconButton>
+          </div>
+        ))}
       </div>
     </div>
   );

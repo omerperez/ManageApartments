@@ -7,88 +7,58 @@ import {
   InsertDriveFile,
   Apartment,
 } from "@mui/icons-material";
-const cardIconsStyle = {
-  fontSize: 40,
-  background: "white",
-  borderRadius: "50%",
-  padding: 1,
-};
+import { IDashboardTitle, ICardBody } from "../Data/interfaces/IHome";
+import { MuiCardIcon, MuiIcon } from "../Layout/Mui/Home";
 
-interface dashboardTitle {
-  he_title: string;
-  en_title: string;
-  backgroundColor: string;
-  icon: JSX.Element;
-}
-
-const topDashboardTitles: dashboardTitle[] = [
+const topDashboardTitles: IDashboardTitle[] = [
   {
     he_title: "דירות זמינות",
     en_title: "Available Apartments",
     backgroundColor: "bg-yellow",
-    icon: <ReplyAll sx={{ ...{ color: "#FFB64D" }, ...cardIconsStyle }} />,
+    icon: <ReplyAll sx={{ ...{ color: "#FFB64D" }, ...MuiCardIcon }} />,
   },
   {
     he_title: "הכנסות",
     en_title: "Revenues",
     backgroundColor: "bg-blue",
-    icon: <AttachMoney sx={{ ...{ color: "#4099FF" }, ...cardIconsStyle }} />,
+    icon: <AttachMoney sx={{ ...{ color: "#4099FF" }, ...MuiCardIcon }} />,
   },
   {
     he_title: "כמות דירות",
     en_title: "Total Apartments",
     backgroundColor: "bg-green",
-    icon: (
-      <HolidayVillage sx={{ ...{ color: "#2DD8B6" }, ...cardIconsStyle }} />
-    ),
+    icon: <HolidayVillage sx={{ ...{ color: "#2DD8B6" }, ...MuiCardIcon }} />,
   },
   {
     he_title: "חוזים שמסתיים בקרוב",
     en_title: "Contracts ending soon",
     backgroundColor: "bg-red",
-    icon: <RequestPage sx={{ ...{ color: "#FF5370" }, ...cardIconsStyle }} />,
+    icon: <RequestPage sx={{ ...{ color: "#FF5370" }, ...MuiCardIcon }} />,
   },
 ];
 
-interface bodyCard {
-  he_label: string;
-  en_label: string;
-  style: string;
-  icon: JSX.Element;
-  to: string;
-}
-
-const iconStyle = { color: "#2A2561", fontSize: 42 };
-// color: "white",
-const bodyCards: bodyCard[] = [
+const bodyCards: ICardBody[] = [
   {
     he_label: "הדירות שלי",
     en_label: "My Apartments",
     style: "green green nowrope",
-    icon: <Apartment sx={iconStyle} />,
+    icon: <Apartment sx={MuiIcon} />,
     to: "/apartments",
   },
   {
     he_label: "המסמכים שלי",
     en_label: "My Documents",
     style: "red red",
-    icon: <InsertDriveFile sx={iconStyle} />,
+    icon: <InsertDriveFile sx={MuiIcon} />,
     to: "/files",
   },
   {
     he_label: "מחשבון חשמל",
     en_label: "Electirc Calculature",
     style: "yellow yellow",
-    icon: <Calculate sx={iconStyle} />,
+    icon: <Calculate sx={MuiIcon} />,
     to: "/electric-calc",
   },
-  // {
-  //   he_label: "חשבון מים",
-  //   en_label: "Water Calculature",
-  //   style: "blue blue",
-  //   icon: <Calculate sx={iconStyle} />,
-  //   to: "/water-calc",
-  // },
 ];
 
 const tenantsCardProperties = {
@@ -103,4 +73,3 @@ const tenantsCardProperties = {
 };
 
 export { topDashboardTitles, bodyCards, tenantsCardProperties };
-export type { dashboardTitle };

@@ -1,14 +1,14 @@
-import React, { useState, MouseEvent, useContext } from "react";
-import { Button, IconButton, Menu, MenuItem } from "@mui/material";
-import useLocalStorage from "../Hooks/useLocalStorage";
-import { AuthContext } from "../Contexts/AuthContext";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { IconButton } from "@mui/material";
+import { useContext } from "react";
+import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContextType } from "../Data/types/Auth";
 
 export default function LogoutBtn() {
-  const { state, dispatch } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext) as AuthContextType;
 
   const handleClick = () => {
-    dispatch({ type: "logout" });
+    logout();
   };
   return (
     <IconButton

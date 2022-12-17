@@ -69,8 +69,20 @@
 }
 
 .label-form {
-  font-size: 18px;
+  font-size: 18px !important;
+  font-family: "Rubik", sans-serif !important;
+  color: black !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 5px !important;
+}
+
+.area-input {
+  font-size: 16px;
   font-family: "Rubik", sans-serif;
+  margin: 20px 0 20px 20px;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .lan-btn-design {
@@ -199,4 +211,31 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-align: center;
+}
+
+.input-error {
+  color: #ff5370;
+  font-weight: 700;
+}
+
+.error-border {
+  border: solid 1px #ff5370 !important;
+}
+
+.dialog-action-btn {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  font-family: "Rubik", sans-serif !important;
+  margin: 0 30px !important;
+}
+
+.dialog-top-close-btn {
+  color: #809fff !important;
+  font-size: 35px !important;
+  margin: 10px !important;
+}
+
+.dialog-content-change-tenant {
+  margin: 0px 40px 40px 40px !important;
 }

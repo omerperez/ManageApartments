@@ -1,3 +1,4 @@
+import { convertDateFormatToString } from "../../Features/Format";
 import { ITenant } from "../interfaces/ITenant";
 
 class Tenant implements ITenant {
@@ -10,10 +11,11 @@ class Tenant implements ITenant {
     email: string;
     age: number;
     gender: string;
-    agreement: string;
-    birthday: Date;
-    startDate: Date;
-    endDate: Date;
+    currentAgreement: string;
+    agreement: string[];
+    birthday: string;
+    startDate: string;
+    endDate: string;
 
     constructor(id: string, firstName: string,
         lastName: string, mobileNumber: string, anotherMobileNumber: string,
@@ -28,18 +30,22 @@ class Tenant implements ITenant {
         this.anotherMobileNumber = anotherMobileNumber;
         this.email = email;
         this.gender = gender;
-        this.agreement = agreement;
+        this.currentAgreement = agreement;
+        this.agreement = [];
         this.age = this.clacAge(birthday);
-        this.birthday = birthday;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.birthday = convertDateFormatToString(birthday);
+        this.startDate = convertDateFormatToString(startDate);
+        this.endDate = convertDateFormatToString(endDate);
     }
 
 
     clacAge(birthday: Date) {
+        console.log(birthday);
         const today = new Date();
         const age = today.getFullYear() - birthday.getFullYear();
+        console.log(age);
         const month = today.getMonth() - birthday.getMonth();
+        console.log(month);
         if (month < 0 || month === 0 && today.getDate() < birthday.getDate()) {
             return age - 1;
         }
@@ -78,13 +84,9 @@ class Tenant implements ITenant {
         ];
     }
     getOccupancyPeriod() {
-        return `${getDateFormat(this.startDate)} - ${getDateFormat(this.endDate)}`;
+        return `${this.startDate} - ${this.endDate}`;
     }
 
 }
-
-const getDateFormat = (date: Date) => {
-    return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
-};
 
 export { Tenant };

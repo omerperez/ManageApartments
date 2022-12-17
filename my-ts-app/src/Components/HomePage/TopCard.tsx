@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
-import { dashboardTitle } from "../../Assets/HomePage";
+import { IDashboardTitle } from "../../Data/interfaces/IHome";
 import { numberWithCommas } from "../../Services/Utils/formats";
 
 type TopCardProps = {
   language: string;
-  card: dashboardTitle;
+  card: IDashboardTitle;
   body: number;
 };
 

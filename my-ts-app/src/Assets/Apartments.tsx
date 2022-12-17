@@ -1,4 +1,4 @@
-import { Edit, RemoveRedEye, Delete } from "@mui/icons-material";
+import { Delete, Edit, RemoveRedEye } from "@mui/icons-material";
 
 const CardActionsBtn = [
   {
@@ -35,4 +35,5 @@ const pageLabels = {
     rent: "מושכרת",
   },
 };
+
 export { CardActionsBtn, pageLabels };

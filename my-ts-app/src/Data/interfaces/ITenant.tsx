@@ -8,10 +8,11 @@ interface ITenant {
   email: string;
   age: number;
   gender: string;
-  agreement: string;
-  birthday: Date;
-  startDate: Date;
-  endDate: Date;
+  currentAgreement: string;
+  agreement: string[];
+  birthday: string;
+  startDate: string;
+  endDate: string;
 }
 
 export type { ITenant };

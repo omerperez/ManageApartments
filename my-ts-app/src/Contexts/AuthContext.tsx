@@ -1,6 +1,6 @@
-import { createContext, Dispatch, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { IUser } from "../Data/interfaces/IUser";
-import { AuthAction } from "../Data/types/Auth";
+import { AuthContextType } from "../Data/types/Auth";
 import authReducer from "../Reducers/Auth";
 
 const initialState: IUser = {
@@ -13,12 +13,13 @@ const initialState: IUser = {
   language: "",
 };
 
-const AuthContext = createContext<{
-  state: IUser;
-  dispatch: Dispatch<AuthAction>;
-}>({ state: initialState, dispatch: () => null });
+const AuthContext = createContext<AuthContextType | null>(null);
 
-export default function AuthPovider({ children }: any) {
+interface AuthProviderProps {
+  children: JSX.Element;
+}
+
+export default function AuthPovider({ children }: AuthProviderProps) {
   const [authState, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
@@ -35,9 +36,33 @@ export default function AuthPovider({ children }: any) {
     });
   }, []);
 
+  function login(id: string) {
+    dispatch({ type: "login", id: id });
+  }
+
+  function changeUser(firstName: string, lastName: string, mobile: string) {
+    dispatch({
+      type: "changeUser",
+      firstName: firstName,
+      lastName: lastName,
+      mobile: mobile,
+    });
+  }
+
+  function changeLanguage(language: string) {
+    dispatch({ type: "changeLanguage", language: language });
+  }
+
+  function logout() {
+    dispatch({ type: "logout" });
+  }
+
   const value = {
-    state: authState,
-    dispatch: dispatch,
+    authState: authState,
+    login: login,
+    changeUser: changeUser,
+    changeLanguage: changeLanguage,
+    logout: logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,5 +1,6 @@
 import { useContext, ReactNode } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { AuthContextType } from "../../Data/types/Auth";
 
 interface LanguageContainerProps {
   children: ReactNode;
@@ -12,9 +13,9 @@ export default function LanguageContainer({
   heClassName,
   enClassName,
 }: LanguageContainerProps) {
-  const { state } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext) as AuthContextType;
   return (
-    <div className={state.language === "he" ? heClassName : enClassName}>
+    <div className={authState.language === "he" ? heClassName : enClassName}>
       {children}
     </div>
   );

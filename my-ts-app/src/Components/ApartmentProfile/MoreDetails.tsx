@@ -19,8 +19,8 @@ export default function MoreDetails({
       <Grid item xs={9.5} className="mt-2">
         <Divider className="divider-details" />
         <Grid container className="profile-labels mt-0" spacing={1.5}>
-          {detailsLabels.map((prop) => (
-            <Grid item sm={4}>
+          {detailsLabels.map((prop, index) => (
+            <Grid item sm={4} key={`moreDetailPropItem-${index}`}>
               <span>{prop[`${language}_label`]}</span>
               <br />
               <b className="area-values">{prop.value}</b>

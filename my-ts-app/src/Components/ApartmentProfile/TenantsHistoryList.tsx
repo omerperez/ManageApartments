@@ -8,22 +8,24 @@ import {
   Typography,
 } from "@mui/material";
 import { Fragment } from "react";
-import { Tenant } from "../../Data/builders/Tenant";
+import { ITenant } from "../../Data/interfaces/ITenant";
 
-// const arr = [1, 2, 3];
 interface TenantsHistoryListProps {
-  tenants: Tenant[];
+  tenants: ITenant[];
 }
+
 export default function TenantsHistoryList({
   tenants,
 }: TenantsHistoryListProps) {
-  if (!(tenants && tenants.length > 0)) {
+  if (tenants.length < 0) {
     return null;
   }
+
+  const sliceIndex = tenants.length > 4 ? 3 : tenants.length - 1;
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }} className="mt-2">
-      {tenants.splice(0, 3).map((tenant, index) => (
-        <Fragment key={`history-tenants-${index}`}>
+      {tenants.splice(0, sliceIndex).map((tenant, index) => (
+        <Fragment key={`history-tenants-${tenant.id + index}`}>
           <ListItem alignItems="flex-start" sx={{ textAlign: "start" }}>
             <ListItemAvatar>
               <Avatar alt="Remy Sharp" src="/staticImages/famale.png" />
@@ -39,8 +41,7 @@ export default function TenantsHistoryList({
                     color="text.primary"
                   >
                     תאריכים
-                    {tenant.startDate.toDateString()}-
-                    {tenant.endDate.toDateString()}
+                    {tenant.startDate}-{tenant.endDate}
                   </Typography>
                   <br />
                   ראה עוד...

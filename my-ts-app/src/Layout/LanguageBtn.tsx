@@ -3,9 +3,10 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import useLocalStorage from "../Hooks/useLocalStorage";
 import { AuthContext } from "../Contexts/AuthContext";
 import LanguageIcon from "@mui/icons-material/Language";
+import { AuthContextType } from "../Data/types/Auth";
 
 export default function LanguegeBtn() {
-  const { state, dispatch } = useContext(AuthContext);
+  const { changeLanguage } = useContext(AuthContext) as AuthContextType;
   const [language, setLanguage] = useLocalStorage("language", "en");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -16,7 +17,7 @@ export default function LanguegeBtn() {
   const handleMenuItemClick = (isEnglish: boolean) => {
     const lan: string = isEnglish ? "en" : "he";
     setLanguage(lan);
-    dispatch({ type: "changeLanguage", language: lan });
+    changeLanguage(lan);
     setAnchorEl(null);
   };
 

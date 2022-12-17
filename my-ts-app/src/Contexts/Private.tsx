@@ -1,7 +1,12 @@
-import { createContext, Dispatch, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { Address } from "../Data/builders/Apartment";
-import { IContext, PrivatePoviderProps } from "../Data/interfaces/IApartment";
-import { PrivateAction } from "../Data/types/Private";
+import {
+  IApartment,
+  IContext,
+  PrivatePoviderProps,
+} from "../Data/interfaces/IApartment";
+import { ITenant } from "../Data/interfaces/ITenant";
+import { PrivateContextType } from "../Data/types/Private";
 import privateReducer from "../Reducers/Private";
 
 const initialState: IContext = {
@@ -36,17 +41,20 @@ const initialState: IContext = {
     email: "",
     age: 0,
     gender: "",
-    agreement: "",
-    birthday: new Date(),
-    startDate: new Date(),
-    endDate: new Date(),
+    currentAgreement: "",
+    agreement: [""],
+    birthday: "",
+    startDate: "",
+    endDate: "",
+  },
+  steps: {
+    apartment: false,
+    tenant: false,
+    files: false,
   },
 };
 
-const PrivateContext = createContext<{
-  privateState: IContext;
-  privateDispatch: Dispatch<PrivateAction>;
-}>({ privateState: initialState, privateDispatch: () => null });
+const PrivateContext = createContext<PrivateContextType | null>(null);
 
 export default function PrivatePovider({ children }: PrivatePoviderProps) {
   const [privateState, privateDispatch] = useReducer(
@@ -54,9 +62,30 @@ export default function PrivatePovider({ children }: PrivatePoviderProps) {
     initialState,
   );
 
+  function setApartment(apartment: IApartment) {
+    privateDispatch({ type: "setApartment", apartment: apartment });
+  }
+
+  function setTenant(tenant: ITenant) {
+    privateDispatch({ type: "setTenant", tenant: tenant });
+  }
+
+  function changeStepStatus(
+    stepKey: "apartment" | "tenant" | "files",
+    status: boolean,
+  ) {
+    privateDispatch({
+      type: "changeStepStatus",
+      key: stepKey,
+      status: status,
+    });
+  }
+
   const value = {
     privateState: privateState,
-    privateDispatch: privateDispatch,
+    setApartment: setApartment,
+    setTenant: setTenant,
+    changeStepStatus: changeStepStatus,
   };
 
   return (

@@ -9,11 +9,12 @@ import Card from "../Components/HomePage/ApartmentCard/Card";
 import SmallCard from "../Components/HomePage/TopCard";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Apartment } from "../Data/builders/Apartment";
+import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Home.css";
 import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 
 export default function Home() {
-  const { state } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const navigate = useNavigate();
 
@@ -24,27 +25,27 @@ export default function Home() {
       defaultApartment,
       defaultApartment,
     ]);
-  }, [state]);
+  }, [authState]);
 
   return (
     <div className="home-page">
-      <div className="welcome-title">{`${getTextByCurrentTime(state)}`}</div>
+      <div className="welcome-title">{`${getTextByCurrentTime(
+        authState,
+      )}`}</div>
       <Grid container spacing={2}>
-        {topDashboardTitles.map((card, index) => {
-          return (
-            <Grid item sm={3}>
-              <SmallCard
-                language={state.language}
-                card={card}
-                body={index !== 1 ? 10 * index : 3000}
-              />
-            </Grid>
-          );
-        })}
+        {topDashboardTitles.map((card, index) => (
+          <Grid item sm={3} key={`topDashboardTitle-${card.en_title + index}`}>
+            <SmallCard
+              language={authState.language}
+              card={card}
+              body={index !== 1 ? 10 * index : 3000}
+            />
+          </Grid>
+        ))}
       </Grid>
       <GlobalButton
         classStyle="create-apartment-btn"
-        text={pageLabels[state.language].createBtn}
+        text={pageLabels[authState.language].createBtn}
         fullWidth={false}
         icon={null}
         onClick={() => navigate("/create-apartment")}
@@ -52,7 +53,7 @@ export default function Home() {
       <Grid container spacing={2} className="mt-2">
         {apartments.map((item, key) => (
           <Grid item xs={6} sm={3} key={`${item.name}-${key}`}>
-            <Card apartment={item} language={state.language} />
+            <Card apartment={item} language={authState.language} />
           </Grid>
         ))}
       </Grid>

@@ -1,55 +1,47 @@
-import React, { ChangeEvent, useContext, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import ThemeStyleRTL from "../ThemeStyleRTL";
-
-interface IMenuSelectItem {
-  label: string;
-  value: string | number;
-}
+import { forwardRef, Ref, useState } from "react";
+import { ISelectMenuItem } from "../../../Data/interfaces/IForm";
+import FormLayout from "../../../Layout/FormLayout";
 
 interface SelectProps {
-  list: IMenuSelectItem[];
-  name: string;
-  cancelLabel?: boolean;
-  label?: string;
-  className?: string;
-  onChange?: (e: SelectChangeEvent<string | number>) => void;
-  value?: string | number;
+  label: string;
+  value?: string;
+  error?: string;
+  disabled: boolean;
+  list: ISelectMenuItem[];
 }
-export default function SelectLabels({
-  list,
-  name,
-  cancelLabel,
-  label,
-  className,
-  onChange,
-  value,
-}: SelectProps) {
+
+function SelectLabels(
+  { label, value, error, list, disabled }: SelectProps,
+  ref: Ref<any>,
+) {
+  const MuiSelect = { backgroundColor: "white", marginTop: 0.05 };
+
+  const [currentValue, setCurrentValue] = useState<string>(value ?? "");
+
+  const handleChange = (event: SelectChangeEvent<any>) => {
+    setCurrentValue(event.target.value);
+  };
+
   return (
-    <ThemeStyleRTL>
-      {!cancelLabel && (
-        <b>
-          <span className="label-form">{label}</span>
-          <br />
-        </b>
-      )}
+    <FormLayout label={label} error={error}>
       <Select
         MenuProps={{
           anchorOrigin: {
             vertical: "bottom",
             horizontal: "left",
           },
-          // getContentAnchorEl: null,
         }}
-        sx={{ backgroundColor: "white", marginTop: 0.05 }}
-        value={value}
-        onChange={onChange}
+        sx={MuiSelect}
+        value={currentValue}
+        onChange={handleChange}
         displayEmpty
-        className={className ? className : ""}
+        className={error ? "bg-white error-border" : "bg-white"}
         fullWidth
+        disabled={disabled}
         inputProps={{ "aria-label": "Without label" }}
-        name={name}
+        inputRef={ref}
       >
         {list.map((item, key) => (
           <MenuItem
@@ -57,11 +49,13 @@ export default function SelectLabels({
             value={item.value}
             key={`menu-item-${key}`}
           >
-            {item.value === "" ? <em>{item.label}</em> : item.label}
+            {item.value ? <em>{item.label}</em> : item.label}
           </MenuItem>
         ))}
       </Select>
-    </ThemeStyleRTL>
+    </FormLayout>
   );
 }
-export type { IMenuSelectItem };
+
+const forwaredSelect = forwardRef(SelectLabels);
+export default forwaredSelect;

@@ -8,9 +8,10 @@ import GlobalButton from "../Components/Global/GlobalButton";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Apartment } from "../Data/builders/Apartment";
 import "../Layout/CSS/Profile.css";
+import { AuthContextType } from "../Data/types/Auth";
 
 export default function Apartments() {
-  const { state } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const navigate = useNavigate();
 
@@ -21,14 +22,14 @@ export default function Apartments() {
       defaultApartment,
       defaultApartment,
     ]);
-  }, [state.id]);
+  }, [authState.id]);
 
   return (
-    <div className={`home-layout-${state.language}`}>
+    <div className={`home-layout-${authState.language}`}>
       <div className="d-flex justify-content-start">
         <GlobalButton
           classStyle={"whatsapp-btn"}
-          text={pageLabels[state.language].createBtn}
+          text={pageLabels[authState.language].createBtn}
           fullWidth={false}
           icon={null}
           onClick={() => navigate("/create-apartment")}
@@ -41,7 +42,7 @@ export default function Apartments() {
       >
         {apartments.map((item, key) => (
           <Grid item xs={6} sm={3} key={`${item.name}-${key}`}>
-            <Card apartment={item} language={state.language} />
+            <Card apartment={item} language={authState.language} />
           </Grid>
         ))}
       </Grid>

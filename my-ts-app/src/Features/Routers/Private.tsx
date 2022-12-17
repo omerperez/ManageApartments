@@ -8,6 +8,7 @@ import LanguageBtn from "../../Layout/LanguageBtn";
 import Loading from "../../Layout/Loading";
 import LogoutBtn from "../../Layout/LogoutBtn";
 import { CookieService } from "../../Services/CookieService";
+import { AuthContextType } from "../../Data/types/Auth";
 
 export default function PrivateRouter({
   children,
@@ -15,25 +16,28 @@ export default function PrivateRouter({
   children?: React.ReactNode;
 }) {
   const [loading, setLoading] = useState(false);
-  const { state, dispatch } = useContext(AuthContext);
+  const { authState, login } = useContext(AuthContext) as AuthContextType;
 
   const isUserConnected = (userId: string) => {
     return userId !== "" && userId !== undefined;
   };
   useEffect(() => {
     const userId = CookieService.getUserId();
-    if ((state.id === undefined || state.id === "") && userId !== undefined) {
-      dispatch({ type: "login", id: userId });
+    if (
+      (authState.id === undefined || authState.id === "") &&
+      userId !== undefined
+    ) {
+      login(userId);
     }
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [authState]);
 
   if (loading) return <Loading />;
 
-  return isUserConnected(state.id) ? (
+  return isUserConnected(authState.id) ? (
     <div className="router-layout project-font">
-      <div className={`home-layout-${state.language}`}>
+      <div className={`home-layout-${authState.language}`}>
         <Grid container>
           <Grid item sm={1.5} className="side-nav">
             <Stack

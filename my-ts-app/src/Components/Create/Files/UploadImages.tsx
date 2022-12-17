@@ -1,18 +1,15 @@
-import { Button, Grid, IconButton } from "@mui/material";
+import { Add } from "@mui/icons-material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { Button, Fab, Grid, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { getBase64 } from "../../../Services/FileService";
-import { Add } from "@mui/icons-material";
 
 interface UploadImagesProps {
   images: string[] | [];
   setImages: Dispatch<SetStateAction<string[]>>;
   mainImages: number;
   handleChangeMainImage: (index: number) => void;
-}
-
-interface HTMLInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
+  isEditDialog?: boolean;
 }
 
 export default function UploadImages({
@@ -20,6 +17,7 @@ export default function UploadImages({
   setImages,
   mainImages,
   handleChangeMainImage,
+  isEditDialog,
 }: UploadImagesProps) {
   const handleChangeFiles = (files: File[], addFiles?: Boolean) => {
     let currentFiles: string[] = [];
@@ -63,13 +61,19 @@ export default function UploadImages({
             }}
           />
         </Button>
+        {images.length === 0 && (
+          <div className="input-error fs-5 mt-2">{"שדה חובה"}</div>
+        )}
       </div>
     );
   }
 
   return (
-    <div>
-      <Grid container className="files-container">
+    <>
+      <Grid
+        container
+        className={isEditDialog ? "files-container-edit" : "files-container"}
+      >
         {images.map((image: string, index: number) => (
           <Grid item sm={4} className="padding-img">
             <div className="relative">
@@ -100,8 +104,18 @@ export default function UploadImages({
           </Grid>
         ))}
       </Grid>
-      <IconButton component="label">
-        <Add className="add-btn" />
+
+      <Fab
+        aria-label={"Add"}
+        color={"primary"}
+        sx={{
+          position: isEditDialog ? "absolute" : "relative",
+          bottom: isEditDialog ? 90 : 0,
+          right: 30,
+        }}
+        component="label"
+      >
+        <Add />
         <input
           hidden
           accept="image/*"
@@ -111,7 +125,7 @@ export default function UploadImages({
             handleChangeFiles(e.target.files, true);
           }}
         />
-      </IconButton>
-    </div>
+      </Fab>
+    </>
   );
 }

@@ -14,7 +14,24 @@ const useForm = () => {
     setState((state: any) => ({ ...state, [e.target.name]: e.target.value }));
   }
 
-  return [state, onChange, onSelectChange];
+  function changeState(key: any, value?: any) {
+    if (value || value === false) {
+      setState((current: any) => {
+        return {
+          ...current,
+          [key]: value,
+        };
+      });
+    } else {
+      setState((current: any) => {
+        const copy = { ...current };
+        delete copy[key];
+        return copy;
+      });
+    }
+  }
+
+  return [state, onChange, onSelectChange, changeState];
 };
 
 export default useForm;

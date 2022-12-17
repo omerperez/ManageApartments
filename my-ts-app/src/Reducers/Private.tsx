@@ -18,6 +18,15 @@ export default function privateReducer(
         tenant: action.tenant,
       };
     }
+    case "changeStepStatus": {
+      return {
+        ...privateState,
+        steps: {
+          ...privateState.steps,
+          [action.key]: action.status,
+        },
+      };
+    }
     default:
       return privateState;
   }

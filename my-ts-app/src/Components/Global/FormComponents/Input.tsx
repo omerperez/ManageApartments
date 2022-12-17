@@ -1,46 +1,41 @@
-import React, { ChangeEvent } from "react";
 import { TextField } from "@mui/material";
-import ThemeStyleRTL from "../ThemeStyleRTL";
+import { ChangeEvent, forwardRef, Ref, useState } from "react";
+import FormLayout from "../../../Layout/FormLayout";
 
 interface InputProps {
-  cancelLabel: boolean;
   label: string;
-  name: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  required: boolean;
-  className: string;
-  type?: string;
+  textType: string;
   disabled?: boolean;
   error?: string;
+  required: boolean;
 }
-export default function Input({
-  cancelLabel,
-  label,
-  name,
-  value,
-  onChange,
-  required,
-  className,
-  type,
-  disabled,
-  error,
-}: InputProps) {
+function Input(
+  { label, value, error, disabled, required, textType }: InputProps,
+  ref: Ref<any>,
+) {
+  const [currentValue, setCurrentValue] = useState<string>(value);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCurrentValue(event.target.value);
+  };
+
   return (
-    <ThemeStyleRTL>
-      <div>{!cancelLabel && <b className="label-form">{label}</b>}</div>
+    <FormLayout label={label} error={error}>
       <TextField
         fullWidth
-        name={name}
-        type={type ?? "text"}
+        type={textType}
         required={required ?? false}
         disabled={disabled ?? false}
         variant={disabled ? "filled" : "outlined"}
-        value={value}
-        className={className}
-        onChange={onChange}
+        value={currentValue}
+        className={error ? "bg-white error-border" : "bg-white"}
+        onChange={handleChange}
+        inputRef={ref}
       />
-      <div className="input-error">{error}</div>
-    </ThemeStyleRTL>
+    </FormLayout>
   );
 }
+
+const forwaredInput = forwardRef(Input);
+export default forwaredInput;

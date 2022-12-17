@@ -7,17 +7,20 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { logoImage } from "../Assets/StaticImages";
-import ThemeStyleRTL from "../Components/Global/ThemeStyleRTL";
+import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
 import { AuthContext } from "../Contexts/AuthContext";
 import "../Layout/CSS/Auth.css";
 import { SignInLabelsForm } from "../Services/Translate/SignIn";
+import { AuthContextType } from "../Data/types/Auth";
 
 export default function SignIn() {
   const [values, setValues] = useState({
     mobile: "",
     password: "",
   });
-  const { state, dispatch } = useContext(AuthContext);
+  const { authState, login, changeUser } = useContext(
+    AuthContext,
+  ) as AuthContextType;
   const [error, setError] = useState<string>("");
 
   const handleChange = (e: any, name: string) => {
@@ -29,13 +32,8 @@ export default function SignIn() {
       return setError("מספר נייד / סיסמא שגואיים. אנא נסה בשנית.");
     else {
       setError("");
-      dispatch({ type: "login", id: values.mobile });
-      dispatch({
-        type: "changeUser",
-        firstName: "Nir",
-        lastName: "Perez",
-        mobile: "0522520484",
-      });
+      login(values.mobile);
+      changeUser("Nir", "Perez", "0522520484");
       return;
     }
   };
@@ -59,7 +57,7 @@ export default function SignIn() {
                   className="label-title"
                   id={"form-title-label-employee-number"}
                 >
-                  {item[`${state.language ? "en" : "he"}_label`]}
+                  {item[`${authState.language ? "en" : "he"}_label`]}
                 </FormLabel>
                 <div className="auth-input">
                   <TextField
@@ -67,7 +65,7 @@ export default function SignIn() {
                     required
                     variant="outlined"
                     id="employee-number"
-                    label={item[`${state.language ? "en" : "he"}_label`]}
+                    label={item[`${authState.language ? "en" : "he"}_label`]}
                     type={item.type}
                     value={values[item.name]}
                     name={item.name}
