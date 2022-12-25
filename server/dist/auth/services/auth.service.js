@@ -11,32 +11,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const argon2 = require("argon2");
+const jsonwebtoken = require("jsonwebtoken");
 const user_service_1 = require("../../user/services/user.service");
 const refresh_token_entity_1 = require("../entities/refresh-token.entity");
-const jsonwebtoken_1 = require("jsonwebtoken");
-const argon2 = require("argon2");
 let AuthService = class AuthService {
     constructor(userService) {
         this.userService = userService;
         this.refreshTokens = [];
+    }
+    async login(mobile, password, values) {
+        const user = await this.userService.getUserById({ id: mobile });
+        if (!user) {
+            return undefined;
+        }
+        const isPasswordPropper = await argon2.verify(user.password, password);
+        if (isPasswordPropper) {
+            return this.newRefreshAndAccessToken(user, values);
+        }
+        return undefined;
     }
     async refresh(refreshStr) {
         const refreshToken = await this.retrieveRefreshToken(refreshStr);
         if (!refreshToken) {
             return undefined;
         }
-        const user = await this.userService.getById({ id: refreshToken.userId });
+        const user = await this.userService.getUserById({
+            id: refreshToken.userId,
+        });
         if (!user) {
             return undefined;
         }
         const accessToken = {
             userId: refreshToken.userId,
         };
-        return (0, jsonwebtoken_1.sign)(accessToken, process.env.SECRET_TOKEN, { expiresIn: '6h' });
+        return jsonwebtoken.sign(accessToken, process.env.SECRET_TOKEN, {
+            expiresIn: '6h',
+        });
     }
     retrieveRefreshToken(refreshStr) {
         try {
-            const decoded = (0, jsonwebtoken_1.verify)(refreshStr, process.env.SECRET_TOKEN);
+            const decoded = jsonwebtoken.verify(refreshStr, process.env.SECRET_TOKEN);
             if (typeof decoded === 'string') {
                 return undefined;
             }
@@ -46,27 +61,14 @@ let AuthService = class AuthService {
             return undefined;
         }
     }
-    async login(mobile, password, values) {
-        const user = await this.userService.getById({ id: mobile });
-        if (!user) {
-            return undefined;
-        }
-        const isPasswordPropper = await argon2.verify(user.password, password);
-        console.log(isPasswordPropper);
-        if (isPasswordPropper) {
-            return this.newRefreshAndAccessToken(user, values);
-        }
-        return undefined;
-    }
     async newRefreshAndAccessToken(user, values) {
         const refreshObject = new refresh_token_entity_1.default(Object.assign(Object.assign({ id: this.refreshTokens.length === 0
                 ? 0
                 : this.refreshTokens[this.refreshTokens.length - 1].id + 1 }, values), { userId: user.mobile }));
-        console.log(refreshObject);
         this.refreshTokens.push(refreshObject);
         return {
             refreshToken: refreshObject.sign(),
-            accessToken: (0, jsonwebtoken_1.sign)({
+            accessToken: jsonwebtoken.sign({
                 userId: user.mobile,
             }, process.env.SECRET_TOKEN, {
                 expiresIn: '6h',

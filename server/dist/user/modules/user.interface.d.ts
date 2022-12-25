@@ -16,8 +16,4 @@ interface UpdateUser {
     password: string;
     email: string;
 }
-interface ILogin {
-    mobile: string;
-    password: string;
-}
-export { User, UserId, UpdateUser, ILogin };
+export { User, UserId, UpdateUser };

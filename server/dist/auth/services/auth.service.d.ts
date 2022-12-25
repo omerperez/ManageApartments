@@ -3,8 +3,6 @@ export declare class AuthService {
     private readonly userService;
     private refreshTokens;
     constructor(userService: UserService);
-    refresh(refreshStr: string): Promise<string | undefined>;
-    private retrieveRefreshToken;
     login(mobile: string, password: string, values: {
         userAgent: string;
         ipAddress: string;
@@ -12,6 +10,8 @@ export declare class AuthService {
         accessToken: string;
         refreshToken: string;
     } | undefined>;
+    refresh(refreshStr: string): Promise<string | undefined>;
+    private retrieveRefreshToken;
     private newRefreshAndAccessToken;
     logout(refreshStr: string): Promise<void>;
 }

@@ -19,14 +19,8 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    async login(loginProperties) {
-        return await this.userService.login(loginProperties);
-    }
-    async getById(userId) {
-        return await this.userService.getById(userId);
-    }
-    async create(user) {
-        return await this.userService.create(user);
+    async register(user) {
+        return await this.userService.register(user);
     }
     async edit(user) {
         return await this.userService.edit(user);
@@ -36,26 +30,12 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    (0, common_1.Post)('login'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "login", null);
-__decorate([
-    (0, common_1.Post)('find'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "getById", null);
-__decorate([
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "create", null);
+], UserController.prototype, "register", null);
 __decorate([
     (0, common_1.Post)('edit'),
     __param(0, (0, common_1.Body)()),

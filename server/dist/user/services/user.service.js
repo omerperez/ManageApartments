@@ -15,40 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const argon2 = require("argon2");
 const userQueries_1 = require("../../sql/userQueries");
-const AuthUtil_1 = require("../../utils/AuthUtil");
 const QueryUtil_1 = require("../../utils/QueryUtil");
 const typeorm_2 = require("typeorm");
-const argon2_1 = require("argon2");
 let UserService = class UserService {
     constructor(connection) {
         this.connection = connection;
     }
-    async login(loginProperties) {
-        const [loginUserQuery, parameters] = (0, QueryUtil_1.default)(userQueries_1.default.userByMobile, { id: loginProperties.mobile });
-        const currentUser = await this.connection.query(loginUserQuery, parameters);
-        const isPasswordValid = await AuthUtil_1.default.isValidPassword(loginProperties.password, currentUser.password);
-        if (isPasswordValid === true) {
-            return currentUser;
-        }
-        else {
-            return null;
-        }
-    }
-    verify(token) {
-        const accessToken = AuthUtil_1.default.verify(token);
-        if (accessToken) {
-            return accessToken;
-        }
-        return '';
-    }
-    async getById(userId) {
+    async getUserById(userId) {
         const [currentUserQuery, parameters] = (0, QueryUtil_1.default)(userQueries_1.default.userByMobile, userId);
         const [currentUser] = await this.connection.query(currentUserQuery, parameters);
         return currentUser;
     }
-    async create(user) {
-        const hashPassword = await (0, argon2_1.hash)(user.password);
+    async register(user) {
+        const hashPassword = await argon2.hash(user.password);
         user.password = hashPassword;
         const [createUserQuery, parameters] = (0, QueryUtil_1.default)(userQueries_1.default.createUser, user);
         return await this.connection.query(createUserQuery, parameters);
