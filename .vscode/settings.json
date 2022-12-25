@@ -1,6 +1,0 @@
-{
-    "reactSnippets.settings.prettierEnabled": true,
-    "prettier.trailingComma": "all",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-}

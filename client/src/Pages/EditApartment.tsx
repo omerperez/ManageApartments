@@ -1,0 +1,72 @@
+import { Grid, Stack } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { defaultApartment } from "../Assets/StaticData";
+import ChangeTenant from "../Components/Edit/EditApartment/ChangeTenant";
+import EditApartmentForm from "../Components/Edit/EditApartment/EditApartment";
+import EditImages from "../Components/Edit/EditApartment/EditImages";
+import { AuthContext } from "../Contexts/AuthContext";
+import { IApartment } from "../Data/interfaces/IApartment";
+import { AuthContextType } from "../Data/types/Auth";
+import "../Layout/CSS/EditApartment.css";
+import Loading from "../Layout/Loading";
+
+export default function EditApartment() {
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+
+  const [currentApartment, setCurrentApartment] = useState<IApartment | null>(
+    null,
+  );
+  const [images, setImages] = useState<string[]>([]);
+  const [mainImages, setMainImage] = useState<number>(0);
+  const [openEditImages, setOpenEditImages] = useState<boolean>(false);
+  const [openEditTenant, setOpenEditTenant] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData = () => {
+      setCurrentApartment(defaultApartment);
+      setImages(defaultApartment.images);
+      setMainImage(defaultApartment.mainImageIndex);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const title = "עריכת דירה";
+
+  if (authState.loading || !currentApartment) {
+    return <Loading />;
+  }
+
+  return (
+    <div className="create-form-layout">
+      <div className="edit-form">
+        <Grid container spacing={1.5}>
+          <Grid item sm={8} className="sub-page-title">
+            {title}
+          </Grid>
+          <Grid item sm={4}>
+            <Stack direction={"row"} justifyContent={"flex-end"}>
+              <EditImages
+                prevImages={currentApartment.images}
+                images={images}
+                setImages={setImages}
+                mainImageIndex={mainImages}
+                setMainImageIndex={setMainImage}
+                open={openEditImages}
+                setOpen={setOpenEditImages}
+              />
+              <ChangeTenant
+                editTenantId={currentApartment.currentTenantId}
+                apartmentId={currentApartment.name} //change to id
+                open={openEditTenant}
+                setOpen={setOpenEditTenant}
+              />
+            </Stack>
+          </Grid>
+        </Grid>
+        <EditApartmentForm editApartment={currentApartment} />
+      </div>
+    </div>
+  );
+}

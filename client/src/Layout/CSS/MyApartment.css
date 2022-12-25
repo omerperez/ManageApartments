@@ -1,0 +1,60 @@
+.my-apartment-en {
+  min-height: 100vh;
+  background-color: #e1e6ed;
+  direction: ltr !important;
+}
+
+.my-apartment-he {
+  min-height: 100vh;
+  background-color: #e1e6ed;
+  direction: rtl !important;
+}
+
+.my-apartment-layout {
+  padding: 20px;
+}
+
+.create-btn-position {
+  text-align: end !important;
+}
+
+.my-apartment-create-btn {
+  color: #6186f5 !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  font-family: "Rubik", sans-serif !important;
+}
+
+.my-apartment-cards {
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 20px !important;
+}
+
+.apartment-card-btn {
+  font-size: 16px !important;
+  border-radius: 0 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif !important;
+  border-top: solid 2px black !important;
+}
+.button-bg-delete {
+  background-color: #db5454 !important;
+  border-right: solid 2px black !important;
+}
+
+.button-bg-view {
+  background-color: #809fff !important;
+}
+
+.button-bg-edit {
+  background-color: #7d7d7d !important;
+  border-right: solid 2px black !important;
+}
+
+.apartment-card-icon {
+  font-size: medium !important;
+  margin: auto !important;
+  color: white !important;
+}

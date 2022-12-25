@@ -1,0 +1,231 @@
+.apartment-details {
+  padding-top: 15px;
+}
+.divider-style {
+  border-width: 1px;
+  border-color: #1769de !important;
+}
+.text-start {
+  text-align: start !important;
+}
+
+.carousel-size {
+  width: 90% !important;
+  max-height: 600px !important;
+}
+
+table {
+  font-family: "Rubik", sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid red;
+}
+
+td,
+th {
+  border: 1px solid red !important;
+  height: 100px !important;
+  padding: 8px;
+}
+
+.img-style {
+  height: auto;
+  width: 100%;
+  border-radius: 7px;
+}
+
+.flex-center {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.m-auto {
+  margin: auto !important;
+}
+
+.images-gallery {
+  height: auto;
+  margin-bottom: 8px;
+  border-radius: 7px;
+  width: 100%;
+}
+
+.street-text {
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.main-details {
+  margin: 0 0 20px 0 !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+.city-text {
+  color: #7e8989;
+}
+
+.floor-text {
+  font-weight: 100;
+  font-size: 18px;
+  color: #7e8989;
+}
+
+.price-text {
+  color: #15b37a !important;
+  text-align: center !important;
+  font-weight: bolder !important;
+}
+
+.divider-details {
+  background: black !important;
+}
+
+.profile-labels {
+  color: #7e8989;
+  font-size: 16px;
+}
+
+.area-values {
+  color: #2a2561;
+  font-size: 18px;
+}
+
+.tenant-card-border {
+  border-radius: 8px !important;
+}
+
+.profile-img {
+  border: solid 1px #7e8989;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.tenant-details {
+  color: #7e8989;
+  font-size: 16px;
+}
+
+.tenant-values {
+  color: #2a2561;
+  font-size: 18px;
+}
+
+.btns-tenant-card {
+  padding: 10px !important;
+}
+
+.tenant-card-btn {
+  font-size: 16px !important;
+  border-radius: 0 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif !important;
+  border-top: solid 2px black !important;
+  text-transform: capitalize !important;
+}
+
+.tenant-card-btn-icon {
+  font-size: medium !important;
+  margin: auto !important;
+  color: white !important;
+}
+
+.whatsapp-btn {
+  background-color: #319e88 !important;
+  border-left: solid 2px black !important;
+}
+
+.docs-btn {
+  background-color: #809fff !important;
+}
+
+.card-page {
+  background: white !important;
+  border-radius: 20px !important;
+  border: solid 1px #f3f5f3;
+  padding: 2% !important;
+  direction: rtl !important;
+}
+
+.apartment-btns-group {
+  background: #f3f5f3;
+  padding: 10px 10px;
+  border-radius: 50px;
+}
+
+.apartment-btn-active {
+  color: #06b074 !important;
+  border: none !important;
+  background-color: white !important;
+  border-radius: 50% !important;
+  box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.75) !important;
+}
+
+.apartment-btn-non-active {
+  color: #a0a9a9 !important;
+  border: none !important;
+  background-color: none !important;
+  border-radius: 50% !important;
+}
+
+.card-actions {
+  /* background-color: #f3f5f3; */
+  padding: 0 45px;
+  border-top: solid 1px rgb(209, 216, 216);
+}
+
+.card-bg-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 250px !important;
+}
+
+.he-map {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.en-map {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.tenant-details-side {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 3% !important;
+}
+
+.apartment-details-side {
+  padding: 0 3% !important;
+}
+
+.change-tenant-btn {
+  font-size: 20px !important;
+  font-family: "Rubik", sans-serif !important;
+  margin: 0 20px !important;
+  text-decoration: underline !important;
+}
+
+.edit-tenant-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* .edit-btn {
+  font-size: 40px !important;
+  padding: 3px !important;
+  color: #999999 !important;
+  border-radius: 50% !important;
+  background-color: white !important;
+  border: solid 2px #999999 !important;
+} */
+
+.tenant-name {
+  font-family: "Rubik", sans-serif !important;
+  color: #2a2561 !important;
+  text-align: center !important;
+  margin: 5px 0 0 0 !important;
+}
