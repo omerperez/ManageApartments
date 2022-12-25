@@ -40,12 +40,9 @@ class Tenant implements ITenant {
 
 
     clacAge(birthday: Date) {
-        console.log(birthday);
         const today = new Date();
         const age = today.getFullYear() - birthday.getFullYear();
-        console.log(age);
         const month = today.getMonth() - birthday.getMonth();
-        console.log(month);
         if (month < 0 || month === 0 && today.getDate() < birthday.getDate()) {
             return age - 1;
         }

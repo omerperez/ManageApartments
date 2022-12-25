@@ -27,9 +27,18 @@ let AuthService = class AuthService {
         }
         const isPasswordPropper = await argon2.verify(user.password, password);
         if (isPasswordPropper) {
-            return this.newRefreshAndAccessToken(user, values);
+            const authProperties = await this.newRefreshAndAccessToken(user, values);
+            delete user.password;
+            return Object.assign({ user: user }, authProperties);
         }
         return undefined;
+    }
+    async verify(token) {
+        const verifyToken = jsonwebtoken.verify(token, process.env.SECRET_TOKEN);
+        if (typeof verifyToken === 'string') {
+            return undefined;
+        }
+        return verifyToken;
     }
     async refresh(refreshStr) {
         const refreshToken = await this.retrieveRefreshToken(refreshStr);
@@ -70,6 +79,9 @@ let AuthService = class AuthService {
             refreshToken: refreshObject.sign(),
             accessToken: jsonwebtoken.sign({
                 userId: user.mobile,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
             }, process.env.SECRET_TOKEN, {
                 expiresIn: '6h',
             }),

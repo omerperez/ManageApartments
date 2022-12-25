@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Ip, Post, Req } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import RefreshTokenDto from '../dto/refresh-token.dto';
-import { LoginDto } from '../dto/login.dto';
+import { LoginDto, Verify } from '../dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -13,6 +13,11 @@ export class AuthController {
       ipAddress: ip,
       userAgent: request.headers['user-agent'],
     });
+  }
+
+  @Post('verify')
+  async verify(@Req() request, @Ip() ip: string, @Body() body: Verify) {
+    return this.authService.verify(body.token);
   }
 
   @Post('refresh')

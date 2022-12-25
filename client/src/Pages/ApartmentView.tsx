@@ -23,13 +23,13 @@ import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
 
 export default function ApartmentView() {
   const [searchParams] = useSearchParams();
-  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+  const { authState } = useContext(AuthContext) as AuthContextType;
   const [apartmentId, setApartmentId] = useState<string>("");
   const [openEditTenantDialog, setOpenEditTenantDialog] =
     useState<boolean>(false);
   const [openHistoryListDialog, setOpenHistoryListDialog] =
     useState<boolean>(false);
-  // const [tenantList, setTenantList] = useState<ITenant[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +43,7 @@ export default function ApartmentView() {
     fetchData();
   }, [searchParams]);
 
-  if (authState.loading) {
+  if (loading) {
     return <Loading />;
   }
 

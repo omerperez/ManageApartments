@@ -1,7 +1,9 @@
 import axios from "axios";
+import { IVerifyToken, LoginResponse } from "../../Data/interfaces/Http";
 
-const baseUrl = "http://localhost:8000/";
-const loginApi = "user";
+const baseUrl = "http://localhost:3001/";
+const loginApi = "auth/login";
+const verifyTokenApi = "auth/verify";
 const registerApi = "user/register";
 const jsonHeader = { "Content-Type": "application/json" };
 
@@ -13,8 +15,7 @@ const loginRequest = async (mobile: string, password: string) => {
     const response = await axios.post(baseUrl + loginApi, user, {
         headers: jsonHeader
     });
-    const [data] = response.data;
-    return data;
+    return response.data as LoginResponse;
 };
 
 export interface IUserReq {
@@ -29,8 +30,15 @@ const registerRequest = async (user: IUserReq) => {
     const response = await axios.post(baseUrl + registerApi, user, {
         headers: jsonHeader
     });
-    console.log(response);
     return response.status === 200;
 }
 
-export { loginRequest, registerRequest };
+const verifyToken = async (token: string) => {
+    const response = await axios.post(baseUrl + verifyTokenApi,
+        { token: token }, {
+        headers: jsonHeader
+    });
+    return response.data as IVerifyToken;
+};
+
+export { loginRequest, registerRequest, verifyToken };

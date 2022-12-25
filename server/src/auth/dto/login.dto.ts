@@ -7,3 +7,9 @@ export class LoginDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class Verify {
+  @IsNotEmpty()
+  token: string;
+}
+

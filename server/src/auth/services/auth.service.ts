@@ -8,22 +8,37 @@ import RefreshToken from '../entities/refresh-token.entity';
 @Injectable()
 export class AuthService {
   private refreshTokens: RefreshToken[] = [];
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   async login(
     mobile: string,
     password: string,
     values: { userAgent: string; ipAddress: string },
-  ): Promise<{ accessToken: string; refreshToken: string } | undefined> {
+  ): Promise<{ user: User, accessToken: string; refreshToken: string } | undefined> {
     const user = await this.userService.getUserById({ id: mobile });
     if (!user) {
       return undefined;
     }
     const isPasswordPropper = await argon2.verify(user.password, password);
     if (isPasswordPropper) {
-      return this.newRefreshAndAccessToken(user, values);
+      const authProperties = await this.newRefreshAndAccessToken(user, values);
+      delete user.password;
+      return {
+        user: user,
+        ...authProperties
+      }
     }
     return undefined;
+  }
+
+  async verify(
+    token: string,
+  ) {
+    const verifyToken = jsonwebtoken.verify(token, process.env.SECRET_TOKEN);
+    if (typeof verifyToken === 'string') {
+      return undefined;
+    }
+    return verifyToken;
   }
 
   async refresh(refreshStr: string): Promise<string | undefined> {
@@ -79,6 +94,9 @@ export class AuthService {
       accessToken: jsonwebtoken.sign(
         {
           userId: user.mobile,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
         },
         process.env.SECRET_TOKEN,
         {

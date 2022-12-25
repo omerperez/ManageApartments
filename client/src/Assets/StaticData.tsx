@@ -58,12 +58,12 @@ const defaultTenant2: Tenant = new Tenant(
 
 //DELETE AFTER CREATE BACKEND SIDE
 const tempUser: IUser = {
-  id: "123",
+  // id: "123",
   firstName: "Omer",
   lastName: "Perez",
   email: "omerperez222@gmail.com",
   mobile: "0522520484",
-  token: "123123123",
+  // token: "123123123",
   language: "he",
 };
 

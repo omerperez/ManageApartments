@@ -1,8 +1,6 @@
-import { tempUser } from "../Assets/StaticData";
 import { initialState } from "../Contexts/AuthContext";
 import { IAuthContext } from "../Data/interfaces/IUser";
 import { AuthAction } from "../Data/types/Auth";
-import { CookieService } from "../Services/CookieService";
 
 export default function authReducer(
   authState: IAuthContext,
@@ -10,19 +8,7 @@ export default function authReducer(
 ) {
   switch (action.type) {
     case "login": {
-      CookieService.setUserObj(tempUser);
-      return {
-        ...authState,
-        id: action.id,
-      };
-    }
-    case "changeUser": {
-      return {
-        ...authState,
-        firstName: action.firstName,
-        lastName: action.lastName,
-        mobile: action.mobile,
-      };
+      return action.currentUser as IAuthContext;
     }
     case "changeLanguage": {
       return {
@@ -31,7 +17,6 @@ export default function authReducer(
       };
     }
     case "logout": {
-      CookieService.removeUserObj();
       return {
         ...initialState,
       };

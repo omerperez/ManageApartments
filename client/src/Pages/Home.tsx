@@ -15,12 +15,14 @@ import Loading from "../Layout/Loading";
 import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 
 export default function Home() {
-  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+  const { authState } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true);
+    console.log("here");
+    // setLoading(true);
     setApartments([
       defaultApartment,
       defaultApartment,
@@ -28,9 +30,9 @@ export default function Home() {
       defaultApartment,
     ]);
     setLoading(false);
-  }, [authState]);
+  }, []);
 
-  if (authState.loading) {
+  if (loading) {
     return <Loading />;
   }
 

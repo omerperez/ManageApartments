@@ -4,18 +4,23 @@ import { IUser } from "../Data/interfaces/IUser";
 const cookie = new Cookie();
 
 const getUserId = () => {
-    return cookie.get("userId");
-}
-
-const setUserId = (userId : string) => {
-  return cookie.set("userId", userId);
+  return cookie.get("userId");
 };
 
-const setUserObj = (user : IUser) => {
-  cookie.set("userId", user.id);
-  cookie.set("firstName", user.firstName);
-  cookie.set("lastName", user.lastName);
-  cookie.set("mobile", user.mobile);
+const setToken = (token: string) => {
+  return cookie.set("token", token);
+};
+
+const initUser = (id: string, token: string) => {
+  cookie.set("token", token);
+  cookie.set("userId", id);
+};
+
+const setUserId = (userId: string) => {
+  // cookie.set("firstName", user.firstName);
+  // cookie.set("lastName", user.lastName);
+  cookie.set("userId", userId);
+  // cookie.set("mobile", user.mobile);
   return;
 };
 
@@ -24,20 +29,36 @@ const removeUserId = () => {
 };
 
 const removeUserObj = () => {
+  cookie.remove("token");
   cookie.remove("userId");
-  cookie.remove("firstName");
-  cookie.remove("lastName");
-  cookie.remove("mobile");
+  // cookie.remove("firstName");
+  // cookie.remove("lastName");
+  // cookie.remove("mobile");
   return;
-}
+};
+
+const getToken = () => {
+  return cookie.get("token");
+};
 
 const CookieService = {
   getCookie: cookie,
   getUserId: getUserId,
-  setUserId: setUserId,
+  setToken: setToken,
+  getToken: getToken,
   removeUserId: removeUserId,
-  setUserObj: setUserObj,
+  setUserId: setUserId,
   removeUserObj: removeUserObj,
-}
+  initUser: initUser,
+};
 
-export { CookieService }; 
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  getUserId,
+  getToken,
+  setUserId,
+  setToken,
+  removeUserId,
+  removeUserObj,
+  initUser,
+};

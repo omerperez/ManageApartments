@@ -1,15 +1,16 @@
-interface IUser {
-  id: string;
+interface IUser extends IUserProperties {
+  language: string;
+}
+
+interface IUserProperties {
   firstName: string;
   lastName: string;
   email: string;
   mobile: string;
-  token: string;
-  language: string;
 }
 
 interface IAuthContext extends IUser {
   loading: boolean;
 }
 
-export type { IUser, IAuthContext };
+export type { IUser, IAuthContext, IUserProperties };

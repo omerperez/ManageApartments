@@ -15,13 +15,14 @@ export default function MyApartments() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("here");
     setApartments([
       defaultApartment,
       defaultApartment,
       defaultApartment,
       defaultApartment,
     ]);
-  }, [authState.id]);
+  }, []);
 
   return (
     <div className={`my-apartment-${authState.language}`}>

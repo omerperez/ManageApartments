@@ -1,17 +1,17 @@
-import { IAuthContext } from "../interfaces/IUser";
+import { IAuthContext, IUser } from "../interfaces/IUser";
 
 type AuthAction =
     | { type: "logout" | "success" | "error" }
     | { type: "loading", loading: boolean }
-    | { type: "login"; id: string }
+    | { type: "login"; currentUser: IUser }
     | { type: "changeLanguage"; language: string }
-    | { type: "changeUser"; firstName: string; lastName: string; mobile: string };
+    // | { type: "changeUser"; firstName: string; lastName: string; mobile: string };
 
 type AuthContextType = {
     authState: IAuthContext;
-    login: (id: string) => void;
+    login: (currentUser: IUser) => void;
     setLoading: (loading: boolean) => void;
-    changeUser: (firstName: string, lastName: string, mobile: string) => void;
+    // changeUser: (firstName: string, lastName: string, mobile: string) => void;
     changeLanguage: (language: string) => void;
     logout: () => void;
 };

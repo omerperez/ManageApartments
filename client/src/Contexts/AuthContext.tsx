@@ -1,17 +1,16 @@
-import { createContext, useEffect, useReducer } from "react";
-import { IAuthContext } from "../Data/interfaces/IUser";
+import { createContext, useReducer } from "react";
+import { IAuthContext, IUser } from "../Data/interfaces/IUser";
 import { AuthContextType } from "../Data/types/Auth";
 import authReducer from "../Reducers/Auth";
+import CookieService from "../Services/CookieService";
 
 const initialState: IAuthContext = {
-  id: "",
   firstName: "",
   lastName: "",
-  loading: true,
   email: "",
   mobile: "",
-  token: "",
   language: "",
+  loading: false,
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -23,33 +22,8 @@ interface AuthProviderProps {
 export default function AuthPovider({ children }: AuthProviderProps) {
   const [authState, dispatch] = useReducer(authReducer, initialState);
 
-  useEffect(() => {
-    if (!authState.language) {
-      let language = "en";
-      try {
-        const item = window.localStorage.getItem("language");
-        language = item ? JSON.parse(item) : "en";
-      } catch (error) {
-        console.log(error);
-      }
-      dispatch({
-        type: "changeLanguage",
-        language: language,
-      });
-    }
-  }, []);
-
-  function login(id: string) {
-    dispatch({ type: "login", id: id });
-  }
-
-  function changeUser(firstName: string, lastName: string, mobile: string) {
-    dispatch({
-      type: "changeUser",
-      firstName: firstName,
-      lastName: lastName,
-      mobile: mobile,
-    });
+  function login(currentUser: IUser) {
+    dispatch({ type: "login", currentUser: currentUser });
   }
 
   function changeLanguage(language: string) {
@@ -57,6 +31,7 @@ export default function AuthPovider({ children }: AuthProviderProps) {
   }
 
   function logout() {
+    CookieService.removeUserObj();
     dispatch({ type: "logout" });
   }
 
@@ -68,7 +43,6 @@ export default function AuthPovider({ children }: AuthProviderProps) {
     authState: authState,
     login: login,
     setLoading: setLoading,
-    changeUser: changeUser,
     changeLanguage: changeLanguage,
     logout: logout,
   };

@@ -74,17 +74,7 @@ export default function PrivatePovider({ children }: PrivatePoviderProps) {
   function setStep(index: number) {
     privateDispatch({ type: "setStep", index: index });
   }
-  // function changeStepStatus(
-  //   stepKey: "apartment" | "tenant" | "files",
-  //   status: boolean,
-  // ) {
-  //   privateDispatch({
-  //     type: "changeStepStatus",
-  //     key: stepKey,
-  //     status: status,
-  //   });
-  // }
-
+  
   const value = {
     privateState: privateState,
     setApartment: setApartment,

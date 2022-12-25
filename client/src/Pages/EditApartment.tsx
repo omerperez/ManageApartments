@@ -1,17 +1,15 @@
 import { Grid, Stack } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultApartment } from "../Assets/StaticData";
 import ChangeTenant from "../Components/Edit/EditApartment/ChangeTenant";
 import EditApartmentForm from "../Components/Edit/EditApartment/EditApartment";
 import EditImages from "../Components/Edit/EditApartment/EditImages";
-import { AuthContext } from "../Contexts/AuthContext";
 import { IApartment } from "../Data/interfaces/IApartment";
-import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/EditApartment.css";
 import Loading from "../Layout/Loading";
 
 export default function EditApartment() {
-  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+  // const { authState,  } = useContext(AuthContext) as AuthContextType;
 
   const [currentApartment, setCurrentApartment] = useState<IApartment | null>(
     null,
@@ -20,6 +18,7 @@ export default function EditApartment() {
   const [mainImages, setMainImage] = useState<number>(0);
   const [openEditImages, setOpenEditImages] = useState<boolean>(false);
   const [openEditTenant, setOpenEditTenant] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
@@ -34,7 +33,7 @@ export default function EditApartment() {
 
   const title = "עריכת דירה";
 
-  if (authState.loading || !currentApartment) {
+  if (loading || !currentApartment) {
     return <Loading />;
   }
 

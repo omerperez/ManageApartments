@@ -27,6 +27,9 @@ let AuthController = class AuthController {
             userAgent: request.headers['user-agent'],
         });
     }
+    async verify(request, ip, body) {
+        return this.authService.verify(body.token);
+    }
     async refreshToken(body) {
         return this.authService.refresh(body.refreshToken);
     }
@@ -43,6 +46,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, login_dto_1.LoginDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('verify'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Ip)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, login_dto_1.Verify]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verify", null);
 __decorate([
     (0, common_1.Post)('refresh'),
     __param(0, (0, common_1.Body)()),
