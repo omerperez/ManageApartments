@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const apartmentById = `SELECT * FROM APARTMENTS WHERE id = :id`;
-const getManagerApartmentById = `SELECT * FROM APARTMENTS WHERE managerId = :id`;
+const getManagerApartmentById = `SELECT * FROM APARTMENTS WHERE "managerId" = :id`;
 const createApartment = `INSERT INTO APARTMENTS(
   name, city, neighborhood, street, number, 
   floor, apartmentNumber, postCode, price, area,

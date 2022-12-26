@@ -2,31 +2,31 @@ import { Apartment } from "../Data/builders/Apartment";
 import { Tenant } from "../Data/builders/Tenant";
 import { IUser } from "../Data/interfaces/IUser";
 
-const defaultApartment = new Apartment(
-  "הדירה של עומר",
-  "הרצליה ",
-  "נווה עמל",
-  "יציאת אירופה",
-  1,
-  2,
-  3,
-  46375,
-  4500,
-  45,
-  1,
-  1,
-  "הרצליה",
-  "הרצליה",
-  "מוכן לכניסה מידית",
-  2,
-  [
+const defaultApartment = new Apartment({
+  name: "הדירה של עומר",
+  city: "הרצליה ",
+  neighborhood: "נווה עמל",
+  street: "יציאת אירופה",
+  number: 1,
+  floor: 2,
+  apartmentNumber: 3,
+  postCode: 46375,
+  price: 4500,
+  area: 45,
+  bedrooms: 1,
+  toilet: 1,
+  animals: "הרצליה",
+  includes: "הרצליה",
+  comments: "מוכן לכניסה מידית",
+  mainImageIndex: 2,
+  images: [
     "/staticImages/apartment.jpeg",
     "/staticImages/apa2.png",
     "/staticImages/apa2.png",
     "/staticImages/apa2.png",
   ],
-  "209543214",
-);
+  currentTenantId: "209543214",
+});
 
 const defaultTenant: Tenant = new Tenant(
   "209543214",

@@ -26,8 +26,8 @@ let ApartmentService = class ApartmentService {
         const [currentApartmentQuery, parameters] = (0, QueryUtil_1.default)(apartmentQueries_1.default.apartmentById, apartmentId);
         return await this.connection.query(currentApartmentQuery, parameters);
     }
-    async getApartmentByManagerId(apartmentId) {
-        const [apartmentByManagerQuery, parameters] = (0, QueryUtil_1.default)(apartmentQueries_1.default.getManagerApartmentById, apartmentId);
+    async getApartmentByManagerId(id) {
+        const [apartmentByManagerQuery, parameters] = (0, QueryUtil_1.default)(apartmentQueries_1.default.getManagerApartmentById, id);
         return await this.connection.query(apartmentByManagerQuery, parameters);
     }
     async create(apartment) {

@@ -15,4 +15,12 @@ interface IVerifyToken {
     exp: number;
 }
 
-export type { IVerifyToken, LoginResponse };
+interface IUserReq {
+    mobile: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
+export type { IVerifyToken, LoginResponse, IUserReq };

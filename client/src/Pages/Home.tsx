@@ -12,6 +12,7 @@ import { Apartment } from "../Data/builders/Apartment";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Home.css";
 import Loading from "../Layout/Loading";
+import { getAllApartments } from "../Services/Api/ApartmentApi";
 import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 
 export default function Home() {
@@ -21,15 +22,13 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log("here");
-    // setLoading(true);
-    setApartments([
-      defaultApartment,
-      defaultApartment,
-      defaultApartment,
-      defaultApartment,
-    ]);
-    setLoading(false);
+    getAllApartments(authState.mobile)
+      .then((apartments) => {
+        setApartments(apartments);
+      })
+      .then(() => {
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {

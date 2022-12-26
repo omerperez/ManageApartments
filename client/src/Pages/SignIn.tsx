@@ -9,7 +9,7 @@ import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Auth.css";
 import CookieService from "../Services/CookieService";
 import { getRefValue } from "../Services/Global";
-import { loginRequest } from "../Services/HttpService/AuthService";
+import { loginRequest } from "../Services/Api/AuthApi";
 import { SignInLabelsForm } from "../Services/Translate/SignIn";
 
 export default function SignIn() {

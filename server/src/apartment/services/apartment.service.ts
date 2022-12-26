@@ -7,7 +7,7 @@ import { IApartment, IObjectId } from '../modules/apartment.interface';
 
 @Injectable()
 export class ApartmentService {
-  constructor(@InjectConnection() private readonly connection: Connection) {}
+  constructor(@InjectConnection() private readonly connection: Connection) { }
 
   async getById(apartmentId: IObjectId) {
     const [currentApartmentQuery, parameters] = getQueryAndObjectValues(
@@ -20,10 +20,10 @@ export class ApartmentService {
     );
   }
 
-  async getApartmentByManagerId(apartmentId: IObjectId) {
+  async getApartmentByManagerId(id: IObjectId) {
     const [apartmentByManagerQuery, parameters] = getQueryAndObjectValues(
       apartmentQueries.getManagerApartmentById,
-      apartmentId,
+      id,
     );
     return await this.connection.query(
       apartmentByManagerQuery as string,

@@ -16,8 +16,24 @@ class Address {
         return `${this.street} ${this.number}, ${this.floor && 'קומה'} ${this.floor},  ${this.city}`
     }
 }
+type ApartmentConstractorType =
+    | {
+        type: 'elemnt', element: {
+            name: string, city: string,
+            neighborhood: string,
+            street: string, number: number, floor: number,
+            apartmentNumber: number, postCode: number,
+            price: number,
+            area: number, bedrooms: number, toilet: number,
+            animals: string, includes: string, comments: string,
+            mainImageIndex: number,
+            images: string[], currentTenantId: string
+        }
+    }
+    | { type: 'interface', apartment: IApartment };
 
 class Apartment implements IApartment {
+    id?: number;
     name: string;
     city: string;
     neighborhood: string;
@@ -37,39 +53,28 @@ class Apartment implements IApartment {
     mainImageIndex: number;
     images: string[];
     currentTenantId: string;
+    managerId?: string;
 
-    constructor(name: string, city: string,
-        neighborhood: string,
-        street: string, number: number, floor: number,
-        apartmentNumber: number, postCode: number,
-        price: number,
-        area: number, bedrooms: number, toilet: number,
-        animals: string, includes: string, comments: string,
-        mainImageIndex: number,
-        images: string[], currentTenantId: string) {
-        this.name = name;
-        this.city = city;
-        this.neighborhood = neighborhood;
-        this.street = street;
-        this.number = number;
-        this.floor = floor;
-        this.address = new Address(city, street, number, floor);
-        this.apartmentNumber = apartmentNumber;
-        this.postCode = postCode;
-        this.bedrooms = bedrooms;
-        this.toilet = toilet;
-        this.animals = animals;
-        this.includes = includes;
-        this.comments = comments;
-        this.mainImageIndex = mainImageIndex;
-        this.area = area;
-        this.price = price;
-        // this.enteryDate = enteryDate;
-        // this.releaseDate = releaseDate;
-        // this.agreement = agreement;
-        // this.agreementEndDate = agreementEndDate;
-        this.images = images;
-        this.currentTenantId = currentTenantId;
+    constructor(apartment: IApartment) {
+        this.name = apartment.name;
+        this.city = apartment.city;
+        this.neighborhood = apartment.neighborhood;
+        this.street = apartment.street;
+        this.number = apartment.number;
+        this.floor = apartment.floor;
+        this.address = new Address(apartment.city, apartment.street, apartment.number, apartment.floor);
+        this.apartmentNumber = apartment.apartmentNumber;
+        this.postCode = apartment.postCode;
+        this.bedrooms = apartment.bedrooms;
+        this.toilet = apartment.toilet;
+        this.animals = apartment.animals;
+        this.includes = apartment.includes;
+        this.comments = apartment.comments;
+        this.mainImageIndex = apartment.mainImageIndex;
+        this.area = apartment.area;
+        this.price = apartment.price;
+        this.images = apartment.images;
+        this.currentTenantId = apartment.currentTenantId;
     }
 
     isRent() {

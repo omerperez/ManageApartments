@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apartmentLogo } from "../Assets/StaticImages";
 import Input from "../Components/Global/FormComponents/Input";
 import { AuthContext } from "../Contexts/AuthContext";
+import { IUserReq } from "../Data/interfaces/Http";
 import { IErrosListObject } from "../Data/interfaces/IValidation";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Auth.css";
@@ -14,7 +15,7 @@ import {
   getRefValue,
   isFormFieldsErrors,
 } from "../Services/Global";
-import { IUserReq, registerRequest } from "../Services/HttpService/AuthService";
+import { registerRequest } from "../Services/Api/AuthApi";
 import { SignUpLabelsForm } from "../Services/Translate/SignIn";
 
 export default function SignUp() {

@@ -5,7 +5,7 @@ import { LoginDto, Verify } from '../dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('login')
   async login(@Req() request, @Ip() ip: string, @Body() body: LoginDto) {

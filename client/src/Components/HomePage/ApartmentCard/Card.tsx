@@ -31,6 +31,7 @@ export default function ApartmentCard({
 
   if (apartment === null) return null;
 
+  console.log(apartment.mainImageIndex);
   return (
     <div className="relative">
       <div className="block">

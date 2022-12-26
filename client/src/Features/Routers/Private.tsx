@@ -9,7 +9,7 @@ import Loading from "../../Layout/Loading";
 import LogoutBtn from "../../Layout/LogoutBtn";
 import SideBar from "../../Layout/SideBar";
 import CookieService from "../../Services/CookieService";
-import { verifyToken } from "../../Services/HttpService/AuthService";
+import { verifyToken } from "../../Services/Api/AuthApi";
 
 export default function PrivateRouter({
   children,
@@ -22,7 +22,6 @@ export default function PrivateRouter({
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // const verifyUser = async () => {
     const token = CookieService.getToken();
     if (token) {
       verifyToken(token)

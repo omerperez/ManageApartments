@@ -4,7 +4,7 @@ export declare class ApartmentService {
     private readonly connection;
     constructor(connection: Connection);
     getById(apartmentId: IObjectId): Promise<any>;
-    getApartmentByManagerId(apartmentId: IObjectId): Promise<any>;
+    getApartmentByManagerId(id: IObjectId): Promise<any>;
     create(apartment: IApartment): Promise<any>;
     edit(apartment: IApartment): Promise<any>;
     delete(apartmentId: IObjectId): Promise<any>;
