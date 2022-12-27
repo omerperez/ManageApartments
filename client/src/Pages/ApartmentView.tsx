@@ -2,11 +2,6 @@ import { Close } from "@mui/icons-material";
 import { Button, Dialog, DialogContent, Grid, IconButton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import {
-  defaultApartment,
-  defaultTenant,
-  defaultTenant2,
-} from "../Assets/StaticData";
 import Gallery from "../Components/ApartmentProfile/Gallery";
 import Details from "../Components/ApartmentProfile/MainDetails";
 import TenantsCard from "../Components/ApartmentProfile/TenantsCard";
@@ -15,16 +10,20 @@ import ChangeTenant from "../Components/Edit/EditApartment/ChangeTenant";
 import TenantsList from "../Components/Edit/EditApartment/TenantsList";
 import LanguageContainer from "../Components/Global/LanguageContainer";
 import { AuthContext } from "../Contexts/AuthContext";
+import { Apartment } from "../Data/builders/Apartment";
+import { ITenant } from "../Data/interfaces/ITenant";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Profile.css";
 import Loading from "../Layout/Loading";
 import { DialogSelectEditTenantTypeMui } from "../Layout/Mui/Edit";
 import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
+import { getApartmentView } from "../Services/Api/ApartmentApi";
 
 export default function ApartmentView() {
   const [searchParams] = useSearchParams();
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const [apartmentId, setApartmentId] = useState<string>("");
+  const [currentApartment, setCurrentApartment] = useState<Apartment>();
+  const [currentTenant, setCurrentTenant] = useState<ITenant>();
   const [openEditTenantDialog, setOpenEditTenantDialog] =
     useState<boolean>(false);
   const [openHistoryListDialog, setOpenHistoryListDialog] =
@@ -33,17 +32,19 @@ export default function ApartmentView() {
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = () => {
+    const fetchData = async () => {
       if (searchParams) {
         const currentApartmentId = searchParams.get("apartmentId") as string;
-        setApartmentId(currentApartmentId);
+        const response = await getApartmentView(currentApartmentId);
+        setCurrentApartment(response.apartment);
+        setCurrentTenant(response.tenant);
         setLoading(false);
       }
     };
     fetchData();
   }, [searchParams]);
 
-  if (loading) {
+  if (loading || !currentApartment || !currentTenant) {
     return <Loading />;
   }
 
@@ -59,11 +60,11 @@ export default function ApartmentView() {
             <div className="mt-2">
               <TenantsCard
                 language={authState.language}
-                currentTenant={defaultTenant}
+                currentTenant={currentTenant}
               >
                 <ChangeTenant
-                  editTenantId={defaultTenant.id}
-                  apartmentId={apartmentId}
+                  editTenantId={currentTenant.id}
+                  apartmentId={currentApartment.id.toString()}
                   open={openEditTenantDialog}
                   setOpen={setOpenEditTenantDialog}
                 />
@@ -96,20 +97,20 @@ export default function ApartmentView() {
                     <TenantsList
                       isShowOnly={true}
                       tenantsList={[
-                        defaultTenant,
-                        defaultTenant2,
-                        defaultTenant,
-                        defaultTenant2,
+                        currentTenant,
+                        currentTenant,
+                        currentTenant,
+                        currentTenant,
                       ]}
                     />
                   </DialogContent>
                 </Dialog>
                 <TenantsHistoryList
                   tenants={[
-                    defaultTenant,
-                    defaultTenant2,
-                    defaultTenant,
-                    defaultTenant2,
+                    currentTenant,
+                    currentTenant,
+                    currentTenant,
+                    currentTenant,
                   ]}
                 />
               </ThemeStyleRTL>
@@ -121,9 +122,9 @@ export default function ApartmentView() {
             {authState.language === "en" ? "Apartment Details" : "פרטי הדירה"}
           </div>
           <div className="mt-3">
-            <Gallery images={defaultApartment.images} mainImageIndex={0} />
+            <Gallery images={currentApartment.images} mainImageIndex={0} />
             <Details
-              apartment={defaultApartment}
+              apartment={currentApartment}
               language={authState.language}
             />
           </div>

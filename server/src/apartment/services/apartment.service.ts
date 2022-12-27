@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/typeorm';
 import apartmentQueries from 'src/sql/apartmentQueries';
+import tenantQueries from 'src/sql/tenantQueries';
 import getQueryAndObjectValues from 'src/utils/QueryUtil';
 import { Connection } from 'typeorm';
 import { IApartment, IObjectId } from '../modules/apartment.interface';
@@ -14,10 +15,26 @@ export class ApartmentService {
       apartmentQueries.apartmentById,
       apartmentId,
     );
-    return await this.connection.query(
+    const [currentApartment] = await this.connection.query(
       currentApartmentQuery as string,
       parameters as any[],
-    );
+    ) as IApartment[];
+
+    if (currentApartment) {
+      const [tenantByIdQuery, tenantParameters] = getQueryAndObjectValues(
+        tenantQueries.tenantById,
+        { currentTenantId: currentApartment.currentTenantId },
+      );
+      const tenant = await this.connection.query(
+        tenantByIdQuery as string,
+        tenantParameters as any[],
+      );
+      return {
+        apartment: currentApartment,
+        tenant: tenant,
+      }
+    }
+    return undefined;
   }
 
   async getApartmentByManagerId(id: IObjectId) {

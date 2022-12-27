@@ -3,9 +3,9 @@ import AttachFilesFrom from "../../Components/Create/CreateForms/AttachFilesFrom
 import TenantForm from "../../Components/Create/CreateForms/TenantForm";
 
 const CreateForm = [
-  <ApartmentForm />,
-  <TenantForm isEditTenant={false} />,
-  <AttachFilesFrom />,
+  // <ApartmentForm />,
+  // <TenantForm isEditTenant={false} />,
+  // <AttachFilesFrom />,
 ];
 
 export default CreateForm;

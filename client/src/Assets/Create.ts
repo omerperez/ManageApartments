@@ -1,257 +1,253 @@
-import { IFieldTypeDemo, ITranslateLabel } from "../Data/interfaces/Create";
-import { IMenuTextItem } from "../Data/interfaces/IForm";
+import { IField, ITranslateLabel } from "../Data/interfaces/Create";
+import { ISelectMenuItem } from "../Data/interfaces/IForm";
 import ValidationService from "../Services/ValidationService";
 
-const apartmentFormLabels: IFieldTypeDemo[] = [
+const genderList: ISelectMenuItem[] = [
+  {
+    label: 'זכר',
+    value: 1
+  }, {
+    label: 'נקבה',
+    value: 2
+  }
+];
+
+const isFitForAnimalsList: ISelectMenuItem[] = [
+  {
+    label: "ניתן להכניס",
+    value: 1
+  }, {
+    label: "ניתן להכניס",
+    value: 2
+  }
+];
+
+const apartmentFormLabels: IField[] = [
   {
     he_label: "שם הדירה",
     en_label: "Apartment Name",
-    type: "input",
-    textType: "text",
-    name: "name",
+    key: "name",
     gridSize: 4,
+    type: { fieldType: 'input', inputType: 'text' },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
     he_label: "עיר",
     en_label: "City",
-    name: "city",
+    key: "city",
     gridSize: 4,
-    type: "autocomplete",
+    type: { fieldType: 'autocomplete', apiListKey: 'city' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא בחר ערך מתוך הרשימה"
   },
   {
     he_label: "שכונה",
     en_label: "Neighborhood",
-    name: "neighborhood",
+    key: "neighborhood",
     gridSize: 4,
-    type: "input",
-    textType: "text",
+    type: { fieldType: 'input', inputType: 'text' },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
     he_label: "רחוב",
     en_label: "Street",
-    name: "street",
+    key: "street",
     gridSize: 4,
-    type: "autocomplete",
+    type: { fieldType: 'autocomplete', apiListKey: 'street' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא בחר ערך מתוך הרשימה"
   },
   {
     he_label: "מספר בית",
     en_label: "House number",
-    name: "number",
+    key: "number",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "קומה",
     en_label: "Floor",
-    name: "floor",
+    key: "floor",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "מספר דירה",
     en_label: "Number",
-    name: "apartmentNumber",
+    key: "apartmentNumber",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "מיקוד",
     en_label: "Post Code",
-    name: "postCode",
+    key: "postCode",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "input", function: ValidationService.isPositiveNumber },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "מחיר (ש״ח)",
     en_label: "Price (ILS)",
-    name: "price",
+    key: "price",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "input", function: ValidationService.isPositiveNumber },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "שטח (מ״ר)",
     en_label: "Area (m)",
-    name: "area",
+    key: "area",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "input", function: ValidationService.isPositiveNumber },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "חדרי שינה",
     en_label: "Bedrooms",
-    name: "bedrooms",
+    key: "bedrooms",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "חדרי שירותים",
     en_label: "Toilets",
-    name: "toilet",
+    key: "toilet",
     gridSize: 2,
-    type: "input",
-    textType: "number",
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "חיות מחמד",
     en_label: "Animals",
-    name: "animals",
+    key: "animals",
     gridSize: 2,
-    type: "select",
-    list: [{
-      label: "ניתן להכניס",
-      value: "yes"
-    }, {
-      label: "ניתן להכניס",
-      value: "yes"
-    }],
+    type: { fieldType: 'select', list: isFitForAnimalsList },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
     he_label: "תוספות",
     en_label: "Payments included",
-    name: "includes",
+    key: "includes",
     gridSize: 2,
-    type: "select",
-    list: [{
-      label: "ניתן להכניס",
-      value: "yes"
-    }, {
-      label: "לא ניתן להכניס",
-      value: "no"
-    }],
+    type: { fieldType: 'select', list: isFitForAnimalsList },
     validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   }, {
     he_label: "הערות נוספות",
     en_label: "Another Comments",
-    name: "comments",
+    key: "comments",
     gridSize: 12,
-    type: "input",
-    textType: "text",
+    type: { fieldType: "input", inputType: 'text' },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "אנא בחר ערך מתוך הרשימה"
   },
 ];
 
-const tenantsFormLabels: IFieldTypeDemo[] = [
+const tenantsFormLabels: IField[] = [
   {
-    he_label: "שם מלא",
-    en_label: "Full Name",
-    name: "fullName",
-    gridSize: 3,
-    type: "input",
-    textType: "text",
+    he_label: "שם פרטי",
+    en_label: "First Name",
+    key: "firstName",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'text' },
+    validation: { type: "input", function: ValidationService.isNotEmpty },
+    error: "שדה חובה"
+  },
+  {
+    he_label: "שם משפחה",
+    en_label: "Last Name",
+    key: "lastName",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'text' },
+    validation: { type: "input", function: ValidationService.isNotEmpty },
+    error: "שדה חובה"
+  },
+  {
+    he_label: "תעודת זיהוי",
+    en_label: "ID",
+    key: "id",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'text' },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
     he_label: "נייד ראשי",
     en_label: "Main Mobile",
-    name: "mobileNumber",
-    gridSize: 3,
-    type: "input",
-    textType: "number",
+    key: "mobileNumber",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "input", function: ValidationService.isMobilePropper },
     error: "מספר נייד אינו תקין"
   },
   {
     he_label: "נייד משני",
     en_label: "Another Mobile",
-    name: "anotherMobileNumber",
-    gridSize: 3,
-    type: "input",
-    textType: "number",
+    key: "anotherMobileNumber",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'number' },
     validation: { type: "input", function: ValidationService.isMobilePropper },
     error: "מספר נייד אינו תקין"
   },
   {
     he_label: "דוא״ל",
     en_label: "Email",
-    name: "email",
-    gridSize: 3,
-    type: "input",
-    textType: "email",
+    key: "email",
+    gridSize: 4,
+    type: { fieldType: 'input', inputType: 'email' },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
-    he_label: "מין",
+    he_label: "מגדר",
     en_label: "Gender",
-    name: "gender",
-    gridSize: 1.5,
-    type: "input",
-    textType: "select",
-    validation: { type: "input", function: ValidationService.isNotEmpty },
-    error: "שדה חובה"
+    key: "gender",
+    gridSize: 2.25,
+    type: { fieldType: 'select', list: genderList },
   },
   {
-    he_label: "יום הולדת",
+    he_label: "תאריך לידה",
     en_label: "Birthday",
-    name: "birthday",
-    gridSize: 3,
-    type: "date",
+    key: "birthday",
+    gridSize: 3.25,
+    type: { fieldType: "date", isPastDate: true },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
     he_label: "תאריך כניסה לדירה",
     en_label: "Entry date",
-    name: "startDate",
-    gridSize: 3,
-    type: "date",
+    key: "startDate",
+    gridSize: 3.25,
+    type: { fieldType: "date", isPastDate: "both" },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
   {
     he_label: "תאריך סיום חוזה",
     en_label: "End date",
-    name: "endDate",
-    gridSize: 3,
-    type: "date",
+    key: "endDate",
+    gridSize: 3.25,
+    type: { fieldType: "date", isPastDate: false },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה"
   },
-];
-
-const citySelectOptions: IMenuTextItem[] = [
-  { label: "בחר עיר", value: "" },
-  { label: "הרצליה", value: "הרצליה" },
-  { label: "ראשון לציון", value: "ראשון לציון" },
-  { label: "רעננה", value: "רעננה" },
-  { label: "עפולה", value: "עפולה" },
-  { label: "תל אביב", value: "תל אביב" },
-  { label: "כפר סבא", value: "כפר סבא" },
 ];
 
 const StepsLabels: ITranslateLabel[] = [
@@ -270,7 +266,6 @@ const StepsLabels: ITranslateLabel[] = [
 ];
 
 export {
-  citySelectOptions,
   tenantsFormLabels,
   apartmentFormLabels,
   StepsLabels,

@@ -42,21 +42,21 @@ export default function EditTenant({ editTenant }: TenantPartProps) {
       <Grid container spacing={3}>
         {tenantsFormLabels.map((item, index) => (
           <Grid item sm={item.gridSize} className="mb-2" key={item.en_label}>
-            {item.type === "date" ? (
+            {item.type.fieldType === "date" ? (
               <Date
                 label={item[`${authState.language}_label`]}
-                value={editTenant[item.name]}
+                value={editTenant[item.key]}
                 ref={refs.current[index]}
-                errorComment={errorList[item.name] === false ? item.error : ""}
+                errorComment={errorList[item.key] === false ? item.error : ""}
               />
             ) : (
               <Input
                 label={item[`${authState.language}_label`]}
                 disabled={false}
-                value={editTenant[item.name]}
+                value={editTenant[item.key]}
                 required={true}
                 textType={"text"}
-                error={errorList[item.name] === false ? item.error : ""}
+                error={errorList[item.key] === false ? item.error : ""}
                 ref={refs.current[index]}
               />
             )}

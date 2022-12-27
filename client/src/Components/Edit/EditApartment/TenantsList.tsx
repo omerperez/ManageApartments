@@ -6,7 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { maleImage } from "../../../Assets/StaticImages";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { Tenant } from "../../../Data/builders/Tenant";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { AuthContextType } from "../../../Data/types/Auth";
 import TenantsCard from "../../ApartmentProfile/TenantsCard";
@@ -63,14 +62,16 @@ export default function TenantsList({
                     className="profile-img"
                   />
                 </ListItemIcon>
-                <ListItemText primary={tenant.fullName} />
+                <ListItemText
+                  primary={`${tenant.firstName} ${tenant.lastName}`}
+                />
               </ListItemButton>
             ))}
           </List>
         </Grid>
         <Grid item sm={4}>
           <TenantsCard
-            currentTenant={tenantsList[selectedIndex] as Tenant}
+            currentTenant={tenantsList[selectedIndex]}
             language={authState.language}
             isEditDialog={true}
           />

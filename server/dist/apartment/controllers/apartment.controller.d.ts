@@ -5,7 +5,10 @@ export declare class ApartmentController {
     private apartmentService;
     constructor(apartmentService: ApartmentService);
     getManagerApartments(userId: UserId): Promise<any>;
-    getById(apartmentId: IObjectId): Promise<any>;
+    getById(apartmentId: IObjectId): Promise<{
+        apartment: IApartment;
+        tenant: any;
+    }>;
     create(apartment: IApartment): Promise<any>;
     edit(apartment: IApartment): Promise<any>;
     delete(apartmentId: IObjectId): Promise<any>;

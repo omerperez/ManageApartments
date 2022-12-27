@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ApartmentModule } from './apartment/apartment.module';
 import { AuthModule } from './auth/auth.module';
+import { TenantModule } from './tenant/tenant.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     ApartmentModule,
     AuthModule,
+    TenantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

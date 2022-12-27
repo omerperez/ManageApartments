@@ -16,6 +16,7 @@ const app_service_1 = require("./app.service");
 const user_module_1 = require("./user/user.module");
 const apartment_module_1 = require("./apartment/apartment.module");
 const auth_module_1 = require("./auth/auth.module");
+const tenant_module_1 = require("./tenant/tenant.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,6 +36,7 @@ AppModule = __decorate([
             user_module_1.UserModule,
             apartment_module_1.ApartmentModule,
             auth_module_1.AuthModule,
+            tenant_module_1.TenantModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

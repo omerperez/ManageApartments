@@ -1,14 +1,21 @@
 import { Grid } from "@mui/material";
-import { createRef, Ref, useContext, useRef, useState } from "react";
+import {
+  createRef,
+  Dispatch,
+  Ref,
+  SetStateAction,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { tenantsFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { PrivateContext } from "../../../Contexts/Private";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
-import { PrivateContextType } from "../../../Data/types/Private";
 import {
   getFormFieldError,
+  getSelectList,
   getTenantValue,
 } from "../../../Services/FormService";
 import {
@@ -17,21 +24,21 @@ import {
 } from "../../../Services/Global";
 import Date from "../../Global/FormComponents/Date";
 import Input from "../../Global/FormComponents/Input";
+import Select from "../../Global/FormComponents/Select";
 import StepperBtns from "../Stepper/StepperButtons";
 
 interface TenantFormProps {
   editTenant?: ITenant;
   isEditTenant?: boolean;
+  setActiveStep?: Dispatch<SetStateAction<number>>;
 }
 
 export default function TenantForm({
   editTenant,
   isEditTenant,
+  setActiveStep,
 }: TenantFormProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const { privateState, setStep } = useContext(
-    PrivateContext,
-  ) as PrivateContextType;
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
 
@@ -41,12 +48,12 @@ export default function TenantForm({
       setErrorList(list);
     } else {
       setErrorList({});
-      setStep(privateState.activeStep + 1);
+      setActiveStep && setActiveStep(2);
     }
   };
 
   const handleClickBack = () => {
-    setStep(privateState.activeStep - 1);
+    setActiveStep && setActiveStep(0);
   };
 
   const title = "פרטי הדייר";
@@ -54,21 +61,30 @@ export default function TenantForm({
     <>
       <div className="tenant-form">
         <div className="sub-page-title">{title}</div>
-        <Grid container spacing={1.5}>
+        <Grid container spacing={5}>
           {tenantsFormLabels.map((item, index) => (
-            <Grid item sm={item.gridSize} className="mb-2" key={item.en_label}>
-              {item.type === "date" ? (
+            <Grid item sm={item.gridSize} key={item.en_label}>
+              {item.type.fieldType === "date" ? (
                 <Date
                   label={item[`${authState.language}_label`]}
-                  value={getTenantValue(editTenant, item.name)}
+                  value={getTenantValue(editTenant, item.key)}
                   ref={refs.current[index]}
                   errorComment={getFormFieldError(item, errorList)}
+                />
+              ) : item.type.fieldType === "select" ? (
+                <Select
+                  label={item[`${authState.language}_label`]}
+                  value={getTenantValue(editTenant, item.key)}
+                  error={errorList[item.key] === false ? item.error : ""}
+                  disabled={false}
+                  list={getSelectList(item)}
+                  ref={refs.current[index]}
                 />
               ) : (
                 <Input
                   label={item[`${authState.language}_label`]}
                   disabled={false}
-                  value={getTenantValue(editTenant, item.name)}
+                  value={getTenantValue(editTenant, item.key)}
                   required={true}
                   textType={"text"}
                   error={getFormFieldError(item, errorList)}
@@ -80,7 +96,11 @@ export default function TenantForm({
         </Grid>
       </div>
       {!isEditTenant && (
-        <StepperBtns next={handleClickNext} back={handleClickBack} />
+        <StepperBtns
+          next={handleClickNext}
+          back={handleClickBack}
+          activeStep={1}
+        />
       )}
     </>
   );

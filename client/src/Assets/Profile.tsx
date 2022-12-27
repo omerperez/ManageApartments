@@ -121,9 +121,43 @@ const apartmentMenuItems = [
   },
 ];
 
+const tenantContentCardProperties = [
+  {
+    he_label: "גיל",
+    en_label: "Age",
+    key: "age",
+    gridSize: 3.5,
+  },
+  {
+    he_label: "מין",
+    en_label: "Gender",
+    key: "gender",
+    gridSize: 3.5,
+  },
+  {
+    he_label: "נייד",
+    en_label: "Mobile",
+    key: "mobileNumber",
+    gridSize: 5,
+  },
+  {
+    he_label: "דוא״ל",
+    en_label: "Email",
+    key: "email",
+    gridSize: 12,
+  },
+  {
+    he_label: "תקופת אכלוס",
+    en_label: "Occupancy Period",
+    key: "Occupancy Period",
+    gridSize: 12,
+  },
+];
+
 export {
   apartmentMenuItems,
   detailsLabels,
   mainApartmentProperties,
   tenantDetails,
+  tenantContentCardProperties,
 };

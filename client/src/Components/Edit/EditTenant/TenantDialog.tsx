@@ -2,7 +2,7 @@ import { Edit } from "@mui/icons-material";
 import { Dialog, DialogContent, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { defaultTenant } from "../../../Assets/StaticData";
-import { Tenant } from "../../../Data/builders/Tenant";
+import { ITenant } from "../../../Data/interfaces/ITenant";
 import Loading from "../../../Layout/Loading";
 import { DialogTenantMui } from "../../../Layout/Mui/Edit";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
@@ -13,7 +13,7 @@ interface TenantDialogProps {
 }
 
 export default function TenantDialog({ tenantId }: TenantDialogProps) {
-  const [tenant, setTenant] = useState<Tenant | null>(null);
+  const [tenant, setTenant] = useState<ITenant | null>(null);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

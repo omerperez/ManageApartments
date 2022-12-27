@@ -22,7 +22,7 @@ type Props = {
 export default function ThemeStyleRTL({ children }: Props) {
   const { authState } = useContext(AuthContext) as AuthContextType;
 
-  if (authState.language === "en")
+  if (authState && authState.language === "en")
     return <div className="ltr"> {children} </div>;
 
   return (

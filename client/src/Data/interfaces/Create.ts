@@ -13,14 +13,18 @@ interface IFieldType extends ITranslateLabel {
     textType?: string;
 }
 
-interface IFieldTypeDemo extends ITranslateLabel {
-    name: string;
+type InputFieldType =
+    | { fieldType: 'input', inputType: 'text' | 'password' | 'id' | 'number' | 'mobile' | 'phone' | 'email' }
+    | { fieldType: 'select', list?: ISelectMenuItem[], apiListKey?: string }
+    | { fieldType: 'date', isPastDate: boolean | "both" }
+    | { fieldType: 'autocomplete', apiListKey: string }
+
+interface IField extends ITranslateLabel {
+    key: string;
     gridSize: number;
-    type: "input" | "select" | "autocomplete" | "date";
-    textType?: string;
-    list?: ISelectMenuItem[];
+    type: InputFieldType;
     validation?: ValidationType;
     error?: string;
 }
 
-export type { IFieldType, IFieldTypeDemo, ITranslateLabel };
+export type { IFieldType, IField, ITranslateLabel };

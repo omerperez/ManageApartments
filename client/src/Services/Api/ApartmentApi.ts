@@ -1,9 +1,11 @@
 import { Apartment } from "../../Data/builders/Apartment";
 import { IUserReq, IVerifyToken } from "../../Data/interfaces/Http";
 import { IApartment } from "../../Data/interfaces/IApartment";
+import { ITenant } from "../../Data/interfaces/ITenant";
 import { serverPostRequest } from "../HttpService";
 
 const allApartmentsApi = "apartment/all";
+const apartmentViewApi = "apartment/find";
 const verifyTokenApi = "auth/verify";
 const registerApi = "user/register";
 
@@ -18,6 +20,17 @@ const getAllApartments = async (id: string) => {
     return results;
 };
 
+const getApartmentView = async (apartmentId: string) => {
+    const response = await serverPostRequest(apartmentViewApi, { id: apartmentId });
+    const data = response.data;
+    const apartment = data.apartment as IApartment;
+    const [tenant] = data.tenant as ITenant[];
+    return {
+        apartment: new Apartment(apartment),
+        tenant: tenant
+    };
+};
+
 const registerRequest = async (user: IUserReq) => {
     const response = await serverPostRequest(registerApi, user);
     return response.status === 200;
@@ -28,4 +41,4 @@ const verifyToken = async (token: string) => {
     return response.data as IVerifyToken;
 };
 
-export { getAllApartments, registerRequest, verifyToken };
+export { getAllApartments, registerRequest, verifyToken, getApartmentView };

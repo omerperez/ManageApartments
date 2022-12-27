@@ -8,12 +8,13 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
+import { tenantContentCardProperties } from "../../Assets/Profile";
 import { maleImage } from "../../Assets/StaticImages";
-import { Tenant } from "../../Data/builders/Tenant";
+import { ITenant } from "../../Data/interfaces/ITenant";
 import ThemeStyleRTL from "../../Layout/ThemeStyleRTL";
 
 type TenantsCardProps = {
-  currentTenant: Tenant;
+  currentTenant: ITenant;
   language: string;
   isEditDialog?: boolean;
   children?: JSX.Element;
@@ -28,6 +29,16 @@ export default function TenantsCard({
   sx,
 }: TenantsCardProps) {
   if (!currentTenant) return null;
+
+  const getContentValue = (key: string) => {
+    if (key === "fullName") {
+      return `${currentTenant.firstName} ${currentTenant.lastName}`;
+    }
+    if (key === "Occupancy Period") {
+      return `${currentTenant.startDate} - ${currentTenant.endDate}`;
+    }
+    return currentTenant[key as keyof ITenant];
+  };
 
   return (
     <Card
@@ -53,11 +64,11 @@ export default function TenantsCard({
         component="div"
         className="tenant-name"
       >
-        <span>{currentTenant.fullName}</span>
+        <span>{getContentValue("fullName")}</span>
       </Typography>
       <CardContent>
         <Grid container className="tenant-details">
-          {currentTenant.getContentProperties().map((item, key) => (
+          {tenantContentCardProperties.map((item, key) => (
             <Grid
               item
               sm={item.gridSize}
@@ -66,7 +77,7 @@ export default function TenantsCard({
             >
               {item[`${language}_label`]}
               <br />
-              <span className="tenant-values">{item.value.toString()}</span>
+              <span className="tenant-values">{getContentValue(item.key)}</span>
             </Grid>
           ))}
         </Grid>

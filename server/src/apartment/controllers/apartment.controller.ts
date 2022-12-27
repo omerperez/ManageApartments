@@ -5,7 +5,7 @@ import { ApartmentService } from '../services/apartment.service';
 
 @Controller('apartment')
 export class ApartmentController {
-  constructor(private apartmentService: ApartmentService) {}
+  constructor(private apartmentService: ApartmentService) { }
 
   @Post('all')
   async getManagerApartments(@Body() userId: UserId) {

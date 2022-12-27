@@ -33,7 +33,7 @@ type ApartmentConstractorType =
     | { type: 'interface', apartment: IApartment };
 
 class Apartment implements IApartment {
-    id?: number;
+    id: number;
     name: string;
     city: string;
     neighborhood: string;
@@ -53,9 +53,10 @@ class Apartment implements IApartment {
     mainImageIndex: number;
     images: string[];
     currentTenantId: string;
-    managerId?: string;
+    managerId: string;
 
     constructor(apartment: IApartment) {
+        this.id = apartment.id;
         this.name = apartment.name;
         this.city = apartment.city;
         this.neighborhood = apartment.neighborhood;
@@ -75,6 +76,7 @@ class Apartment implements IApartment {
         this.price = apartment.price;
         this.images = apartment.images;
         this.currentTenantId = apartment.currentTenantId;
+        this.managerId = apartment.managerId;
     }
 
     isRent() {

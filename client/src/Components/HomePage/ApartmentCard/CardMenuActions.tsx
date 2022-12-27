@@ -1,21 +1,18 @@
 import { Button, Grid } from "@mui/material";
-import { Stack } from "@mui/system";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { ApartmentCardButtons } from "../../../Assets/MyApartments";
 
 type CardMenuActionsProps = {
-  apartmentName: string;
+  apartmentId: string;
 };
-export default function CardMenuActions({
-  apartmentName,
-}: CardMenuActionsProps) {
+export default function CardMenuActions({ apartmentId }: CardMenuActionsProps) {
   const navigate = useNavigate();
 
   const handleClickMenuBtn = (to: string) => {
     navigate({
       pathname: `/${to}`,
       search: createSearchParams({
-        apartmentId: apartmentName,
+        apartmentId: apartmentId,
       }).toString(),
     });
   };

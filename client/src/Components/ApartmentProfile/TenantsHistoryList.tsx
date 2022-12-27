@@ -31,7 +31,7 @@ export default function TenantsHistoryList({
               <Avatar alt="Remy Sharp" src="/staticImages/famale.png" />
             </ListItemAvatar>
             <ListItemText
-              primary={tenant.fullName}
+              primary={`${tenant.firstName} ${tenant.lastName}`}
               secondary={
                 <Fragment>
                   <Typography

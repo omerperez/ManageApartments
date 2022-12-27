@@ -2,7 +2,6 @@ interface ITenant {
   id: string;
   firstName: string;
   lastName: string;
-  fullName: string;
   mobileNumber: string;
   anotherMobileNumber: string;
   email: string;

@@ -1,16 +1,15 @@
-/* eslint-disable no-loop-func */
 import { Grid } from "@mui/material";
-import { useContext, useState } from "react";
-import { PrivateContext } from "../../../Contexts/Private";
-import { PrivateContextType } from "../../../Data/types/Private";
+import { Dispatch, SetStateAction, useState } from "react";
 import UploadImages from "../ManageFiles/UploadImages";
 import UploadPDF from "../ManageFiles/UploadPDF";
 import StepperBtns from "../Stepper/StepperButtons";
 
-export default function AttachFilesForm() {
-  const { privateState, setStep } = useContext(
-    PrivateContext,
-  ) as PrivateContextType;
+interface AttachFilesFormProps {
+  setActiveStep: Dispatch<SetStateAction<number>>;
+}
+export default function AttachFilesForm({
+  setActiveStep,
+}: AttachFilesFormProps) {
   const [images, setImages] = useState<string[]>([]);
   const [mainImages, setMainImage] = useState<number>(0);
   const [doc, setDoc] = useState<string>("");
@@ -20,11 +19,11 @@ export default function AttachFilesForm() {
   };
 
   const clickNext = () => {
-    setStep(privateState.activeStep + 1);
+    setActiveStep(2);
   };
 
   const clickBack = () => {
-    setStep(privateState.activeStep - 1);
+    setActiveStep(1);
   };
 
   const title = "מסמכים ותמונות";
@@ -51,7 +50,7 @@ export default function AttachFilesForm() {
           </Grid>
         </div>
       </div>
-      <StepperBtns next={clickNext} back={clickBack} />
+      <StepperBtns next={clickNext} back={clickBack} activeStep={2} />
     </>
   );
 }

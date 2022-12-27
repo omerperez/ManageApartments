@@ -31,7 +31,6 @@ export default function ApartmentCard({
 
   if (apartment === null) return null;
 
-  console.log(apartment.mainImageIndex);
   return (
     <div className="relative">
       <div className="block">
@@ -60,7 +59,7 @@ export default function ApartmentCard({
               title={`${apartment.name}`}
               subheader={apartment.address.getFullAddress()}
             />
-            <CardMenuActions apartmentName={apartment.name} />
+            <CardMenuActions apartmentId={apartment.id.toString()} />
             <Collapse in={expanded} timeout="auto">
               <CardContent>
                 <Grid container spacing={1} className="card-design">

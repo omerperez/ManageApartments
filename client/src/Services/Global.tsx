@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { IFieldTypeDemo } from "../Data/interfaces/Create";
+import { IField } from "../Data/interfaces/Create";
 import { ISelectMenuItem } from "../Data/interfaces/IForm";
 import { IErrosListObject } from "../Data/interfaces/IValidation";
 import { ValidationType } from "../Data/types/Validation";
@@ -12,7 +12,7 @@ const getRefValue = (refsList: RefObject<any>, index: number) => {
 };
 
 const getFieldsErrorStatus = (
-  fieldsList: IFieldTypeDemo[],
+  fieldsList: IField[],
   refsList: RefObject<any>,
   lists?: { name: string; list: ISelectMenuItem[] }[],
 ) => {
@@ -22,11 +22,11 @@ const getFieldsErrorStatus = (
     const status = getValidationValue(
       field?.validation,
       value as string,
-      lists?.find((item) => item.name === field.name)?.list,
+      lists?.find((item) => item.name === field.key)?.list,
     );
     errorsList = {
       ...errorsList,
-      [field.name]: status,
+      [field.key]: status,
     };
   });
   return errorsList;

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPovider from "./Contexts/AuthContext";
 import PrivatePovider from "./Contexts/Private";
-import PrivateRouter from "./Features/Routers/Private";
-import PublicRouter from "./Features/Routers/Public";
+import PrivateRouter from "./Routers/Private";
+import PublicRouter from "./Routers/Public";
 import ApartmentDetailsPage from "./Pages/ApartmentView";
 import CreateApartment from "./Pages/Create";
 import EditApartment from "./Pages/EditApartment";
@@ -27,6 +27,10 @@ function App() {
             />
             <Route
               path="/"
+              element={<PrivateRouter children={<HomePage />} />}
+            />
+            <Route
+              path="/home"
               element={<PrivateRouter children={<HomePage />} />}
             />
             <Route

@@ -1,11 +1,18 @@
 import { Grid, TextareaAutosize } from "@mui/material";
-import { createRef, Ref, useContext, useRef, useState } from "react";
+import {
+  createRef,
+  Dispatch,
+  Ref,
+  SetStateAction,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { apartmentFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { PrivateContext } from "../../../Contexts/Private";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
-import { PrivateContextType } from "../../../Data/types/Private";
+import { getInputType, getSelectList } from "../../../Services/FormService";
 import {
   getFieldsErrorStatus,
   isFormFieldsErrors,
@@ -15,30 +22,23 @@ import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
 import StepperBtns from "../Stepper/StepperButtons";
 
-export default function ApartmentForm() {
+interface ApartmentFormProps {
+  setActiveStep: Dispatch<SetStateAction<number>>;
+}
+export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const { privateState, setStep } = useContext(
-    PrivateContext,
-  ) as PrivateContextType;
   const [city, setCity] = useState<string>("");
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(apartmentFormLabels.map(() => createRef()));
 
   const handleClickNext = () => {
-    // const valuesSelectLists = [];
-    const list = getFieldsErrorStatus(
-      apartmentFormLabels,
-      refs,
-      // valuesSelectLists,
-    );
+    const list = getFieldsErrorStatus(apartmentFormLabels, refs);
     if (isFormFieldsErrors(list)) {
       setErrorList(list);
-      setStep(privateState.activeStep + 1);
+      setActiveStep(1);
     } else {
       setErrorList({});
-      setStep(privateState.activeStep + 1);
-      // setStep && setStep((prevActiveStep) => prevActiveStep + 1);
-      // changeStepStatus("apartment", true);
+      setActiveStep(1);
     }
   };
 
@@ -49,7 +49,7 @@ export default function ApartmentForm() {
         <div className="sub-page-title">{title}</div>
         <Grid container spacing={1.5}>
           {apartmentFormLabels.map((item, index) =>
-            item.name === "comments" ? (
+            item.key === "comments" ? (
               <TextareaAutosize
                 key={`textarea-apartment-${index}`}
                 className="area-input"
@@ -58,37 +58,37 @@ export default function ApartmentForm() {
                 placeholder={item[`${authState.language}_label`]}
                 ref={refs.current[index]}
               />
-            ) : item.type === "input" ? (
+            ) : item.type.fieldType === "input" ? (
               <Grid item sm={item.gridSize} key={item.en_label}>
                 <Input
-                  textType={item.type}
+                  textType={getInputType(item)}
                   label={item[`${authState.language}_label`]}
-                  value={privateState.apartment[item.name]}
-                  error={errorList[item.name] === false ? item.error : ""}
+                  value={""}
+                  error={errorList[item.key] === false ? item.error : ""}
                   required={true}
                   ref={refs.current[index]}
                 />
               </Grid>
-            ) : item.type === "autocomplete" ? (
+            ) : item.type.fieldType === "autocomplete" ? (
               <Grid item sm={item.gridSize} key={item.en_label}>
                 <Autocomplete
                   label={item[`${authState.language}_label`]}
-                  error={errorList[item.name] === false ? item.error : ""}
-                  disabled={item.name === "street" && !city ? true : false}
+                  error={errorList[item.key] === false ? item.error : ""}
+                  disabled={item.key === "street" && !city ? true : false}
                   ref={refs.current[index]}
                   setState={setCity}
-                  isCityAutocomplete={item.name === "city"}
-                  isStreetAutocomplete={item.name === "street" ? city : ""}
+                  isCityAutocomplete={item.key === "city"}
+                  isStreetAutocomplete={item.key === "street" ? city : ""}
                 />
               </Grid>
             ) : (
               <Grid item sm={item.gridSize} key={item.en_label}>
                 <Select
                   label={item[`${authState.language}_label`]}
-                  value={privateState.apartment[item.name]}
-                  error={errorList[item.name] === false ? item.error : ""}
+                  value={""}
+                  error={errorList[item.key] === false ? item.error : ""}
                   disabled={false}
-                  list={item.list ?? []}
+                  list={getSelectList(item)}
                   ref={refs.current[index]}
                 />
               </Grid>
@@ -96,7 +96,7 @@ export default function ApartmentForm() {
           )}
         </Grid>
       </div>
-      <StepperBtns next={handleClickNext} back={() => {}} />
+      <StepperBtns next={handleClickNext} back={() => {}} activeStep={0} />
     </div>
   );
 }

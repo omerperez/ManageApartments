@@ -16,6 +16,7 @@ exports.ApartmentService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const apartmentQueries_1 = require("../../sql/apartmentQueries");
+const tenantQueries_1 = require("../../sql/tenantQueries");
 const QueryUtil_1 = require("../../utils/QueryUtil");
 const typeorm_2 = require("typeorm");
 let ApartmentService = class ApartmentService {
@@ -24,7 +25,16 @@ let ApartmentService = class ApartmentService {
     }
     async getById(apartmentId) {
         const [currentApartmentQuery, parameters] = (0, QueryUtil_1.default)(apartmentQueries_1.default.apartmentById, apartmentId);
-        return await this.connection.query(currentApartmentQuery, parameters);
+        const [currentApartment] = await this.connection.query(currentApartmentQuery, parameters);
+        if (currentApartment) {
+            const [tenantByIdQuery, tenantParameters] = (0, QueryUtil_1.default)(tenantQueries_1.default.tenantById, { currentTenantId: currentApartment.currentTenantId });
+            const tenant = await this.connection.query(tenantByIdQuery, tenantParameters);
+            return {
+                apartment: currentApartment,
+                tenant: tenant,
+            };
+        }
+        return undefined;
     }
     async getApartmentByManagerId(id) {
         const [apartmentByManagerQuery, parameters] = (0, QueryUtil_1.default)(apartmentQueries_1.default.getManagerApartmentById, id);

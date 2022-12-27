@@ -1,4 +1,3 @@
-import { initialState } from "../Contexts/AuthContext";
 import { IAuthContext } from "../Data/interfaces/IUser";
 import { AuthAction } from "../Data/types/Auth";
 
@@ -18,7 +17,12 @@ export default function authReducer(
     }
     case "logout": {
       return {
-        ...initialState,
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobile: "",
+        language: "",
+        loading: false,
       };
     }
     case "loading": {
@@ -28,6 +32,6 @@ export default function authReducer(
       };
     }
     default:
-      return authState as IAuthContext;
+      return authState;
   }
 }

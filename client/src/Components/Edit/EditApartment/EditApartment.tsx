@@ -6,6 +6,7 @@ import { AuthContext } from "../../../Contexts/AuthContext";
 import { IApartment } from "../../../Data/interfaces/IApartment";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
+import { getInputType, getSelectList } from "../../../Services/FormService";
 import {
   getFieldsErrorStatus,
   isFormFieldsErrors,
@@ -47,7 +48,7 @@ export default function EditApartmentForm({
     <>
       <Grid container spacing={1.5}>
         {apartmentFormLabels.map((item, index) =>
-          item.name === "comments" ? (
+          item.key === "comments" ? (
             <TextareaAutosize
               key={`textarea-apartment-${index}`}
               className="area-input"
@@ -58,38 +59,38 @@ export default function EditApartmentForm({
               placeholder={item[`${authState.language}_label`]}
               ref={refs.current[index]}
             />
-          ) : item.type === "input" ? (
+          ) : item.type.fieldType === "input" ? (
             <Grid item sm={item.gridSize} key={item.en_label}>
               <Input
-                textType={item.textType ?? "text"}
+                textType={getInputType(item)}
                 label={item[`${authState.language}_label`]}
-                value={editApartment[item.name]}
-                error={errorList[item.name] === false ? item.error : ""}
+                value={editApartment[item.key]}
+                error={errorList[item.key] === false ? item.error : ""}
                 required={true}
                 ref={refs.current[index]}
               />
             </Grid>
-          ) : item.type === "autocomplete" ? (
+          ) : item.type.fieldType === "autocomplete" ? (
             <Grid item sm={item.gridSize} key={item.en_label}>
               <Autocomplete
                 label={item[`${authState.language}_label`]}
-                error={errorList[item.name] === false ? item.error : ""}
-                disabled={item.name === "street" && !city ? true : false}
+                error={errorList[item.key] === false ? item.error : ""}
+                disabled={item.key === "street" && !city ? true : false}
                 ref={refs.current[index]}
                 setState={setCity}
-                defaultValue={editApartment[item.name]}
-                isCityAutocomplete={item.name === "city"}
-                isStreetAutocomplete={item.name === "street" ? city : ""}
+                defaultValue={editApartment[item.key]}
+                isCityAutocomplete={item.key === "city"}
+                isStreetAutocomplete={item.key === "street" ? city : ""}
               />
             </Grid>
           ) : (
             <Grid item sm={item.gridSize} key={item.en_label}>
               <Select
                 label={item[`${authState.language}_label`]}
-                value={editApartment[item.name]}
-                error={errorList[item.name] === false ? item.error : ""}
+                value={editApartment[item.key]}
+                error={errorList[item.key] === false ? item.error : ""}
                 disabled={false}
-                list={item.list ?? []}
+                list={getSelectList(item)}
                 ref={refs.current[index]}
               />
             </Grid>

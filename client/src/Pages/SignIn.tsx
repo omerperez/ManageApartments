@@ -7,9 +7,10 @@ import Input from "../Components/Global/FormComponents/Input";
 import { AuthContext } from "../Contexts/AuthContext";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Auth.css";
-import CookieService from "../Services/CookieService";
-import { getRefValue } from "../Services/Global";
 import { loginRequest } from "../Services/Api/AuthApi";
+import CookieService from "../Services/CookieService";
+import { getInputType } from "../Services/FormService";
+import { getRefValue } from "../Services/Global";
 import { SignInLabelsForm } from "../Services/Translate/SignIn";
 
 export default function SignIn() {
@@ -54,7 +55,7 @@ export default function SignIn() {
             <div className="mt-2" key={`signin-input${index}`}>
               <Input
                 label={item.he_label}
-                textType={item.textType}
+                textType={getInputType(item)}
                 value=""
                 required={true}
                 ref={refs.current[index]}

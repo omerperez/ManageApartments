@@ -2,14 +2,14 @@ import { Grid } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../../Contexts/AuthContext";
-import { AuthContextType } from "../../Data/types/Auth";
-import LanguageBtn from "../../Layout/LanguageBtn";
-import Loading from "../../Layout/Loading";
-import LogoutBtn from "../../Layout/LogoutBtn";
-import SideBar from "../../Layout/SideBar";
-import CookieService from "../../Services/CookieService";
-import { verifyToken } from "../../Services/Api/AuthApi";
+import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContextType } from "../Data/types/Auth";
+import LanguageBtn from "../Layout/LanguageBtn";
+import Loading from "../Layout/Loading";
+import LogoutBtn from "../Layout/LogoutBtn";
+import SideBar from "../Layout/SideBar";
+import { verifyToken } from "../Services/Api/AuthApi";
+import CookieService from "../Services/CookieService";
 
 export default function PrivateRouter({
   children,
@@ -20,12 +20,14 @@ export default function PrivateRouter({
     AuthContext,
   ) as AuthContextType;
   const [loading, setLoading] = useState<boolean>(true);
+  const [isConnect, setIsConnect] = useState<boolean>(true);
 
   useEffect(() => {
-    const token = CookieService.getToken();
-    if (token) {
-      verifyToken(token)
-        .then((data) => {
+    const isUserConnect = async () => {
+      const token = CookieService.getToken();
+      if (token) {
+        try {
+          const data = await verifyToken(token);
           if (data.userId === CookieService.getUserId()) {
             login({
               mobile: data.userId,
@@ -34,20 +36,25 @@ export default function PrivateRouter({
               email: data.email,
               language: "he",
             });
+            setIsConnect(true);
           } else {
             logout();
+            setIsConnect(false);
           }
-        })
-        .then(() => {
           setLoading(false);
-        });
-    }
+        } catch (e) {
+          setLoading(false);
+          logout();
+        }
+      }
+    };
+    isUserConnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;
 
-  return authState.mobile !== "" ? (
+  return isConnect ? (
     <div className="router-layout project-font">
       <div className={`home-layout-${authState.language}`}>
         <Grid container>
@@ -69,6 +76,6 @@ export default function PrivateRouter({
       </div>
     </div>
   ) : (
-    <Navigate to="signin" />
+    <Navigate to="/signin" />
   );
 }

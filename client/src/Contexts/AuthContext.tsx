@@ -1,26 +1,19 @@
 import { createContext, useReducer } from "react";
+import { AuthProviderProps } from "../Data/interfaces/Contexts.interface";
 import { IAuthContext, IUser } from "../Data/interfaces/IUser";
 import { AuthContextType } from "../Data/types/Auth";
 import authReducer from "../Reducers/Auth";
 import CookieService from "../Services/CookieService";
 
-const initialState: IAuthContext = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  mobile: "",
-  language: "",
-  loading: false,
-};
+const initialState: IAuthContext | null = null;
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-interface AuthProviderProps {
-  children: JSX.Element;
-}
-
 export default function AuthPovider({ children }: AuthProviderProps) {
-  const [authState, dispatch] = useReducer(authReducer, initialState);
+  const [authState, dispatch] = useReducer(
+    authReducer,
+    initialState as IAuthContext,
+  );
 
   function login(currentUser: IUser) {
     dispatch({ type: "login", currentUser: currentUser });
@@ -50,4 +43,4 @@ export default function AuthPovider({ children }: AuthProviderProps) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export { AuthPovider, AuthContext, initialState };
+export { AuthPovider, AuthContext };

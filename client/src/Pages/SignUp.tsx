@@ -1,5 +1,4 @@
 import { Button, Grid } from "@mui/material";
-import axios from "axios";
 import { createRef, Ref, useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apartmentLogo } from "../Assets/StaticImages";
@@ -10,12 +9,13 @@ import { IErrosListObject } from "../Data/interfaces/IValidation";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Auth.css";
 import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
+import { registerRequest } from "../Services/Api/AuthApi";
+import { getInputType } from "../Services/FormService";
 import {
   getFieldsErrorStatus,
   getRefValue,
   isFormFieldsErrors,
 } from "../Services/Global";
-import { registerRequest } from "../Services/Api/AuthApi";
 import { SignUpLabelsForm } from "../Services/Translate/SignIn";
 
 export default function SignUp() {
@@ -58,10 +58,10 @@ export default function SignUp() {
               >
                 <Input
                   label={item[`${authState.language}_label`]}
-                  textType={item.textType ?? "text"}
+                  textType={getInputType(item)}
                   value=""
                   required={true}
-                  error={errorList[item.name] === false ? item.error : ""}
+                  error={errorList[item.key] === false ? item.error : ""}
                   ref={refs.current[index]}
                 />
               </Grid>

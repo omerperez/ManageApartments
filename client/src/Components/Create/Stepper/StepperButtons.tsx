@@ -9,11 +9,15 @@ import { PrivateContextType } from "../../../Data/types/Private";
 interface StepperBtnsProps {
   next: () => void;
   back: () => void;
+  activeStep: number;
 }
 
-export default function StepperButtons({ next, back }: StepperBtnsProps) {
+export default function StepperButtons({
+  next,
+  back,
+  activeStep,
+}: StepperBtnsProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const { privateState } = useContext(PrivateContext) as PrivateContextType;
   const CONSTANS = IConstans[`${authState.language.toUpperCase()}_STEPPER`];
 
   return (
@@ -22,7 +26,7 @@ export default function StepperButtons({ next, back }: StepperBtnsProps) {
         <Button
           className="stepper-btn"
           variant="contained"
-          disabled={privateState.activeStep === 0}
+          disabled={activeStep === 0}
           onClick={back}
         >
           {CONSTANS.back}
@@ -31,11 +35,11 @@ export default function StepperButtons({ next, back }: StepperBtnsProps) {
       <Grid item sm={6} className="text-end">
         <Button
           onClick={next}
-          disabled={privateState.activeStep === 2}
+          disabled={activeStep === 2}
           className="stepper-btn next-btn"
           variant="outlined"
         >
-          {privateState.activeStep === 2 ? CONSTANS.create : CONSTANS.next}
+          {activeStep === 2 ? CONSTANS.create : CONSTANS.next}
         </Button>
       </Grid>
     </Grid>

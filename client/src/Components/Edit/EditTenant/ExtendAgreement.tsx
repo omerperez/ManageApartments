@@ -2,7 +2,6 @@ import { Grid } from "@mui/material";
 import { Stack } from "@mui/system";
 import dayjs from "dayjs";
 import { Dispatch, Ref, SetStateAction, useRef, useState } from "react";
-import { Tenant } from "../../../Data/builders/Tenant";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { convertDateFormatToDayJS } from "../../../Features/Format";
 import TenantsCard from "../../ApartmentProfile/TenantsCard";
@@ -56,7 +55,7 @@ export default function ExtendAgreement({
               maxWidth: "90%",
               boxShadow: "5px 5px 15px -5px rgba(0, 0, 0, 0.75)",
             }}
-            currentTenant={tenant as Tenant}
+            currentTenant={tenant}
             language={language}
             isEditDialog={true}
           />

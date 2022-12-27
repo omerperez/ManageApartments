@@ -7,7 +7,7 @@ interface PrivatePoviderProps {
 }
 
 interface IApartment {
-  id?: number;
+  id: number;
   name: string;
   city: string;
   neighborhood: string;
@@ -27,7 +27,7 @@ interface IApartment {
   mainImageIndex: number;
   images: string[];
   currentTenantId: string;
-  managerId?: string;
+  managerId: string;
 }
 
 interface IContext {

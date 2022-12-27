@@ -32,10 +32,7 @@ export default function MoreDetails({
             </b>
           </Grid>
           <Grid item sm={7}>
-            <span>
-              בלה בלה בלה בלה בלה בלה בלה בלה בלה בלהבלה בלה בלה בלה בלה בלה בלה
-              בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה בלה
-            </span>
+            <span>{apartment.comments}</span>
           </Grid>
         </Grid>
       </Grid>

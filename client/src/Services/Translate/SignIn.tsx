@@ -1,40 +1,38 @@
-import { IFieldTypeDemo } from "../../Data/interfaces/Create";
+import { IField } from "../../Data/interfaces/Create";
 import ValidationService from "../../Services/ValidationService";
 
-const SignInLabelsForm = [
+const SignInLabelsForm: IField[] = [
   {
     he_label: "מספר פלאפון",
     en_label: "Mobile",
-    name: "mobile",
-    type: "input",
-    textType: "phone",
+    key: "mobile",
+    type: { fieldType: "input", inputType: "phone" },
+    gridSize: 12,
   },
   {
     he_label: "סיסמא",
     en_label: "Password",
-    name: "password",
-    type: "input",
-    textType: "password",
+    key: "password",
+    type: { fieldType: "input", inputType: "password" },
+    gridSize: 12,
   },
 ];
 
-const SignUpLabelsForm: IFieldTypeDemo[] = [
+const SignUpLabelsForm: IField[] = [
   {
     he_label: "שם פרטי",
     en_label: "First Name",
-    name: "firstName",
-    type: "input",
-    textType: "text",
+    key: "firstName",
     gridSize: 6,
+    type: { fieldType: "input", inputType: "text" },
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה",
   },
   {
     he_label: "שם משפחה",
     en_label: "Last Name",
-    name: "lastName",
-    type: "input",
-    textType: "text",
+    key: "lastName",
+    type: { fieldType: "input", inputType: "text" },
     gridSize: 6,
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה",
@@ -42,9 +40,8 @@ const SignUpLabelsForm: IFieldTypeDemo[] = [
   {
     he_label: "מייל",
     en_label: "Email",
-    name: "email",
-    type: "input",
-    textType: "email",
+    key: "email",
+    type: { fieldType: "input", inputType: "email" },
     gridSize: 12,
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה",
@@ -52,9 +49,8 @@ const SignUpLabelsForm: IFieldTypeDemo[] = [
   {
     he_label: "מספר פלאפון",
     en_label: "Mobile",
-    name: "mobile",
-    type: "input",
-    textType: "phone",
+    key: "mobile",
+    type: { fieldType: "input", inputType: "phone" },
     gridSize: 12,
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה",
@@ -62,9 +58,8 @@ const SignUpLabelsForm: IFieldTypeDemo[] = [
   {
     he_label: "סיסמא",
     en_label: "Password",
-    name: "password",
-    type: "input",
-    textType: "password",
+    key: "password",
+    type: { fieldType: "input", inputType: "password" },
     gridSize: 12,
     validation: { type: "input", function: ValidationService.isNotEmpty },
     error: "שדה חובה",
