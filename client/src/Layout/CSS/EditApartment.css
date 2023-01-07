@@ -2,9 +2,9 @@
   margin: 1.5% 3%;
 }
 .edit-form {
-  padding: 25px;
-  border-radius: 8px;
-  border: solid 4px #809fff;
+  padding: 20px 40px 40px 40px;
+  border-radius: 0px;
+  border: solid 1px #809fff;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }

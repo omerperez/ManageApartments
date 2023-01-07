@@ -1,5 +1,5 @@
 import { IUserReq, IVerifyToken, LoginResponse } from "../../Data/interfaces/Http";
-import { serverPostRequest } from "../HttpService";
+import HttpService from "../HttpService";
 
 const loginApi = "auth/login";
 const verifyTokenApi = "auth/verify";
@@ -10,17 +10,16 @@ const loginRequest = async (mobile: string, password: string) => {
         mobile: mobile,
         password: password,
     };
-    const response = await serverPostRequest(loginApi, user);
+    const response = await HttpService.serverPostRequest(loginApi, user);
     return response.data as LoginResponse;
 };
 
 const registerRequest = async (user: IUserReq) => {
-    const response = await serverPostRequest(registerApi, user);
-    return response.status === 200;
+    return await HttpService.serverPostRequest(registerApi, user);
 }
 
 const verifyToken = async (token: string) => {
-    const response = await serverPostRequest(verifyTokenApi, { token: token });
+    const response = await HttpService.serverPostRequest(verifyTokenApi, { token: token });
     return response.data as IVerifyToken;
 };
 

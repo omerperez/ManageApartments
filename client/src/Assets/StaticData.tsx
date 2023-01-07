@@ -3,7 +3,7 @@ import { Tenant } from "../Data/builders/Tenant";
 import { IUser } from "../Data/interfaces/IUser";
 
 const defaultApartment = new Apartment({
-  id: 1,
+  _id: "1",
   name: "הדירה של עומר",
   city: "הרצליה ",
   neighborhood: "נווה עמל",
@@ -27,7 +27,7 @@ const defaultApartment = new Apartment({
     "/staticImages/apa2.png",
   ],
   currentTenantId: "209543214",
-  managerId: "0545546468",
+  owner: "0545546468",
 });
 
 const defaultTenant: Tenant = new Tenant(

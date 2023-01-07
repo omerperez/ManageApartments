@@ -22,13 +22,13 @@ export default function Details({ apartment, language }: Detailsrops) {
   return (
     <Grid container spacing={1} className="main-details">
       <Grid item xs={9.5}>
-        <b>{`${apartment.address?.street} ${apartment.address?.number}, `}</b>
-        <b className="city-text">{apartment.address?.city}</b>
+        <b>{`${apartment.street} ${apartment.number}, `}</b>
+        <b className="city-text">{apartment.city}</b>
         <br />
         <span className="floor-text">
           {language === "en"
-            ? `Floor ${apartment.address?.floor}`
-            : `קומה ${apartment.address?.floor}`}
+            ? `Floor ${apartment.floor}`
+            : `קומה ${apartment.floor}`}
         </span>
       </Grid>
       <Grid item xs={2.5} className="price-text">

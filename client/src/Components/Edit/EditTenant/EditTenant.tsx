@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { tenantsFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { ITenant } from "../../../Data/interfaces/ITenant";
+import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
-import {
-  getFieldsErrorStatus,
-  isFormFieldsErrors,
-} from "../../../Services/Global";
+import { getSubmitFormValues } from "../../../Services/Global";
 import Date from "../../Global/FormComponents/Date";
 import Input from "../../Global/FormComponents/Input";
 import EditButtons from "../EditButtons";
@@ -19,15 +17,19 @@ interface TenantPartProps {
 
 export default function EditTenant({ editTenant }: TenantPartProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const [errorList, setErrorList] = useState<{ [key: string]: boolean }>({});
+  const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
   const navigate = useNavigate();
   const onSave = () => {
-    const list = getFieldsErrorStatus(tenantsFormLabels, refs);
-    if (isFormFieldsErrors(list)) {
-      setErrorList(list);
-    } else {
+    const [formValues, errorList, isFormPrroper] = getSubmitFormValues(
+      tenantsFormLabels,
+      refs,
+    );
+    if (isFormPrroper) {
       setErrorList({});
+      console.log(formValues);
+    } else {
+      setErrorList(errorList as IErrosListObject);
     }
   };
 
@@ -47,7 +49,7 @@ export default function EditTenant({ editTenant }: TenantPartProps) {
                 label={item[`${authState.language}_label`]}
                 value={editTenant[item.key]}
                 ref={refs.current[index]}
-                errorComment={errorList[item.key] === false ? item.error : ""}
+                errorComment={errorList[item.key]}
               />
             ) : (
               <Input
@@ -56,7 +58,7 @@ export default function EditTenant({ editTenant }: TenantPartProps) {
                 value={editTenant[item.key]}
                 required={true}
                 textType={"text"}
-                error={errorList[item.key] === false ? item.error : ""}
+                error={errorList[item.key]}
                 ref={refs.current[index]}
               />
             )}

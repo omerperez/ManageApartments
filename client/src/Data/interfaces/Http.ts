@@ -1,8 +1,10 @@
 import { IUserProperties } from "./IUser";
 
 interface LoginResponse {
-    accessToken: string;
-    refreshToken: string;
+    auth: {
+        accessToken: string;
+        refreshToken: string;
+    }
     user: IUserProperties;
 }
 

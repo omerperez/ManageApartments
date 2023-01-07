@@ -1,4 +1,4 @@
-import { ISelectMenuItem } from "../interfaces/IForm";
+import { ISelectMenuItem } from "../interfaces/Form.interface";
 
 type ValidationType =
     | { type: "select"; function: (value: string, list: ISelectMenuItem[]) => boolean; }

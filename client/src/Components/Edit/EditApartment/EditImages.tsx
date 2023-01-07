@@ -5,9 +5,9 @@ import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import UploadImages from "../../Create/ManageFiles/UploadImages";
 
 interface EditImagesProps {
-  prevImages: string[] | [];
-  images: string[];
-  setImages: Dispatch<SetStateAction<string[]>>;
+  prevImages: File[] | [];
+  images: File[];
+  setImages: Dispatch<SetStateAction<File[]>>;
   mainImageIndex: number;
   setMainImageIndex: Dispatch<SetStateAction<number>>;
   open: boolean;
@@ -23,7 +23,7 @@ export default function EditImages({
   open,
   setOpen,
 }: EditImagesProps) {
-  const [imagesBackup, setImagesBackup] = useState<string[]>(prevImages);
+  const [imagesBackup, setImagesBackup] = useState<File[]>(prevImages);
   const handleClickOpen = () => {
     setOpen(true);
   };

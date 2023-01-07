@@ -1,4 +1,4 @@
 interface IErrosListObject {
-    [key: string]: boolean;
+    [key: string]: string;
 }
-export type { IErrosListObject }
+export type { IErrosListObject }; 

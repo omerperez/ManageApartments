@@ -1,7 +1,7 @@
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { forwardRef, Ref, useState } from "react";
-import { ISelectMenuItem } from "../../../Data/interfaces/IForm";
+import { ISelectMenuItem } from "../../../Data/interfaces/Form.interface";
 import FormLayout from "../../../Layout/FormLayout";
 
 interface SelectProps {

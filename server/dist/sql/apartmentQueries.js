@@ -2,19 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const apartmentById = `SELECT * FROM APARTMENTS WHERE id = :id`;
 const getManagerApartmentById = `SELECT * FROM APARTMENTS WHERE "managerId" = :id`;
-const createApartment = `INSERT INTO APARTMENTS(
+const createApartment = `INSERT INTO public.apartments (
   name, city, neighborhood, street, "number", 
   floor, "apartmentNumber", postCode, price, area,
   bedrooms, toilet, animals, includes,
   comments, "mainImageIndex", images, "currentTenantId", "managerId"
 )
-VALUES (
+VALUES(
   :name, :city, :neighborhood, :street, :number, 
   :floor, :apartmentNumber, :postCode, :price, :area, 
   :bedrooms, :toilet, :animals, :includes, 
   :comments, :mainImageIndex, :images, :currentTenantId, :managerId
-  );
-`;
+  )`;
 const editApartment = `UPDATE APARTMENTS
     SET id=:id, name=:name, city=:city, neighborhood=:neighborhood, 
     street=:street, "number"=:number, floor=:floor,

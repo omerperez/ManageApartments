@@ -1,28 +1,56 @@
 import { Grid } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
+import { IAttachFileForm } from "../../../Data/interfaces/Form.interface";
+import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import UploadImages from "../ManageFiles/UploadImages";
 import UploadPDF from "../ManageFiles/UploadPDF";
 import StepperBtns from "../Stepper/StepperButtons";
 
 interface AttachFilesFormProps {
+  files: IAttachFileForm | null;
+  setFiles: Dispatch<SetStateAction<IAttachFileForm | null>>;
   setActiveStep: Dispatch<SetStateAction<number>>;
 }
 export default function AttachFilesForm({
+  files,
+  setFiles,
   setActiveStep,
 }: AttachFilesFormProps) {
-  const [images, setImages] = useState<string[]>([]);
-  const [mainImages, setMainImage] = useState<number>(0);
-  const [doc, setDoc] = useState<string>("");
+  // const [images, setImages] = useState<string[]>(files?.images ?? []);
+  const [images, setImages] = useState<File[]>(files?.images ?? []);
+  const [mainImages, setMainImage] = useState<number>(
+    files?.mainImageIndex ?? 0,
+  );
+  const [doc, setDoc] = useState<File | null>(files?.agreement ?? null);
+  const [error, setError] = useState<IErrosListObject>({});
+
+  const setFilesObject = () => {
+    setFiles({
+      mainImageIndex: mainImages,
+      images: images,
+      agreement: doc,
+      // currentAgreement: doc,
+    });
+  };
 
   const changeMainImage = (index: number) => {
     setMainImage(index);
   };
 
   const clickNext = () => {
-    setActiveStep(2);
+    let currentErrorList: IErrosListObject = {};
+    if (doc && images.length !== 0) {
+      setFilesObject();
+      setActiveStep(3);
+    } else {
+      if (!doc) currentErrorList.doc = "שדה חובה";
+      if (images.length === 0) currentErrorList.images = "שדה חובה";
+    }
+    setError(currentErrorList);
   };
 
   const clickBack = () => {
+    setFilesObject();
     setActiveStep(1);
   };
 
@@ -35,9 +63,7 @@ export default function AttachFilesForm({
           <Grid container className="mt-3">
             <Grid item sm={5} className={"padding-files-btn"}>
               <UploadPDF pdf={doc} setPdf={setDoc} />
-              {!doc && (
-                <div className="input-error fs-5 mt-2">{"שדה חובה"}</div>
-              )}
+              {<div className="input-error fs-5 mt-2">{error.doc}</div>}
             </Grid>
             <Grid item sm={7}>
               <UploadImages
@@ -45,6 +71,7 @@ export default function AttachFilesForm({
                 setImages={setImages}
                 mainImages={mainImages}
                 handleChangeMainImage={changeMainImage}
+                error={error.images}
               />
             </Grid>
           </Grid>

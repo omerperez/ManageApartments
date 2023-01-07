@@ -1,14 +1,14 @@
 import { HighlightOff } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { getBase64 } from "../../../Services/FileService";
 
 interface UploadPdfProps {
-  pdf: string;
-  setPdf: Dispatch<SetStateAction<string>>;
+  pdf: File | null;
+  setPdf: Dispatch<SetStateAction<File | null>>;
   textButton?: string;
   buttonClassName?: string;
 }
+
 export default function UploadPDF({
   pdf,
   setPdf,
@@ -16,15 +16,16 @@ export default function UploadPDF({
   textButton,
 }: UploadPdfProps) {
   const handleChangeFiles = (file: File) => {
-    if (file) {
-      getBase64(file).then((result) => {
-        setPdf(result);
-      });
-    }
+    setPdf(file);
+    // if (file) {
+    //   getBase64(file).then((result) => {
+    //     setPdf(file);
+    //   });
+    // }
   };
 
   const removePdfFile = () => {
-    setPdf("");
+    setPdf(null);
   };
 
   if (!pdf) {

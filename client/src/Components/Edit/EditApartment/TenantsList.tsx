@@ -9,6 +9,7 @@ import { AuthContext } from "../../../Contexts/AuthContext";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { AuthContextType } from "../../../Data/types/Auth";
 import TenantsCard from "../../ApartmentProfile/TenantsCard";
+import EditPdf from "../../Create/ManageFiles/EditPdf";
 import UploadPDF from "../../Create/ManageFiles/UploadPDF";
 import EditButtons from "../EditButtons";
 
@@ -91,7 +92,7 @@ export default function TenantsList({
           ) : (
             <>
               <h5>חוזה</h5>
-              <UploadPDF pdf={pdf} setPdf={setPdf} />
+              <EditPdf pdf={pdf} setPdf={setPdf} />
             </>
           )}
         </Grid>

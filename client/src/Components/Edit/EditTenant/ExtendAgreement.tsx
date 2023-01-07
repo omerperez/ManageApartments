@@ -5,6 +5,7 @@ import { Dispatch, Ref, SetStateAction, useRef, useState } from "react";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { convertDateFormatToDayJS } from "../../../Features/Format";
 import TenantsCard from "../../ApartmentProfile/TenantsCard";
+import EditPdf from "../../Create/ManageFiles/EditPdf";
 import UploadPDF from "../../Create/ManageFiles/UploadPDF";
 import Date from "../../Global/FormComponents/Date";
 import EditButtons from "../EditButtons";
@@ -69,7 +70,7 @@ export default function ExtendAgreement({
               errorComment={error}
             />
             <div>
-              <UploadPDF
+              <EditPdf
                 pdf={doc}
                 setPdf={setDoc}
                 buttonClassName="extend-agreement-file-btn"

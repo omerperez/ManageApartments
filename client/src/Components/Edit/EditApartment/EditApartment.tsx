@@ -7,10 +7,7 @@ import { IApartment } from "../../../Data/interfaces/IApartment";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import { getInputType, getSelectList } from "../../../Services/FormService";
-import {
-  getFieldsErrorStatus,
-  isFormFieldsErrors,
-} from "../../../Services/Global";
+import { getSubmitFormValues } from "../../../Services/Global";
 import Autocomplete from "../../Global/FormComponents/Autocomplete";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
@@ -30,17 +27,17 @@ export default function EditApartmentForm({
   const refs: Ref<any> = useRef(apartmentFormLabels.map(() => createRef()));
 
   const onSubmit = () => {
-    const list = getFieldsErrorStatus(
+    const [formValues, errorList, isFormPropper] = getSubmitFormValues(
       apartmentFormLabels,
       refs,
-      // valuesSelectLists,
     );
 
-    if (isFormFieldsErrors(list)) {
-      setErrorList(list);
-    } else {
+    if (isFormPropper) {
       setErrorList({});
+      console.log(formValues);
       return navigate("/");
+    } else {
+      setErrorList(errorList as IErrosListObject);
     }
   };
 
@@ -65,7 +62,7 @@ export default function EditApartmentForm({
                 textType={getInputType(item)}
                 label={item[`${authState.language}_label`]}
                 value={editApartment[item.key]}
-                error={errorList[item.key] === false ? item.error : ""}
+                error={errorList[item.key]}
                 required={true}
                 ref={refs.current[index]}
               />
@@ -74,7 +71,7 @@ export default function EditApartmentForm({
             <Grid item sm={item.gridSize} key={item.en_label}>
               <Autocomplete
                 label={item[`${authState.language}_label`]}
-                error={errorList[item.key] === false ? item.error : ""}
+                error={errorList[item.key]}
                 disabled={item.key === "street" && !city ? true : false}
                 ref={refs.current[index]}
                 setState={setCity}
@@ -88,7 +85,7 @@ export default function EditApartmentForm({
               <Select
                 label={item[`${authState.language}_label`]}
                 value={editApartment[item.key]}
-                error={errorList[item.key] === false ? item.error : ""}
+                error={errorList[item.key]}
                 disabled={false}
                 list={getSelectList(item)}
                 ref={refs.current[index]}

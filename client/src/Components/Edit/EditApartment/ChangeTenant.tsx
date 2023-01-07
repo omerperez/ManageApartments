@@ -13,9 +13,9 @@ import { ITenant } from "../../../Data/interfaces/ITenant";
 import { AuthContextType } from "../../../Data/types/Auth";
 import { DialogSelectEditTenantTypeMui } from "../../../Layout/Mui/Edit";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
-import CreateTenantForm from "../../Create/CreateForms/TenantForm";
 import EditButtons from "../EditButtons";
 import EditTenant from "../EditTenant/EditTenant";
+import EditTenantForm from "../EditTenant/EditTenantForm";
 import ExtendAgreement from "../EditTenant/ExtendAgreement";
 import ChangeTenantButton from "./ChangeTenantButton";
 import TenantsList from "./TenantsList";
@@ -71,7 +71,7 @@ export default function ChangeTenant({
       setOpen={setOpen}
     />,
     <>
-      <CreateTenantForm isEditTenant={true} editTenant={defaultTenant2} />
+      <EditTenantForm editTenant={defaultTenant2} />
       <div className="mt-5">
         <EditButtons
           onSave={() => {

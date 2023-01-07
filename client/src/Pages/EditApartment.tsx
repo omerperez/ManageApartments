@@ -46,7 +46,7 @@ export default function EditApartment() {
           </Grid>
           <Grid item sm={4}>
             <Stack direction={"row"} justifyContent={"flex-end"}>
-              <EditImages
+              {/* <EditImages
                 prevImages={currentApartment.images}
                 images={images}
                 setImages={setImages}
@@ -54,7 +54,7 @@ export default function EditApartment() {
                 setMainImageIndex={setMainImage}
                 open={openEditImages}
                 setOpen={setOpenEditImages}
-              />
+              /> */}
               <ChangeTenant
                 editTenantId={currentApartment.currentTenantId}
                 apartmentId={currentApartment.name} //change to id

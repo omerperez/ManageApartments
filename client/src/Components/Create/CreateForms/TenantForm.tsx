@@ -10,32 +10,29 @@ import {
 } from "react";
 import { tenantsFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { ITenant } from "../../../Data/interfaces/ITenant";
+import { ITenantCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import {
-  getFormFieldError,
+  getFieldValue,
   getSelectList,
-  getTenantValue,
+  getTenantFormObject,
 } from "../../../Services/FormService";
-import {
-  getFieldsErrorStatus,
-  isFormFieldsErrors,
-} from "../../../Services/Global";
+import { getSubmitFormValues } from "../../../Services/Global";
 import Date from "../../Global/FormComponents/Date";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
 import StepperBtns from "../Stepper/StepperButtons";
 
 interface TenantFormProps {
-  editTenant?: ITenant;
-  isEditTenant?: boolean;
-  setActiveStep?: Dispatch<SetStateAction<number>>;
+  newTenant: ITenantCreateForm | null;
+  setNewTenant: Dispatch<SetStateAction<ITenantCreateForm | null>>;
+  setActiveStep: Dispatch<SetStateAction<number>>;
 }
 
 export default function TenantForm({
-  editTenant,
-  isEditTenant,
+  newTenant,
+  setNewTenant,
   setActiveStep,
 }: TenantFormProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
@@ -43,17 +40,24 @@ export default function TenantForm({
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
 
   const handleClickNext = () => {
-    const list = getFieldsErrorStatus(tenantsFormLabels, refs);
-    if (isFormFieldsErrors(list)) {
-      setErrorList(list);
-    } else {
+    const [formValues, errorList, isFormPropper] = getSubmitFormValues(
+      tenantsFormLabels,
+      refs,
+    );
+    if (isFormPropper) {
       setErrorList({});
-      setActiveStep && setActiveStep(2);
+      const values = formValues as { [key: string]: string };
+      const tenantData: ITenantCreateForm = getTenantFormObject(values);
+      setNewTenant(tenantData);
+      setActiveStep(2);
+    } else {
+      setActiveStep(2);
+      setErrorList(errorList as IErrosListObject);
     }
   };
 
   const handleClickBack = () => {
-    setActiveStep && setActiveStep(0);
+    setActiveStep(0);
   };
 
   const title = "פרטי הדייר";
@@ -67,15 +71,15 @@ export default function TenantForm({
               {item.type.fieldType === "date" ? (
                 <Date
                   label={item[`${authState.language}_label`]}
-                  value={getTenantValue(editTenant, item.key)}
+                  value={getFieldValue(item.key, newTenant)}
                   ref={refs.current[index]}
-                  errorComment={getFormFieldError(item, errorList)}
+                  errorComment={errorList[item.key]}
                 />
               ) : item.type.fieldType === "select" ? (
                 <Select
                   label={item[`${authState.language}_label`]}
-                  value={getTenantValue(editTenant, item.key)}
-                  error={errorList[item.key] === false ? item.error : ""}
+                  value={getFieldValue(item.key, newTenant)}
+                  error={errorList[item.key]}
                   disabled={false}
                   list={getSelectList(item)}
                   ref={refs.current[index]}
@@ -84,10 +88,10 @@ export default function TenantForm({
                 <Input
                   label={item[`${authState.language}_label`]}
                   disabled={false}
-                  value={getTenantValue(editTenant, item.key)}
+                  value={getFieldValue(item.key, newTenant)}
                   required={true}
                   textType={"text"}
-                  error={getFormFieldError(item, errorList)}
+                  error={errorList[item.key]}
                   ref={refs.current[index]}
                 />
               )}
@@ -95,13 +99,11 @@ export default function TenantForm({
           ))}
         </Grid>
       </div>
-      {!isEditTenant && (
-        <StepperBtns
-          next={handleClickNext}
-          back={handleClickBack}
-          activeStep={1}
-        />
-      )}
+      <StepperBtns
+        next={handleClickNext}
+        back={handleClickBack}
+        activeStep={1}
+      />
     </>
   );
 }

@@ -25,7 +25,7 @@ const SignUpLabelsForm: IField[] = [
     key: "firstName",
     gridSize: 6,
     type: { fieldType: "input", inputType: "text" },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
   {
@@ -34,7 +34,7 @@ const SignUpLabelsForm: IField[] = [
     key: "lastName",
     type: { fieldType: "input", inputType: "text" },
     gridSize: 6,
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
   {
@@ -43,7 +43,7 @@ const SignUpLabelsForm: IField[] = [
     key: "email",
     type: { fieldType: "input", inputType: "email" },
     gridSize: 12,
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
   {
@@ -52,7 +52,7 @@ const SignUpLabelsForm: IField[] = [
     key: "mobile",
     type: { fieldType: "input", inputType: "phone" },
     gridSize: 12,
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
   {
@@ -61,7 +61,7 @@ const SignUpLabelsForm: IField[] = [
     key: "password",
     type: { fieldType: "input", inputType: "password" },
     gridSize: 12,
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
 ];

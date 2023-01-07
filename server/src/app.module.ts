@@ -4,13 +4,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { env } from 'process';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { ApartmentModule } from './apartment/apartment.module';
-import { AuthModule } from './auth/auth.module';
-import { TenantModule } from './tenant/tenant.module';
+// import { S3Module } from './s3/s3.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ApartmentModule } from './modules/apartment/apartment.module';
+import { TenantModule } from './modules/tenant/tenant.module';
+import { FileUploaderModule } from './modules/fileUploader/fileUploader.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
+    MongooseModule.forRoot('mongodb+srv://db_user:omer200198@cluster0.nf5ea.mongodb.net/?retryWrites=true&w=majority'),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -22,12 +26,13 @@ import { TenantModule } from './tenant/tenant.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
     UserModule,
     ApartmentModule,
-    AuthModule,
     TenantModule,
+    // FileUploaderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

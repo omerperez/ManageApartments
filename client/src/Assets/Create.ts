@@ -1,5 +1,5 @@
 import { IField, ITranslateLabel } from "../Data/interfaces/Create";
-import { ISelectMenuItem } from "../Data/interfaces/IForm";
+import { ISelectMenuItem } from "../Data/interfaces/Form.interface";
 import ValidationService from "../Services/ValidationService";
 
 const genderList: ISelectMenuItem[] = [
@@ -29,7 +29,7 @@ const apartmentFormLabels: IField[] = [
     key: "name",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -38,7 +38,6 @@ const apartmentFormLabels: IField[] = [
     key: "city",
     gridSize: 4,
     type: { fieldType: 'autocomplete', apiListKey: 'city' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא בחר ערך מתוך הרשימה"
   },
   {
@@ -47,7 +46,7 @@ const apartmentFormLabels: IField[] = [
     key: "neighborhood",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -56,7 +55,6 @@ const apartmentFormLabels: IField[] = [
     key: "street",
     gridSize: 4,
     type: { fieldType: 'autocomplete', apiListKey: 'street' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא בחר ערך מתוך הרשימה"
   },
   {
@@ -65,7 +63,7 @@ const apartmentFormLabels: IField[] = [
     key: "number",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -74,7 +72,7 @@ const apartmentFormLabels: IField[] = [
     key: "floor",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -83,7 +81,7 @@ const apartmentFormLabels: IField[] = [
     key: "apartmentNumber",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -92,7 +90,7 @@ const apartmentFormLabels: IField[] = [
     key: "postCode",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "input", function: ValidationService.isPositiveNumber },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -101,7 +99,7 @@ const apartmentFormLabels: IField[] = [
     key: "price",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "input", function: ValidationService.isPositiveNumber },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -110,7 +108,7 @@ const apartmentFormLabels: IField[] = [
     key: "area",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "input", function: ValidationService.isPositiveNumber },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -119,7 +117,7 @@ const apartmentFormLabels: IField[] = [
     key: "bedrooms",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -128,7 +126,7 @@ const apartmentFormLabels: IField[] = [
     key: "toilet",
     gridSize: 2,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -137,7 +135,6 @@ const apartmentFormLabels: IField[] = [
     key: "animals",
     gridSize: 2,
     type: { fieldType: 'select', list: isFitForAnimalsList },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   },
   {
@@ -146,7 +143,6 @@ const apartmentFormLabels: IField[] = [
     key: "includes",
     gridSize: 2,
     type: { fieldType: 'select', list: isFitForAnimalsList },
-    validation: { type: "select", function: ValidationService.isValueIncludes },
     error: "אנא אזן ערך חוקי"
   }, {
     he_label: "הערות נוספות",
@@ -154,7 +150,7 @@ const apartmentFormLabels: IField[] = [
     key: "comments",
     gridSize: 12,
     type: { fieldType: "input", inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "אנא בחר ערך מתוך הרשימה"
   },
 ];
@@ -166,7 +162,7 @@ const tenantsFormLabels: IField[] = [
     key: "firstName",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -175,7 +171,7 @@ const tenantsFormLabels: IField[] = [
     key: "lastName",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -184,7 +180,7 @@ const tenantsFormLabels: IField[] = [
     key: "id",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'text' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -193,7 +189,7 @@ const tenantsFormLabels: IField[] = [
     key: "mobileNumber",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "input", function: ValidationService.isMobilePropper },
+    validationFunction: ValidationService.isMobilePropper,
     error: "מספר נייד אינו תקין"
   },
   {
@@ -202,7 +198,7 @@ const tenantsFormLabels: IField[] = [
     key: "anotherMobileNumber",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'number' },
-    validation: { type: "input", function: ValidationService.isMobilePropper },
+    validationFunction: ValidationService.isMobilePropper,
     error: "מספר נייד אינו תקין"
   },
   {
@@ -211,7 +207,7 @@ const tenantsFormLabels: IField[] = [
     key: "email",
     gridSize: 4,
     type: { fieldType: 'input', inputType: 'email' },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -227,7 +223,7 @@ const tenantsFormLabels: IField[] = [
     key: "birthday",
     gridSize: 3.25,
     type: { fieldType: "date", isPastDate: true },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -236,7 +232,7 @@ const tenantsFormLabels: IField[] = [
     key: "startDate",
     gridSize: 3.25,
     type: { fieldType: "date", isPastDate: "both" },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
   {
@@ -245,7 +241,7 @@ const tenantsFormLabels: IField[] = [
     key: "endDate",
     gridSize: 3.25,
     type: { fieldType: "date", isPastDate: false },
-    validation: { type: "input", function: ValidationService.isNotEmpty },
+    validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
 ];

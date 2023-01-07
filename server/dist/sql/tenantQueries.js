@@ -26,7 +26,7 @@ const createTenant = `INSERT INTO tenants(
         :anotherMobileNumber, :email, :age, :gender,
         :currentAgreement, :agreement, :birthday,
         :startDate, :endDate
-    );`;
+    )`;
 const editTenant = `UPDATE tenants
 	SET id=:id, "firstName"=:firstName, "lastName"=:lastName, 
     "mobileNumber"=:mobileNumber, "anotherMobileNumber"=:anotherMobileNumber,

@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Address } from "../builders/Apartment";
 import { ITenant } from "./ITenant";
 
 interface PrivatePoviderProps {
@@ -7,7 +6,7 @@ interface PrivatePoviderProps {
 }
 
 interface IApartment {
-  id: number;
+  _id?: string;
   name: string;
   city: string;
   neighborhood: string;
@@ -15,7 +14,6 @@ interface IApartment {
   number: number;
   floor: number;
   apartmentNumber: number;
-  address?: Address;
   postCode: number;
   price: number;
   area: number;
@@ -27,18 +25,13 @@ interface IApartment {
   mainImageIndex: number;
   images: string[];
   currentTenantId: string;
-  managerId: string;
+  owner: string;
 }
 
 interface IContext {
   apartment: IApartment;
   tenant: ITenant;
   activeStep: number;
-  // steps: {
-  //   apartment: boolean;
-  //   tenant: boolean;
-  //   files: boolean;
-  // };
 }
 
 interface IApartmentCardButton {

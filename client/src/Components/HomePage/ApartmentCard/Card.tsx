@@ -57,7 +57,7 @@ export default function ApartmentCard({
             </div>
             <CardHeader
               title={`${apartment.name}`}
-              subheader={apartment.address.getFullAddress()}
+              subheader={apartment.getFullAddress()}
             />
             <CardMenuActions apartmentId={apartment.id.toString()} />
             <Collapse in={expanded} timeout="auto">

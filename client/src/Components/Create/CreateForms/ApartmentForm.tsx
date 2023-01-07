@@ -10,13 +10,16 @@ import {
 } from "react";
 import { apartmentFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
+import { IApartmentCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
-import { getInputType, getSelectList } from "../../../Services/FormService";
 import {
-  getFieldsErrorStatus,
-  isFormFieldsErrors,
-} from "../../../Services/Global";
+  getApartmentFormObject,
+  getFieldValue,
+  getInputType,
+  getSelectList,
+} from "../../../Services/FormService";
+import { getSubmitFormValues } from "../../../Services/Global";
 import Autocomplete from "../../Global/FormComponents/Autocomplete";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
@@ -24,21 +27,50 @@ import StepperBtns from "../Stepper/StepperButtons";
 
 interface ApartmentFormProps {
   setActiveStep: Dispatch<SetStateAction<number>>;
+  newApartment: IApartmentCreateForm | null;
+  setNewApartment: Dispatch<SetStateAction<IApartmentCreateForm | null>>;
 }
-export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
+
+export default function ApartmentForm({
+  setActiveStep,
+  newApartment,
+  setNewApartment,
+}: ApartmentFormProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
   const [city, setCity] = useState<string>("");
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(apartmentFormLabels.map(() => createRef()));
 
+  const onSubmit = () => {
+    const [formValues, errorList, isFormPropper] = getSubmitFormValues(
+      apartmentFormLabels,
+      refs,
+    );
+    if (isFormPropper) {
+      setErrorList({});
+      const values = formValues as { [key: string]: string };
+      const objData: IApartmentCreateForm = getApartmentFormObject(values);
+    } else {
+      setActiveStep(1);
+      setErrorList(errorList as IErrosListObject);
+    }
+  };
+
   const handleClickNext = () => {
-    const list = getFieldsErrorStatus(apartmentFormLabels, refs);
-    if (isFormFieldsErrors(list)) {
-      setErrorList(list);
+    const [formValues, errorList, isFormPropper] = getSubmitFormValues(
+      apartmentFormLabels,
+      refs,
+    );
+
+    if (isFormPropper) {
+      setErrorList({});
+      const values = formValues as { [key: string]: string };
+      const objData: IApartmentCreateForm = getApartmentFormObject(values);
+      setNewApartment(objData);
       setActiveStep(1);
     } else {
-      setErrorList({});
       setActiveStep(1);
+      setErrorList(errorList as IErrosListObject);
     }
   };
 
@@ -55,6 +87,7 @@ export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
                 className="area-input"
                 aria-label={`${item[authState.language]}-label`}
                 minRows={5}
+                defaultValue={newApartment?.comments}
                 placeholder={item[`${authState.language}_label`]}
                 ref={refs.current[index]}
               />
@@ -63,8 +96,8 @@ export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
                 <Input
                   textType={getInputType(item)}
                   label={item[`${authState.language}_label`]}
-                  value={""}
-                  error={errorList[item.key] === false ? item.error : ""}
+                  value={getFieldValue(item.key, newApartment)}
+                  error={errorList[item.key]}
                   required={true}
                   ref={refs.current[index]}
                 />
@@ -73,8 +106,9 @@ export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
               <Grid item sm={item.gridSize} key={item.en_label}>
                 <Autocomplete
                   label={item[`${authState.language}_label`]}
-                  error={errorList[item.key] === false ? item.error : ""}
+                  error={errorList[item.key]}
                   disabled={item.key === "street" && !city ? true : false}
+                  defaultValue={getFieldValue(item.key, newApartment)}
                   ref={refs.current[index]}
                   setState={setCity}
                   isCityAutocomplete={item.key === "city"}
@@ -85,8 +119,8 @@ export default function ApartmentForm({ setActiveStep }: ApartmentFormProps) {
               <Grid item sm={item.gridSize} key={item.en_label}>
                 <Select
                   label={item[`${authState.language}_label`]}
-                  value={""}
-                  error={errorList[item.key] === false ? item.error : ""}
+                  value={getFieldValue(item.key, newApartment)}
+                  error={errorList[item.key]}
                   disabled={false}
                   list={getSelectList(item)}
                   ref={refs.current[index]}

@@ -1,10 +1,13 @@
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function Loading() {
+interface LoadingProps {
+  text?: string;
+}
+export default function Loading({ text }: LoadingProps) {
   return (
     <div className="loading">
       <CircularProgress size={80} />
-      <div className="loading-text">Loading...</div>
+      <div className="loading-text">{text ?? "Loading..."}</div>
     </div>
   );
 }

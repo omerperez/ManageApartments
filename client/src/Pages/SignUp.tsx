@@ -11,11 +11,7 @@ import "../Layout/CSS/Auth.css";
 import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
 import { registerRequest } from "../Services/Api/AuthApi";
 import { getInputType } from "../Services/FormService";
-import {
-  getFieldsErrorStatus,
-  getRefValue,
-  isFormFieldsErrors,
-} from "../Services/Global";
+import { getSubmitFormValues } from "../Services/Global";
 import { SignUpLabelsForm } from "../Services/Translate/SignIn";
 
 export default function SignUp() {
@@ -25,22 +21,28 @@ export default function SignUp() {
   const refs: Ref<any> = useRef(SignUpLabelsForm.map(() => createRef()));
 
   const handleSubmit = async () => {
-    const list = getFieldsErrorStatus(SignUpLabelsForm, refs);
-    if (isFormFieldsErrors(list)) {
-      setErrorList(list);
-    } else {
+    const [formValues, errorList, isFormPropper] = getSubmitFormValues(
+      SignUpLabelsForm,
+      refs,
+    );
+    if (isFormPropper) {
       setErrorList({});
-      const user: IUserReq = {
-        mobile: getRefValue(refs, 3),
-        firstName: getRefValue(refs, 0),
-        lastName: getRefValue(refs, 1),
-        email: getRefValue(refs, 2),
-        password: getRefValue(refs, 4),
+      const values = formValues as IErrosListObject;
+      const dataRequest: IUserReq = {
+        mobile: values.mobile,
+        firstName: values.firsName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
       };
-      const isStatusPropper = await registerRequest(user);
+      const isStatusPropper = await registerRequest(dataRequest);
       if (isStatusPropper) return navigate("/signin");
+    } else {
+      setErrorList(errorList as IErrosListObject);
     }
   };
+
+  const language = authState?.language ?? "he";
 
   return (
     <div className="login-page">
@@ -57,11 +59,11 @@ export default function SignUp() {
                 key={`grid-signup-form${item.en_label}`}
               >
                 <Input
-                  label={item[`${authState.language}_label`]}
+                  label={item[`${language}_label`]}
                   textType={getInputType(item)}
                   value=""
                   required={true}
-                  error={errorList[item.key] === false ? item.error : ""}
+                  error={errorList[item.key]}
                   ref={refs.current[index]}
                 />
               </Grid>
@@ -91,7 +93,7 @@ export default function SignUp() {
 //     className="label-title"
 //     id={"form-title-label-employee-number"}
 //   >
-//     {item[`${authState.language ? "en" : "he"}_label`]}
+//     {item[`${language ? "en" : "he"}_label`]}
 //   </FormLabel>
 //   <div className="auth-input">
 //     <TextField
@@ -99,7 +101,7 @@ export default function SignUp() {
 //       required
 //       variant="outlined"
 //       id="employee-number"
-//       label={item[`${authState.language ? "en" : "he"}_label`]}
+//       label={item[`${language ? "en" : "he"}_label`]}
 //       type={item.type}
 //       value={values[item.name]}
 //       name={item.name}

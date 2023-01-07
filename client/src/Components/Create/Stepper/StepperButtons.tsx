@@ -35,7 +35,6 @@ export default function StepperButtons({
       <Grid item sm={6} className="text-end">
         <Button
           onClick={next}
-          disabled={activeStep === 2}
           className="stepper-btn next-btn"
           variant="outlined"
         >

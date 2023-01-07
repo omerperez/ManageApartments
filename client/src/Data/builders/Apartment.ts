@@ -1,39 +1,8 @@
 import { IApartment } from "../interfaces/IApartment";
 
-class Address {
-    city: string;
-    street: string;
-    number: number;
-    floor: number;
-
-    constructor(city: string, street: string, number: number, floor: number) {
-        this.city = city;
-        this.street = street;
-        this.number = number;
-        this.floor = floor;
-    }
-    getFullAddress() {
-        return `${this.street} ${this.number}, ${this.floor && 'קומה'} ${this.floor},  ${this.city}`
-    }
-}
-type ApartmentConstractorType =
-    | {
-        type: 'elemnt', element: {
-            name: string, city: string,
-            neighborhood: string,
-            street: string, number: number, floor: number,
-            apartmentNumber: number, postCode: number,
-            price: number,
-            area: number, bedrooms: number, toilet: number,
-            animals: string, includes: string, comments: string,
-            mainImageIndex: number,
-            images: string[], currentTenantId: string
-        }
-    }
-    | { type: 'interface', apartment: IApartment };
 
 class Apartment implements IApartment {
-    id: number;
+    id: string;
     name: string;
     city: string;
     neighborhood: string;
@@ -41,7 +10,6 @@ class Apartment implements IApartment {
     number: number;
     floor: number;
     apartmentNumber: number;
-    address: Address;
     postCode: number;
     price: number;
     area: number;
@@ -53,17 +21,16 @@ class Apartment implements IApartment {
     mainImageIndex: number;
     images: string[];
     currentTenantId: string;
-    managerId: string;
+    owner: string;
 
     constructor(apartment: IApartment) {
-        this.id = apartment.id;
+        this.id = apartment._id ?? '';
         this.name = apartment.name;
         this.city = apartment.city;
         this.neighborhood = apartment.neighborhood;
         this.street = apartment.street;
         this.number = apartment.number;
         this.floor = apartment.floor;
-        this.address = new Address(apartment.city, apartment.street, apartment.number, apartment.floor);
         this.apartmentNumber = apartment.apartmentNumber;
         this.postCode = apartment.postCode;
         this.bedrooms = apartment.bedrooms;
@@ -76,7 +43,7 @@ class Apartment implements IApartment {
         this.price = apartment.price;
         this.images = apartment.images;
         this.currentTenantId = apartment.currentTenantId;
-        this.managerId = apartment.managerId;
+        this.owner = apartment.owner;
     }
 
     isRent() {
@@ -87,7 +54,7 @@ class Apartment implements IApartment {
 
     getDateFormat = (date: Date) => {
         return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`
-    }
+    };
 
     getContentProperties() {
         return [
@@ -112,7 +79,11 @@ class Apartment implements IApartment {
             },
         ];
     }
+
+    getFullAddress() {
+        return `${this.street} ${this.number}, ${this.floor && 'קומה'} ${this.floor},  ${this.city}`;
+    }
 }
 
-export { Apartment, Address };
+export { Apartment };
 

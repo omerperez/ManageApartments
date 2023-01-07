@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { topDashboardTitles } from "../Assets/HomePage";
 import { MY_APARTMENT } from "../Assets/IConstans";
-import { defaultApartment } from "../Assets/StaticData";
 import GlobalButton from "../Components/Global/GlobalButton";
 import Card from "../Components/HomePage/ApartmentCard/Card";
 import SmallCard from "../Components/HomePage/TopCard";
@@ -22,13 +21,18 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getAllApartments(authState.mobile)
-      .then((apartments) => {
+    const fetchData = async () => {
+      console.log(authState.mobile);
+      try {
+        const apartments = await getAllApartments(authState.mobile);
+        console.log(apartments);
         setApartments(apartments);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+      } catch (error) {
+        setApartments([]);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
   if (loading) {

@@ -1,16 +1,8 @@
-import { ValidationType } from "../types/Validation";
-import { ISelectMenuItem } from "./IForm";
+import { ISelectMenuItem } from "./Form.interface";
 
 interface ITranslateLabel {
     he_label: string;
     en_label: string;
-}
-
-interface IFieldType extends ITranslateLabel {
-    name: string;
-    gridSize: number;
-    type: "input" | "select" | "autocomplete" | "date";
-    textType?: string;
 }
 
 type InputFieldType =
@@ -23,8 +15,8 @@ interface IField extends ITranslateLabel {
     key: string;
     gridSize: number;
     type: InputFieldType;
-    validation?: ValidationType;
+    validationFunction?: (value?: string) => boolean;
     error?: string;
 }
 
-export type { IFieldType, IField, ITranslateLabel };
+export type { IField, ITranslateLabel };

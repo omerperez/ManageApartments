@@ -8,10 +8,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ISelectMenuItem } from "../../../Data/interfaces/IForm";
+import { ISelectMenuItem } from "../../../Data/interfaces/Form.interface";
 import FormLayout from "../../../Layout/FormLayout";
 import "../../../Layout/CSS/Form.css";
-import { getAllCities, getStreetsByCity } from "../../../Services/HttpService";
+import HttpService from "../../../Services/HttpService";
 
 interface AutocompleteProps {
   label: string;
@@ -42,10 +42,10 @@ function AutocompleteInput(
 
   useEffect(() => {
     if (isCityAutocomplete) {
-      getAllCities().then((results) => setCurrentList(results));
+      HttpService.getAllCities().then((results) => setCurrentList(results));
     }
     if (isStreetAutocomplete && !disabled) {
-      getStreetsByCity(isStreetAutocomplete).then((results) => {
+      HttpService.getStreetsByCity(isStreetAutocomplete).then((results) => {
         setCurrentList(results);
       });
     }

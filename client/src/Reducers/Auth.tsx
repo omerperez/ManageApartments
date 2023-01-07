@@ -7,7 +7,11 @@ export default function authReducer(
 ) {
   switch (action.type) {
     case "login": {
-      return action.currentUser as IAuthContext;
+      console.log(action.currentUser);
+      return {
+        ...authState,
+        ...action.currentUser,
+      };
     }
     case "changeLanguage": {
       return {

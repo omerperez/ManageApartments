@@ -1,6 +1,6 @@
-import { ISelectMenuItem } from "../Data/interfaces/IForm";
+import { ISelectMenuItem } from "../Data/interfaces/Form.interface";
 
-const isNotEmpty = (value: string) => {
+const isNotEmpty = (value?: string) => {
   return value ? true : false;
 };
 
@@ -11,13 +11,19 @@ const isValueIncludes = (value: string, list: ISelectMenuItem[]) => {
   return isExist ? true : false;
 };
 
-const isPositiveNumber = (value: string) => {
-  var numberType: number = +value;
-  return numberType > 0;
+const isPositiveNumber = (value?: string) => {
+  if (value) {
+    var numberType: number = +value;
+    return numberType > 0;
+  }
+  return false;
 };
 
-const isMobilePropper = (mobile: string) => {
-  return mobile.length === 10 && mobile.substring(0, 2) === "05";
+const isMobilePropper = (mobile?: string) => {
+  if (mobile) {
+    return mobile.length === 10 && mobile.substring(0, 2) === "05";
+  }
+  return false;
 };
 
 export default {

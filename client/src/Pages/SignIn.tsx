@@ -32,7 +32,11 @@ export default function SignIn() {
         if (!response) {
           setError("שם משתמה או סיסמא שגויים אנא נסה שנית");
         } else {
-          CookieService.initUser(response.user.mobile, response.accessToken);
+          console.log(response);
+          CookieService.initUser(
+            response.user.mobile,
+            response.auth.accessToken,
+          );
           login({
             ...response.user,
             language: "he",
