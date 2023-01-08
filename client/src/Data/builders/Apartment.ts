@@ -42,7 +42,7 @@ class Apartment implements IApartment {
         this.area = apartment.area;
         this.price = apartment.price;
         this.images = apartment.images;
-        this.currentTenantId = apartment.currentTenantId;
+        this.currentTenantId = apartment.currentTenantId ?? '';
         this.owner = apartment.owner;
     }
 

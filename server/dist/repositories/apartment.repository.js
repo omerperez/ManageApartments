@@ -64,16 +64,14 @@ let ApartmentRepository = class ApartmentRepository {
         }
         return undefined;
     }
-    async getApartmentById(id) {
+    async getApartmentById(id, owner) {
         let apartment;
+        const currentUser = await this.userService.getUserByMobile(owner);
         try {
             apartment = await this.apartmentModel.findById(id).exec();
         }
         catch (error) {
             throw new common_1.InternalServerErrorException(error);
-        }
-        if (!apartment) {
-            throw new common_1.NotFoundException('The product with this id does not exist');
         }
         return apartment;
     }

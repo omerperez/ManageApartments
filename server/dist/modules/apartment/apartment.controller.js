@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApartmentController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
-const mongoose_1 = require("mongoose");
 const apartment_service_1 = require("./apartment.service");
 let ApartmentController = class ApartmentController {
     constructor(apartmentService) {
@@ -41,9 +40,9 @@ let ApartmentController = class ApartmentController {
             throw new common_1.BadRequestException(error);
         }
     }
-    async getApartmentById(id, res) {
-        const storage = await this.apartmentService.getApartmentById(id);
-        return res.status(common_1.HttpStatus.OK).send(storage);
+    async getApartmentById(query, response) {
+        const currentApartment = await this.apartmentService.getApartmentById(query.id, query.owner);
+        return response.status(common_1.HttpStatus.OK).send(currentApartment);
     }
 };
 __decorate([
@@ -65,11 +64,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ApartmentController.prototype, "createApartment", null);
 __decorate([
-    (0, common_1.Get)('/getApartmentById/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('/find'),
+    __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [mongoose_1.Schema.Types.ObjectId, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ApartmentController.prototype, "getApartmentById", null);
 ApartmentController = __decorate([

@@ -16,19 +16,30 @@ exports.TenantRepository = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const apartment_service_1 = require("../modules/apartment/apartment.service");
+const user_service_1 = require("../modules/user/user.service");
 const tenant_entity_1 = require("../entities/tenant.entity");
 let TenantRepository = class TenantRepository {
-    constructor(tenantModel) {
+    constructor(tenantModel, userService, apartmentService) {
         this.tenantModel = tenantModel;
+        this.userService = userService;
+        this.apartmentService = apartmentService;
     }
     async createTenant(createTenantDto, document) {
-        let tenant = await this.getTenantById(createTenantDto.id);
-        if (tenant) {
-            throw new common_1.ConflictException('Tenant Already Exists!');
+        const currentUser = await this.userService.getUserByMobile(createTenantDto.owner);
+        console.log(currentUser);
+        if (currentUser) {
+            createTenantDto.owner = currentUser._id;
         }
-        tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { agreement: [document], currentAgreement: document }));
+        else {
+            throw new common_1.InternalServerErrorException('User Not Exist');
+        }
+        let tenant;
+        tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { _id: createTenantDto.id, agreement: [document], currentAgreement: document }));
         try {
             tenant = await tenant.save();
+            console.log(tenant);
+            this.apartmentService.changeTenant(tenant.apartment, tenant._id, tenant.owner);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error al consultar la BD', error);
@@ -51,7 +62,9 @@ let TenantRepository = class TenantRepository {
 };
 TenantRepository = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(tenant_entity_1.Tenant.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        user_service_1.UserService,
+        apartment_service_1.ApartmentService])
 ], TenantRepository);
 exports.TenantRepository = TenantRepository;
 //# sourceMappingURL=tenant.repository.js.map

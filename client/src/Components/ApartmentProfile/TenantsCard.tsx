@@ -14,7 +14,7 @@ import { ITenant } from "../../Data/interfaces/ITenant";
 import ThemeStyleRTL from "../../Layout/ThemeStyleRTL";
 
 type TenantsCardProps = {
-  currentTenant: ITenant;
+  currentTenant: ITenant | null | undefined;
   language: string;
   isEditDialog?: boolean;
   children?: JSX.Element;
@@ -28,21 +28,28 @@ export default function TenantsCard({
   children,
   sx,
 }: TenantsCardProps) {
-  if (!currentTenant) return null;
-
   const getContentValue = (key: string) => {
     if (key === "fullName") {
-      return `${currentTenant.firstName} ${currentTenant.lastName}`;
+      if (currentTenant) {
+        return `${currentTenant.firstName} ${currentTenant.lastName}`;
+      }
+      return "לא קיים דייר";
     }
     if (key === "Occupancy Period") {
-      return `${currentTenant.startDate} - ${currentTenant.endDate}`;
+      if (currentTenant) {
+        return `${currentTenant.startDate} - ${currentTenant.endDate}`;
+      }
+      return "הדירה פנויה";
     }
-    return currentTenant[key as keyof ITenant];
+    if (currentTenant) {
+      return currentTenant[key as keyof ITenant];
+    }
+    return "-";
   };
 
   return (
     <Card
-      sx={sx ?? { maxWidth: 400 }}
+      sx={sx ?? { width: 400 }}
       className={
         isEditDialog
           ? "tenant-card-border relative h-100"

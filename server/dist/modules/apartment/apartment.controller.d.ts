@@ -1,6 +1,5 @@
 /// <reference types="multer" />
 import { Response } from 'express';
-import { Schema as MongooseSchema } from 'mongoose';
 import { ApartmentService } from './apartment.service';
 export declare class ApartmentController {
     private apartmentService;
@@ -11,5 +10,8 @@ export declare class ApartmentController {
     createApartment(files: Array<Express.Multer.File>, body: {
         apartmentDetails: string;
     }, res: Response): Promise<Response<any, Record<string, any>>>;
-    getApartmentById(id: MongooseSchema.Types.ObjectId, res: Response): Promise<Response<any, Record<string, any>>>;
+    getApartmentById(query: {
+        id: string;
+        owner: string;
+    }, response: Response): Promise<Response<any, Record<string, any>>>;
 }

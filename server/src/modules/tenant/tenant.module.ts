@@ -16,9 +16,9 @@ import { TenantService } from './tenant.service';
 
 @Module({
     imports: [
+        FileUploaderModule,
         UserModule,
         ApartmentModule,
-        FileUploaderModule,
         MongooseModule.forFeature([{ name: "User", schema: UserSchema }]),
         MongooseModule.forFeature([{ name: "Apartment", schema: ApartmentSchema }]),
         MongooseModule.forFeature([{ name: "Tenant", schema: TenantSchema }]),

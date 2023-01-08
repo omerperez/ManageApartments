@@ -149,7 +149,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Another Comments",
     key: "comments",
     gridSize: 12,
-    type: { fieldType: "input", inputType: 'text' },
+    type: { fieldType: "textarea" },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא בחר ערך מתוך הרשימה"
   },
@@ -184,7 +184,7 @@ const tenantsFormLabels: IField[] = [
     error: "שדה חובה"
   },
   {
-    he_label: "נייד ראשי",
+    he_label: "פלאפון נייד",
     en_label: "Main Mobile",
     key: "mobileNumber",
     gridSize: 4,
@@ -193,7 +193,7 @@ const tenantsFormLabels: IField[] = [
     error: "מספר נייד אינו תקין"
   },
   {
-    he_label: "נייד משני",
+    he_label: "נייד נוסף",
     en_label: "Another Mobile",
     key: "anotherMobileNumber",
     gridSize: 4,

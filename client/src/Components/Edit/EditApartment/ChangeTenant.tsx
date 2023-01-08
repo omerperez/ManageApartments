@@ -22,7 +22,7 @@ import TenantsList from "./TenantsList";
 
 interface ChangeTenantProps {
   apartmentId: string;
-  editTenantId: string;
+  editTenantId: string | undefined | null;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }

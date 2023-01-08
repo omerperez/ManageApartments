@@ -6,15 +6,18 @@ interface ChangeTenantButtonProps {
   color: string;
   icon: ReactElement;
   text: string;
+  disabled?: boolean;
 }
 export default function ChangeTenantButton({
   onClick,
   color,
   icon,
   text,
+  disabled,
 }: ChangeTenantButtonProps) {
   return (
     <Button
+      disabled={disabled}
       fullWidth
       className={`change-tenant-dialog-btn ${color}-border`}
       onClick={onClick}

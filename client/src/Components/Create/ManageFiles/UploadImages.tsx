@@ -24,24 +24,9 @@ export default function UploadImages({
     console.log(files);
     if (addFiles) {
       setImages(files);
-      // setImages([...images, ...files]);
     } else {
       setImages(files);
     }
-    // let currentFiles: string[] = [];
-    // if (files && files.length > 0) {
-    //   Array.from(files).forEach((file) =>
-    //     getBase64(file)
-    //       .then((result) => {
-    //         return (currentFiles = [...currentFiles, result]);
-    //       })
-    //       .then((currentFiles) => {
-    //         if (addFiles) {
-    //           setImages([...images, ...currentFiles]);
-    //         } else setImages(currentFiles);
-    //       }),
-    //   );
-    // }
   };
 
   const removeImage = (removeImage: any) => {
@@ -65,7 +50,7 @@ export default function UploadImages({
 
   if (!images || images.length === 0) {
     return (
-      <div style={{ maxHeight: 250 }}>
+      <div className="h-100 p-4 pb-5">
         <Button
           variant="contained"
           fullWidth

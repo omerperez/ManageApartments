@@ -1,5 +1,6 @@
 .tenant-form {
-  height: 80%;
+  /* height: 80%; */
+  margin: 0 5%;
 }
 
 .autocomplete {

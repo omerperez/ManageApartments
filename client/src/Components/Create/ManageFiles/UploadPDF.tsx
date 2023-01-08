@@ -17,46 +17,46 @@ export default function UploadPDF({
 }: UploadPdfProps) {
   const handleChangeFiles = (file: File) => {
     setPdf(file);
-    // if (file) {
-    //   getBase64(file).then((result) => {
-    //     setPdf(file);
-    //   });
-    // }
   };
 
   const removePdfFile = () => {
     setPdf(null);
   };
 
+  const readFile = (image: File) => {
+    return URL.createObjectURL(image);
+  };
+
   if (!pdf) {
     return (
-      <Button
-        variant="contained"
-        fullWidth
-        className={buttonClassName ?? "file-btn"}
-        component="label"
-      >
-        <h1>{textButton ?? "העלאת חוזה"}</h1>
-        <input
-          hidden
-          accept=".pdf"
-          type="file"
-          onChange={(e: ChangeEvent<any>) => {
-            handleChangeFiles(e.target.files[0]);
-          }}
-        />
-      </Button>
+      <div className="h-100 p-4 pb-5">
+        <Button
+          variant="contained"
+          fullWidth
+          className="file-btn"
+          component="label"
+        >
+          <h1>{textButton ?? "העלאת חוזה"}</h1>
+          <input
+            hidden
+            accept=".pdf"
+            type="file"
+            onChange={(e: ChangeEvent<any>) => {
+              handleChangeFiles(e.target.files[0]);
+            }}
+          />
+        </Button>
+      </div>
     );
   }
 
   return (
-    <div className="relative">
+    <div className="relative h-100 p-4 pb-1">
       <iframe
-        src={`${pdf}`}
+        src={readFile(pdf)}
         title={`user-doc`}
         width={"100%"}
-        height={380}
-        className="user-image"
+        className="h-100"
       />
       <div className="remove-pos">
         <IconButton

@@ -15,15 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TenantController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
-const createTenant_dto_1 = require("./dto/createTenant.dto");
 const tenant_service_1 = require("./tenant.service");
 let TenantController = class TenantController {
     constructor(tenantService) {
         this.tenantService = tenantService;
     }
-    async createClient(createClientDto, doc, res) {
+    async createClient(body, doc, res) {
+        console.log(body);
         try {
-            const newClient = await this.tenantService.createTenant(createClientDto, doc);
+            const tenant = body.tenant.trim();
+            const createTenant = JSON.parse(tenant);
+            const newClient = await this.tenantService.createTenant(createTenant, doc);
             return res.status(common_1.HttpStatus.CREATED).send(newClient);
         }
         catch (error) {
@@ -38,7 +40,7 @@ __decorate([
     __param(1, (0, common_1.UploadedFile)()),
     __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createTenant_dto_1.CreateTenantDto, Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "createClient", null);
 TenantController = __decorate([

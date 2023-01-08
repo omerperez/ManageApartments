@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { defaultApartment } from "../Assets/StaticData";
 import ChangeTenant from "../Components/Edit/EditApartment/ChangeTenant";
 import EditApartmentForm from "../Components/Edit/EditApartment/EditApartment";
-import EditImages from "../Components/Edit/EditApartment/EditImages";
 import { IApartment } from "../Data/interfaces/IApartment";
 import "../Layout/CSS/EditApartment.css";
 import Loading from "../Layout/Loading";

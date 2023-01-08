@@ -23,7 +23,7 @@ export default function ApartmentView() {
   const [searchParams] = useSearchParams();
   const { authState } = useContext(AuthContext) as AuthContextType;
   const [currentApartment, setCurrentApartment] = useState<Apartment>();
-  const [currentTenant, setCurrentTenant] = useState<ITenant>();
+  const [currentTenant, setCurrentTenant] = useState<ITenant | null>();
   const [openEditTenantDialog, setOpenEditTenantDialog] =
     useState<boolean>(false);
   const [openHistoryListDialog, setOpenHistoryListDialog] =
@@ -32,19 +32,15 @@ export default function ApartmentView() {
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () => {
-      if (searchParams) {
-        const currentApartmentId = searchParams.get("apartmentId") as string;
-        const response = await getApartmentView(currentApartmentId);
-        setCurrentApartment(response.apartment);
-        setCurrentTenant(response.tenant);
-        setLoading(false);
-      }
-    };
-    fetchData();
+    const currentApartmentId = searchParams.get("apartmentId") as string;
+    getApartmentView(currentApartmentId).then((response) => {
+      setCurrentApartment(response.apartment);
+      setCurrentTenant(null);
+      setLoading(false);
+    });
   }, [searchParams]);
 
-  if (loading || !currentApartment || !currentTenant) {
+  if (loading || !currentApartment) {
     return <Loading />;
   }
 
@@ -63,7 +59,7 @@ export default function ApartmentView() {
                 currentTenant={currentTenant}
               >
                 <ChangeTenant
-                  editTenantId={currentTenant.id}
+                  editTenantId={currentTenant?.id}
                   apartmentId={currentApartment.id.toString()}
                   open={openEditTenantDialog}
                   setOpen={setOpenEditTenantDialog}
@@ -71,49 +67,42 @@ export default function ApartmentView() {
               </TenantsCard>
             </div>
             <div className="mt-5">
-              {authState.language === "en" ? "Tenants History" : "דיירי עבר"}
-              <Button
-                className="change-tenant-btn"
-                onClick={() => setOpenHistoryListDialog(true)}
-              >
-                ראה עוד
-              </Button>
-              <ThemeStyleRTL>
-                <Dialog
-                  sx={DialogSelectEditTenantTypeMui}
-                  open={openHistoryListDialog}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <div className="text-start">
-                    <IconButton
-                      aria-label="close"
-                      onClick={() => setOpenHistoryListDialog(false)}
-                    >
-                      <Close className="dialog-top-close-btn" />
-                    </IconButton>
-                  </div>
-                  <DialogContent className="dialog-content-change-tenant">
-                    <TenantsList
-                      isShowOnly={true}
-                      tenantsList={[
-                        currentTenant,
-                        currentTenant,
-                        currentTenant,
-                        currentTenant,
-                      ]}
-                    />
-                  </DialogContent>
-                </Dialog>
-                <TenantsHistoryList
-                  tenants={[
-                    currentTenant,
-                    currentTenant,
-                    currentTenant,
-                    currentTenant,
-                  ]}
-                />
-              </ThemeStyleRTL>
+              {currentTenant ? (
+                <>
+                  {"דיירי עבר"}
+                  <Button
+                    className="change-tenant-btn"
+                    onClick={() => setOpenHistoryListDialog(true)}
+                  >
+                    ראה עוד
+                  </Button>
+                </>
+              ) : (
+                "לא קיימים דיירי עבר"
+              )}
+              {currentTenant && (
+                <ThemeStyleRTL>
+                  <Dialog
+                    sx={DialogSelectEditTenantTypeMui}
+                    open={openHistoryListDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <div className="text-start">
+                      <IconButton
+                        aria-label="close"
+                        onClick={() => setOpenHistoryListDialog(false)}
+                      >
+                        <Close className="dialog-top-close-btn" />
+                      </IconButton>
+                    </div>
+                    <DialogContent className="dialog-content-change-tenant">
+                      <TenantsList isShowOnly={true} tenantsList={[]} />
+                    </DialogContent>
+                  </Dialog>
+                  <TenantsHistoryList tenants={[]} />
+                </ThemeStyleRTL>
+              )}
             </div>
           </div>
         </Grid>

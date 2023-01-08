@@ -20,15 +20,17 @@ export class ApartmentService {
         return await this.apartmentRepository.createApartment(createApartmentDto, aprtmentImagesUrl);
     }
 
-    async getApartmentById(apartmentId: MongooseSchema.Types.ObjectId) {
-        return await this.apartmentRepository.getApartmentById(apartmentId);
+    async getApartmentById(apartmentId: string, owner: string) {
+        return await this.apartmentRepository.getApartmentById(apartmentId, owner);
     }
 
     async changeTenant(
-        apartmentId: MongooseSchema.Types.ObjectId,
-        tenantId: MongooseSchema.Types.ObjectId
+        apartmentId: string,
+        tenantId: MongooseSchema.Types.ObjectId,
+        owner: string,
     ) {
-        return await this.apartmentRepository.changeTenant(apartmentId, tenantId);
+        const currentApartment = await this.apartmentRepository.getApartmentById(apartmentId, owner);
+        return await this.apartmentRepository.changeTenant(currentApartment._id, tenantId);
     }
 
     // async getProducts(getQueryDto: GetQueryDto) {

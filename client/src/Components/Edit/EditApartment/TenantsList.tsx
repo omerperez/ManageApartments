@@ -10,7 +10,6 @@ import { ITenant } from "../../../Data/interfaces/ITenant";
 import { AuthContextType } from "../../../Data/types/Auth";
 import TenantsCard from "../../ApartmentProfile/TenantsCard";
 import EditPdf from "../../Create/ManageFiles/EditPdf";
-import UploadPDF from "../../Create/ManageFiles/UploadPDF";
 import EditButtons from "../EditButtons";
 
 interface TenantsListProps {

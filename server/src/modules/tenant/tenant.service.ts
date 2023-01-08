@@ -2,6 +2,7 @@ import { forwardRef, Inject, Injectable, UnauthorizedException } from '@nestjs/c
 import { Schema as MongooseSchema } from 'mongoose';
 import { TenantRepository } from 'src/repositories/tenant.repository';
 import { ApartmentService } from '../apartment/apartment.service';
+import { FileUploaderService } from '../fileUploader/fileUploader.service';
 import { UserService } from '../user/user.service';
 import { CreateTenantDto } from './dto/createTenant.dto';
 
@@ -14,23 +15,20 @@ export class TenantService {
         @Inject(forwardRef(() => ApartmentService))
         private readonly apartmentService: ApartmentService,
         private readonly tenantRepository: TenantRepository,
+        private fileUploaderService: FileUploaderService
     ) { }
 
     async createTenant(createTenantDto: CreateTenantDto, document: Express.Multer.File) {
-        const getUser: any = await this.userService.getUserByMobile(createTenantDto.owner);
-        if (getUser) {
-            const documentUrl = '';
-            const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
-            if (tenant) {
-                await this.apartmentService.changeTenant(
-                    createTenantDto.apartment,
-                    createTenantDto.id
-                )
-            }
-            return tenant;
-        } else {
-            throw new UnauthorizedException('Incorrect');
-        }
+        console.log("document");
+        console.log(document);
+        const documentUrl = await this.fileUploaderService.uploadFile(document.buffer, document.originalname);
+        console.log("documentUrl");
+        console.log(documentUrl);
+        const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
+        return tenant;
+        // } else {
+        //     throw new UnauthorizedException('Incorrect');
+        // }
     }
 
     // async getTenants(getQueryDto: GetQueryDto) {

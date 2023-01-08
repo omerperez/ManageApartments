@@ -79,7 +79,7 @@
 .area-input {
   font-size: 16px;
   font-family: "Rubik", sans-serif;
-  margin: 20px 0 20px 20px;
+  margin: 20px 0 20px 10px;
   padding: 10px;
   border-radius: 8px;
   width: 100%;
@@ -89,7 +89,6 @@
   color: #2a2561 !important;
   text-transform: lowercase !important;
   font-size: 20px !important;
-  /* margin: 10px 5px !important; */
 }
 
 .lan-icon {

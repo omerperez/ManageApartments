@@ -16,26 +16,23 @@ exports.TenantService = void 0;
 const common_1 = require("@nestjs/common");
 const tenant_repository_1 = require("../../repositories/tenant.repository");
 const apartment_service_1 = require("../apartment/apartment.service");
+const fileUploader_service_1 = require("../fileUploader/fileUploader.service");
 const user_service_1 = require("../user/user.service");
 let TenantService = class TenantService {
-    constructor(userService, apartmentService, tenantRepository) {
+    constructor(userService, apartmentService, tenantRepository, fileUploaderService) {
         this.userService = userService;
         this.apartmentService = apartmentService;
         this.tenantRepository = tenantRepository;
+        this.fileUploaderService = fileUploaderService;
     }
     async createTenant(createTenantDto, document) {
-        const getUser = await this.userService.getUserByMobile(createTenantDto.owner);
-        if (getUser) {
-            const documentUrl = '';
-            const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
-            if (tenant) {
-                await this.apartmentService.changeTenant(createTenantDto.apartment, createTenantDto.id);
-            }
-            return tenant;
-        }
-        else {
-            throw new common_1.UnauthorizedException('Incorrect');
-        }
+        console.log("document");
+        console.log(document);
+        const documentUrl = await this.fileUploaderService.uploadFile(document.buffer, document.originalname);
+        console.log("documentUrl");
+        console.log(documentUrl);
+        const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
+        return tenant;
     }
     async getTenantById(id) {
         return await this.tenantRepository.getTenantById(id);
@@ -47,7 +44,8 @@ TenantService = __decorate([
     __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => apartment_service_1.ApartmentService))),
     __metadata("design:paramtypes", [user_service_1.UserService,
         apartment_service_1.ApartmentService,
-        tenant_repository_1.TenantRepository])
+        tenant_repository_1.TenantRepository,
+        fileUploader_service_1.FileUploaderService])
 ], TenantService);
 exports.TenantService = TenantService;
 //# sourceMappingURL=tenant.service.js.map

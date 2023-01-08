@@ -24,7 +24,7 @@ interface IApartment {
   comments: string;
   mainImageIndex: number;
   images: string[];
-  currentTenantId: string;
+  currentTenantId?: string;
   owner: string;
 }
 

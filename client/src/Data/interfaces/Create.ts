@@ -7,6 +7,7 @@ interface ITranslateLabel {
 
 type InputFieldType =
     | { fieldType: 'input', inputType: 'text' | 'password' | 'id' | 'number' | 'mobile' | 'phone' | 'email' }
+    | { fieldType: 'textarea' }
     | { fieldType: 'select', list?: ISelectMenuItem[], apiListKey?: string }
     | { fieldType: 'date', isPastDate: boolean | "both" }
     | { fieldType: 'autocomplete', apiListKey: string }

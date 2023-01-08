@@ -5,6 +5,7 @@ import PrivateRouter from "./Routers/Private";
 import PublicRouter from "./Routers/Public";
 import ApartmentDetailsPage from "./Pages/ApartmentView";
 import CreateApartment from "./Pages/Create";
+import CreateApartmentTest from "./Pages/CreateTest";
 import EditApartment from "./Pages/EditApartment";
 import HomePage from "./Pages/Home";
 import Apartments from "./Pages/MyApartments";
@@ -43,7 +44,14 @@ function App() {
             />
             <Route
               path="/create-apartment"
-              element={<PrivateRouter children={<CreateApartment />} />}
+              element={
+                <PrivateRouter
+                  children={
+                    <CreateApartmentTest />
+                    // <CreateApartment />
+                  }
+                />
+              }
             />
             <Route
               path="/edit-apartment/*"

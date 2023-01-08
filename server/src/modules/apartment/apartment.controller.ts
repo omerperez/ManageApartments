@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { query, Response } from 'express';
+import { query, response, Response } from 'express';
 import { Schema as MongooseSchema } from 'mongoose';
 import { ApartmentService } from './apartment.service';
 import { CreateApartmentDto } from './dto/createProduct.dto';
@@ -52,10 +52,10 @@ export class ApartmentController {
     //     }
     // }
 
-    @Get('/getApartmentById/:id')
-    async getApartmentById(@Param('id') id: MongooseSchema.Types.ObjectId, @Res() res: Response) {
-        const storage: any = await this.apartmentService.getApartmentById(id);
-        return res.status(HttpStatus.OK).send(storage);
+    @Get('/find')
+    async getApartmentById(@Query() query: { id: string, owner: string }, @Res() response: Response) {
+        const currentApartment = await this.apartmentService.getApartmentById(query.id, query.owner);
+        return response.status(HttpStatus.OK).send(currentApartment);
     }
 
     // @Get('/getProducts')

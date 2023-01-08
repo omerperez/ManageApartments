@@ -25,9 +25,9 @@ let TenantModule = class TenantModule {
 TenantModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            fileUploader_module_1.FileUploaderModule,
             user_module_1.UserModule,
             apartment_module_1.ApartmentModule,
-            fileUploader_module_1.FileUploaderModule,
             mongoose_1.MongooseModule.forFeature([{ name: "User", schema: user_entity_1.UserSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Apartment", schema: apartment_entity_1.ApartmentSchema }]),
             mongoose_1.MongooseModule.forFeature([{ name: "Tenant", schema: tenant_entity_1.TenantSchema }]),

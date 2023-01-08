@@ -39,10 +39,8 @@ export class ApartmentRepository {
             images: images
         });
         try {
-
             apartment = await apartment.save();
         } catch (error) {
-
             throw new InternalServerErrorException(error);
         }
         return apartment;
@@ -138,15 +136,13 @@ export class ApartmentRepository {
     //     }
     // }
 
-    async getApartmentById(id: MongooseSchema.Types.ObjectId) {
+    async getApartmentById(id: string, owner: string) {
         let apartment;
+        const currentUser = await this.userService.getUserByMobile(owner);
         try {
             apartment = await this.apartmentModel.findById(id).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
-        }
-        if (!apartment) {
-            throw new NotFoundException('The product with this id does not exist');
         }
         return apartment;
     }

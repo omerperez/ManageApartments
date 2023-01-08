@@ -27,6 +27,14 @@ const getRequestWithSearchParams = async (
   });
 };
 
+const serverPostFormDataRequest = async (api: string, formData: FormData) => {
+  return await axios.post(baseUrl.concat(api), formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 const serverPostRequestAttachFiles1 = async (
   api: string,
   body: any,
@@ -119,4 +127,5 @@ export default {
   serverPostRequestAttachFiles,
   getRequestWithSearchParams,
   serverPostRequestAttachFiles1,
+  serverPostFormDataRequest,
 };

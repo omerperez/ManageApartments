@@ -11,6 +11,6 @@ export declare class ApartmentService {
     createApartment(createApartmentDto: CreateApartmentDto, files: Array<Express.Multer.File>): Promise<import("../../entities/apartment.entity").Apartment & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getApartmentById(apartmentId: MongooseSchema.Types.ObjectId): Promise<any>;
-    changeTenant(apartmentId: MongooseSchema.Types.ObjectId, tenantId: MongooseSchema.Types.ObjectId): Promise<any>;
+    getApartmentById(apartmentId: string, owner: string): Promise<any>;
+    changeTenant(apartmentId: string, tenantId: MongooseSchema.Types.ObjectId, owner: string): Promise<any>;
 }

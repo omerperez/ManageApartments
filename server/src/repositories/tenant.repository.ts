@@ -1,27 +1,49 @@
 import { ConflictException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooseSchema } from 'mongoose';
+import { ApartmentService } from 'src/modules/apartment/apartment.service';
 import { CreateTenantDto } from 'src/modules/tenant/dto/createTenant.dto';
+import { UserService } from 'src/modules/user/user.service';
 import { Tenant } from '../entities/tenant.entity';
 
 export class TenantRepository {
     constructor(
         @InjectModel(Tenant.name)
         private readonly tenantModel: Model<Tenant>,
+        private readonly userService: UserService,
+        private readonly apartmentService: ApartmentService
     ) { }
 
     async createTenant(createTenantDto: CreateTenantDto, document: string) {
-        let tenant = await this.getTenantById(createTenantDto.id);
-        if (tenant) {
-            throw new ConflictException('Tenant Already Exists!');
+        const currentUser = await this.userService.getUserByMobile(createTenantDto.owner);
+        console.log(currentUser);
+        if (currentUser) {
+            createTenantDto.owner = currentUser._id;
+        } else {
+            throw new InternalServerErrorException('User Not Exist');
         }
+        // let tenant = await this.getTenantById(createTenantDto.id);
+        // if (tenant) {
+        //     console.log("tenant")
+        //     throw new ConflictException('Tenant Already Exists!');
+        // }
+        let tenant;
         tenant = new this.tenantModel({
             ...createTenantDto,
+            _id: createTenantDto.id,
             agreement: [document],
             currentAgreement: document
         });
+
         try {
+
             tenant = await tenant.save();
+            console.log(tenant);
+            this.apartmentService.changeTenant(tenant.apartment,
+                tenant._id,
+                tenant.owner
+            );
+
         } catch (error) {
             throw new InternalServerErrorException('Error al consultar la BD', error);
         }

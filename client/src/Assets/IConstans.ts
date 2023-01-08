@@ -29,6 +29,7 @@ const API_CONSTANS = {
     OWNER_APARTMENTS_API: 'apartment/my-apartments',
     APARTMENT_VIEW_API: 'apartment/find',
     CREATE_APARTMENT_API: 'apartment/create',
+    CREATE_TENANT_API: 'tenant/create',
     UPLOAD_FILES_API: 's3/upload',
     VERIFY_TOKEN_API: 'auth/verify',
     REGISTER_API: 'user/register'

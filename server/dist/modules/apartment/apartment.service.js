@@ -25,11 +25,12 @@ let ApartmentService = class ApartmentService {
         const aprtmentImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
         return await this.apartmentRepository.createApartment(createApartmentDto, aprtmentImagesUrl);
     }
-    async getApartmentById(apartmentId) {
-        return await this.apartmentRepository.getApartmentById(apartmentId);
+    async getApartmentById(apartmentId, owner) {
+        return await this.apartmentRepository.getApartmentById(apartmentId, owner);
     }
-    async changeTenant(apartmentId, tenantId) {
-        return await this.apartmentRepository.changeTenant(apartmentId, tenantId);
+    async changeTenant(apartmentId, tenantId, owner) {
+        const currentApartment = await this.apartmentRepository.getApartmentById(apartmentId, owner);
+        return await this.apartmentRepository.changeTenant(currentApartment._id, tenantId);
     }
 };
 ApartmentService = __decorate([

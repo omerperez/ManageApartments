@@ -11,5 +11,5 @@ export declare class ApartmentRepository {
         _id: import("mongoose").Types.ObjectId;
     }>;
     changeTenant(apartmentId: MongooseSchema.Types.ObjectId, tenantId: MongooseSchema.Types.ObjectId): Promise<any>;
-    getApartmentById(id: MongooseSchema.Types.ObjectId): Promise<any>;
+    getApartmentById(id: string, owner: string): Promise<any>;
 }

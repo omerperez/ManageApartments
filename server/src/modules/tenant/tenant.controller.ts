@@ -12,12 +12,15 @@ export class TenantController {
     @Post('/create')
     @UseInterceptors(FileInterceptor('doc'))
     async createClient(
-        @Body() createClientDto: CreateTenantDto,
+        @Body() body: { tenant: string },
         @UploadedFile() doc: Express.Multer.File,
         @Res() res: Response
     ) {
+        console.log(body);
         try {
-            const newClient = await this.tenantService.createTenant(createClientDto, doc);
+            const tenant = body.tenant.trim();
+            const createTenant: CreateTenantDto = JSON.parse(tenant);
+            const newClient = await this.tenantService.createTenant(createTenant, doc);
             return res.status(HttpStatus.CREATED).send(newClient);
         } catch (error) {
             throw new BadRequestException(error);
