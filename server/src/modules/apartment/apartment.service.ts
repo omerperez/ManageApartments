@@ -16,6 +16,10 @@ export class ApartmentService {
         return await this.apartmentRepository.getUserApartments(mobile);
     }
 
+    async getUserApartmentsId(owner: MongooseSchema.Types.ObjectId) {
+        return await this.apartmentRepository.getUserApartmentsId(owner);
+    }
+
     async createApartment(createApartmentDto: CreateApartmentDto, files: Array<Express.Multer.File>) {
         const aprtmentImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
         return await this.apartmentRepository.createApartment(createApartmentDto, aprtmentImagesUrl);

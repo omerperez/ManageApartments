@@ -242,3 +242,28 @@
   font-size: 40px !important;
   color: white !important;
 }
+
+.dialog-title {
+  font-family: "Rubik", sans-serif !important;
+  letter-spacing: 1.5px !important;
+}
+
+.dialog-btn {
+  text-transform: capitalize !important;
+  font-size: 20px !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  font-family: "Rubik", sans-serif !important;
+  color: white !important;
+  padding: 25px !important;
+}
+
+.dialog-save-btn {
+  background-color: #809fff !important;
+  margin: 0 15px !important;
+}
+
+.dialog-cancel-btn {
+  background-color: #ff5370 !important;
+  margin-left: 15px !important;
+}

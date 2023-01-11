@@ -6,7 +6,7 @@ import ApartmentImages from "../Components/ApartmentView/ApartmentImages";
 import MainTenantCard from "../Components/ApartmentView/Tenant/MainTenantCard";
 import TenantHistory from "../Components/ApartmentView/Tenant/TenantHistory";
 import { Apartment } from "../Data/builders/Apartment";
-import { ITenant } from "../Data/interfaces/ITenant";
+import { Tenant } from "../Data/interfaces/entities/Tenant.entity";
 import "../Layout/CSS/Profile.css";
 import Loading from "../Layout/Loading";
 import { getApartmentView } from "../Services/Api/ApartmentApi";
@@ -14,8 +14,8 @@ import { getApartmentView } from "../Services/Api/ApartmentApi";
 export default function ApartmentView() {
   const [searchParams] = useSearchParams();
   const [currentApartment, setCurrentApartment] = useState<Apartment>();
-  const [tenant, setTenant] = useState<ITenant>();
-  const [tenantsHistory, setTenantsHistory] = useState<ITenant[]>([]);
+  const [tenant, setTenant] = useState<Tenant>();
+  const [tenantsHistory, setTenantsHistory] = useState<Tenant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

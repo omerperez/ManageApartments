@@ -39,6 +39,19 @@ let ApartmentRepository = class ApartmentRepository {
         }
         return apartments;
     }
+    async getUserApartmentsId(owner) {
+        let apartments;
+        try {
+            apartments = (await this.apartmentModel.find({ owner: owner }, '_id'));
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+        if (!apartments || apartments.length === 0) {
+            throw new common_1.NotFoundException('User dont have any apartment yet');
+        }
+        return apartments;
+    }
     async createApartment(createApartmentDto, images) {
         const currentUser = await this.userService.getUserByMobile(createApartmentDto.owner);
         if (currentUser) {

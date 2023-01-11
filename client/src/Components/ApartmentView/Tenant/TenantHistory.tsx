@@ -2,13 +2,13 @@ import { Close } from "@mui/icons-material";
 import { Button, Dialog, DialogContent, IconButton } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useState } from "react";
-import { ITenant } from "../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import { DialogSelectEditTenantTypeMui } from "../../../Layout/Mui/Edit";
 import HistoryList from "./TenantHistory/HistoryList";
 import TenantHistoryContent from "./TenantHistory/TenantHistoryContent";
 
 interface TenantHistoryProps {
-  tenants: ITenant[];
+  tenants: Tenant[];
 }
 export default function TenantHistory({ tenants }: TenantHistoryProps) {
   const TENANTS_HISTORY_EMPTY_TITLE = "לא קיימים דיירי עבר";

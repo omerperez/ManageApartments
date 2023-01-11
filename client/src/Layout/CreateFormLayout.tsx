@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { ReactNode } from "react";
-import FormButtons from "../Components/Edit/EditButtons";
+import FormButtons from "../Components/Delete/Edit/EditButtons";
 
 interface CreateFormLayoutProps {
   title: string;

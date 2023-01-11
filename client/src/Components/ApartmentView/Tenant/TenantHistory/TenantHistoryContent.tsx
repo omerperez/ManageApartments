@@ -7,11 +7,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
-import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 import MainTenantCard from "../MainTenantCard";
 
 interface TenantHistoryContentProps {
-  tenants: ITenant[];
+  tenants: Tenant[];
 }
 export default function TenantHistoryContent({
   tenants,

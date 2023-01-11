@@ -5,10 +5,16 @@ interface ButtonIconProps {
   icon: ReactNode;
   className: string;
   text: string;
+  onClick?: () => void;
 }
-export default function ButtonIcon({ text, className, icon }: ButtonIconProps) {
+export default function ButtonIcon({
+  text,
+  className,
+  icon,
+  onClick,
+}: ButtonIconProps) {
   return (
-    <Button fullWidth className={className}>
+    <Button fullWidth className={className} onClick={onClick}>
       <Grid container spacing={1}>
         <Grid item sm={7.5} textAlign="end">
           {text}

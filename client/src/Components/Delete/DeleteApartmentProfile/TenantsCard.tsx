@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 import { tenantContentCardProperties } from "../../../Assets/Profile";
 import { maleImage } from "../../../Assets/StaticImages";
-import { ITenant } from "../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 
 type TenantsCardProps = {
-  currentTenant: ITenant | null | undefined;
+  currentTenant: Tenant | null | undefined;
   language: string;
   isEditDialog?: boolean;
   children?: JSX.Element;
@@ -42,14 +42,14 @@ export default function TenantsCard({
       return "הדירה פנויה";
     }
     if (currentTenant) {
-      return currentTenant[key as keyof ITenant];
+      return currentTenant[key];
     }
     return "-";
   };
 
   return (
     <Card
-      sx={sx ?? { width: 400 }}
+      sx={sx ?? { maxWidth: 400 }}
       className={
         isEditDialog
           ? "tenant-card-border relative h-100"

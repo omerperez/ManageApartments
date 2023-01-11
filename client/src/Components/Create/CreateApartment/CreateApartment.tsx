@@ -10,7 +10,7 @@ import {
 } from "react";
 import { apartmentFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartmentDto";
+import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartment.dto";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";

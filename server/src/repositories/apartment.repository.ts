@@ -28,6 +28,19 @@ export class ApartmentRepository {
         return apartments;
     }
 
+    async getUserApartmentsId(owner: MongooseSchema.Types.ObjectId) {
+        let apartments: any[];
+        try {
+            apartments = (await this.apartmentModel.find({ owner: owner }, '_id'))
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        if (!apartments || apartments.length === 0) {
+            throw new NotFoundException('User dont have any apartment yet');
+        }
+        return apartments;
+    }
+
     async createApartment(
         createApartmentDto: CreateApartmentDto,
         images: String[]) {

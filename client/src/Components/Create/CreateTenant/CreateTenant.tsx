@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { createRef, Ref, useContext, useRef, useState } from "react";
 import { tenantsFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { CreateTenantDto } from "../../../Data/interfaces/dto/CreateTenanttDto";
+import { CreateTenantDto } from "../../../Data/interfaces/dto/CreateTenantt.dto";
 import { ITenantCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
@@ -20,8 +20,12 @@ import Select from "../../Global/FormComponents/Select";
 
 interface CreateTenantProps {
   apartmentId: string;
+  onCancel?: () => void;
 }
-export default function CreateTenant({ apartmentId }: CreateTenantProps) {
+export default function CreateTenant({
+  apartmentId,
+  onCancel,
+}: CreateTenantProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
@@ -71,7 +75,7 @@ export default function CreateTenant({ apartmentId }: CreateTenantProps) {
       }
       saveBtnText={"הוסף דייר"}
       onSubmit={onSubmit}
-      onCancel={() => {}}
+      onCancel={onCancel ? onCancel : () => {}}
     >
       <Grid container spacing={1.5}>
         {tenantsFormLabels.map((item, index) => (

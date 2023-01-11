@@ -9,6 +9,7 @@ export declare class ApartmentService {
     private fileUploaderService;
     constructor(apartmentRepository: ApartmentRepository, fileUploaderService: FileUploaderService);
     getUserApartments(mobile: string): Promise<any[]>;
+    getUserApartmentsId(owner: MongooseSchema.Types.ObjectId): Promise<any[]>;
     createApartment(createApartmentDto: CreateApartmentDto, files: Array<Express.Multer.File>): Promise<import("../../entities/apartment.entity").Apartment & {
         _id: import("mongoose").Types.ObjectId;
     }>;

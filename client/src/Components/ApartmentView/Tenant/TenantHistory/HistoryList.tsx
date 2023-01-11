@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 import { Fragment } from "react";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
-import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 
 interface TenantsHistoryListProps {
-  tenants: ITenant[];
+  tenants: Tenant[];
 }
 export default function HistoryList({ tenants }: TenantsHistoryListProps) {
   if (tenants.length < 0) {

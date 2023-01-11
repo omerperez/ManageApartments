@@ -1,8 +1,8 @@
 import { Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { defaultApartment } from "../../Assets/StaticData";
-import ChangeTenant from "../../Components/Edit/EditApartment/ChangeTenant";
-import EditApartmentForm from "../../Components/Edit/EditApartment/EditApartment";
+import ChangeTenant from "../../Components/Delete/Edit/EditApartment/ChangeTenant";
+import EditApartmentForm from "../../Components/Delete/Edit/EditApartment/EditApartment";
 import { IApartment } from "../../Data/interfaces/IApartment";
 import { ITenant } from "../../Data/interfaces/ITenant";
 import "../Layout/CSS/EditApartment.css";
@@ -57,12 +57,12 @@ export default function EditApartment1() {
                 open={openEditImages}
                 setOpen={setOpenEditImages}
               /> */}
-              <ChangeTenant
+              {/* <ChangeTenant
                 editTenant={tenant}
                 apartmentId={currentApartment.name} //change to id
                 open={openEditTenant}
                 setOpen={setOpenEditTenant}
-              />
+              /> */}
             </Stack>
           </Grid>
         </Grid>

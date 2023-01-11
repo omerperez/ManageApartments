@@ -41,6 +41,13 @@ let TenantController = class TenantController {
         const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
         return response.status(common_1.HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
+    async getTenantHistory(query, response) {
+        console.log(query.owner);
+        const history = await this.tenantService.getTenantHistory(query.owner);
+        console.log("history");
+        console.log(history);
+        return response.status(common_1.HttpStatus.OK).send(history);
+    }
 };
 __decorate([
     (0, common_1.Post)('/create'),
@@ -60,6 +67,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "getApartmentView", null);
+__decorate([
+    (0, common_1.Get)('/tenants_history'),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], TenantController.prototype, "getTenantHistory", null);
 TenantController = __decorate([
     (0, common_1.Controller)('tenant'),
     __metadata("design:paramtypes", [tenant_service_1.TenantService,

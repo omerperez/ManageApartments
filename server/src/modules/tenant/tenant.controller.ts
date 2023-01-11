@@ -42,6 +42,17 @@ export class TenantController {
         return response.status(HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
 
+    @Get('/tenants_history')
+    async getTenantHistory(@Query() query: { owner: string }, @Res() response: Response) {
+        console.log(query.owner)
+        const history = await this.tenantService.getTenantHistory(
+            query.owner
+        );
+        console.log("history");
+        console.log(history);
+        return response.status(HttpStatus.OK).send(history);
+    }
+
     // @Get('/getClients')
     // async getClients(@Query() getQueryDto: GetQueryDto, @Res() res: Response) {
     //     const clients: any = await this.tenantService.getClients(getQueryDto);

@@ -31,6 +31,7 @@ let TenantService = class TenantService {
         return tenant;
     }
     async getTenantHistory(owner) {
+        console.log(owner);
         return await this.tenantRepository.getTenantHistory(owner);
     }
     async getTenantById(id) {

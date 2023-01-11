@@ -1,11 +1,10 @@
 import { Groups, PersonAdd, PersonOff } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import { defaultTenant, defaultTenant2 } from "../../../Assets/StaticData";
-import { ITenant } from "../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
-import ChangeTenantButton from "../../Edit/EditApartment/ChangeTenantButton";
-import TenantsList from "../../Edit/EditApartment/TenantsList";
+import ChangeTenantButton from "../../Delete/Edit/EditApartment/ChangeTenantButton";
+import TenantsList from "../../Delete/Edit/EditApartment/TenantsList";
 import CreateTenantForm from "./CreateTenant";
 
 interface ChooseTenantOptionsProps {
@@ -14,20 +13,9 @@ interface ChooseTenantOptionsProps {
 export default function ChooseTenantOptions({
   apartmentId,
 }: ChooseTenantOptionsProps) {
-  const [tenantsList, setTenantList] = useState<ITenant[]>([]);
-  const [tenant, setTenant] = useState<ITenant | null>(null);
+  const [tenantsList, setTenantList] = useState<Tenant[]>([]);
+  const [tenant, setTenant] = useState<Tenant | null>(null);
   const [option, setOption] = useState<number>(-1);
-
-  const chooseTenantFromList = () => {
-    //fetch - get all tenant that free -> prop: apartmentId
-    setTenantList([
-      defaultTenant,
-      defaultTenant2,
-      defaultTenant,
-      defaultTenant2,
-      defaultTenant,
-    ]);
-  };
 
   const optionsBtns = [
     {

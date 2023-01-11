@@ -15,4 +15,7 @@ export declare class TenantController {
         apartmentId: string;
         owner: string;
     }, response: Response): Promise<Response<any, Record<string, any>>>;
+    getTenantHistory(query: {
+        owner: string;
+    }, response: Response): Promise<Response<any, Record<string, any>>>;
 }

@@ -43,7 +43,14 @@ export class TenantRepository {
         const currentUser = await this.userService.getUserByMobile(owner);
         let tenantHistory;
         try {
-            tenantHistory = this.tenantModel.find({ owner: currentUser._id })
+            if (currentUser) {
+                const apartments = await this.apartmentService.getUserApartmentsId(currentUser._id);
+                const allTenant = await this.tenantModel.find();
+                const apartmentsJson = JSON.stringify(apartments);
+                tenantHistory = allTenant.filter((tenant) => {
+                    return (apartmentsJson.indexOf(JSON.stringify(tenant.apartment)) !== -1);
+                })
+            }
         } catch (error) {
             throw new InternalServerErrorException('Error al consultar la BD', error);
         }

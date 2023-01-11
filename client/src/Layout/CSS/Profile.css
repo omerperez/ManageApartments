@@ -128,9 +128,33 @@ th {
   color: white !important;
 }
 
+.add-tenant-btn {
+  font-size: 20px !important;
+  border-radius: 0 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif !important;
+  border-top: solid 2px black !important;
+  text-transform: capitalize !important;
+  background-color: #809fff !important;
+}
+
+.tenant-card-add-btn-icon {
+  font-size: medium !important;
+  margin: auto !important;
+  background-color: white !important;
+  font-size: 25px !important;
+  color: #809fff !important;
+  border-radius: 50% !important;
+}
+
 .whatsapp-btn {
   background-color: #319e88 !important;
-  border-left: solid 2px black !important;
+  border: solid 2px black !important;
+  border-bottom: none !important;
+}
+
+.edit-tenant-btn {
+  background-color: #7d7d7d !important;
 }
 
 .docs-btn {
@@ -205,11 +229,11 @@ th {
   text-decoration: underline !important;
 }
 
-.edit-tenant-btn {
+/* .edit-tenant-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-}
+} */
 
 /* .edit-btn {
   font-size: 40px !important;

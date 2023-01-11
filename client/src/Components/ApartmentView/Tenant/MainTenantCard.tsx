@@ -1,18 +1,18 @@
 import { Card, CardContent, Grid } from "@mui/material";
 import { tenantContentCardProperties } from "../../../Assets/Profile";
-import { ITenant } from "../../../Data/interfaces/ITenant";
+import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import TenantActionsCard from "./TenantCard/TenantActionsCard";
 import TopTenantCard from "./TenantCard/TopTenantCard";
 
 interface MainTenantCardProps {
-  tenant?: ITenant;
+  tenant?: Tenant;
 }
 export default function MainTenantCard({ tenant }: MainTenantCardProps) {
-  const getTenantCardValue = (key: string, tenant?: ITenant) => {
+  const getTenantCardValue = (key: string, tenant?: Tenant) => {
     if (key === "Occupancy Period") {
       return tenant ? `${tenant.startDate} - ${tenant.endDate}` : "הדירה פנויה";
     }
-    return tenant ? tenant[key as keyof ITenant] : "-";
+    return tenant ? tenant[key as keyof Tenant] : "-";
   };
 
   return (
@@ -36,7 +36,7 @@ export default function MainTenantCard({ tenant }: MainTenantCardProps) {
           ))}
         </Grid>
       </CardContent>
-      <TenantActionsCard />
+      <TenantActionsCard tenant={tenant} />
     </Card>
   );
 }

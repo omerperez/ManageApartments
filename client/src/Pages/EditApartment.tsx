@@ -6,7 +6,7 @@ import Autocomplete from "../Components/Global/FormComponents/Autocomplete";
 import Input from "../Components/Global/FormComponents/Input";
 import Select from "../Components/Global/FormComponents/Select";
 import { AuthContext } from "../Contexts/AuthContext";
-import { EditApartmentDto } from "../Data/interfaces/dto/EditApartmentDto";
+import { EditApartmentDto } from "../Data/interfaces/dto/EditApartment.dto";
 import { IErrosListObject } from "../Data/interfaces/IValidation";
 import { AuthContextType } from "../Data/types/Auth";
 import { useEditApartmentData } from "../Hooks/useMetaData";

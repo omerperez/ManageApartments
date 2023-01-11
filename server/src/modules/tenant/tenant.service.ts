@@ -31,6 +31,7 @@ export class TenantService {
     //     return await this.tenantRepository.getClients(getQueryDto);
     // }
     async getTenantHistory(owner: string) {
+        console.log(owner)
         return await this.tenantRepository.getTenantHistory(owner);
     }
 
