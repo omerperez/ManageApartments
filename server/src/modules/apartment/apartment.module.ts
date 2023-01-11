@@ -12,12 +12,11 @@ import { ApartmentService } from './apartment.service';
     imports: [
         FileUploaderModule,
         UserModule,
-        MongooseModule.forFeature([
-            { name: "Apartment", schema: ApartmentSchema }
-        ]),
+        ApartmentModule,
+        MongooseModule.forFeature([{ name: "Apartment", schema: ApartmentSchema }]),
     ],
     controllers: [ApartmentController],
     providers: [ApartmentRepository, ApartmentService,],
-    exports: [ApartmentService, ApartmentRepository],
+    exports: [ApartmentService, ApartmentRepository]
 })
 export class ApartmentModule { }

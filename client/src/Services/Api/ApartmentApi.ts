@@ -1,12 +1,13 @@
+import { API_CONSTANS } from "../../Assets/IConstans";
 import { Apartment } from "../../Data/builders/Apartment";
+import { CreateApartmentDto } from "../../Data/interfaces/dto/CreateApartmentDto";
+import { CreateTenantDto } from "../../Data/interfaces/dto/CreateTenanttDto";
+import { EditApartmentDto } from "../../Data/interfaces/dto/EditApartmentDto";
 import { IApartmentServerCreateRequest, ITenantCreateForm } from "../../Data/interfaces/Form.interface";
 import { IUserReq, IVerifyToken } from "../../Data/interfaces/Http";
 import { IApartment } from "../../Data/interfaces/IApartment";
 import { ITenant } from "../../Data/interfaces/ITenant";
 import HttpService from "../HttpService";
-import { API_CONSTANS } from "../../Assets/IConstans";
-import { CreateApartmentDto } from "../../Data/interfaces/dto/CreateApartmentDto";
-import { CreateTenantDto } from "../../Data/interfaces/dto/CreateTenanttDto";
 
 const getAllApartments = async (mobile: string) => {
     const response = await HttpService.getRequestWithSearchParams(
@@ -24,30 +25,46 @@ const getAllApartments = async (mobile: string) => {
 const getApartmentView = async (apartmentId: string) => {
     const response = await HttpService.getRequestWithSearchParams(
         API_CONSTANS.APARTMENT_VIEW_API,
-        { id: apartmentId, owner: '0522520484' }
+        { apartmentId: apartmentId, owner: '0522520484' }
     );
-    const data = response.data;
-    const apartment = data as IApartment;
-    const tenant = null;
-    //  data.tenant as ITenant[];
+    const data: {
+        apartment: IApartment,
+        tenant: ITenant,
+        tenantHistory: ITenant[]
+    } = response.data;
     return {
-        apartment: new Apartment(apartment),
-        tenant: tenant
+        apartment: new Apartment(data.apartment),
+        tenant: data.tenant,
+        tenantHistory: data.tenantHistory
     };
 };
-
-// const uploadFile = async (files: File[]) => {
-//     const response = await serverPostRequestAttachFiles(uploadFilesApi, files);
-//     console.log(response);
-//     return response;
-// };
 
 const createApartment = async (
     apartmentDetails: CreateApartmentDto,
     files: File[]) => {
-    const response = await HttpService.serverPostRequestAttachFiles1
-        (API_CONSTANS.CREATE_APARTMENT_API, apartmentDetails, files);
+    const formData = new FormData();
+    formData.append("apartmentDetails", JSON.stringify(apartmentDetails));
+    for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+    }
+    const response = await HttpService.postFormData
+        (API_CONSTANS.CREATE_APARTMENT_API, formData);
     return response.data as IApartment;
+};
+
+const updateApartment = async (
+    updateApartment: EditApartmentDto,
+    newImages: File[]
+) => {
+    console.log(updateApartment);
+    const formData = new FormData();
+    formData.append("updateApartment", JSON.stringify(updateApartment));
+    for (let i = 0; i < newImages.length; i++) {
+        formData.append("files", newImages[i]);
+    }
+    const response = await HttpService.postFormData
+        (API_CONSTANS.UPDATE_APARTMENT_API, formData);
+    return response.data;
 };
 
 const createTenant = async (
@@ -60,7 +77,6 @@ const createTenant = async (
         (API_CONSTANS.CREATE_TENANT_API, formData);
     return response.data as ITenant;
 };
-
 
 const createApartmentRequest = async (apartment: IApartmentServerCreateRequest,
     tenant: ITenantCreateForm,
@@ -92,4 +108,4 @@ const verifyToken = async (token: string) => {
     return response.data as IVerifyToken;
 };
 
-export { getAllApartments, createTenant, registerRequest, verifyToken, createApartment, getApartmentView, createApartmentRequest };
+export { getAllApartments, createTenant, registerRequest, verifyToken, createApartment, getApartmentView, createApartmentRequest, updateApartment };

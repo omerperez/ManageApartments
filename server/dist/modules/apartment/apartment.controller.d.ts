@@ -10,6 +10,9 @@ export declare class ApartmentController {
     createApartment(files: Array<Express.Multer.File>, body: {
         apartmentDetails: string;
     }, res: Response): Promise<Response<any, Record<string, any>>>;
+    editApartment(files: Array<Express.Multer.File>, body: {
+        updateApartment: string;
+    }, res: Response): Promise<Response<any, Record<string, any>>>;
     getApartmentById(query: {
         id: string;
         owner: string;

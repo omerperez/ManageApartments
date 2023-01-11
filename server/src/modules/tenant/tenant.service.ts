@@ -19,11 +19,7 @@ export class TenantService {
     ) { }
 
     async createTenant(createTenantDto: CreateTenantDto, document: Express.Multer.File) {
-        console.log("document");
-        console.log(document);
         const documentUrl = await this.fileUploaderService.uploadFile(document.buffer, document.originalname);
-        console.log("documentUrl");
-        console.log(documentUrl);
         const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
         return tenant;
         // } else {
@@ -34,6 +30,9 @@ export class TenantService {
     // async getTenants(getQueryDto: GetQueryDto) {
     //     return await this.tenantRepository.getClients(getQueryDto);
     // }
+    async getTenantHistory(owner: string) {
+        return await this.tenantRepository.getTenantHistory(owner);
+    }
 
     async getTenantById(id: MongooseSchema.Types.ObjectId) {
         return await this.tenantRepository.getTenantById(id);

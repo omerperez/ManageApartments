@@ -30,6 +30,7 @@ th {
 
 .img-style {
   height: auto;
+  max-height: 600px;
   width: 100%;
   border-radius: 7px;
 }
@@ -44,7 +45,7 @@ th {
 }
 
 .images-gallery {
-  height: auto;
+  height: 140px;
   margin-bottom: 8px;
   border-radius: 7px;
   width: 100%;
@@ -76,10 +77,6 @@ th {
   color: #15b37a !important;
   text-align: center !important;
   font-weight: bolder !important;
-}
-
-.divider-details {
-  background: black !important;
 }
 
 .profile-labels {
@@ -228,4 +225,93 @@ th {
   color: #2a2561 !important;
   text-align: center !important;
   margin: 5px 0 0 0 !important;
+}
+
+.grid-main-images {
+  border-left: solid 4px black !important;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+}
+
+.grid-side-images {
+  overflow: auto !important;
+  max-height: 600px !important;
+}
+
+.side-image {
+  height: 180px;
+  width: 100%;
+}
+
+.apartment-details-address {
+  /* margin: 0 0 20px 0 !important; */
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+.apartment-details-floor {
+  font-weight: 100;
+  font-size: 18px;
+  color: #7e8989;
+}
+
+.apartment-details-price {
+  color: #15b37a !important;
+  text-align: center !important;
+  font-weight: bolder !important;
+}
+
+.apartment-details-divider {
+  background: black !important;
+}
+
+.apartment-details-buttons-menu {
+  background: #f3f5f3;
+  width: 100px !important;
+  padding: 20px 25px !important;
+  border-radius: 50px;
+}
+
+.apartment-details-button-active {
+  color: #06b074 !important;
+  border: none !important;
+  background-color: white !important;
+  border-radius: 50% !important;
+  box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.75) !important;
+}
+
+.apartment-details-button-non-active {
+  color: #a0a9a9 !important;
+  border: none !important;
+  background-color: none !important;
+  border-radius: 50% !important;
+}
+
+.apartment-details-others-value {
+  color: #2a2561;
+  font-size: 18px;
+}
+
+.apartment-details-others-label {
+  color: #7e8989;
+  font-size: 16px;
+}
+
+.tenant-card {
+  border-radius: 8px !important;
+  min-width: 350px !important;
+  max-width: 420px !important;
+}
+
+.tenant-card-content {
+  padding: 30px !important;
+}
+
+.tenant-history {
+  width: 100% !important;
+  background-color: white !important;
 }

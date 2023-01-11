@@ -4,8 +4,7 @@ import PrivatePovider from "./Contexts/Private";
 import PrivateRouter from "./Routers/Private";
 import PublicRouter from "./Routers/Public";
 import ApartmentDetailsPage from "./Pages/ApartmentView";
-import CreateApartment from "./Pages/Create";
-import CreateApartmentTest from "./Pages/CreateTest";
+import Create from "./Pages/Create";
 import EditApartment from "./Pages/EditApartment";
 import HomePage from "./Pages/Home";
 import Apartments from "./Pages/MyApartments";
@@ -44,14 +43,7 @@ function App() {
             />
             <Route
               path="/create-apartment"
-              element={
-                <PrivateRouter
-                  children={
-                    <CreateApartmentTest />
-                    // <CreateApartment />
-                  }
-                />
-              }
+              element={<PrivateRouter children={<Create />} />}
             />
             <Route
               path="/edit-apartment/*"

@@ -40,9 +40,22 @@ let ApartmentController = class ApartmentController {
             throw new common_1.BadRequestException(error);
         }
     }
+    async editApartment(files, body, res) {
+        console.log(body);
+        console.log(files);
+        const apartmentDetails = body.updateApartment.trim();
+        const updateApartment = JSON.parse(apartmentDetails);
+        try {
+            const update = await this.apartmentService.editApartment(updateApartment, files);
+            return res.status(common_1.HttpStatus.OK).send(update);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
     async getApartmentById(query, response) {
-        const currentApartment = await this.apartmentService.getApartmentById(query.id, query.owner);
-        return response.status(common_1.HttpStatus.OK).send(currentApartment);
+        const apartment = await this.apartmentService.getApartmentById(query.id, query.owner);
+        return response.status(common_1.HttpStatus.OK).send(apartment);
     }
 };
 __decorate([
@@ -63,6 +76,16 @@ __decorate([
     __metadata("design:paramtypes", [Array, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ApartmentController.prototype, "createApartment", null);
+__decorate([
+    (0, common_1.Post)('/edit'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files')),
+    __param(0, (0, common_1.UploadedFiles)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, Object, Object]),
+    __metadata("design:returntype", Promise)
+], ApartmentController.prototype, "editApartment", null);
 __decorate([
     (0, common_1.Get)('/find'),
     __param(0, (0, common_1.Query)()),

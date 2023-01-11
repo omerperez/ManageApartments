@@ -15,13 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TenantController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
+const apartment_service_1 = require("../apartment/apartment.service");
+const user_service_1 = require("../user/user.service");
 const tenant_service_1 = require("./tenant.service");
 let TenantController = class TenantController {
-    constructor(tenantService) {
+    constructor(tenantService, apartmentService, userService) {
         this.tenantService = tenantService;
+        this.apartmentService = apartmentService;
+        this.userService = userService;
     }
     async createClient(body, doc, res) {
-        console.log(body);
         try {
             const tenant = body.tenant.trim();
             const createTenant = JSON.parse(tenant);
@@ -31,6 +34,12 @@ let TenantController = class TenantController {
         catch (error) {
             throw new common_1.BadRequestException(error);
         }
+    }
+    async getApartmentView(query, response) {
+        const apartment = await this.apartmentService.getApartmentById(query.apartmentId, query.owner);
+        const tenant = await this.tenantService.getTenantById(apartment.tenant);
+        const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
+        return response.status(common_1.HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
 };
 __decorate([
@@ -43,9 +52,19 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "createClient", null);
+__decorate([
+    (0, common_1.Get)('/find'),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], TenantController.prototype, "getApartmentView", null);
 TenantController = __decorate([
     (0, common_1.Controller)('tenant'),
-    __metadata("design:paramtypes", [tenant_service_1.TenantService])
+    __metadata("design:paramtypes", [tenant_service_1.TenantService,
+        apartment_service_1.ApartmentService,
+        user_service_1.UserService])
 ], TenantController);
 exports.TenantController = TenantController;
 //# sourceMappingURL=tenant.controller.js.map

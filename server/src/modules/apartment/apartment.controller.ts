@@ -1,13 +1,15 @@
-import { BadRequestException, Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Put, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { query, response, Response } from 'express';
-import { Schema as MongooseSchema } from 'mongoose';
+import { Response } from 'express';
 import { ApartmentService } from './apartment.service';
-import { CreateApartmentDto } from './dto/createProduct.dto';
+import { CreateApartmentDto } from './dto/createApartment.dto';
+import { UpdateApartmentDto } from './dto/updateApartment.dto';
 
 @Controller('apartment')
 export class ApartmentController {
-    constructor(private apartmentService: ApartmentService) { }
+    constructor(
+        private apartmentService: ApartmentService,
+    ) { }
 
     @Get('/my-apartments')
     async getUserApartments(@Query() query: { mobile: string }, @Res() response: Response) {
@@ -36,26 +38,30 @@ export class ApartmentController {
         }
     }
 
-    // @Put('/updateProduct/:id')
-    // async updateProduct(@Param('id') id: MongooseSchema.Types.ObjectId, @Body() updateProductDto: UpdateProductDto, @Res() res: Response) {
-    //     const session = await this.mongoConnection.startSession();
-    //     session.startTransaction();
-    //     try {
-    //         const newProduct: any = await this.productService.updateProduct(updateProductDto, session);
-    //         await session.commitTransaction();
-    //         return res.status(HttpStatus.OK).send(newProduct);
-    //     } catch (error) {
-    //         await session.abortTransaction();
-    //         throw new BadRequestException(error);
-    //     } finally {
-    //         session.endSession();
-    //     }
-    // }
+
+    @Post('/edit')
+    @UseInterceptors(FilesInterceptor('files'))
+    async editApartment(
+        @UploadedFiles() files: Array<Express.Multer.File>,
+        @Body() body: { updateApartment: string },
+        @Res() res: Response
+    ) {
+        console.log(body);
+        console.log(files);
+        const apartmentDetails = body.updateApartment.trim()
+        const updateApartment: UpdateApartmentDto = JSON.parse(apartmentDetails);
+        try {
+            const update: any = await this.apartmentService.editApartment(updateApartment, files);
+            return res.status(HttpStatus.OK).send(update);
+        } catch (error) {
+            throw new BadRequestException(error);
+        }
+    }
 
     @Get('/find')
     async getApartmentById(@Query() query: { id: string, owner: string }, @Res() response: Response) {
-        const currentApartment = await this.apartmentService.getApartmentById(query.id, query.owner);
-        return response.status(HttpStatus.OK).send(currentApartment);
+        const apartment = await this.apartmentService.getApartmentById(query.id, query.owner);
+        return response.status(HttpStatus.OK).send(apartment);
     }
 
     // @Get('/getProducts')

@@ -9,5 +9,6 @@ export declare class TenantRepository {
     private readonly apartmentService;
     constructor(tenantModel: Model<Tenant>, userService: UserService, apartmentService: ApartmentService);
     createTenant(createTenantDto: CreateTenantDto, document: string): Promise<any>;
+    getTenantHistory(owner: string): Promise<any>;
     getTenantById(id: MongooseSchema.Types.ObjectId): Promise<any>;
 }

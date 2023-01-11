@@ -22,20 +22,20 @@ import TenantsList from "./TenantsList";
 
 interface ChangeTenantProps {
   apartmentId: string;
-  editTenantId: string | undefined | null;
+  editTenant: ITenant | undefined | null;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function ChangeTenant({
   apartmentId,
-  editTenantId,
+  editTenant,
   open,
   setOpen,
 }: ChangeTenantProps) {
   const editTenantText = "עריכת דייר";
   const [option, setOption] = useState<number>(-1);
-  const [editTenant, setEditTenant] = useState<ITenant | null>(null);
+  // const [editTenant, setEditTenant] = useState<ITenant | null>(null);
   const [tenantsList, setTenantList] = useState<ITenant[]>([]);
 
   const { authState } = useContext(AuthContext) as AuthContextType;
@@ -54,12 +54,12 @@ export default function ChangeTenant({
 
   const editCurrentTenant = () => {
     // fetchTenantById - prop: editTenantId
-    setEditTenant(defaultTenant);
+    // setEditTenant(defaultTenant);
     setOption(2);
   };
 
   const clickOnExtendAgreement = () => {
-    setEditTenant(defaultTenant);
+    // setEditTenant(defaultTenant);
     setOption(3);
   };
 
@@ -67,7 +67,7 @@ export default function ChangeTenant({
     <TenantsList
       isShowOnly={false}
       tenantsList={tenantsList}
-      setEditTenant={setEditTenant}
+      // setEditTenant={setEditTenant}
       setOpen={setOpen}
     />,
     <>

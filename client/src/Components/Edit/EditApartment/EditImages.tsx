@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
 import { DialogImagesMui } from "../../../Layout/Mui/Edit";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
-import UploadImages from "../../Create/ManageFiles/UploadImages";
+import UploadImages from "../../Create/CreateApartment/UploadImages";
 
 interface EditImagesProps {
   prevImages: File[] | [];

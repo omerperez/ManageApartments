@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Schema as MongooseSchema } from 'mongoose';
 import { ApartmentRepository } from 'src/repositories/apartment.repository';
 import { FileUploaderService } from '../fileUploader/fileUploader.service';
-import { CreateApartmentDto } from './dto/createProduct.dto';
+import { CreateApartmentDto } from './dto/createApartment.dto';
+import { UpdateApartmentDto } from './dto/updateApartment.dto';
 
 @Injectable()
 export class ApartmentService {
@@ -18,6 +19,11 @@ export class ApartmentService {
     async createApartment(createApartmentDto: CreateApartmentDto, files: Array<Express.Multer.File>) {
         const aprtmentImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
         return await this.apartmentRepository.createApartment(createApartmentDto, aprtmentImagesUrl);
+    }
+
+    async editApartment(updateApartment: UpdateApartmentDto, files: Array<Express.Multer.File>) {
+        const newImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
+        return await this.apartmentRepository.editApartment(updateApartment, newImagesUrl);
     }
 
     async getApartmentById(apartmentId: string, owner: string) {

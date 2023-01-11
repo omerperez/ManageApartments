@@ -1,41 +1,29 @@
-import { Close } from "@mui/icons-material";
-import { Button, Dialog, DialogContent, Grid, IconButton } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Gallery from "../Components/ApartmentProfile/Gallery";
-import Details from "../Components/ApartmentProfile/MainDetails";
-import TenantsCard from "../Components/ApartmentProfile/TenantsCard";
-import TenantsHistoryList from "../Components/ApartmentProfile/TenantsHistoryList";
-import ChangeTenant from "../Components/Edit/EditApartment/ChangeTenant";
-import TenantsList from "../Components/Edit/EditApartment/TenantsList";
-import LanguageContainer from "../Components/Global/LanguageContainer";
-import { AuthContext } from "../Contexts/AuthContext";
+import ApartmentDetails from "../Components/ApartmentView/ApartmentDetails";
+import ApartmentImages from "../Components/ApartmentView/ApartmentImages";
+import MainTenantCard from "../Components/ApartmentView/Tenant/MainTenantCard";
+import TenantHistory from "../Components/ApartmentView/Tenant/TenantHistory";
 import { Apartment } from "../Data/builders/Apartment";
 import { ITenant } from "../Data/interfaces/ITenant";
-import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Profile.css";
 import Loading from "../Layout/Loading";
-import { DialogSelectEditTenantTypeMui } from "../Layout/Mui/Edit";
-import ThemeStyleRTL from "../Layout/ThemeStyleRTL";
 import { getApartmentView } from "../Services/Api/ApartmentApi";
 
 export default function ApartmentView() {
   const [searchParams] = useSearchParams();
-  const { authState } = useContext(AuthContext) as AuthContextType;
   const [currentApartment, setCurrentApartment] = useState<Apartment>();
-  const [currentTenant, setCurrentTenant] = useState<ITenant | null>();
-  const [openEditTenantDialog, setOpenEditTenantDialog] =
-    useState<boolean>(false);
-  const [openHistoryListDialog, setOpenHistoryListDialog] =
-    useState<boolean>(false);
+  const [tenant, setTenant] = useState<ITenant>();
+  const [tenantsHistory, setTenantsHistory] = useState<ITenant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true);
     const currentApartmentId = searchParams.get("apartmentId") as string;
-    getApartmentView(currentApartmentId).then((response) => {
-      setCurrentApartment(response.apartment);
-      setCurrentTenant(null);
+    getApartmentView(currentApartmentId).then((data) => {
+      setTenant(data.tenant);
+      setTenantsHistory(data.tenantHistory);
+      setCurrentApartment(data.apartment);
       setLoading(false);
     });
   }, [searchParams]);
@@ -44,81 +32,29 @@ export default function ApartmentView() {
     return <Loading />;
   }
 
+  const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+  const TENANT_DETAILS_TITLE = "דייר נוכחי";
   return (
-    <LanguageContainer
-      heClassName="rtl apartment-details"
-      enClassName="apartment-details"
-    >
-      <Grid container className="street-text">
-        <Grid item xs={4} className="tenant-details-side">
-          <div>
-            {authState.language === "en" ? "Main Tenant" : "דייר ראשי"}
-            <div className="mt-2">
-              <TenantsCard
-                language={authState.language}
-                currentTenant={currentTenant}
-              >
-                <ChangeTenant
-                  editTenantId={currentTenant?.id}
-                  apartmentId={currentApartment.id.toString()}
-                  open={openEditTenantDialog}
-                  setOpen={setOpenEditTenantDialog}
-                />
-              </TenantsCard>
-            </div>
-            <div className="mt-5">
-              {currentTenant ? (
-                <>
-                  {"דיירי עבר"}
-                  <Button
-                    className="change-tenant-btn"
-                    onClick={() => setOpenHistoryListDialog(true)}
-                  >
-                    ראה עוד
-                  </Button>
-                </>
-              ) : (
-                "לא קיימים דיירי עבר"
-              )}
-              {currentTenant && (
-                <ThemeStyleRTL>
-                  <Dialog
-                    sx={DialogSelectEditTenantTypeMui}
-                    open={openHistoryListDialog}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                  >
-                    <div className="text-start">
-                      <IconButton
-                        aria-label="close"
-                        onClick={() => setOpenHistoryListDialog(false)}
-                      >
-                        <Close className="dialog-top-close-btn" />
-                      </IconButton>
-                    </div>
-                    <DialogContent className="dialog-content-change-tenant">
-                      <TenantsList isShowOnly={true} tenantsList={[]} />
-                    </DialogContent>
-                  </Dialog>
-                  <TenantsHistoryList tenants={[]} />
-                </ThemeStyleRTL>
-              )}
-            </div>
+    <Grid container className="apartment-details street-text">
+      <Grid item xs={4} className="tenant-details-side">
+        <div>
+          {TENANT_DETAILS_TITLE}
+          <div className="mt-2">
+            <MainTenantCard tenant={tenant} />
           </div>
-        </Grid>
-        <Grid item xs={8} className="apartment-details-side">
-          <div>
-            {authState.language === "en" ? "Apartment Details" : "פרטי הדירה"}
-          </div>
-          <div className="mt-3">
-            <Gallery images={currentApartment.images} mainImageIndex={0} />
-            <Details
-              apartment={currentApartment}
-              language={authState.language}
-            />
-          </div>
-        </Grid>
+          <TenantHistory tenants={tenantsHistory} />
+        </div>
       </Grid>
-    </LanguageContainer>
+      <Grid item xs={8} className="apartment-details-side">
+        <div>{APARTMENT_DETAILS_TITLE}</div>
+        <div className="mt-3">
+          <ApartmentImages
+            images={currentApartment.images}
+            mainImageIndex={currentApartment.mainImageIndex}
+          />
+          <ApartmentDetails apartment={currentApartment} />
+        </div>
+      </Grid>
+    </Grid>
   );
 }

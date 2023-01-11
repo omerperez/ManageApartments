@@ -56,6 +56,29 @@ let ApartmentRepository = class ApartmentRepository {
         }
         return apartment;
     }
+    async editApartment(updateApartment, newImagesUrl) {
+        const currentUser = await this.userService.getUserByMobile(updateApartment.owner);
+        if (currentUser) {
+            updateApartment.owner = currentUser._id;
+        }
+        else {
+            throw new common_1.InternalServerErrorException('User Not Exist');
+        }
+        let apartment;
+        try {
+            if (newImagesUrl.length > 0) {
+                const updateImages = updateApartment.images.concat(newImagesUrl);
+                updateApartment.images = updateImages;
+            }
+            apartment = await this.apartmentModel.findOneAndUpdate({ _id: updateApartment.id }, updateApartment, {
+                returnOriginal: false
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+        return apartment;
+    }
     async changeTenant(apartmentId, tenantId) {
         const apartment = await this.apartmentModel.findById(apartmentId);
         if (apartment) {

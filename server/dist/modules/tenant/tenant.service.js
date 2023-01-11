@@ -26,13 +26,12 @@ let TenantService = class TenantService {
         this.fileUploaderService = fileUploaderService;
     }
     async createTenant(createTenantDto, document) {
-        console.log("document");
-        console.log(document);
         const documentUrl = await this.fileUploaderService.uploadFile(document.buffer, document.originalname);
-        console.log("documentUrl");
-        console.log(documentUrl);
         const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
         return tenant;
+    }
+    async getTenantHistory(owner) {
+        return await this.tenantRepository.getTenantHistory(owner);
     }
     async getTenantById(id) {
         return await this.tenantRepository.getTenantById(id);

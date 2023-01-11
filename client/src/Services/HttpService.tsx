@@ -35,16 +35,8 @@ const serverPostFormDataRequest = async (api: string, formData: FormData) => {
   });
 };
 
-const serverPostRequestAttachFiles1 = async (
-  api: string,
-  body: any,
-  images: File[],
-) => {
-  const formData = new FormData();
-  formData.append("apartmentDetails", JSON.stringify(body));
-  for (let i = 0; i < images.length; i++) {
-    formData.append("files", images[i]);
-  }
+const postFormData = async (api: string, formData: FormData) => {
+  console.log(formData);
   return await axios.post(baseUrl.concat(api), formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -126,6 +118,6 @@ export default {
   serverPostRequest,
   serverPostRequestAttachFiles,
   getRequestWithSearchParams,
-  serverPostRequestAttachFiles1,
+  postFormData,
   serverPostFormDataRequest,
 };

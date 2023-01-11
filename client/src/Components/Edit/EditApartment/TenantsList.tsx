@@ -8,8 +8,8 @@ import { maleImage } from "../../../Assets/StaticImages";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { ITenant } from "../../../Data/interfaces/ITenant";
 import { AuthContextType } from "../../../Data/types/Auth";
-import TenantsCard from "../../ApartmentProfile/TenantsCard";
-import EditPdf from "../../Create/ManageFiles/EditPdf";
+import TenantsCard from "../../Delete/DeleteApartmentProfile/TenantsCard";
+import EditPdf from "../../Delete/CreateDelete/ManageFiles/EditPdf";
 import EditButtons from "../EditButtons";
 
 interface TenantsListProps {

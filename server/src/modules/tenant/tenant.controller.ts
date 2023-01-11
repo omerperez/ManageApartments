@@ -1,14 +1,19 @@
-import { BadRequestException, Body, Controller, HttpStatus, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { ApartmentService } from '../apartment/apartment.service';
+import { UserService } from '../user/user.service';
 import { CreateTenantDto } from './dto/createTenant.dto';
 import { TenantService } from './tenant.service';
 
 @Controller('tenant')
 export class TenantController {
-    constructor(private tenantService: TenantService) { }
+    constructor(
+        private tenantService: TenantService,
+        private apartmentService: ApartmentService,
+        private userService: UserService,
+    ) { }
 
-    // need agreement
     @Post('/create')
     @UseInterceptors(FileInterceptor('doc'))
     async createClient(
@@ -16,7 +21,6 @@ export class TenantController {
         @UploadedFile() doc: Express.Multer.File,
         @Res() res: Response
     ) {
-        console.log(body);
         try {
             const tenant = body.tenant.trim();
             const createTenant: CreateTenantDto = JSON.parse(tenant);
@@ -25,6 +29,17 @@ export class TenantController {
         } catch (error) {
             throw new BadRequestException(error);
         }
+    }
+
+    @Get('/find')
+    async getApartmentView(@Query() query: { apartmentId: string, owner: string }, @Res() response: Response) {
+        const apartment = await this.apartmentService.getApartmentById(
+            query.apartmentId,
+            query.owner
+        );
+        const tenant = await this.tenantService.getTenantById(apartment.tenant);
+        const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
+        return response.status(HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
 
     // @Get('/getClients')

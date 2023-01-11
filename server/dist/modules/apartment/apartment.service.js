@@ -25,6 +25,10 @@ let ApartmentService = class ApartmentService {
         const aprtmentImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
         return await this.apartmentRepository.createApartment(createApartmentDto, aprtmentImagesUrl);
     }
+    async editApartment(updateApartment, files) {
+        const newImagesUrl = await this.fileUploaderService.uploadMultipleFiles(files);
+        return await this.apartmentRepository.editApartment(updateApartment, newImagesUrl);
+    }
     async getApartmentById(apartmentId, owner) {
         return await this.apartmentRepository.getApartmentById(apartmentId, owner);
     }

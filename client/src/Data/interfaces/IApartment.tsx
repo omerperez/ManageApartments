@@ -7,6 +7,7 @@ interface PrivatePoviderProps {
 
 interface IApartment {
   _id?: string;
+  id?: string;
   name: string;
   city: string;
   neighborhood: string;

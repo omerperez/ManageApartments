@@ -31,19 +31,16 @@ export default function ApartmentCard({
 
   if (apartment === null) return null;
 
+  const backgroundCard = {
+    backgroundImage: `url(${apartment.images[apartment.mainImageIndex]})`,
+  };
+
   return (
     <div className="relative">
       <div className="block">
         <ThemeStyleRTL>
           <Card sx={MuiCard} className="card-layout">
-            <div
-              style={{
-                backgroundImage: `url(${
-                  apartment.images[apartment.mainImageIndex]
-                })`,
-              }}
-              className="card-bg-img"
-            >
+            <div style={backgroundCard} className="card-bg-img">
               <div className="d-end">
                 <Button
                   size="large"
@@ -59,7 +56,7 @@ export default function ApartmentCard({
               title={`${apartment.name}`}
               subheader={apartment.getFullAddress()}
             />
-            <CardMenuActions apartmentId={apartment.id.toString()} />
+            <CardMenuActions apartmentId={apartment.id} />
             <Collapse in={expanded} timeout="auto">
               <CardContent>
                 <Grid container spacing={1} className="card-design">

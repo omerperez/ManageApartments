@@ -12,5 +12,6 @@ export declare class TenantService {
     private fileUploaderService;
     constructor(userService: UserService, apartmentService: ApartmentService, tenantRepository: TenantRepository, fileUploaderService: FileUploaderService);
     createTenant(createTenantDto: CreateTenantDto, document: Express.Multer.File): Promise<any>;
+    getTenantHistory(owner: string): Promise<any>;
     getTenantById(id: MongooseSchema.Types.ObjectId): Promise<any>;
 }

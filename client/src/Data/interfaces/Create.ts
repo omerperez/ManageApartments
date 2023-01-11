@@ -20,4 +20,9 @@ interface IField extends ITranslateLabel {
     error?: string;
 }
 
-export type { IField, ITranslateLabel };
+interface IDetails extends ITranslateLabel {
+    key: string;
+    gridSize: number;
+}
+
+export type { IField, ITranslateLabel, IDetails };

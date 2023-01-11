@@ -29,6 +29,8 @@ let FileUploaderService = class FileUploaderService {
         const s3 = new aws_sdk_1.S3();
         const uploadResult = await s3.upload({
             Bucket: 'apartmentmanager',
+            ContentDisposition: 'inline',
+            ContentType: 'application/pdf',
             Body: dataBuffer,
             Key: `${(0, uuid_1.v4)()}-${filename}`
         }).promise();

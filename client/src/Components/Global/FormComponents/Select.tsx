@@ -10,10 +10,11 @@ interface SelectProps {
   error?: string;
   disabled: boolean;
   list: ISelectMenuItem[];
+  editSelect?: { function: (value: string, key: string) => void; key: string };
 }
 
 function SelectLabels(
-  { label, value, error, list, disabled }: SelectProps,
+  { label, value, error, list, disabled, editSelect }: SelectProps,
   ref: Ref<any>,
 ) {
   const MuiSelect = { backgroundColor: "white", marginTop: 0.05 };
@@ -21,6 +22,9 @@ function SelectLabels(
   const [currentValue, setCurrentValue] = useState<string>(value ?? "");
 
   const handleChange = (event: SelectChangeEvent<any>) => {
+    if (editSelect) {
+      editSelect.function(event.target.value, editSelect.key);
+    }
     setCurrentValue(event.target.value);
   };
 

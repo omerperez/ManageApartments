@@ -2,12 +2,15 @@ import { InternalServerErrorException, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooseSchema } from 'mongoose';
 import { Apartment } from 'src/entities/apartment.entity';
+import { UpdateApartmentDto } from 'src/modules/apartment/dto/updateApartment.dto';
+import { TenantService } from 'src/modules/tenant/tenant.service';
 import { UserService } from 'src/modules/user/user.service';
-import { CreateApartmentDto } from '../modules/apartment/dto/createProduct.dto';
+import { CreateApartmentDto } from '../modules/apartment/dto/createApartment.dto';
 
 export class ApartmentRepository {
-    constructor(@InjectModel(Apartment.name) private readonly apartmentModel: Model<Apartment>
-        , private readonly userService: UserService) { }
+    constructor(@InjectModel(Apartment.name) private readonly apartmentModel: Model<Apartment>,
+        private readonly userService: UserService,
+    ) { }
 
     async getUserApartments(mobile: string) {
         let apartments: any[];
@@ -40,6 +43,31 @@ export class ApartmentRepository {
         });
         try {
             apartment = await apartment.save();
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        return apartment;
+    }
+
+    async editApartment(
+        updateApartment: UpdateApartmentDto,
+        newImagesUrl: string[]
+    ) {
+        const currentUser = await this.userService.getUserByMobile(updateApartment.owner);
+        if (currentUser) {
+            updateApartment.owner = currentUser._id;
+        } else {
+            throw new InternalServerErrorException('User Not Exist');
+        }
+        let apartment;
+        try {
+            if (newImagesUrl.length > 0) {
+                const updateImages = updateApartment.images.concat(newImagesUrl);
+                updateApartment.images = updateImages;
+            }
+            apartment = await this.apartmentModel.findOneAndUpdate({ _id: updateApartment.id }, updateApartment, {
+                returnOriginal: false
+            });
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
@@ -141,6 +169,9 @@ export class ApartmentRepository {
         const currentUser = await this.userService.getUserByMobile(owner);
         try {
             apartment = await this.apartmentModel.findById(id).exec();
+            // if (currentUser._id !== apartment.owner) {
+            //     throw new NotFoundException('Access Denied');
+            // }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

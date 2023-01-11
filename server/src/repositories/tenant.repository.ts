@@ -1,4 +1,4 @@
-import { ConflictException, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooseSchema } from 'mongoose';
 import { ApartmentService } from 'src/modules/apartment/apartment.service';
@@ -16,40 +16,39 @@ export class TenantRepository {
 
     async createTenant(createTenantDto: CreateTenantDto, document: string) {
         const currentUser = await this.userService.getUserByMobile(createTenantDto.owner);
-        console.log(currentUser);
         if (currentUser) {
             createTenantDto.owner = currentUser._id;
         } else {
             throw new InternalServerErrorException('User Not Exist');
         }
-        // let tenant = await this.getTenantById(createTenantDto.id);
-        // if (tenant) {
-        //     console.log("tenant")
-        //     throw new ConflictException('Tenant Already Exists!');
-        // }
         let tenant;
         tenant = new this.tenantModel({
             ...createTenantDto,
-            _id: createTenantDto.id,
             agreement: [document],
             currentAgreement: document
         });
-
         try {
-
-            tenant = await tenant.save();
-            console.log(tenant);
-            this.apartmentService.changeTenant(tenant.apartment,
-                tenant._id,
-                tenant.owner
-            );
-
+            tenant = await this.tenantModel.create(tenant);
+            const currentApartment = await this.apartmentService
+                .getApartmentById(tenant.apartment, tenant.owner);
+            currentApartment.tenant = tenant._id;
+            await currentApartment.save();
         } catch (error) {
             throw new InternalServerErrorException('Error al consultar la BD', error);
         }
         return tenant;
     }
 
+    async getTenantHistory(owner: string) {
+        const currentUser = await this.userService.getUserByMobile(owner);
+        let tenantHistory;
+        try {
+            tenantHistory = this.tenantModel.find({ owner: currentUser._id })
+        } catch (error) {
+            throw new InternalServerErrorException('Error al consultar la BD', error);
+        }
+        return tenantHistory;
+    }
     // async getClients(query: GetQueryDto) {
     //     let from = query.from || 0;
     //     from = Number(from);

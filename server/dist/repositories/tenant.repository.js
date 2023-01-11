@@ -27,7 +27,6 @@ let TenantRepository = class TenantRepository {
     }
     async createTenant(createTenantDto, document) {
         const currentUser = await this.userService.getUserByMobile(createTenantDto.owner);
-        console.log(currentUser);
         if (currentUser) {
             createTenantDto.owner = currentUser._id;
         }
@@ -35,16 +34,29 @@ let TenantRepository = class TenantRepository {
             throw new common_1.InternalServerErrorException('User Not Exist');
         }
         let tenant;
-        tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { _id: createTenantDto.id, agreement: [document], currentAgreement: document }));
+        tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { agreement: [document], currentAgreement: document }));
         try {
-            tenant = await tenant.save();
-            console.log(tenant);
-            this.apartmentService.changeTenant(tenant.apartment, tenant._id, tenant.owner);
+            tenant = await this.tenantModel.create(tenant);
+            const currentApartment = await this.apartmentService
+                .getApartmentById(tenant.apartment, tenant.owner);
+            currentApartment.tenant = tenant._id;
+            await currentApartment.save();
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error al consultar la BD', error);
         }
         return tenant;
+    }
+    async getTenantHistory(owner) {
+        const currentUser = await this.userService.getUserByMobile(owner);
+        let tenantHistory;
+        try {
+            tenantHistory = this.tenantModel.find({ owner: currentUser._id });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Error al consultar la BD', error);
+        }
+        return tenantHistory;
     }
     async getTenantById(id) {
         let tenant;
