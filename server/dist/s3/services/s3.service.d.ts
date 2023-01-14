@@ -1,9 +1,9 @@
 /// <reference types="node" />
 /// <reference types="multer" />
+import { ConfigService } from '@nestjs/config';
+import { S3 } from 'aws-sdk';
 import { Repository } from 'typeorm';
 import { PublicFile } from '../modules/s3.modules';
-import { S3 } from 'aws-sdk';
-import { ConfigService } from '@nestjs/config';
 export declare class S3Service {
     private publicFilesRepository;
     private readonly configService;

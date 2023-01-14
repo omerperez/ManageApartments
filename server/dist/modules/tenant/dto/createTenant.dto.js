@@ -20,7 +20,7 @@ __decorate([
 ], CreateTenantDto.prototype, "id", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", mongoose_1.Schema.Types.ObjectId)
+    __metadata("design:type", String)
 ], CreateTenantDto.prototype, "apartment", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),

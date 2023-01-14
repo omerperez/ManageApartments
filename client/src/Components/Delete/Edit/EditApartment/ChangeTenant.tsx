@@ -7,12 +7,13 @@ import {
 } from "@mui/icons-material";
 import { Button, Dialog, DialogContent, Grid, IconButton } from "@mui/material";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
-import { defaultTenant, defaultTenant2 } from "../../../Assets/StaticData";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import { AuthContextType } from "../../../Data/types/Auth";
-import { DialogSelectEditTenantTypeMui } from "../../../Layout/Mui/Edit";
-import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
+import { defaultTenant2 } from "../../../../Assets/StaticData";
+import { AuthContext } from "../../../../Contexts/AuthContext";
+import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import { DialogSelectEditTenantTypeMui } from "../../../../Layout/Mui/Edit";
+import ThemeStyleRTL from "../../../../Layout/ThemeStyleRTL";
 import EditButtons from "../EditButtons";
 import EditTenant from "../EditTenant/EditTenant";
 import EditTenantForm from "../EditTenant/EditTenantForm";
@@ -22,7 +23,7 @@ import TenantsList from "./TenantsList";
 
 interface ChangeTenantProps {
   apartmentId: string;
-  editTenant: ITenant | undefined | null;
+  editTenant: Tenant | undefined | null;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -36,19 +37,13 @@ export default function ChangeTenant({
   const editTenantText = "עריכת דייר";
   const [option, setOption] = useState<number>(-1);
   // const [editTenant, setEditTenant] = useState<ITenant | null>(null);
-  const [tenantsList, setTenantList] = useState<ITenant[]>([]);
+  const [tenantsList, setTenantList] = useState<Tenant[]>([]);
 
   const { authState } = useContext(AuthContext) as AuthContextType;
 
   const chooseTenantFromList = () => {
     //fetch - get all tenant that free -> prop: apartmentId
-    setTenantList([
-      defaultTenant,
-      defaultTenant2,
-      defaultTenant,
-      defaultTenant2,
-      defaultTenant,
-    ]);
+    setTenantList([]);
     setOption(0);
   };
 
@@ -81,12 +76,12 @@ export default function ChangeTenant({
         />
       </div>
     </>,
-    <EditTenant editTenant={editTenant as ITenant} />,
-    <ExtendAgreement
-      tenant={editTenant as ITenant}
-      language={authState.language}
-      setOpen={setOpen}
-    />,
+    // <EditTenant editTenant={editTenant} />,
+    // <ExtendAgreement
+    //   tenant={editTenant as ITenant}
+    //   language={authState.language}
+    //   setOpen={setOpen}
+    // />,
   ];
 
   // Export to file latter

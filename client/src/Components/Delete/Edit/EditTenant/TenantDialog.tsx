@@ -1,11 +1,11 @@
 import { Edit } from "@mui/icons-material";
 import { Dialog, DialogContent, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
-import { defaultTenant } from "../../../Assets/StaticData";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import Loading from "../../../Layout/Loading";
-import { DialogTenantMui } from "../../../Layout/Mui/Edit";
-import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
+import { defaultTenant } from "../../../../Assets/StaticData";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import Loading from "../../../../Layout/Loading";
+import { DialogTenantMui } from "../../../../Layout/Mui/Edit";
+import ThemeStyleRTL from "../../../../Layout/ThemeStyleRTL";
 import EditTenant from "./EditTenant";
 
 interface TenantDialogProps {

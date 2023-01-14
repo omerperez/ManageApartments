@@ -46,8 +46,6 @@ export class ApartmentController {
         @Body() body: { updateApartment: string },
         @Res() res: Response
     ) {
-        console.log(body);
-        console.log(files);
         const apartmentDetails = body.updateApartment.trim()
         const updateApartment: UpdateApartmentDto = JSON.parse(apartmentDetails);
         try {

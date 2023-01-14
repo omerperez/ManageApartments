@@ -1,0 +1,16 @@
+.edit-tenant-document-btn {
+  font-size: medium !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  color: white !important;
+  border-radius: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+.upload-new-document {
+  background-color: #809fff !important;
+}
+
+.remove-new-document {
+  background-color: #ff5370 !important;
+}

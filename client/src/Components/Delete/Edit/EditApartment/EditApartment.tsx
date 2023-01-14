@@ -1,16 +1,16 @@
 import { Grid, TextareaAutosize } from "@mui/material";
 import { createRef, Ref, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apartmentFormLabels } from "../../../Assets/Create";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { IApartment } from "../../../Data/interfaces/IApartment";
-import { IErrosListObject } from "../../../Data/interfaces/IValidation";
-import { AuthContextType } from "../../../Data/types/Auth";
-import { getInputType, getSelectList } from "../../../Services/FormService";
-import { getSubmitFormValues } from "../../../Services/Global";
-import Autocomplete from "../../Global/FormComponents/Autocomplete";
-import Input from "../../Global/FormComponents/Input";
-import Select from "../../Global/FormComponents/Select";
+import { apartmentFormLabels } from "../../../../Assets/Create";
+import { AuthContext } from "../../../../Contexts/AuthContext";
+import { IApartment } from "../../../../Data/interfaces/IApartment";
+import { IErrosListObject } from "../../../../Data/interfaces/IValidation";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import { getInputType, getSelectList } from "../../../../Services/FormService";
+import { getSubmitFormValues } from "../../../../Services/Global";
+import Autocomplete from "../../../Global/FormComponents/Autocomplete";
+import Input from "../../../Global/FormComponents/Input";
+import Select from "../../../Global/FormComponents/Select";
 import EditButtons from "../EditButtons";
 
 interface ApartmentPartProps {
@@ -34,7 +34,6 @@ export default function EditApartmentForm({
 
     if (isFormPropper) {
       setErrorList({});
-      console.log(formValues);
       return navigate("/");
     } else {
       setErrorList(errorList as IErrosListObject);

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { PublicFile } from '../modules/s3.modules';
-import { S3 } from 'aws-sdk';
 import { ConfigService } from '@nestjs/config';
-import { v4 as uuid } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { S3 } from 'aws-sdk';
 import { env } from 'process';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
+import { PublicFile } from '../modules/s3.modules';
 
 
 @Injectable()
@@ -19,8 +19,7 @@ export class S3Service {
     async uploadPublicFile(dataBuffer: Buffer, filename: string) {
         const s3 = new S3();
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
-            // env.AWS_PUBLIC_BUCKET_NAME,
+            Bucket: env.AWS_PUBLIC_BUCKET_NAME,
             Body: dataBuffer,
             Key: `${uuid()}-${filename}`
         }).promise();
@@ -36,8 +35,7 @@ export class S3Service {
 
     async uploadSingleFile(s3: S3, dataBuffer: Buffer, filename: string) {
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
-            // env.AWS_PUBLIC_BUCKET_NAME,
+            Bucket: env.AWS_PUBLIC_BUCKET_NAME,
             Body: dataBuffer,
             Key: `${uuid()}-${filename}`
         }).promise();

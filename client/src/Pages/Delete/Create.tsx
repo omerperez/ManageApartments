@@ -47,7 +47,6 @@ export default function Create() {
 
   const handleSubmit = () => {
     if (newApartment && newTenant && files) {
-      console.log("here!!");
       const apartment: IApartmentServerCreateRequest = {
         ...newApartment,
         mainImageIndex: files.mainImageIndex,
@@ -59,9 +58,7 @@ export default function Create() {
         newTenant,
         files.images,
         files.images[0],
-        // files.agreement ??
       ).then((res) => {
-        console.log("res");
         console.log(res);
       });
     }

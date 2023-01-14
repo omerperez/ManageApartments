@@ -25,8 +25,9 @@ import {
 import { getSubmitFormValues } from "../Services/Global";
 
 export default function EditApartment() {
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const { editData, functions } = useEditApartmentData();
+  // Constans
   const APARTMENT_EDIT_TITLE = "עריכת דירה";
 
   useEffect(() => {
@@ -45,10 +46,10 @@ export default function EditApartment() {
       editData.editFormRefs,
     );
     if (isFormPropper) {
+      setLoading(true);
       functions.changeErrors({});
       const values = formValues as { [key: string]: string };
       if (editData.apartment) {
-        console.log(editData.apartment.id);
         const newApartment = {
           id: editData.apartment.id,
           owner: authState.mobile,
@@ -57,7 +58,8 @@ export default function EditApartment() {
           ...getApartmentFormObject(values),
         } as EditApartmentDto;
         updateApartment(newApartment, editData.newImages).then((response) => {
-          console.log(response);
+          functions.navigateToApartmentPage(response._id);
+          setLoading(false);
         });
       }
     } else {

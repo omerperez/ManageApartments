@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as AWS from 'aws-sdk';
-import { env } from 'process';
 import * as bodyParser from 'body-parser';
+import { env } from 'process';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,12 +11,9 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   AWS.config.update({
-    accessKeyId: 'AKIARRGFTIZHJTUKLAAU',
-    // env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: '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',
-    // env.AWS_SECRET_ACCESS_KEY,
-    region: 'eu-west-1',
-    // env.AWS_REGION,
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    region: env.AWS_REGION,
   });
   const config = new DocumentBuilder()
     .setTitle('Apartment Manager Backend Documents')

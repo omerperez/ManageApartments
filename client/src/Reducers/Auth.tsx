@@ -1,39 +1,41 @@
-import { IAuthContext } from "../Data/interfaces/IUser";
+import { IAuthStateContext } from "../Data/interfaces/IAuthentication";
 import { AuthAction } from "../Data/types/Auth";
+import CookieService from "../Services/CookieService";
 
 export default function authReducer(
-  authState: IAuthContext,
+  authState: IAuthStateContext,
   action: AuthAction,
 ) {
   switch (action.type) {
     case "login": {
-      console.log(action.currentUser);
-      return {
+      return (authState = {
         ...authState,
         ...action.currentUser,
-      };
+      });
     }
     case "changeLanguage": {
-      return {
+      return (authState = {
         ...authState,
         language: action.language,
-      };
+      });
     }
     case "logout": {
-      return {
+      CookieService.removeUserObj();
+      return (authState = {
         firstName: "",
         lastName: "",
         email: "",
         mobile: "",
+        token: "",
         language: "",
         loading: false,
-      };
+      });
     }
     case "loading": {
-      return {
+      return (authState = {
         ...authState,
         loading: action.loading,
-      };
+      });
     }
     default:
       return authState;

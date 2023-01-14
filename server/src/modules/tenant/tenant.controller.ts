@@ -1,9 +1,12 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
+import { Schema } from 'mongoose';
 import { ApartmentService } from '../apartment/apartment.service';
 import { UserService } from '../user/user.service';
+import { ChangeTenantDto } from './dto/changeTenant.dto';
 import { CreateTenantDto } from './dto/createTenant.dto';
+import { EditTenantDto } from './dto/editTenant.dto';
 import { TenantService } from './tenant.service';
 
 @Controller('tenant')
@@ -31,6 +34,23 @@ export class TenantController {
         }
     }
 
+    @Post('/edit')
+    @UseInterceptors(FileInterceptor('newDocument'))
+    async editTenant(
+        @Body() body: { tenant: string },
+        @UploadedFile() newDocument: Express.Multer.File,
+        @Res() res: Response
+    ) {
+        try {
+            const tenant = body.tenant.trim();
+            const editTenant: EditTenantDto = JSON.parse(tenant);
+            const updateTenant = await this.tenantService.editTenant(editTenant, newDocument);
+            return res.status(HttpStatus.CREATED).send(updateTenant);
+        } catch (error) {
+            throw new BadRequestException(error);
+        }
+    }
+
     @Get('/find')
     async getApartmentView(@Query() query: { apartmentId: string, owner: string }, @Res() response: Response) {
         const apartment = await this.apartmentService.getApartmentById(
@@ -38,30 +58,30 @@ export class TenantController {
             query.owner
         );
         const tenant = await this.tenantService.getTenantById(apartment.tenant);
-        const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
+        let tenantHistory = [];
+
+        await Promise.all(apartment.tenantsHistory.map(async (tenantId: Schema.Types.ObjectId) => {
+            const currentTenant = await this.tenantService.getTenantById(tenantId);
+            tenantHistory.push(currentTenant);
+        }));
+        // const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
         return response.status(HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
 
     @Get('/tenants_history')
     async getTenantHistory(@Query() query: { owner: string }, @Res() response: Response) {
-        console.log(query.owner)
         const history = await this.tenantService.getTenantHistory(
             query.owner
         );
-        console.log("history");
-        console.log(history);
         return response.status(HttpStatus.OK).send(history);
     }
 
-    // @Get('/getClients')
-    // async getClients(@Query() getQueryDto: GetQueryDto, @Res() res: Response) {
-    //     const clients: any = await this.tenantService.getClients(getQueryDto);
-    //     return res.status(HttpStatus.OK).send(clients);
-    // }
+    @Post('/change_tenant')
+    async changeTenant(@Body() body: ChangeTenantDto, @Res() response: Response) {
+        const editApartment = await this.tenantService.changeTenant(
+            body
+        );
+        return response.status(HttpStatus.OK).send(editApartment);
+    }
 
-    // @Get('/getClientById/:id')
-    // async getClientById(@Param('id') id: MongooseSchema.Types.ObjectId, @Res() res: Response) {
-    //     const client: any = await this.tenantService.getClientById(id);
-    //     return res.status(HttpStatus.OK).send(client);
-    // }
 }

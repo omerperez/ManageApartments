@@ -18,4 +18,6 @@ export declare class UpdateApartmentDto {
     comments: string;
     mainImageIndex: number;
     images: string[];
+    tenant: string;
+    tenantsHistory: string[];
 }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { Schema as MongooseSchema } from 'mongoose';
 
 export class CreateTenantDto {
@@ -7,7 +7,7 @@ export class CreateTenantDto {
     id: MongooseSchema.Types.ObjectId;
 
     @IsNotEmpty()
-    apartment: MongooseSchema.Types.ObjectId;
+    apartment: string;
 
     @IsNotEmpty()
     firstName: string;

@@ -26,6 +26,7 @@ let TenantRepository = class TenantRepository {
         this.apartmentService = apartmentService;
     }
     async createTenant(createTenantDto, document) {
+        const ownerMobile = createTenantDto.owner;
         const currentUser = await this.userService.getUserByMobile(createTenantDto.owner);
         if (currentUser) {
             createTenantDto.owner = currentUser._id;
@@ -33,12 +34,14 @@ let TenantRepository = class TenantRepository {
         else {
             throw new common_1.InternalServerErrorException('User Not Exist');
         }
-        let tenant;
-        tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { agreement: [document], currentAgreement: document }));
+        let tenant = new this.tenantModel(Object.assign(Object.assign({}, createTenantDto), { agreement: [document], currentAgreement: document }));
         try {
             tenant = await this.tenantModel.create(tenant);
             const currentApartment = await this.apartmentService
-                .getApartmentById(tenant.apartment, tenant.owner);
+                .getApartmentById(createTenantDto.apartment, ownerMobile);
+            if (currentApartment.tenant) {
+                currentApartment.tenantsHistory = currentApartment.tenantsHistory.concat(currentApartment.tenant);
+            }
             currentApartment.tenant = tenant._id;
             await currentApartment.save();
         }
@@ -47,15 +50,39 @@ let TenantRepository = class TenantRepository {
         }
         return tenant;
     }
+    async editTenant(editTenantDto, document) {
+        const currentUser = await this.userService.getUserByMobile(editTenantDto.owner);
+        if (currentUser) {
+            editTenantDto.owner = currentUser._id;
+        }
+        else {
+            throw new common_1.InternalServerErrorException('User Not Exist');
+        }
+        let tenant;
+        try {
+            if (document) {
+                const agreements = editTenantDto.agreement.concat(editTenantDto.currentAgreement);
+                editTenantDto.currentAgreement = document;
+                editTenantDto.agreement = agreements;
+            }
+            tenant = await this.tenantModel.findOneAndUpdate({ _id: editTenantDto._id }, editTenantDto, {
+                returnOriginal: false
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+        return tenant;
+    }
     async getTenantHistory(owner) {
         const currentUser = await this.userService.getUserByMobile(owner);
-        let tenantHistory;
+        let tenantsHistory;
         try {
             if (currentUser) {
                 const apartments = await this.apartmentService.getUserApartmentsId(currentUser._id);
                 const allTenant = await this.tenantModel.find();
                 const apartmentsJson = JSON.stringify(apartments);
-                tenantHistory = allTenant.filter((tenant) => {
+                tenantsHistory = allTenant.filter((tenant) => {
                     return (apartmentsJson.indexOf(JSON.stringify(tenant.apartment)) !== -1);
                 });
             }
@@ -63,7 +90,29 @@ let TenantRepository = class TenantRepository {
         catch (error) {
             throw new common_1.InternalServerErrorException('Error al consultar la BD', error);
         }
-        return tenantHistory;
+        return tenantsHistory;
+    }
+    async changeTenant(data) {
+        const currentUser = await this.userService.getUserByMobile(data.owner);
+        let apartment;
+        try {
+            apartment = await this.apartmentService.getApartmentById(data.apartmentId, data.owner);
+            if (apartment && currentUser._id.equals(apartment.owner)) {
+                apartment = Object.assign(Object.assign({}, apartment._doc), { id: data.apartmentId, owner: data.owner, tenantsHistory: apartment.tenantsHistory.concat(apartment.tenant) });
+                if (data.newTenantId) {
+                    const newTenant = await this.tenantModel.findById(data.newTenantId);
+                    apartment.tenant = newTenant._id;
+                }
+                else {
+                    apartment.tenant = null;
+                }
+                apartment = await this.apartmentService.editApartment(apartment, []);
+            }
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Error al consultar la BD', error);
+        }
+        return apartment;
     }
     async getTenantById(id) {
         let tenant;

@@ -30,12 +30,24 @@ let TenantService = class TenantService {
         const tenant = await this.tenantRepository.createTenant(createTenantDto, documentUrl);
         return tenant;
     }
+    async editTenant(createTenantDto, document) {
+        let documentUrl;
+        if (document) {
+            documentUrl = await this.fileUploaderService.uploadFile(document.buffer, document.originalname);
+        }
+        return await this.tenantRepository.editTenant(createTenantDto, documentUrl);
+    }
     async getTenantHistory(owner) {
-        console.log(owner);
         return await this.tenantRepository.getTenantHistory(owner);
     }
+    async changeTenant(data) {
+        return await this.tenantRepository.changeTenant(data);
+    }
     async getTenantById(id) {
-        return await this.tenantRepository.getTenantById(id);
+        if (id) {
+            return await this.tenantRepository.getTenantById(id);
+        }
+        return undefined;
     }
 };
 TenantService = __decorate([

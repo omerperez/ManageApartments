@@ -14,8 +14,9 @@ export default function TenantActionsCard({ tenant }: TenantActionsCardProps) {
   const ADD_TENANT_BTN_TEXT = "הוסף דייר";
   const EDIT_TENANT_BTN_TEXT = "עריכה";
   const WHATSAPP_TENANT_BTN_TEXT = "וואטסאפ";
-  const DOWNLOAD_AGREEMENT = "הורד חוזה";
+  const DOWNLOAD_AGREEMENT = "חוזה";
   const EDIT_TENANT_DIALOG_TITLE = "עריכת דייר";
+  const AGREEMENT_DIALOG_TITLE = "צפה בחוזה";
 
   const [option, setOption] = useState<number>(-1);
 
@@ -73,6 +74,7 @@ export default function TenantActionsCard({ tenant }: TenantActionsCardProps) {
           title={option !== 2 ? EDIT_TENANT_DIALOG_TITLE : ""}
           cancelActionsButtons={true}
           cancelContent={option === 2}
+          isShowCloseButton={true}
         />
       </Grid>
       <Grid item sm={4}>
@@ -91,8 +93,10 @@ export default function TenantActionsCard({ tenant }: TenantActionsCardProps) {
               className="docs-btn tenant-card-btn"
             />
           }
-          title={"צפה בחוזה"}
+          title={AGREEMENT_DIALOG_TITLE}
           content={documentContent}
+          cancelActionsButtons={true}
+          isShowCloseButton={true}
         />
       </Grid>
     </Grid>

@@ -35,18 +35,34 @@ let TenantController = class TenantController {
             throw new common_1.BadRequestException(error);
         }
     }
+    async editTenant(body, newDocument, res) {
+        try {
+            const tenant = body.tenant.trim();
+            const editTenant = JSON.parse(tenant);
+            const updateTenant = await this.tenantService.editTenant(editTenant, newDocument);
+            return res.status(common_1.HttpStatus.CREATED).send(updateTenant);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
     async getApartmentView(query, response) {
         const apartment = await this.apartmentService.getApartmentById(query.apartmentId, query.owner);
         const tenant = await this.tenantService.getTenantById(apartment.tenant);
-        const tenantHistory = await this.tenantService.getTenantHistory(query.owner);
+        let tenantHistory = [];
+        await Promise.all(apartment.tenantsHistory.map(async (tenantId) => {
+            const currentTenant = await this.tenantService.getTenantById(tenantId);
+            tenantHistory.push(currentTenant);
+        }));
         return response.status(common_1.HttpStatus.OK).send({ apartment, tenant, tenantHistory });
     }
     async getTenantHistory(query, response) {
-        console.log(query.owner);
         const history = await this.tenantService.getTenantHistory(query.owner);
-        console.log("history");
-        console.log(history);
         return response.status(common_1.HttpStatus.OK).send(history);
+    }
+    async changeTenant(body, response) {
+        const editApartment = await this.tenantService.changeTenant(body);
+        return response.status(common_1.HttpStatus.OK).send(editApartment);
     }
 };
 __decorate([
@@ -59,6 +75,16 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "createClient", null);
+__decorate([
+    (0, common_1.Post)('/edit'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('newDocument')),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], TenantController.prototype, "editTenant", null);
 __decorate([
     (0, common_1.Get)('/find'),
     __param(0, (0, common_1.Query)()),
@@ -75,6 +101,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "getTenantHistory", null);
+__decorate([
+    (0, common_1.Post)('/change_tenant'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], TenantController.prototype, "changeTenant", null);
 TenantController = __decorate([
     (0, common_1.Controller)('tenant'),
     __metadata("design:paramtypes", [tenant_service_1.TenantService,

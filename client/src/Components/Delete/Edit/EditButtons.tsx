@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { Stack } from "react-bootstrap";
-import "../../Layout/CSS/EditApartment.css";
 
 interface EditButtonsProps {
   onSave: () => void;

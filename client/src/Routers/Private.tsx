@@ -11,50 +11,48 @@ import SideBar from "../Layout/SideBar";
 import { verifyToken } from "../Services/Api/AuthApi";
 import CookieService from "../Services/CookieService";
 
-export default function PrivateRouter({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+interface PrivateRouterProps {
+  children: JSX.Element;
+}
+
+export default function PrivateRouter({ children }: PrivateRouterProps) {
   const { authState, login, logout } = useContext(
     AuthContext,
   ) as AuthContextType;
   const [loading, setLoading] = useState<boolean>(true);
-  const [isConnect, setIsConnect] = useState<boolean>(true);
 
   useEffect(() => {
-    const isUserConnect = async () => {
+    const verifyUser = async () => {
       const token = CookieService.getToken();
       if (token) {
         try {
-          const data = await verifyToken(token);
-          if (data.userId === CookieService.getUserId()) {
+          const response = await verifyToken(token);
+          if (response.userId === CookieService.getUserId()) {
             login({
-              mobile: data.userId,
-              firstName: data.firstName,
-              lastName: data.lastName,
-              email: data.email,
+              mobile: response.userId,
+              firstName: response.firstName,
+              lastName: response.lastName,
+              email: response.email,
               language: "he",
+              token: token,
             });
-            setIsConnect(true);
           } else {
             logout();
-            setIsConnect(false);
           }
-          setLoading(false);
-        } catch (e) {
-          setLoading(false);
+        } catch (error) {
           logout();
         }
       }
+
+      setLoading(false);
     };
-    isUserConnect();
+    verifyUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;
 
-  return isConnect ? (
+  return authState.token ? (
     <div className="router-layout project-font">
       <div className={`home-layout-${authState.language}`}>
         <Grid container>

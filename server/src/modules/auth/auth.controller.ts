@@ -17,17 +17,14 @@ export class AuthController {
                 ipAddress: ip,
                 userAgent: headers['user-agent'],
             });
-            console.log(results);
             return results;
         } catch (error) {
-            console.log("here")
             throw new BadRequestException(error);
         }
     }
 
     @Post('/verify')
     async verify(@Body() verifyAuthDto: VerifyAuthDto) {
-        console.log(verifyAuthDto)
         return this.authService.verify(verifyAuthDto.token);
     }
 }

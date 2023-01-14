@@ -28,7 +28,6 @@ let AuthService = class AuthService {
         const isPasswordPropper = argon2.verify(getUser.password, loginAuthDto.password);
         if (isPasswordPropper) {
             const authProperties = await this.newRefreshAndAccessToken(getUser, values);
-            console.log(authProperties);
             delete getUser.password;
             return {
                 user: getUser,
@@ -41,8 +40,6 @@ let AuthService = class AuthService {
     }
     async verify(token) {
         const verifyToken = await jsonwebtoken.verify(token, process.env.SECRET_TOKEN);
-        console.log("verifyToken");
-        console.log(verifyToken);
         if (typeof verifyToken === 'string') {
             return undefined;
         }

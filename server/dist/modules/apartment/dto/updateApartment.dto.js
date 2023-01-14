@@ -89,5 +89,13 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], UpdateApartmentDto.prototype, "images", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateApartmentDto.prototype, "tenant", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdateApartmentDto.prototype, "tenantsHistory", void 0);
 exports.UpdateApartmentDto = UpdateApartmentDto;
 //# sourceMappingURL=updateApartment.dto.js.map

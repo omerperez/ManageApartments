@@ -18,7 +18,7 @@ export default function ApartmentImages({
       </Grid>
       <Grid item sm={3} className="grid-side-images">
         {images.map((src, key) => (
-          <div>
+          <div key={`apartment_image_${key}`}>
             <img
               src={src}
               alt={`apartment_image_${key}`}

@@ -7,6 +7,9 @@ import { User } from './user.entity';
 @Schema()
 export class Apartment extends Document {
 
+    @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: Tenant.name }], required: false, })
+    tenantsHistory: Tenant[];
+
     @Prop({ type: MongooseSchema.Types.ObjectId, required: false, ref: Tenant.name })
     tenant: MongooseSchema.Types.ObjectId;
 

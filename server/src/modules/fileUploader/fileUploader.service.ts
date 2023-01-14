@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UploaderFile } from './modules/uploaderFile.module';
 import { S3 } from 'aws-sdk';
-import { v4 as uuid } from 'uuid';
 import { env } from 'process';
 import { PublicFile } from 'src/s3/modules/s3.modules';
-import { ConfigService } from '@nestjs/config';
-import e from 'express';
+import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 
 @Injectable()
@@ -21,7 +19,7 @@ export class FileUploaderService {
     async uploadFile(dataBuffer: Buffer, filename: string): Promise<string> {
         const s3 = new S3();
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
+            Bucket: env.AWS_PUBLIC_BUCKET_NAME,
             ContentDisposition: 'inline',
             ContentType: 'application/pdf',
             Body: dataBuffer,
@@ -33,26 +31,12 @@ export class FileUploaderService {
             url: uploadResult.Location
         });
         await this.publicFilesRepository.save(newFile);
-
         return newFile.url;
-        // return {
-        //     key: uploadResult.Key,
-        //     url: uploadResult.Location
-        // }
-
-        // const newFile = this.fileUploaderRepository.create({
-        //     key: uploadResult.Key,
-        //     url: uploadResult.Location
-        // });
-
-        // await this.fileUploaderRepository.save(newFile);
-        // return newFile.url;
     }
 
     async uploadSingleFile(s3: S3, dataBuffer: Buffer, filename: string): Promise<string> {
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
-            // env.AWS_PUBLIC_BUCKET_NAME,
+            Bucket: env.AWS_PUBLIC_BUCKET_NAME,
             Body: dataBuffer,
             Key: `${uuid()}-${filename}`
         }).promise();
@@ -63,13 +47,6 @@ export class FileUploaderService {
 
         await this.publicFilesRepository.save(newFile);
         return newFile.url;
-        // const newFile = this.fileUploaderRepository.create({
-        //     key: uploadResult.Key,
-        //     url: uploadResult.Location
-        // });
-
-        // await this.fileUploaderRepository.save(newFile);
-        // return newFile.url;
     }
 
     async uploadMultipleFiles(files: Array<Express.Multer.File>) {

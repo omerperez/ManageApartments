@@ -4,10 +4,12 @@ import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import TenantActionsCard from "./TenantCard/TenantActionsCard";
 import TopTenantCard from "./TenantCard/TopTenantCard";
 
-interface MainTenantCardProps {
+interface TenantCardProps {
   tenant?: Tenant;
+  hideActions?: boolean;
 }
-export default function MainTenantCard({ tenant }: MainTenantCardProps) {
+
+export default function TenantCard({ tenant, hideActions }: TenantCardProps) {
   const getTenantCardValue = (key: string, tenant?: Tenant) => {
     if (key === "Occupancy Period") {
       return tenant ? `${tenant.startDate} - ${tenant.endDate}` : "הדירה פנויה";
@@ -36,7 +38,7 @@ export default function MainTenantCard({ tenant }: MainTenantCardProps) {
           ))}
         </Grid>
       </CardContent>
-      <TenantActionsCard tenant={tenant} />
+      {!hideActions && <TenantActionsCard tenant={tenant} />}
     </Card>
   );
 }

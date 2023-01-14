@@ -8,7 +8,6 @@ export default function PublicRouter({ children }: { children?: ReactNode }) {
   const { authState } = useContext(AuthContext) as AuthContextType;
 
   if (authState || CookieService.getToken()) {
-    console.log(true);
     return <Navigate to="/home" />;
   }
   return <div>{children}</div>;

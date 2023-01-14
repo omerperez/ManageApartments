@@ -15,7 +15,6 @@ export default function MyApartments() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("here");
     setApartments([
       defaultApartment,
       defaultApartment,

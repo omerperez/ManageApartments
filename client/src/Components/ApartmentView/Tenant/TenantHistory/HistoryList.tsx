@@ -6,7 +6,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 
@@ -14,13 +14,24 @@ interface TenantsHistoryListProps {
   tenants: Tenant[];
 }
 export default function HistoryList({ tenants }: TenantsHistoryListProps) {
-  if (tenants.length < 0) {
+  const [lastTenants, setLastTenants] = useState<Tenant[]>([]);
+
+  useEffect(() => {
+    const tenantsLength = tenants.length;
+    if (tenantsLength > 3) {
+      setLastTenants(tenants.slice(tenantsLength - 3));
+    } else {
+      setLastTenants(tenants);
+    }
+  }, [tenants]);
+
+  if (lastTenants.length === 0) {
     return null;
   }
-  const SEE_MORE_BUTTON_TEXT = "ראה עוד...";
+
   return (
     <List className="tenant-history">
-      {tenants.map((tenant, index) => (
+      {lastTenants.map((tenant, index) => (
         <Fragment key={`history-tenants-${tenant.id + index}`}>
           <ListItem alignItems="flex-start" className="text-start">
             <ListItemAvatar>
@@ -40,7 +51,6 @@ export default function HistoryList({ tenants }: TenantsHistoryListProps) {
                   >
                     {`תאריכים: ${tenant.startDate} - ${tenant.endDate}`}
                   </Typography>
-                  <div>{SEE_MORE_BUTTON_TEXT}</div>
                 </Fragment>
               }
             />

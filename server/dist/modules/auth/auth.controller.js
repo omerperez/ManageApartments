@@ -30,16 +30,13 @@ let AuthController = class AuthController {
                 ipAddress: ip,
                 userAgent: headers['user-agent'],
             });
-            console.log(results);
             return results;
         }
         catch (error) {
-            console.log("here");
             throw new common_1.BadRequestException(error);
         }
     }
     async verify(verifyAuthDto) {
-        console.log(verifyAuthDto);
         return this.authService.verify(verifyAuthDto.token);
     }
 };

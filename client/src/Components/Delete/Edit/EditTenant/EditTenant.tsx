@@ -1,14 +1,14 @@
 import { Grid } from "@mui/material";
 import { createRef, Ref, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { tenantsFormLabels } from "../../../Assets/Create";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import { IErrosListObject } from "../../../Data/interfaces/IValidation";
-import { AuthContextType } from "../../../Data/types/Auth";
-import { getSubmitFormValues } from "../../../Services/Global";
-import Date from "../../Global/FormComponents/Date";
-import Input from "../../Global/FormComponents/Input";
+import { tenantsFormLabels } from "../../../../Assets/Create";
+import { AuthContext } from "../../../../Contexts/AuthContext";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { IErrosListObject } from "../../../../Data/interfaces/IValidation";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import { getSubmitFormValues } from "../../../../Services/Global";
+import Date from "../../../Global/FormComponents/Date";
+import Input from "../../../Global/FormComponents/Input";
 import EditButtons from "../EditButtons";
 
 interface TenantPartProps {

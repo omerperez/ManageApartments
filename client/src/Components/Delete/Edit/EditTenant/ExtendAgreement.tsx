@@ -2,12 +2,12 @@ import { Grid } from "@mui/material";
 import { Stack } from "@mui/system";
 import dayjs from "dayjs";
 import { Dispatch, Ref, SetStateAction, useRef, useState } from "react";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import { convertDateFormatToDayJS } from "../../../Features/Format";
-import TenantsCard from "../../Delete/DeleteApartmentProfile/TenantsCard";
-import EditPdf from "../../Delete/CreateDelete/ManageFiles/EditPdf";
-import UploadPDF from "../../Delete/CreateDelete/ManageFiles/UploadPDF";
-import Date from "../../Global/FormComponents/Date";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { convertDateFormatToDayJS } from "../../../../Features/Format";
+import TenantsCard from "../../DeleteApartmentProfile/TenantsCard";
+import EditPdf from "../../CreateDelete/ManageFiles/EditPdf";
+import UploadPDF from "../../CreateDelete/ManageFiles/UploadPDF";
+import Date from "../../../Global/FormComponents/Date";
 import EditButtons from "../EditButtons";
 
 interface ExtendAgreementProps {
@@ -51,7 +51,7 @@ export default function ExtendAgreement({
       <div className="sub-page-title">{"הארכת חוזה"}</div>
       <Grid container>
         <Grid item sm={6} className="d-flex justify-content-center">
-          <TenantsCard
+          {/* <TenantsCard
             sx={{
               maxWidth: "90%",
               boxShadow: "5px 5px 15px -5px rgba(0, 0, 0, 0.75)",
@@ -59,7 +59,7 @@ export default function ExtendAgreement({
             currentTenant={tenant}
             language={language}
             isEditDialog={true}
-          />
+          /> */}
         </Grid>
         <Grid item sm={6}>
           <Stack spacing={1}>

@@ -36,7 +36,6 @@ const serverPostFormDataRequest = async (api: string, formData: FormData) => {
 };
 
 const postFormData = async (api: string, formData: FormData) => {
-  console.log(formData);
   return await axios.post(baseUrl.concat(api), formData, {
     headers: {
       "Content-Type": "multipart/form-data",

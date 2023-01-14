@@ -14,12 +14,13 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.S3Service = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const s3_modules_1 = require("../modules/s3.modules");
-const aws_sdk_1 = require("aws-sdk");
 const config_1 = require("@nestjs/config");
+const typeorm_1 = require("@nestjs/typeorm");
+const aws_sdk_1 = require("aws-sdk");
+const process_1 = require("process");
+const typeorm_2 = require("typeorm");
 const uuid_1 = require("uuid");
+const s3_modules_1 = require("../modules/s3.modules");
 let S3Service = class S3Service {
     constructor(publicFilesRepository, configService) {
         this.publicFilesRepository = publicFilesRepository;
@@ -28,7 +29,7 @@ let S3Service = class S3Service {
     async uploadPublicFile(dataBuffer, filename) {
         const s3 = new aws_sdk_1.S3();
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
+            Bucket: process_1.env.AWS_PUBLIC_BUCKET_NAME,
             Body: dataBuffer,
             Key: `${(0, uuid_1.v4)()}-${filename}`
         }).promise();
@@ -41,7 +42,7 @@ let S3Service = class S3Service {
     }
     async uploadSingleFile(s3, dataBuffer, filename) {
         const uploadResult = await s3.upload({
-            Bucket: 'apartmentmanager',
+            Bucket: process_1.env.AWS_PUBLIC_BUCKET_NAME,
             Body: dataBuffer,
             Key: `${(0, uuid_1.v4)()}-${filename}`
         }).promise();

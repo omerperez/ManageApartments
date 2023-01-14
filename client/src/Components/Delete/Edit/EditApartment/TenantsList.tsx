@@ -4,18 +4,19 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
-import { maleImage } from "../../../Assets/StaticImages";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import { AuthContextType } from "../../../Data/types/Auth";
-import TenantsCard from "../../Delete/DeleteApartmentProfile/TenantsCard";
-import EditPdf from "../../Delete/CreateDelete/ManageFiles/EditPdf";
+import { maleImage } from "../../../../Assets/StaticImages";
+import { AuthContext } from "../../../../Contexts/AuthContext";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import TenantsCard from "../../../Delete/DeleteApartmentProfile/TenantsCard";
+import EditPdf from "../../../Delete/CreateDelete/ManageFiles/EditPdf";
 import EditButtons from "../EditButtons";
+import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 
 interface TenantsListProps {
   isShowOnly: boolean;
-  tenantsList: ITenant[];
-  setEditTenant?: Dispatch<SetStateAction<ITenant | null>>;
+  tenantsList: Tenant[];
+  setEditTenant?: Dispatch<SetStateAction<Tenant | null>>;
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 

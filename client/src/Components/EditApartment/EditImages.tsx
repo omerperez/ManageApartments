@@ -72,8 +72,13 @@ export default function EditImages({
   return (
     <>
       <Grid container className="files-container-edit">
-        {images.map((img: string, index: number) => (
-          <Grid item sm={4} className="padding-img">
+        {images.map((img, index) => (
+          <Grid
+            item
+            sm={4}
+            className="padding-img"
+            key={`apartment-images-${index}`}
+          >
             <div className="relative">
               <img
                 onClick={() => changeMainImageIndex(index)}
@@ -102,7 +107,12 @@ export default function EditImages({
           </Grid>
         ))}
         {newImages.map((img: File, index: number) => (
-          <Grid item sm={4} className="padding-img">
+          <Grid
+            item
+            sm={4}
+            className="padding-img"
+            key={`apartment-new-images-${index}`}
+          >
             <div className="relative">
               <img
                 onClick={() => changeMainImageIndex(images.length + index)}

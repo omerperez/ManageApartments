@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooseSchema } from 'mongoose';
 import { Apartment } from 'src/entities/apartment.entity';
 import { UpdateApartmentDto } from 'src/modules/apartment/dto/updateApartment.dto';
-import { TenantService } from 'src/modules/tenant/tenant.service';
 import { UserService } from 'src/modules/user/user.service';
 import { CreateApartmentDto } from '../modules/apartment/dto/createApartment.dto';
 
@@ -98,93 +97,15 @@ export class ApartmentRepository {
         }
         return undefined;
     }
-    // async updateProduct(updateProduct: UpdateProductDto, session: ClientSession) {
-    //     const actualDate = new Date();
-    //     actualDate.toUTCString();
-
-    //     const updateData = {
-    //         status: updateProduct.status,
-    //         client: updateProduct.clientId,
-    //         updatedAt: actualDate,
-    //     };
-
-    //     let product;
-    //     try {
-    //         product = await this.apartmentModel
-    //             .findOneAndUpdate({ _id: updateProduct.id }, updateData, {
-    //                 new: true,
-    //             })
-    //             .session(session)
-    //             .exec();
-    //     } catch (error) {
-    //         throw new InternalServerErrorException(error);
-    //     }
-
-    //     if (!product) {
-    //         throw new ConflictException('Error trying to update product');
-    //     }
-
-    //     return product;
-    // }
-
-    // async getApartments(query: GetQueryDto) {
-    //     let from = query.from || 0;
-    //     from = Number(from);
-
-    //     let limit = query.limit || 0;
-    //     limit = Number(limit);
-
-    //     let products: Product[];
-
-    //     try {
-    //         if (limit === 0) {
-    //             products = await this.apartmentModel
-    //                 .find()
-    //                 .populate('client')
-    //                 .populate('user', 'name email')
-    //                 .skip(from)
-    //                 .sort({ createdAt: -1 })
-    //                 .exec();
-    //         } else {
-    //             products = await this.apartmentModel
-    //                 .find()
-    //                 .populate('client')
-    //                 .populate('user', 'name email')
-    //                 .skip(from)
-    //                 .limit(limit)
-    //                 .sort({ createdAt: -1 })
-    //                 .exec();
-    //         }
-
-    //         let response;
-
-    //         if (products.length > 0) {
-    //             response = {
-    //                 ok: true,
-    //                 data: products,
-    //                 message: 'Get Products Ok!',
-    //             };
-    //         } else {
-    //             response = {
-    //                 ok: true,
-    //                 data: [],
-    //                 message: 'No hay products',
-    //             };
-    //         }
-    //         return response;
-    //     } catch (error) {
-    //         throw new InternalServerErrorException(error);
-    //     }
-    // }
 
     async getApartmentById(id: string, owner: string) {
         let apartment;
         const currentUser = await this.userService.getUserByMobile(owner);
         try {
-            apartment = await this.apartmentModel.findById(id).exec();
-            // if (currentUser._id !== apartment.owner) {
-            //     throw new NotFoundException('Access Denied');
-            // }
+            apartment = await this.apartmentModel.findById({ _id: id });
+            if (!currentUser._id.equals(apartment.owner)) {
+                throw new NotFoundException('Access Denied');
+            }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

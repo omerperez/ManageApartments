@@ -1,22 +1,3 @@
-import { IUserProperties } from "./IUser";
-
-interface LoginResponse {
-    auth: {
-        accessToken: string;
-        refreshToken: string;
-    }
-    user: IUserProperties;
-}
-
-interface IVerifyToken {
-    userId: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    iat: number;
-    exp: number;
-}
-
 interface IUserReq {
     mobile: string;
     firstName: string;
@@ -25,4 +6,4 @@ interface IUserReq {
     password: string;
 }
 
-export type { IVerifyToken, LoginResponse, IUserReq };
+export type { IUserReq };

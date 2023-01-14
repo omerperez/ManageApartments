@@ -1,7 +1,7 @@
 import { Schema as MongooseSchema } from 'mongoose';
 export declare class CreateTenantDto {
     id: MongooseSchema.Types.ObjectId;
-    apartment: MongooseSchema.Types.ObjectId;
+    apartment: string;
     firstName: string;
     lastName: string;
     mobileNumber: string;

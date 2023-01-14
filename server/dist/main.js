@@ -1,19 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
-const app_module_1 = require("./app.module");
 const swagger_1 = require("@nestjs/swagger");
 const AWS = require("aws-sdk");
 const bodyParser = require("body-parser");
+const process_1 = require("process");
+const app_module_1 = require("./app.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     AWS.config.update({
-        accessKeyId: 'AKIARRGFTIZHJTUKLAAU',
-        secretAccessKey: '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',
-        region: 'eu-west-1',
+        accessKeyId: process_1.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process_1.env.AWS_SECRET_ACCESS_KEY,
+        region: process_1.env.AWS_REGION,
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Apartment Manager Backend Documents')

@@ -23,7 +23,9 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Tenant } from './tenant.entity';
 export declare class Apartment extends Document {
+    tenantsHistory: Tenant[];
     tenant: MongooseSchema.Types.ObjectId;
     owner: MongooseSchema.Types.ObjectId;
     name: string;

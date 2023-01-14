@@ -22,10 +22,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(authState.mobile);
       try {
         const apartments = await getAllApartments(authState.mobile);
-        console.log(apartments);
         setApartments(apartments);
       } catch (error) {
         setApartments([]);

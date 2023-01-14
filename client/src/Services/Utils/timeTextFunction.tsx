@@ -1,4 +1,4 @@
-import { IUser } from "../../Data/interfaces/IUser";
+import { IUser } from "../../Data/interfaces/IAuthentication";
 
 const morning = {
   he: "בוקר טוב",
@@ -19,11 +19,11 @@ const getTextByCurrentTime = (user: IUser) => {
   const currentHour: number = currentDate.getHours();
 
   if (currentHour < 12) {
-    return `${morning[user.language]}, ${fullName}`;
+    return `${morning[user.language]} ${fullName}`;
   } else if (currentHour < 18) {
-    return `${noon[user.language]}, ${fullName}`;
+    return `${noon[user.language]} ${fullName}`;
   } else {
-    return `${evening[user.language]}, ${fullName}`;
+    return `${evening[user.language]} ${fullName}`;
   }
 };
 

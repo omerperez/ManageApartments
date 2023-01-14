@@ -7,7 +7,7 @@ import { ITenantCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
-import { createTenant } from "../../../Services/Api/ApartmentApi";
+import TenantServiceApi from "../../../Services/Api/TenantApi";
 import {
   getSelectList,
   getTenantFormObject,
@@ -41,11 +41,11 @@ export default function CreateTenant({
       setErrorList({});
       const values = formValues as { [key: string]: string };
       const tenantData: ITenantCreateForm = getTenantFormObject(values);
-      createTenant(
+      TenantServiceApi.createTenant(
         {
           ...tenantData,
           apartment: apartmentId,
-          owner: "0522520484",
+          owner: authState.mobile,
         } as CreateTenantDto,
         document,
       ).then((response) => {

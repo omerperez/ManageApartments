@@ -1,5 +1,5 @@
 import Cookie from "universal-cookie";
-import { IUser } from "../Data/interfaces/IUser";
+import { IUser } from "../Data/interfaces/IAuthentication";
 
 const cookie = new Cookie();
 

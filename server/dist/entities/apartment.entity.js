@@ -17,6 +17,10 @@ const user_entity_1 = require("./user.entity");
 let Apartment = class Apartment extends mongoose_2.Document {
 };
 __decorate([
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.Schema.Types.ObjectId, ref: tenant_entity_1.Tenant.name }], required: false, }),
+    __metadata("design:type", Array)
+], Apartment.prototype, "tenantsHistory", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Schema.Types.ObjectId, required: false, ref: tenant_entity_1.Tenant.name }),
     __metadata("design:type", mongoose_2.Schema.Types.ObjectId)
 ], Apartment.prototype, "tenant", void 0);

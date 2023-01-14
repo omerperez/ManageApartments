@@ -41,8 +41,6 @@ let ApartmentController = class ApartmentController {
         }
     }
     async editApartment(files, body, res) {
-        console.log(body);
-        console.log(files);
         const apartmentDetails = body.updateApartment.trim();
         const updateApartment = JSON.parse(apartmentDetails);
         try {

@@ -40,4 +40,8 @@ export class UpdateApartmentDto {
     mainImageIndex: number;
     @IsOptional()
     images: string[];
+    @IsOptional()
+    tenant: string;
+    @IsOptional()
+    tenantsHistory: string[];
 }

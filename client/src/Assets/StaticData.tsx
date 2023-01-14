@@ -1,6 +1,6 @@
 import { Apartment } from "../Data/builders/Apartment";
 import { Tenant } from "../Data/builders/Tenant";
-import { IUser } from "../Data/interfaces/IUser";
+import { IUser } from "../Data/interfaces/IAuthentication";
 
 const defaultApartment = new Apartment({
   _id: "1",
@@ -65,7 +65,7 @@ const tempUser: IUser = {
   lastName: "Perez",
   email: "omerperez222@gmail.com",
   mobile: "0522520484",
-  // token: "123123123",
+  token: "123123123",
   language: "he",
 };
 

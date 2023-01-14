@@ -220,6 +220,11 @@
   margin: 10px !important;
 }
 
+.dialog-close-btn-top {
+  color: #809fff !important;
+  font-size: 35px !important;
+}
+
 .dialog-content-change-tenant {
   margin: 0px 40px 40px 40px !important;
 }
@@ -246,6 +251,7 @@
 .dialog-title {
   font-family: "Rubik", sans-serif !important;
   letter-spacing: 1.5px !important;
+  margin-top: 5px;
 }
 
 .dialog-btn {

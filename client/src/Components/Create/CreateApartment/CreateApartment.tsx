@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import { apartmentFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartment.dto";
@@ -21,10 +22,10 @@ import {
   getSelectList,
 } from "../../../Services/FormService";
 import { getSubmitFormValues } from "../../../Services/Global";
-import UploadImages from "./UploadImages";
 import Autocomplete from "../../Global/FormComponents/Autocomplete";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
+import UploadImages from "./UploadImages";
 
 interface CreateApartmentFormProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
@@ -36,6 +37,7 @@ export default function CreateApartment({
   setApartmentId,
 }: CreateApartmentFormProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
+  const navigate = useNavigate();
   const [city, setCity] = useState<string>("");
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(apartmentFormLabels.map(() => createRef()));
@@ -71,7 +73,13 @@ export default function CreateApartment({
     }
   };
 
+  const onCancel = () => {
+    return navigate("/");
+  };
+
+  // Constans
   const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+  const CREATE_APARTMENT_BTN = "צור דירה";
   return (
     <CreateFormLayout
       title={APARTMENT_DETAILS_TITLE}
@@ -84,9 +92,9 @@ export default function CreateApartment({
           error={errorList.images}
         />
       }
-      saveBtnText={"צור דירה"}
+      saveBtnText={CREATE_APARTMENT_BTN}
       onSubmit={onSubmit}
-      onCancel={() => {}}
+      onCancel={onCancel}
     >
       <Grid container spacing={1.5}>
         {apartmentFormLabels.map((item, index) =>

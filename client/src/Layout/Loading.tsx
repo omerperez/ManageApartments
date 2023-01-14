@@ -7,7 +7,7 @@ export default function Loading({ text }: LoadingProps) {
   return (
     <div className="loading">
       <CircularProgress size={80} />
-      <div className="loading-text">{text ?? "Loading..."}</div>
+      <div className="loading-text">{text ?? "טוען נתונים..."}</div>
     </div>
   );
 }

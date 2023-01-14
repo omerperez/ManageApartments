@@ -20,6 +20,11 @@ function useEditApartmentData() {
   const onCancel = () => {
     return navigate("/");
   };
+
+  const navigateToApartmentPage = (id: string) => {
+    return navigate(`/apartment?apartmentId=${id}`);
+  };
+
   const changeLoading = (status: boolean) => setLoading(status);
   const changeErrors = (update: IErrosListObject) => setErrorList(update);
   const changeCity = (newCity: string) => setCity(newCity);
@@ -83,6 +88,7 @@ function useEditApartmentData() {
       changeMainImageIndex,
       changeNewImages,
       onCancel,
+      navigateToApartmentPage,
     },
   };
 }

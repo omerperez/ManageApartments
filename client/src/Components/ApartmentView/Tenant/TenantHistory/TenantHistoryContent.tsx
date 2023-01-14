@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
-import MainTenantCard from "../MainTenantCard";
+import TenantCard from "../TenantCard";
 
 interface TenantHistoryContentProps {
   tenants: Tenant[];
@@ -16,6 +16,8 @@ interface TenantHistoryContentProps {
 export default function TenantHistoryContent({
   tenants,
 }: TenantHistoryContentProps) {
+  // Constans
+  const AGREEMENT_TITLE = "חוזה אחרון";
   const [currentIndex, setCurrentIndex] = useState<number>(tenants.length - 1);
 
   return (
@@ -46,14 +48,15 @@ export default function TenantHistoryContent({
         </List>
       </Grid>
       <Grid item sm={4}>
-        <MainTenantCard tenant={tenants[currentIndex]} />
+        <TenantCard tenant={tenants[currentIndex]} hideActions={true} />
       </Grid>
       <Grid item sm={4}>
-        <h5>חוזה אחרון</h5>
+        <h5>{AGREEMENT_TITLE}</h5>
         <iframe
           src={tenants[currentIndex].currentAgreement}
           title={`tenant-agreement`}
           width={"100%"}
+          loading="lazy"
           height={380}
           className="user-image"
         />

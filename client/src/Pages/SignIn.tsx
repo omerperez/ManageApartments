@@ -28,17 +28,16 @@ export default function SignIn() {
       return setError("מספר נייד / סיסמא שגואיים. אנא נסה בשנית.");
     else {
       loginRequest(mobile, password).then((response) => {
-        console.log(response);
         if (!response) {
           setError("שם משתמה או סיסמא שגויים אנא נסה שנית");
         } else {
-          console.log(response);
           CookieService.initUser(
             response.user.mobile,
             response.auth.accessToken,
           );
           login({
             ...response.user,
+            token: response.auth.accessToken,
             language: "he",
           });
         }

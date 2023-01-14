@@ -1,15 +1,15 @@
 import { Grid } from "@mui/material";
 import { createRef, Ref, useContext, useRef, useState } from "react";
-import { tenantsFormLabels } from "../../../Assets/Create";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { ITenant } from "../../../Data/interfaces/ITenant";
-import { IErrosListObject } from "../../../Data/interfaces/IValidation";
-import { AuthContextType } from "../../../Data/types/Auth";
-import { getSelectList } from "../../../Services/FormService";
-import { getSubmitFormValues } from "../../../Services/Global";
-import Date from "../../Global/FormComponents/Date";
-import Input from "../../Global/FormComponents/Input";
-import Select from "../../Global/FormComponents/Select";
+import { tenantsFormLabels } from "../../../../Assets/Create";
+import { AuthContext } from "../../../../Contexts/AuthContext";
+import { ITenant } from "../../../../Data/interfaces/ITenant";
+import { IErrosListObject } from "../../../../Data/interfaces/IValidation";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import { getSelectList } from "../../../../Services/FormService";
+import { getSubmitFormValues } from "../../../../Services/Global";
+import Date from "../../../Global/FormComponents/Date";
+import Input from "../../../Global/FormComponents/Input";
+import Select from "../../../Global/FormComponents/Select";
 
 interface TenantFormProps {
   editTenant: ITenant;

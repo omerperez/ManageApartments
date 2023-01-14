@@ -104,7 +104,10 @@ let ApartmentRepository = class ApartmentRepository {
         let apartment;
         const currentUser = await this.userService.getUserByMobile(owner);
         try {
-            apartment = await this.apartmentModel.findById(id).exec();
+            apartment = await this.apartmentModel.findById({ _id: id });
+            if (!currentUser._id.equals(apartment.owner)) {
+                throw new common_1.NotFoundException('Access Denied');
+            }
         }
         catch (error) {
             throw new common_1.InternalServerErrorException(error);
