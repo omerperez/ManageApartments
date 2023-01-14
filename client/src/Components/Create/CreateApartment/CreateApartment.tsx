@@ -15,13 +15,7 @@ import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartment
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
-import { createApartment } from "../../../Services/Api/ApartmentApi";
-import {
-  getApartmentFormObject,
-  getInputType,
-  getSelectList,
-} from "../../../Services/FormService";
-import { getSubmitFormValues } from "../../../Services/Global";
+import { getInputType, getSelectList } from "../../../Services/FormService";
 import Autocomplete from "../../Global/FormComponents/Autocomplete";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
@@ -36,6 +30,11 @@ export default function CreateApartment({
   setLoading,
   setApartmentId,
 }: CreateApartmentFormProps) {
+  // Constans
+  const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+  const CREATE_APARTMENT_BTN = "צור דירה";
+  const IMAGES_ERROR = "אנא הוסף תמונות";
+
   const { authState } = useContext(AuthContext) as AuthContextType;
   const navigate = useNavigate();
   const [city, setCity] = useState<string>("");
@@ -44,7 +43,8 @@ export default function CreateApartment({
   const [apartmentImages, setApartmentImages] = useState<File[]>([]);
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const { getSubmitFormValues } = await import("../../../Services/Global");
     const [formValues, errorList, isFormPropper] = getSubmitFormValues(
       apartmentFormLabels,
       refs,
@@ -53,11 +53,17 @@ export default function CreateApartment({
       setLoading(true);
       setErrorList({});
       const values = formValues as { [key: string]: string };
+      const { getApartmentFormObject } = await import(
+        "../../../Services/FormService"
+      );
       const newApartment: CreateApartmentDto = {
         ...getApartmentFormObject(values),
         owner: authState.mobile,
         mainImageIndex: mainImageIndex,
       };
+      const { createApartment } = await import(
+        "../../../Services/Api/ApartmentApi"
+      );
       createApartment(newApartment, apartmentImages).then((response) => {
         setApartmentId(response._id ?? "");
         setLoading(false);
@@ -66,7 +72,7 @@ export default function CreateApartment({
       if (apartmentImages.length === 0) {
         return setErrorList({
           ...(errorList as IErrosListObject),
-          images: "אנא הוסף תמונות",
+          images: IMAGES_ERROR,
         });
       }
       setErrorList(errorList as IErrosListObject);
@@ -77,9 +83,6 @@ export default function CreateApartment({
     return navigate("/");
   };
 
-  // Constans
-  const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
-  const CREATE_APARTMENT_BTN = "צור דירה";
   return (
     <CreateFormLayout
       title={APARTMENT_DETAILS_TITLE}

@@ -22,21 +22,17 @@ export default function EditImages({
   const handleChangeFiles = (files: File[]) => {
     changeNewImages(files);
   };
-
   const removeImage = (image: string) => {
     const removeImages = images.filter((img) => img !== image);
     changeImages(removeImages);
   };
-
   const removeNewImage = (image: any) => {
     let removeImages = newImages.filter((img) => img !== image);
     changeNewImages(removeImages);
   };
-
   const readFile = (image: File) => {
     return URL.createObjectURL(image);
   };
-
   const changeFiles = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       let files: File[] = [];

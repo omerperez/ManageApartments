@@ -4,20 +4,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useContext, useEffect, useState } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { maleImage } from "../../Assets/StaticImages";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../Data/types/Auth";
 import Loading from "../../Layout/Loading";
-import {
-  default as TenantApiService,
-  default as TenantServiceApi,
-} from "../../Services/Api/TenantApi";
+import TenantApiService from "../../Services/Api/TenantApi";
 import TenantsCard from "../Delete/DeleteApartmentProfile/TenantsCard";
 import DialogActionButtons from "../Global/DialogActionButtons";
 import UpdateDocument from "./UpdateDocument";
@@ -40,7 +33,6 @@ export default function ChangeTenantFromList({
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     TenantApiService.getTenantsHistory(authState.mobile).then((response) => {
@@ -52,11 +44,9 @@ export default function ChangeTenantFromList({
   const onSubmit = () => {
     setLoading(true);
     const apartmentId = searchParams.get("apartmentId") as string;
-    TenantServiceApi.changeTenant(authState.mobile, tenantId, apartmentId).then(
+    TenantApiService.changeTenant(authState.mobile, tenantId, apartmentId).then(
       (response) => {
         window.location.reload();
-        // onCancel();
-        // setLoading(false);
       },
     );
   };

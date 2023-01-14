@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../Data/types/Auth";
-import TenantServiceApi from "../../Services/Api/TenantApi";
 import DialogActionButtons from "../Global/DialogActionButtons";
 
 interface RemoveTenantProps {
@@ -13,11 +12,15 @@ interface RemoveTenantProps {
 export default function RemoveTenant({ tenant, onCancel }: RemoveTenantProps) {
   // Constans
   const REMOVE_TENANT_TEXT = "האם אתה בטוח שברצונך להסיר את הדייר ?";
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { authState } = useContext(AuthContext) as AuthContextType;
-  const onSubmit = () => {
+
+  const onSubmit = async () => {
     const apartmentId = searchParams.get("apartmentId") as string;
+    const TenantServiceApi = (await import("../../Services/Api/TenantApi"))
+      .default;
     TenantServiceApi.changeTenant(authState.mobile, "", apartmentId).then(
       () => {
         // response;

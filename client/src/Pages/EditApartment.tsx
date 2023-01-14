@@ -13,22 +13,15 @@ import { useEditApartmentData } from "../Hooks/useMetaData";
 import CreateFormLayout from "../Layout/CreateFormLayout";
 import "../Layout/CSS/EditApartment.css";
 import Loading from "../Layout/Loading";
-import {
-  getApartmentView,
-  updateApartment,
-} from "../Services/Api/ApartmentApi";
-import {
-  getApartmentFormObject,
-  getInputType,
-  getSelectList,
-} from "../Services/FormService";
-import { getSubmitFormValues } from "../Services/Global";
+import { getApartmentView } from "../Services/Api/ApartmentApi";
+import { getInputType, getSelectList } from "../Services/FormService";
 
 export default function EditApartment() {
-  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
-  const { editData, functions } = useEditApartmentData();
   // Constans
   const APARTMENT_EDIT_TITLE = "עריכת דירה";
+
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+  const { editData, functions } = useEditApartmentData();
 
   useEffect(() => {
     functions.changeLoading(true);
@@ -40,7 +33,8 @@ export default function EditApartment() {
     });
   }, [editData.searchParams]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const { getSubmitFormValues } = await import("../Services/Global");
     const [formValues, errorList, isFormPropper] = getSubmitFormValues(
       apartmentFormLabels,
       editData.editFormRefs,
@@ -50,6 +44,9 @@ export default function EditApartment() {
       functions.changeErrors({});
       const values = formValues as { [key: string]: string };
       if (editData.apartment) {
+        const { getApartmentFormObject } = await import(
+          "../Services/FormService"
+        );
         const newApartment = {
           id: editData.apartment.id,
           owner: authState.mobile,
@@ -57,6 +54,9 @@ export default function EditApartment() {
           mainImageIndex: editData.apartment?.mainImageIndex,
           ...getApartmentFormObject(values),
         } as EditApartmentDto;
+        const { updateApartment } = await import(
+          "../Services/Api/ApartmentApi"
+        );
         updateApartment(newApartment, editData.newImages).then((response) => {
           functions.navigateToApartmentPage(response._id);
           setLoading(false);

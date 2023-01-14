@@ -2,13 +2,13 @@ import { Groups, PersonAdd, PersonOff } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
-import "../../Layout/CSS/EditTenant.css";
 import Loading from "../../Layout/Loading";
 import CreateTenant from "../Create/CreateTenant/CreateTenant";
 import ChangeTenantButton from "../Delete/Edit/EditApartment/ChangeTenantButton";
 import ChangeTenantFromList from "./ChangeTenantFromList";
 import EditTenantForm from "./EditTenantForm";
 import RemoveTenant from "./RemoveTenant";
+import "../../Layout/CSS/EditTenant.css";
 
 interface EditTenantMenuProps {
   tenant?: Tenant;

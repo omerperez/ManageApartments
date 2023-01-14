@@ -6,12 +6,11 @@ import ListItemText from "@mui/material/ListItemText";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { maleImage } from "../../../../Assets/StaticImages";
 import { AuthContext } from "../../../../Contexts/AuthContext";
-import { ITenant } from "../../../../Data/interfaces/ITenant";
-import { AuthContextType } from "../../../../Data/types/Auth";
-import TenantsCard from "../../../Delete/DeleteApartmentProfile/TenantsCard";
-import EditPdf from "../../../Delete/CreateDelete/ManageFiles/EditPdf";
-import EditButtons from "../EditButtons";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import EditPdf from "../../../Delete/CreateDelete/ManageFiles/EditPdf";
+import TenantsCard from "../../../Delete/DeleteApartmentProfile/TenantsCard";
+import EditButtons from "../EditButtons";
 
 interface TenantsListProps {
   isShowOnly: boolean;

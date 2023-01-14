@@ -11,7 +11,6 @@ import { Apartment } from "../Data/builders/Apartment";
 import { AuthContextType } from "../Data/types/Auth";
 import "../Layout/CSS/Home.css";
 import Loading from "../Layout/Loading";
-import { getAllApartments } from "../Services/Api/ApartmentApi";
 import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 
 export default function Home() {
@@ -23,6 +22,9 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const { getAllApartments } = await import(
+          "../Services/Api/ApartmentApi"
+        );
         const apartments = await getAllApartments(authState.mobile);
         setApartments(apartments);
       } catch (error) {

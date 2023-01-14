@@ -7,7 +7,6 @@ import { ITenantCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
-import TenantServiceApi from "../../../Services/Api/TenantApi";
 import {
   getSelectList,
   getTenantFormObject,
@@ -27,12 +26,16 @@ export default function CreateTenant({
   onCancel,
 }: CreateTenantProps) {
   const { authState } = useContext(AuthContext) as AuthContextType;
+
+  // Constans
+  const language = authState.language ?? "he";
+  const CREATE_TENANT_TITLE = "פרטי הדייר";
+
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
-  const [tenant, setTenant] = useState<ITenantCreateForm | null>(null);
   const [document, setDocument] = useState<File | null>(null);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const [formValues, errorList, isFormPropper] = getSubmitFormValues(
       tenantsFormLabels,
       refs,
@@ -41,6 +44,8 @@ export default function CreateTenant({
       setErrorList({});
       const values = formValues as { [key: string]: string };
       const tenantData: ITenantCreateForm = getTenantFormObject(values);
+      const TenantServiceApi = (await import("../../../Services/Api/TenantApi"))
+        .default;
       TenantServiceApi.createTenant(
         {
           ...tenantData,
@@ -62,8 +67,6 @@ export default function CreateTenant({
     }
     return "בבקשה צרף חוזה";
   }
-  const language = authState.language ?? "he";
-  const CREATE_TENANT_TITLE = "פרטי הדייר";
   return (
     <CreateFormLayout
       title={CREATE_TENANT_TITLE}

@@ -6,9 +6,7 @@ import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { ITenantCreateForm } from "../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../Data/types/Auth";
-import TenantApiService from "../../Services/Api/TenantApi";
 import { getSelectList, getTenantFormObject } from "../../Services/FormService";
-import { getSubmitFormValues } from "../../Services/Global";
 import DialogActionButtons from "../Global/DialogActionButtons";
 import Date from "../Global/FormComponents/Date";
 import Input from "../Global/FormComponents/Input";
@@ -30,7 +28,8 @@ export default function EditTenantForm({
   );
   const [document, setDocument] = useState<File | null>(null);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const { getSubmitFormValues } = await import("../../Services/Global");
     const [formValues, errorList, isFormPropper] = getSubmitFormValues(
       tenantsFormLabels,
       editTenantRefs,
@@ -39,6 +38,8 @@ export default function EditTenantForm({
       setErrorList({});
       const values = formValues as { [key: string]: string };
       const tenantData: ITenantCreateForm = getTenantFormObject(values);
+      const TenantApiService = (await import("../../Services/Api/TenantApi"))
+        .default;
       TenantApiService.updateTenant(
         {
           _id: tenant._id,
