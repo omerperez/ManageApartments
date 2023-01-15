@@ -6,15 +6,26 @@ import TopTenantCard from "./TenantCard/TopTenantCard";
 
 interface TenantCardProps {
   tenant?: Tenant;
+  isTenantHistory?: boolean;
   hideActions?: boolean;
 }
 
-export default function TenantCard({ tenant, hideActions }: TenantCardProps) {
+export default function TenantCard({
+  tenant,
+  isTenantHistory,
+  hideActions,
+}: TenantCardProps) {
   const getTenantCardValue = (key: string, tenant?: Tenant) => {
+    if (!tenant && key !== "Occupancy Period") return "-";
+    if (!tenant) return "הדירה פנויה";
     if (key === "Occupancy Period") {
-      return tenant ? `${tenant.startDate} - ${tenant.endDate}` : "הדירה פנויה";
+      return `${tenant.startDate} - ${tenant.endDate}`;
     }
-    return tenant ? tenant[key as keyof Tenant] : "-";
+    if (key === "gender") {
+      const genders = ["זכר", "נקבה"];
+      return genders[+tenant.gender - 1];
+    }
+    return tenant[key as keyof Tenant];
   };
 
   return (
@@ -38,7 +49,9 @@ export default function TenantCard({ tenant, hideActions }: TenantCardProps) {
           ))}
         </Grid>
       </CardContent>
-      {!hideActions && <TenantActionsCard tenant={tenant} />}
+      {!hideActions && (
+        <TenantActionsCard tenant={tenant} isTenantHistory={isTenantHistory} />
+      )}
     </Card>
   );
 }

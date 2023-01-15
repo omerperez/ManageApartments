@@ -15,4 +15,5 @@ export declare class ApartmentRepository {
     editApartment(updateApartment: UpdateApartmentDto, newImagesUrl: string[]): Promise<any>;
     changeTenant(apartmentId: MongooseSchema.Types.ObjectId, tenantId: MongooseSchema.Types.ObjectId): Promise<any>;
     getApartmentById(id: string, owner: string): Promise<any>;
+    delete(apartmentId: string, ownerMobile: string): Promise<any>;
 }

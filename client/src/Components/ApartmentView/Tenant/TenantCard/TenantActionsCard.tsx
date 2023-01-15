@@ -1,15 +1,26 @@
 import { Add, Edit, FindInPage, WhatsApp } from "@mui/icons-material";
 import { Button, Grid } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { AuthContext } from "../../../../Contexts/AuthContext";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
+import { AuthContextType } from "../../../../Data/types/Auth";
+import CreateTenant from "../../../Create/CreateTenant/CreateTenant";
+import CreateTenantMenu from "../../../EditTenant/CreateTenantMenu";
 import EditTenantMenu from "../../../EditTenant/EditTenantMenu";
 import ButtonIcon from "../../../Global/ButtonIcon";
 import GenericDialog from "../../../Global/GenericDialog";
 
 interface TenantActionsCardProps {
   tenant?: Tenant;
+  isTenantHistory?: boolean;
 }
-export default function TenantActionsCard({ tenant }: TenantActionsCardProps) {
+export default function TenantActionsCard({
+  tenant,
+  isTenantHistory,
+}: TenantActionsCardProps) {
+  const [searchParams] = useSearchParams();
+
   // Constans
   const ADD_TENANT_BTN_TEXT = "הוסף דייר";
   const EDIT_TENANT_BTN_TEXT = "עריכה";
@@ -19,23 +30,66 @@ export default function TenantActionsCard({ tenant }: TenantActionsCardProps) {
   const AGREEMENT_DIALOG_TITLE = "צפה בחוזה";
 
   const [option, setOption] = useState<number>(-1);
-
+  const { setLoading } = useContext(AuthContext) as AuthContextType;
+  const apartmentId = searchParams.get("apartmentId") as string;
   const changeOption = useCallback((index: number) => {
     setOption(index);
   }, []);
 
+  if (!tenant && isTenantHistory) {
+    return (
+      <GenericDialog
+        children={
+          <Button fullWidth className="add-tenant-btn" onClick={() => {}}>
+            <Grid container spacing={2}>
+              <Grid item sm={6.5} textAlign="end">
+                {ADD_TENANT_BTN_TEXT}
+              </Grid>
+              <Grid item sm={5.5} textAlign="start">
+                <Add fontSize="large" className="tenant-card-add-btn-icon" />
+              </Grid>
+            </Grid>
+          </Button>
+        }
+        content={
+          <CreateTenantMenu
+            currentOption={option}
+            changeOption={changeOption}
+            apartmentId={apartmentId}
+          />
+        }
+        title={option !== 1 ? EDIT_TENANT_DIALOG_TITLE : ""}
+        cancelActionsButtons={true}
+        cancelContent={option === 1}
+        isShowCloseButton={true}
+      />
+    );
+  }
+
   if (!tenant) {
     return (
-      <Button fullWidth className="add-tenant-btn">
-        <Grid container spacing={2}>
-          <Grid item sm={6} textAlign="end">
-            {ADD_TENANT_BTN_TEXT}
-          </Grid>
-          <Grid item sm={6} textAlign="start">
-            <Add fontSize="large" className="tenant-card-add-btn-icon" />
-          </Grid>
-        </Grid>
-      </Button>
+      <GenericDialog
+        children={
+          <Button fullWidth className="add-tenant-btn" onClick={() => {}}>
+            <Grid container spacing={2}>
+              <Grid item sm={6.5} textAlign="end">
+                {ADD_TENANT_BTN_TEXT}
+              </Grid>
+              <Grid item sm={5.5} textAlign="start">
+                <Add fontSize="large" className="tenant-card-add-btn-icon" />
+              </Grid>
+            </Grid>
+          </Button>
+        }
+        content={
+          <CreateTenant
+            apartmentId={apartmentId}
+            onCancel={() => setLoading(true)}
+          />
+        }
+        cancelActionsButtons={true}
+        cancelContent={true}
+      />
     );
   }
 

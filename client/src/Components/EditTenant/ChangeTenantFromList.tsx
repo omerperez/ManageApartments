@@ -11,7 +11,7 @@ import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../Data/types/Auth";
 import Loading from "../../Layout/Loading";
 import TenantApiService from "../../Services/Api/TenantApi";
-import TenantsCard from "../Delete/DeleteApartmentProfile/TenantsCard";
+import TenantCard from "../ApartmentView/Tenant/TenantCard";
 import DialogActionButtons from "../Global/DialogActionButtons";
 import UpdateDocument from "./UpdateDocument";
 
@@ -33,6 +33,7 @@ export default function ChangeTenantFromList({
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [searchParams] = useSearchParams();
+  const [editLoading, setEditLoading] = useState<boolean>(false);
 
   useEffect(() => {
     TenantApiService.getTenantsHistory(authState.mobile).then((response) => {
@@ -42,17 +43,18 @@ export default function ChangeTenantFromList({
   }, []);
 
   const onSubmit = () => {
-    setLoading(true);
+    setEditLoading(true);
     const apartmentId = searchParams.get("apartmentId") as string;
     TenantApiService.changeTenant(authState.mobile, tenantId, apartmentId).then(
-      (response) => {
-        window.location.reload();
+      () => {
+        setEditLoading(false);
+        setLoading(true);
       },
     );
   };
 
-  if (authState.loading) {
-    return <Loading />;
+  if (editLoading) {
+    return <Loading text="מבצע החלפה לדייר הנבחר..." />;
   }
 
   if (tenants.length === 0)
@@ -66,7 +68,7 @@ export default function ChangeTenantFromList({
     <>
       <Grid container spacing={2}>
         <Grid item sm={4}>
-          <List component="nav">
+          <List component="nav" className="edit-from-list">
             {tenants.map((tenant, index) => (
               <ListItemButton
                 key={`tenant-list-item-${index + tenant.id}`}
@@ -91,12 +93,11 @@ export default function ChangeTenantFromList({
           </List>
         </Grid>
         <Grid item sm={4}>
-          <TenantsCard
-            currentTenant={tenants.find((tenant) => {
+          <TenantCard
+            tenant={tenants.find((tenant) => {
               return tenant._id === tenantId;
             })}
-            language={authState.language}
-            isEditDialog={true}
+            hideActions={true}
           />
         </Grid>
         <Grid item sm={4}>

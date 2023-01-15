@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@mui/material";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ApartmentDetails from "../Components/ApartmentView/ApartmentDetails";
 import ApartmentImages from "../Components/ApartmentView/ApartmentImages";
-import MainTenantCard from "../Components/ApartmentView/Tenant/TenantCard";
+import TenantCard from "../Components/ApartmentView/Tenant/TenantCard";
 import TenantHistory from "../Components/ApartmentView/Tenant/TenantHistory";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Apartment } from "../Data/builders/Apartment";
@@ -19,10 +20,12 @@ export default function ApartmentView() {
   const [currentApartment, setCurrentApartment] = useState<Apartment>();
   const [tenant, setTenant] = useState<Tenant>();
   const [tenantsHistory, setTenantsHistory] = useState<Tenant[]>([]);
-
-  useMemo(() => {
+  const [apartmentId, setApartmentId] = useState<string>("");
+  useEffect(() => {
     const currentApartmentId = searchParams.get("apartmentId") as string;
+    setApartmentId(currentApartmentId);
     getApartmentView(currentApartmentId).then((data) => {
+      console.log(data);
       setLoading(true);
       setTenant(data.tenant);
       setTenantsHistory(data.tenantHistory);
@@ -31,6 +34,19 @@ export default function ApartmentView() {
     });
   }, [searchParams]);
 
+  useMemo(() => {
+    if (authState.loading && apartmentId) {
+      getApartmentView(apartmentId).then((data) => {
+        console.log(data);
+        setLoading(true);
+        setTenant(data.tenant);
+        setTenantsHistory(data.tenantHistory);
+        setCurrentApartment(data.apartment);
+        setLoading(false);
+      });
+    }
+  }, [authState.loading]);
+
   if (authState.loading || !currentApartment) {
     return <Loading />;
   }
@@ -38,13 +54,17 @@ export default function ApartmentView() {
   // Constans
   const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
   const TENANT_DETAILS_TITLE = "דייר נוכחי";
+
   return (
     <Grid container className="apartment-details street-text">
       <Grid item xs={4} className="tenant-details-side">
         <div>
           {TENANT_DETAILS_TITLE}
           <div className="mt-2">
-            <MainTenantCard tenant={tenant} />
+            <TenantCard
+              tenant={tenant}
+              isTenantHistory={tenantsHistory.length > 0}
+            />
           </div>
           <TenantHistory tenants={tenantsHistory} />
         </div>

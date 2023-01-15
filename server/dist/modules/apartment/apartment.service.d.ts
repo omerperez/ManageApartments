@@ -16,4 +16,5 @@ export declare class ApartmentService {
     editApartment(updateApartment: UpdateApartmentDto, files: Array<Express.Multer.File>): Promise<any>;
     getApartmentById(apartmentId: string, owner: string): Promise<any>;
     changeTenant(apartmentId: string, tenantId: MongooseSchema.Types.ObjectId, owner: string): Promise<any>;
+    delete(apartmentId: string, ownerMobile: string): Promise<any>;
 }

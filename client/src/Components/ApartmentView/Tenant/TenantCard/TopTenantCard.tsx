@@ -15,7 +15,7 @@ export default function TopTenantCard({
     <>
       <div className="text-center mt-3">
         <img
-          src={gender === "נקבה" ? famaleImage : maleImage}
+          src={gender && +gender === 2 ? famaleImage : maleImage}
           width={100}
           alt="profile-pic"
           className="profile-img"

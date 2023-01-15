@@ -98,7 +98,7 @@ let TenantRepository = class TenantRepository {
         try {
             apartment = await this.apartmentService.getApartmentById(data.apartmentId, data.owner);
             if (apartment && currentUser._id.equals(apartment.owner)) {
-                apartment = Object.assign(Object.assign({}, apartment._doc), { id: data.apartmentId, owner: data.owner, tenantsHistory: apartment.tenantsHistory.concat(apartment.tenant) });
+                apartment = Object.assign(Object.assign({}, apartment._doc), { id: data.apartmentId, owner: data.owner, tenantsHistory: apartment.tenant ? apartment.tenantsHistory.concat(apartment.tenant) : apartment.tenantsHistory });
                 if (data.newTenantId) {
                     const newTenant = await this.tenantModel.findById(data.newTenantId);
                     apartment.tenant = newTenant._id;

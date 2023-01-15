@@ -17,4 +17,8 @@ export declare class ApartmentController {
         id: string;
         owner: string;
     }, response: Response): Promise<Response<any, Record<string, any>>>;
+    delete(query: {
+        apartmentId: string;
+        owner: string;
+    }, response: Response): Promise<Response<any, Record<string, any>>>;
 }

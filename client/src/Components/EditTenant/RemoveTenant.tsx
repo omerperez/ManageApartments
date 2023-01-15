@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../Data/types/Auth";
+import Loading from "../../Layout/Loading";
 import DialogActionButtons from "../Global/DialogActionButtons";
 
 interface RemoveTenantProps {
@@ -13,21 +14,26 @@ export default function RemoveTenant({ tenant, onCancel }: RemoveTenantProps) {
   // Constans
   const REMOVE_TENANT_TEXT = "האם אתה בטוח שברצונך להסיר את הדייר ?";
 
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
+  const [editLoading, setEditLoading] = useState<boolean>(false);
 
   const onSubmit = async () => {
+    setEditLoading(true);
     const apartmentId = searchParams.get("apartmentId") as string;
     const TenantServiceApi = (await import("../../Services/Api/TenantApi"))
       .default;
     TenantServiceApi.changeTenant(authState.mobile, "", apartmentId).then(
       () => {
-        // response;
-        return navigate(`apartment?apartmentId=${apartmentId}`);
+        setEditLoading(false);
+        setLoading(true);
       },
     );
   };
+
+  if (editLoading) {
+    return <Loading text={"מסיר דייר..."} />;
+  }
 
   return (
     <div className="text-center rtl">

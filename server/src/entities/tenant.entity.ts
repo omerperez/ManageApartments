@@ -9,7 +9,6 @@ export class Tenant extends Document {
     @Prop({ required: true, unique: true, type: String })
     id: string;
 
-    // Apartment
     @Prop({ type: MongooseSchema.Types.ObjectId, required: true, ref: 'Apartment' })
     apartment: MongooseSchema.Types.ObjectId;
 

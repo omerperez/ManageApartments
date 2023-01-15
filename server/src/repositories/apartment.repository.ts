@@ -111,4 +111,15 @@ export class ApartmentRepository {
         }
         return apartment;
     }
+
+    async delete(apartmentId: string, ownerMobile: string) {
+        let deleteApartment;
+        const currentUser = await this.userService.getUserByMobile(ownerMobile);
+        try {
+            deleteApartment = await this.apartmentModel.findOneAndDelete({ _id: apartmentId, owner: currentUser._id });
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+        return deleteApartment;
+    }
 }

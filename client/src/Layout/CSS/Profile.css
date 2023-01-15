@@ -251,24 +251,22 @@ th {
   margin: 5px 0 0 0 !important;
 }
 
-.grid-main-images {
-  border-left: solid 4px black !important;
-}
-
 .main-image {
+  height: 50vh;
   width: 100%;
-  height: auto;
-  max-height: 600px;
 }
 
 .grid-side-images {
   overflow: auto !important;
-  max-height: 600px !important;
+  max-height: 50vh !important;
 }
 
 .side-image {
   height: 180px;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  border: solid 1px black !important;
+  border-bottom: none !important;
 }
 
 .apartment-details-address {
@@ -323,6 +321,11 @@ th {
 .apartment-details-others-label {
   color: #7e8989;
   font-size: 16px;
+}
+
+.edit-from-list {
+  max-height: 45vh !important;
+  overflow: auto !important;
 }
 
 .tenant-card {

@@ -6,6 +6,7 @@ import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { ITenantCreateForm } from "../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../Data/types/Auth";
+import Loading from "../../Layout/Loading";
 import { getSelectList, getTenantFormObject } from "../../Services/FormService";
 import DialogActionButtons from "../Global/DialogActionButtons";
 import Date from "../Global/FormComponents/Date";
@@ -21,12 +22,13 @@ export default function EditTenantForm({
   tenant,
   onCancel,
 }: EditTenantFormProps) {
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const editTenantRefs: Ref<any> = useRef(
     tenantsFormLabels.map(() => createRef()),
   );
   const [document, setDocument] = useState<File | null>(null);
+  const [editLoading, setEditLoading] = useState<boolean>(false);
 
   const onSubmit = async () => {
     const { getSubmitFormValues } = await import("../../Services/Global");
@@ -35,6 +37,7 @@ export default function EditTenantForm({
       editTenantRefs,
     );
     if (isFormPropper) {
+      setEditLoading(true);
       setErrorList({});
       const values = formValues as { [key: string]: string };
       const tenantData: ITenantCreateForm = getTenantFormObject(values);
@@ -50,8 +53,9 @@ export default function EditTenantForm({
           owner: authState.mobile,
         } as Tenant,
         document,
-      ).then((response) => {
-        console.log(response);
+      ).then(() => {
+        setEditLoading(false);
+        setLoading(true);
       });
     } else {
       setErrorList(errorList as IErrosListObject);
@@ -59,6 +63,10 @@ export default function EditTenantForm({
   };
 
   const language = authState.language ?? "he";
+
+  if (editLoading) {
+    return <Loading text={"עורך פרטי דייר..."} />;
+  }
 
   return (
     <>

@@ -39,6 +39,9 @@ let ApartmentService = class ApartmentService {
         const currentApartment = await this.apartmentRepository.getApartmentById(apartmentId, owner);
         return await this.apartmentRepository.changeTenant(currentApartment._id, tenantId);
     }
+    async delete(apartmentId, ownerMobile) {
+        return await this.apartmentRepository.delete(apartmentId, ownerMobile);
+    }
 };
 ApartmentService = __decorate([
     (0, common_1.Injectable)(),

@@ -20,6 +20,10 @@ export default function TenantHistoryContent({
   const AGREEMENT_TITLE = "חוזה אחרון";
   const [currentIndex, setCurrentIndex] = useState<number>(tenants.length - 1);
 
+  if (currentIndex < 0) {
+    return null;
+  }
+
   return (
     <Grid container spacing={4} style={{ direction: "rtl" }}>
       <Grid item sm={4}>
@@ -34,7 +38,7 @@ export default function TenantHistoryContent({
             >
               <ListItemIcon>
                 <img
-                  src={tenant.gender === "נקבה" ? famaleImage : maleImage}
+                  src={+tenant.gender === 2 ? famaleImage : maleImage}
                   width={40}
                   alt="profile-pic"
                   className="profile-img"

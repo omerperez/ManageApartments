@@ -17,11 +17,12 @@ export default function HistoryList({ tenants }: TenantsHistoryListProps) {
   const [lastTenants, setLastTenants] = useState<Tenant[]>([]);
 
   useEffect(() => {
+    const tempTenants = tenants;
     const tenantsLength = tenants.length;
     if (tenantsLength > 3) {
-      setLastTenants(tenants.slice(tenantsLength - 3));
+      setLastTenants(tempTenants.slice(tenantsLength - 3));
     } else {
-      setLastTenants(tenants);
+      setLastTenants(tempTenants);
     }
   }, [tenants]);
 
@@ -37,7 +38,7 @@ export default function HistoryList({ tenants }: TenantsHistoryListProps) {
             <ListItemAvatar>
               <Avatar
                 alt="Tenant History List"
-                src={tenant.gender === "נקבה" ? famaleImage : maleImage}
+                src={+tenant.gender === 2 ? famaleImage : maleImage}
               />
             </ListItemAvatar>
             <ListItemText

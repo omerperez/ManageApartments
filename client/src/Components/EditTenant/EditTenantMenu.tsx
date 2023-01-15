@@ -30,7 +30,7 @@ export default function EditTenantMenu({
   const CREATE_NEW_TENANT = "צור דייר חדש";
   const EDIT_TENANT = "עריכת פרטי דייר";
 
-  const optionsBtns = [
+  const editOptionsButtons = [
     {
       color: "red",
       icon: <PersonOff />,
@@ -77,7 +77,7 @@ export default function EditTenantMenu({
   if (currentOption === -1) {
     return (
       <Grid container spacing={3}>
-        {optionsBtns.map((button, index) => (
+        {editOptionsButtons.map((button, index) => (
           <Grid item sm={3} key={`options-menu-${index}`}>
             <ChangeTenantButton
               color={button.color}

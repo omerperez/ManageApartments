@@ -16,10 +16,6 @@ interface TenantsHistoryListProps {
 export default function TenantsHistoryList({
   tenants,
 }: TenantsHistoryListProps) {
-  if (tenants.length < 0) {
-    return null;
-  }
-
   return (
     <List className="tenant-history">
       {tenants.map((tenant, index) => (
@@ -28,7 +24,7 @@ export default function TenantsHistoryList({
             <ListItemAvatar>
               <Avatar
                 alt="Tenant History List"
-                src={tenant.gender === "נקבה" ? famaleImage : maleImage}
+                src={+tenant.gender === 2 ? famaleImage : maleImage}
               />
             </ListItemAvatar>
             <ListItemText

@@ -26,6 +26,7 @@ interface GenericDialogProps {
   cancelContent?: boolean;
   isShowCloseButton?: boolean;
 }
+
 export default function GenericDialog({
   children,
   content,
@@ -36,7 +37,7 @@ export default function GenericDialog({
   cancelContent,
   isShowCloseButton,
 }: GenericDialogProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);

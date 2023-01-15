@@ -99,7 +99,7 @@ export class TenantRepository {
                     ...apartment._doc,
                     id: data.apartmentId,
                     owner: data.owner,
-                    tenantsHistory: apartment.tenantsHistory.concat(apartment.tenant)
+                    tenantsHistory: apartment.tenant ? apartment.tenantsHistory.concat(apartment.tenant) : apartment.tenantsHistory
                 };
                 if (data.newTenantId) {
                     const newTenant = await this.tenantModel.findById(data.newTenantId);

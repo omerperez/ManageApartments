@@ -55,6 +55,15 @@ let ApartmentController = class ApartmentController {
         const apartment = await this.apartmentService.getApartmentById(query.id, query.owner);
         return response.status(common_1.HttpStatus.OK).send(apartment);
     }
+    async delete(query, response) {
+        try {
+            await this.apartmentService.delete(query.apartmentId, query.owner);
+            return response.status(common_1.HttpStatus.OK);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
 };
 __decorate([
     (0, common_1.Get)('/my-apartments'),
@@ -92,6 +101,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ApartmentController.prototype, "getApartmentById", null);
+__decorate([
+    (0, common_1.Delete)('/delete'),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], ApartmentController.prototype, "delete", null);
 ApartmentController = __decorate([
     (0, common_1.Controller)('apartment'),
     __metadata("design:paramtypes", [apartment_service_1.ApartmentService])

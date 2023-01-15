@@ -114,6 +114,17 @@ let ApartmentRepository = class ApartmentRepository {
         }
         return apartment;
     }
+    async delete(apartmentId, ownerMobile) {
+        let deleteApartment;
+        const currentUser = await this.userService.getUserByMobile(ownerMobile);
+        try {
+            deleteApartment = await this.apartmentModel.findOneAndDelete({ _id: apartmentId, owner: currentUser._id });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+        return deleteApartment;
+    }
 };
 ApartmentRepository = __decorate([
     __param(0, (0, mongoose_1.InjectModel)(apartment_entity_1.Apartment.name)),

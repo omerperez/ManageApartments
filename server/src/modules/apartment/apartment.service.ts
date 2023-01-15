@@ -43,11 +43,7 @@ export class ApartmentService {
         return await this.apartmentRepository.changeTenant(currentApartment._id, tenantId);
     }
 
-    // async getProducts(getQueryDto: GetQueryDto) {
-    //     return await this.apartmentRepository.getProducts(getQueryDto);
-    // }
-
-    // async updateProduct(updateProductDto: UpdateProductDto, session: ClientSession) {
-    //     return await this.apartmentRepository.updateProduct(updateProductDto, session);
-    // }
+    async delete(apartmentId: string, ownerMobile: string) {
+        return await this.apartmentRepository.delete(apartmentId, ownerMobile);
+    }
 }

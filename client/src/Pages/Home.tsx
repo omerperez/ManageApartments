@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { topDashboardTitles } from "../Assets/HomePage";
 import { MY_APARTMENT } from "../Assets/IConstans";
@@ -14,13 +15,13 @@ import Loading from "../Layout/Loading";
 import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 
 export default function Home() {
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const { getAllApartments } = await import(
           "../Services/Api/ApartmentApi"
@@ -35,7 +36,25 @@ export default function Home() {
     fetchData();
   }, []);
 
-  if (loading) {
+  useMemo(() => {
+    if (authState.loading && apartments.length > 0) {
+      const fetchData = async () => {
+        try {
+          const { getAllApartments } = await import(
+            "../Services/Api/ApartmentApi"
+          );
+          const apartments = await getAllApartments(authState.mobile);
+          setApartments(apartments);
+        } catch (error) {
+          console.log(error);
+        }
+        setLoading(false);
+      };
+      fetchData();
+    }
+  }, [authState.loading]);
+
+  if (authState.loading) {
     return <Loading />;
   }
 

@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface ApartmentImagesProps {
   mainImageIndex: number;
@@ -9,15 +10,22 @@ export default function ApartmentImages({
   mainImageIndex,
   images,
 }: ApartmentImagesProps) {
-  const mainImage = images[mainImageIndex];
-  images.splice(mainImageIndex, 1);
+  const [mainImage, setMainImage] = useState<string>("");
+  const [sideImages, setSideImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    setMainImage(images[mainImageIndex]);
+    images.splice(mainImageIndex, 1);
+    setSideImages(images);
+  }, []);
+
   return (
     <Grid container>
-      <Grid item sm={9} className="grid-main-images">
+      <Grid item sm={9}>
         <img src={mainImage} className="main-image" alt="main" />
       </Grid>
       <Grid item sm={3} className="grid-side-images">
-        {images.map((src, key) => (
+        {sideImages.map((src, key) => (
           <div key={`apartment_image_${key}`}>
             <img
               src={src}

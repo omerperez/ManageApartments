@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Put, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpStatus, Post, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { ApartmentService } from './apartment.service';
@@ -62,9 +62,14 @@ export class ApartmentController {
         return response.status(HttpStatus.OK).send(apartment);
     }
 
-    // @Get('/getProducts')
-    // async getAllProducts(@Query() getQueryDto: GetQueryDto, @Res() res: any) {
-    //     const storages: any = await this.productService.getProducts(getQueryDto);
-    //     return res.status(HttpStatus.OK).send(storages);
-    // }
+    @Delete('/delete')
+    async delete(@Query() query: { apartmentId: string, owner: string }, @Res() response: Response) {
+        try {
+            await this.apartmentService.delete(query.apartmentId, query.owner);
+            return response.status(HttpStatus.OK)
+        } catch (error) {
+            throw new BadRequestException(error);
+        }
+    }
+
 }

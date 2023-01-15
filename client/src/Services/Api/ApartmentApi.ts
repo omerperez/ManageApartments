@@ -76,5 +76,11 @@ const createApartmentRequest = async (apartment: IApartmentServerCreateRequest,
     return response;
 };
 
+const deleteApartment = async (apartmentId: string, owner: string) => {
+    return await HttpService.deleteRequestWithSearchParams(
+        'apartment/delete',
+        { apartmentId: apartmentId, owner: owner }
+    );
+};
 
-export { getAllApartments, createApartment, getApartmentView, createApartmentRequest, updateApartment };
+export { getAllApartments, createApartment, getApartmentView, createApartmentRequest, updateApartment, deleteApartment };

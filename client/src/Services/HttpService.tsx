@@ -27,6 +27,15 @@ const getRequestWithSearchParams = async (
   });
 };
 
+const deleteRequestWithSearchParams = async (
+  api: string,
+  searchParamsObject: { [key: string]: string },
+) => {
+  return await axios.delete(API_CONSTANS.SERVER_BASE_URL.concat(api), {
+    params: searchParamsObject,
+  });
+};
+
 const serverPostFormDataRequest = async (api: string, formData: FormData) => {
   return await axios.post(baseUrl.concat(api), formData, {
     headers: {
@@ -119,4 +128,5 @@ export default {
   getRequestWithSearchParams,
   postFormData,
   serverPostFormDataRequest,
+  deleteRequestWithSearchParams,
 };

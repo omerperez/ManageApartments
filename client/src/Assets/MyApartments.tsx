@@ -17,7 +17,7 @@ const ApartmentCardButtons: IApartmentCardButton[] = [
   {
     className: "button-bg-delete apartment-card-btn",
     text: "מחיקה",
-    to: "apartment",
+    to: "delete",
     icon: <Delete className="apartment-card-icon" />,
   },
 ];

@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import { createRef, Ref, useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { tenantsFormLabels } from "../../../Assets/Create";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { CreateTenantDto } from "../../../Data/interfaces/dto/CreateTenantt.dto";
@@ -7,6 +8,7 @@ import { ITenantCreateForm } from "../../../Data/interfaces/Form.interface";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
+import Loading from "../../../Layout/Loading";
 import {
   getSelectList,
   getTenantFormObject,
@@ -25,7 +27,7 @@ export default function CreateTenant({
   apartmentId,
   onCancel,
 }: CreateTenantProps) {
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
 
   // Constans
   const language = authState.language ?? "he";
@@ -34,6 +36,8 @@ export default function CreateTenant({
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
   const [document, setDocument] = useState<File | null>(null);
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     const [formValues, errorList, isFormPropper] = getSubmitFormValues(
@@ -41,6 +45,7 @@ export default function CreateTenant({
       refs,
     );
     if (isFormPropper && document) {
+      setCreateLoading(true);
       setErrorList({});
       const values = formValues as { [key: string]: string };
       const tenantData: ITenantCreateForm = getTenantFormObject(values);
@@ -53,8 +58,10 @@ export default function CreateTenant({
           owner: authState.mobile,
         } as CreateTenantDto,
         document,
-      ).then((response) => {
-        console.log(response);
+      ).then(() => {
+        setCreateLoading(false);
+        setLoading(true);
+        return navigate(`/apartment?apartmentId=${apartmentId}`);
       });
     } else {
       setErrorList(errorList as IErrosListObject);
@@ -67,6 +74,12 @@ export default function CreateTenant({
     }
     return "בבקשה צרף חוזה";
   }
+
+  const CREATE_TENANT_LOADING = "יוצר דייר...";
+  if (createLoading) {
+    return <Loading text={CREATE_TENANT_LOADING} />;
+  }
+
   return (
     <CreateFormLayout
       title={CREATE_TENANT_TITLE}
