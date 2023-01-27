@@ -16,6 +16,13 @@ const MuiCardIcon: SxProps<Theme> = {
   padding: 1,
 };
 
+const SwipeableDrawerMui: SxProps<Theme> = {
+  direction: "rtl",
+  "& .css-9emuhu-MuiPaper-root-MuiDrawer-paper": {
+    backgroundImage: `linear-gradient(19deg, #21d4fd 0%, #0b6efe 100%)`,
+  },
+};
+
 const MuiIcon = { color: "#2A2561", fontSize: 42 };
 
-export { MuiCard, MuiCardIcon, MuiIcon };
+export { MuiCard, MuiCardIcon, MuiIcon, SwipeableDrawerMui };

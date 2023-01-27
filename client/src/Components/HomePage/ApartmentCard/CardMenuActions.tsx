@@ -33,16 +33,18 @@ export default function CardMenuActions({ apartmentId }: CardMenuActionsProps) {
     return false;
   };
 
+  const DELETE_APARTMENT_DIALOG_TEXT = "האם אתה בטוח שברצונך למחוק את הדירה?";
+
   return (
     <Grid container className="mt-2">
       {ApartmentCardButtons.map((btn, key) => (
-        <Grid item sm={4} key={`CardMenuActions-${key}`}>
+        <Grid item xs={4} key={`CardMenuActions-${key}`}>
           {btn.to === "delete" ? (
             <GenericDialog
               onSubmit={onDelete}
               content={
                 <div className="rtl">
-                  <h1>דשגשדגדששדג</h1>
+                  <h1>{DELETE_APARTMENT_DIALOG_TEXT}</h1>
                 </div>
               }
             >

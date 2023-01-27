@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { topDashboardTitles } from "../Assets/HomePage";
 import { MY_APARTMENT } from "../Assets/IConstans";
-import GlobalButton from "../Components/Global/GlobalButton";
-import Card from "../Components/HomePage/ApartmentCard/Card";
-import SmallCard from "../Components/HomePage/TopCard";
+import ApartmentCard from "../Components/HomePage/ApartmentCard/Card";
+import HomeDashboard from "../Components/HomePage/ApartmentCard/HomeDashboard";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Apartment } from "../Data/builders/Apartment";
 import { AuthContextType } from "../Data/types/Auth";
@@ -64,27 +62,21 @@ export default function Home() {
         authState,
       )}`}</div>
       <Grid container spacing={2}>
-        {topDashboardTitles.map((card, index) => (
-          <Grid item sm={3} key={`topDashboardTitle-${card.en_title + index}`}>
-            <SmallCard
-              language={authState.language}
-              card={card}
-              body={index !== 1 ? 10 * index : 3000}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <GlobalButton
-        classStyle="create-apartment-btn"
-        text={MY_APARTMENT[authState.language.toUpperCase()].createBtn}
-        fullWidth={false}
-        icon={null}
-        onClick={() => navigate("/create-apartment")}
-      />
-      <Grid container spacing={2} className="mt-2">
+        <Grid item xs={6} sm={12}>
+          <HomeDashboard language={authState.language} />
+        </Grid>
+        <Grid item xs={6} sm={12}>
+          <Button
+            className="home-action-btn"
+            fullWidth={true}
+            onClick={() => navigate("/create-apartment")}
+          >
+            {MY_APARTMENT[authState.language.toUpperCase()].createBtn}
+          </Button>
+        </Grid>
         {apartments.map((item, key) => (
-          <Grid item xs={6} sm={3} key={`${item.name}-${key}`}>
-            <Card apartment={item} language={authState.language} />
+          <Grid item xs={12} sm={3} key={`${item.name}-${key}`}>
+            <ApartmentCard apartment={item} language={authState.language} />
           </Grid>
         ))}
       </Grid>

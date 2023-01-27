@@ -8,20 +8,18 @@ type TopCardProps = {
   body: number;
 };
 
-export default function TopCard({ card, language, body }: TopCardProps) {
+export default function DashboardCard({ card, language, body }: TopCardProps) {
   return (
-    <div className={`${card.backgroundColor} small-card-design`}>
+    <div className={`${card.backgroundColor} dashboard-card-layout`}>
       <Grid container spacing={1}>
-        <Grid item xs={6} sm={9} className={`top-card-title-${language}`}>
+        <Grid item xs={12} sm={9} className={`top-card-title-${language}`}>
           {card[`${language}_title`]}
         </Grid>
-        <Grid item xs={6} sm={3} className="text-end">
+        <Grid item xs={12} sm={3} className="dashboard-card-icon">
           {card.icon}
         </Grid>
       </Grid>
-      <div className="text-center">
-        <span className="fw-bolder card-body">{numberWithCommas(body)}</span>
-      </div>
+      <div className="dashboard-card-body-text">{numberWithCommas(body)}</div>
     </div>
   );
 }
