@@ -53,7 +53,7 @@ export default function ApartmentCard({
               </div>
             </div>
             <CardHeader
-              title={`${apartment.name}`}
+              title={<h5>{apartment.name}</h5>}
               subheader={apartment.getFullAddress()}
             />
             <CardMenuActions apartmentId={apartment.id} />

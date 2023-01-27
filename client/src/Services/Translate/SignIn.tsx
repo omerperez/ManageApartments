@@ -3,7 +3,7 @@ import ValidationService from "../../Services/ValidationService";
 
 const SignInLabelsForm: IField[] = [
   {
-    he_label: "מספר פלאפון",
+    he_label: "טלפון נייד",
     en_label: "Mobile",
     key: "mobile",
     type: { fieldType: "input", inputType: "phone" },
@@ -38,20 +38,20 @@ const SignUpLabelsForm: IField[] = [
     error: "שדה חובה",
   },
   {
-    he_label: "מייל",
+    he_label: "דוא״ל",
     en_label: "Email",
     key: "email",
     type: { fieldType: "input", inputType: "email" },
-    gridSize: 12,
+    gridSize: 6,
     validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },
   {
-    he_label: "מספר פלאפון",
+    he_label: "טלפון נייד",
     en_label: "Mobile",
     key: "mobile",
     type: { fieldType: "input", inputType: "phone" },
-    gridSize: 12,
+    gridSize: 6,
     validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה",
   },

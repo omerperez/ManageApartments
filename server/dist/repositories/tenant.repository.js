@@ -92,13 +92,20 @@ let TenantRepository = class TenantRepository {
         }
         return tenantsHistory;
     }
+    addTenantToHistory(apartment) {
+        if (apartment.tenant && apartment.tenantsHistory.find((tenantId) => !tenantId._id.equals(apartment.tenant))) {
+            apartment.tenantsHistory = apartment.tenantsHistory.concat(apartment.tenant);
+        }
+        return apartment;
+    }
     async changeTenant(data) {
         const currentUser = await this.userService.getUserByMobile(data.owner);
         let apartment;
         try {
             apartment = await this.apartmentService.getApartmentById(data.apartmentId, data.owner);
             if (apartment && currentUser._id.equals(apartment.owner)) {
-                apartment = Object.assign(Object.assign({}, apartment._doc), { id: data.apartmentId, owner: data.owner, tenantsHistory: apartment.tenant ? apartment.tenantsHistory.concat(apartment.tenant) : apartment.tenantsHistory });
+                apartment = Object.assign(Object.assign({}, apartment._doc), { id: data.apartmentId, owner: data.owner });
+                apartment = this.addTenantToHistory(apartment);
                 if (data.newTenantId) {
                     const newTenant = await this.tenantModel.findById(data.newTenantId);
                     apartment.tenant = newTenant._id;

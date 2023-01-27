@@ -4,7 +4,10 @@ import { useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { AuthContextType } from "../Data/types/Auth";
 
-export default function LogoutBtn() {
+interface LogoutBtnProps {
+  className?: string;
+}
+export default function LogoutBtn({ className }: LogoutBtnProps) {
   const { logout } = useContext(AuthContext) as AuthContextType;
 
   const handleClick = () => {
@@ -14,12 +17,8 @@ export default function LogoutBtn() {
     <IconButton
       id="logout-button"
       onClick={handleClick}
-      // variant="text"
-      // sx={{ direction: "ltr" }}
-      className={`lan-btn-design`}
-      // endIcon={<LogoutIcon className="lan-icon" />}
+      className={className ?? `lan-btn-design`}
     >
-      {/* {state.language === "en" ? "Logout" : "התנתק"} */}
       <LogoutIcon className="lan-icon" />
     </IconButton>
   );

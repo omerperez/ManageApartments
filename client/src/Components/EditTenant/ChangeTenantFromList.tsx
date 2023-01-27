@@ -33,28 +33,30 @@ export default function ChangeTenantFromList({
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [searchParams] = useSearchParams();
-  const [editLoading, setEditLoading] = useState<boolean>(false);
+  const [editLoading, setEditLoading] = useState<string>("");
 
   useEffect(() => {
+    setEditLoading("טוען רשימת דיירים...");
     TenantApiService.getTenantsHistory(authState.mobile).then((response) => {
       setTenants(response);
       setLoading(false);
+      setEditLoading("");
     });
   }, []);
 
   const onSubmit = () => {
-    setEditLoading(true);
+    setEditLoading("מבצע החלפה לדייר הנבחר...");
     const apartmentId = searchParams.get("apartmentId") as string;
     TenantApiService.changeTenant(authState.mobile, tenantId, apartmentId).then(
       () => {
-        setEditLoading(false);
+        setEditLoading("");
         setLoading(true);
       },
     );
   };
 
   if (editLoading) {
-    return <Loading text="מבצע החלפה לדייר הנבחר..." />;
+    return <Loading text={editLoading} />;
   }
 
   if (tenants.length === 0)

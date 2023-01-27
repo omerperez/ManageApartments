@@ -56,17 +56,7 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
     <div className="router-layout project-font">
       <div className={`home-layout-${authState.language}`}>
         <Grid container>
-          <Grid item sm={1.5} className="side-nav">
-            <Stack
-              direction="row"
-              spacing={2}
-              className="justify-content-center"
-            >
-              <LogoutBtn />
-              <LanguageBtn />
-            </Stack>
-            <SideBar />
-          </Grid>
+          <SideBar />
           <Grid item sm={10.5} style={{ padding: "0 10px 10px 10px" }}>
             {children}
           </Grid>

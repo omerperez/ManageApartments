@@ -1,6 +1,7 @@
 import { InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooseSchema } from 'mongoose';
+import { Apartment } from 'src/entities/apartment.entity';
 import { ApartmentService } from 'src/modules/apartment/apartment.service';
 import { ChangeTenantDto } from 'src/modules/tenant/dto/changeTenant.dto';
 import { CreateTenantDto } from 'src/modules/tenant/dto/createTenant.dto';
@@ -89,6 +90,13 @@ export class TenantRepository {
         return tenantsHistory;
     }
 
+    addTenantToHistory(apartment: any) {
+        if (apartment.tenant && apartment.tenantsHistory.find((tenantId) => !tenantId._id.equals(apartment.tenant))) {
+            apartment.tenantsHistory = apartment.tenantsHistory.concat(apartment.tenant)
+        }
+        return apartment;
+    }
+
     async changeTenant(data: ChangeTenantDto) {
         const currentUser = await this.userService.getUserByMobile(data.owner);
         let apartment;
@@ -99,8 +107,8 @@ export class TenantRepository {
                     ...apartment._doc,
                     id: data.apartmentId,
                     owner: data.owner,
-                    tenantsHistory: apartment.tenant ? apartment.tenantsHistory.concat(apartment.tenant) : apartment.tenantsHistory
                 };
+                apartment = this.addTenantToHistory(apartment);
                 if (data.newTenantId) {
                     const newTenant = await this.tenantModel.findById(data.newTenantId);
                     apartment.tenant = newTenant._id;

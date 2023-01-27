@@ -85,6 +85,12 @@
   width: 100%;
 }
 
+.white-logout-btn {
+  color: white !important;
+  text-transform: lowercase !important;
+  font-size: 20px !important;
+}
+
 .lan-btn-design {
   color: #2a2561 !important;
   text-transform: lowercase !important;
