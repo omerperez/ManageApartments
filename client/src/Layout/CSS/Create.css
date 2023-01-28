@@ -1,3 +1,131 @@
+@media screen and (min-width: 601px) {
+  .file-btn {
+    border: dotted 5px #809fff !important;
+    background-color: white !important;
+    background-color: #e1e6ed !important;
+    color: #809fff !important;
+    font-family: "Rubik", sans-serif !important;
+    height: 100% !important;
+  }
+
+  .upload-image-btn-position {
+    height: 100%;
+    padding: 4% 4% 5% 4%;
+  }
+
+  .files-container {
+    overflow: auto !important;
+    max-height: 380px !important;
+    padding: 10px !important;
+  }
+
+  .user-image {
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .user-active-image {
+    border-radius: 8px;
+    border: solid 3px #809fff;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  .file-btn {
+    font-size: 22px !important;
+    color: white !important;
+    background-color: #0b6efe !important;
+    font-family: "Rubik", sans-serif !important;
+    height: 80px !important;
+    border-radius: 8px !important;
+  }
+
+  .carousel-action-btns {
+    border-radius: 8px !important;
+    border: solid 2px white !important;
+    margin-top: 8px !important;
+    background-color: #0b6efe !important;
+    color: white !important;
+  }
+
+  .file-btn-carousel {
+    font-size: 22px !important;
+    color: white !important;
+    box-shadow: none !important;
+    background-color: #0b6efe !important;
+    font-family: "Rubik", sans-serif !important;
+    border-radius: 8px !important;
+  }
+
+  .upload-image-btn-position {
+    margin-bottom: 15px;
+  }
+
+  .files-container {
+    padding: 10px 20px !important;
+  }
+
+  .image-carousel {
+    padding: 10px 0;
+  }
+
+  .user-image {
+    border-radius: 8px;
+    cursor: pointer;
+    height: 300px;
+    width: 100%;
+  }
+
+  .user-active-image {
+    border-radius: 8px;
+    border: solid 3px #809fff;
+    cursor: pointer;
+    height: 300px;
+    width: 100%;
+  }
+
+  .carousel-btn-icon {
+    margin: 5px 10px !important;
+    color: white !important;
+  }
+
+  .prev-image-carousel {
+    transform: rotate3d(0, 1, 0, 30deg);
+    border-radius: 8px;
+    height: 100%;
+    overflow-x: hidden;
+    cursor: pointer;
+  }
+
+  .next-image-carousel {
+    transform: rotate3d(0, 1, 0, -30deg);
+    border-radius: 8px;
+    overflow-x: hidden;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .active-image-carousel {
+    border: solid 3px #809fff;
+  }
+
+  .remove-image-carousel-pos {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .remove-btn-carousel {
+    background-color: #dc3545 !important;
+    border-radius: 8px !important;
+    border: solid 1px white !important;
+    font-family: "Rubik", sans-serif !important;
+    font-size: 18px !important;
+    font-weight: bolder !important;
+  }
+}
+
 .create-grid-layout {
   height: 80vh !important;
 }
@@ -38,15 +166,6 @@
   padding: 2% 3%;
 }
 
-.file-btn {
-  border: dotted 5px #809fff !important;
-  background-color: white !important;
-  background-color: #e1e6ed !important;
-  color: #809fff !important;
-  font-family: "Rubik", sans-serif !important;
-  height: 100% !important;
-}
-
 .padding-files-btn {
   padding-left: 50px !important;
 }
@@ -71,21 +190,11 @@
   background-color: #ff4d4d !important;
   border-radius: 50% !important;
 }
+
 .remove-pos {
   position: absolute;
   top: -25px;
   right: -25px;
-}
-
-.user-image {
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.user-active-image {
-  border-radius: 8px;
-  border: solid 3px #809fff;
-  cursor: pointer;
 }
 
 .active-image-text {
@@ -96,12 +205,6 @@
   text-align: center;
 }
 
-.files-container {
-  overflow: auto !important;
-  max-height: 380px !important;
-  padding: 10px !important;
-}
-
 .files-container-edit {
   overflow: auto !important;
   padding: 10px !important;
@@ -109,6 +212,13 @@
 
 .padding-img {
   padding: 5px 10px !important;
+}
+
+.add-images-btn {
+  padding: 33px !important;
+  background-color: #0b6efe !important;
+  border: solid 2px white !important;
+  margin-bottom: 5px !important;
 }
 
 .add-btn {

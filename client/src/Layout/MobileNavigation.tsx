@@ -16,7 +16,7 @@ export default function MobileNavigation() {
   };
 
   return (
-    <Box sx={{ width: "100%", direction: "ltr" }}>
+    <Box sx={{ width: "100%", direction: "ltr" }} id="navigation">
       <AppBar position="static">
         <Toolbar>
           <IconButton

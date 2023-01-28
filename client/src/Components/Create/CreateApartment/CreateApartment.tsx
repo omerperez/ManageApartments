@@ -14,6 +14,7 @@ import { AuthContext } from "../../../Contexts/AuthContext";
 import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartment.dto";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../Data/types/Auth";
+import useMobieDesign from "../../../Hooks/useMobile";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
 import { getInputType, getSelectList } from "../../../Services/FormService";
 import Autocomplete from "../../Global/FormComponents/Autocomplete";
@@ -35,6 +36,7 @@ export default function CreateApartment({
   const CREATE_APARTMENT_BTN = "צור דירה";
   const IMAGES_ERROR = "אנא הוסף תמונות";
 
+  const isMobileDesign = useMobieDesign();
   const { authState } = useContext(AuthContext) as AuthContextType;
   const navigate = useNavigate();
   const [city, setCity] = useState<string>("");
@@ -42,6 +44,7 @@ export default function CreateApartment({
   const refs: Ref<any> = useRef(apartmentFormLabels.map(() => createRef()));
   const [apartmentImages, setApartmentImages] = useState<File[]>([]);
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = async () => {
     const { getSubmitFormValues } = await import("../../../Services/Global");
@@ -85,6 +88,7 @@ export default function CreateApartment({
 
   return (
     <CreateFormLayout
+      ref={scrollRef}
       title={APARTMENT_DETAILS_TITLE}
       secondPart={
         <UploadImages
@@ -102,7 +106,12 @@ export default function CreateApartment({
       <Grid container spacing={1.5}>
         {apartmentFormLabels.map((item, index) =>
           item.type.fieldType !== "textarea" ? (
-            <Grid item sm={item.gridSize} key={item.en_label}>
+            <Grid
+              item
+              xs={item.gridSize >= 4 ? 12 : 6}
+              sm={item.gridSize}
+              key={item.en_label}
+            >
               {item.type.fieldType === "select" ? (
                 <Select
                   label={item[`${authState.language}_label`]}
@@ -139,7 +148,7 @@ export default function CreateApartment({
               key={`textarea-apartment-${index}`}
               className="area-input"
               aria-label={`${item[authState.language]}-label`}
-              minRows={5}
+              minRows={isMobileDesign ? 10 : 5}
               defaultValue={""}
               placeholder={item[`${authState.language}_label`]}
               ref={refs.current[index]}

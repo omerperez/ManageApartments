@@ -56,4 +56,32 @@ const SxMuiStepper: SxProps<Theme> = {
   },
 };
 
-export { SxMuiStepper };
+const AddFabBtnMui: (
+  isMobileScreen: boolean,
+  isEditDialog?: boolean,
+) => SxProps<Theme> = (isMobileScreen: boolean, isEditDialog?: boolean) => {
+  if (isEditDialog) {
+    return {
+      position: "absolute",
+      bottom: 90,
+      right: 30,
+    };
+  }
+  if (isMobileScreen) {
+    return {
+      padding: 4,
+      backgroundColor: "#0b6efe",
+      border: "solid 2px white",
+      marginBottom: 2,
+    };
+  }
+  return {
+    padding: 4,
+    backgroundColor: "#0b6efe",
+    border: "solid 2px white",
+    marginBottom: 2,
+    margin: "5px 0",
+  };
+};
+
+export { AddFabBtnMui, SxMuiStepper };

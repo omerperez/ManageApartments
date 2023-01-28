@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import { Stack } from "react-bootstrap";
+import { Stack, Button } from "@mui/material";
+// import { Stack } from "react-bootstrap";
 
 interface EditButtonsProps {
   onSave: () => void;
@@ -14,23 +14,27 @@ export default function FormButtons({
   onSave,
   onCancel,
 }: EditButtonsProps) {
+  // Constans
+  const CANCEL = "ביטול";
+  const SAVE = "שמירה";
+
   return (
-    <Stack direction={"horizontal"}>
-      <Button
-        fullWidth
-        variant="contained"
-        className="edit-btn edit-cancel-btn"
-        onClick={onCancel}
-      >
-        {cancelText ?? "ביטול"}
-      </Button>
+    <Stack direction={"row"} spacing={2} className="ltr">
       <Button
         fullWidth
         variant="contained"
         className="edit-btn edit-save-btn"
         onClick={onSave}
       >
-        {saveText ?? "שמירה"}
+        {saveText ?? SAVE}
+      </Button>
+      <Button
+        fullWidth
+        variant="contained"
+        className="edit-btn edit-cancel-btn"
+        onClick={onCancel}
+      >
+        {cancelText ?? CANCEL}
       </Button>
     </Stack>
   );

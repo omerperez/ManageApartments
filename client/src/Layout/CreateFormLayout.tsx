@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode, Ref } from "react";
 import FormButtons from "../Components/Delete/Edit/EditButtons";
 
 interface CreateFormLayoutProps {
@@ -11,23 +11,26 @@ interface CreateFormLayoutProps {
   onSubmit: () => void;
   onCancel: () => void;
 }
-export default function CreateFormLayout({
-  title,
-  children,
-  secondPart,
-  saveBtnText,
-  cancelBtnText,
-  onSubmit,
-  onCancel,
-}: CreateFormLayoutProps) {
+function CreateFormLayout(
+  {
+    title,
+    children,
+    secondPart,
+    saveBtnText,
+    cancelBtnText,
+    onSubmit,
+    onCancel,
+  }: CreateFormLayoutProps,
+  ref: Ref<HTMLDivElement>,
+) {
   return (
-    <div className="edit-form">
+    <div className="edit-form" ref={ref} id="scroll">
       <div className="sub-page-title">{title}</div>
       <Grid container spacing={1.5}>
-        <Grid item sm={8}>
+        <Grid item xs={12} sm={8}>
           {children}
         </Grid>
-        <Grid item sm={4}>
+        <Grid xs={12} item sm={4}>
           {secondPart}
         </Grid>
       </Grid>
@@ -42,3 +45,7 @@ export default function CreateFormLayout({
     </div>
   );
 }
+
+const CreateFormLayoutRef = forwardRef(CreateFormLayout);
+
+export default CreateFormLayoutRef;
