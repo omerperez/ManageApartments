@@ -1,10 +1,14 @@
 import { Divider, Grid, IconButton, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { SideMenuButtons } from "../Assets/HomePage";
+import { SideMenuButtons } from "../../Assets/HomePage";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import LogoutBtn from "./LogoutBtn";
-import LanguageBtn from "./LanguageBtn";
+import LogoutBtn from "../../Components/Global/Buttons/LogoutBtn";
+import LanguageBtn from "../../Components/Global/Buttons/LanguageBtn";
 import MobileNavigation from "./MobileNavigation";
+
+// Constans
+const AM = "AM";
+const APPLICATION_NAME = "Apartment Managment";
 
 export default function SideBar() {
   const navigate = useNavigate();
@@ -23,8 +27,8 @@ export default function SideBar() {
       </Stack>
       <div className="m-3">
         <div className="side-nav-logo-part">
-          <h1 className="side-nav-text">AM</h1>
-          <span className="side-nav-text">Apartment Manager</span>
+          <h1 className="side-nav-text">{AM}</h1>
+          <span className="side-nav-text">{APPLICATION_NAME}</span>
           <Divider className="side-nav-divider" />
         </div>
         <div className="side-nav-icons">

@@ -6,11 +6,29 @@ import CreateTenant from "../Create/CreateTenant/CreateTenant";
 import ChangeTenantButton from "../Delete/Edit/EditApartment/ChangeTenantButton";
 import ChangeTenantFromList from "./ChangeTenantFromList";
 
+// Constans
+const CHOOSE_TENANT_FROM_LIST = "בחר דייר מתוך רשימה";
+const CREATE_NEW_TENANT = "צור דייר חדש";
+
 interface CreateTenantMenuProps {
   apartmentId: string;
   currentOption: number;
   changeOption: (option: number) => void;
 }
+
+// Assets
+const editOptionsButtons = [
+  {
+    color: "blue",
+    icon: <Groups />,
+    text: CHOOSE_TENANT_FROM_LIST,
+  },
+  {
+    color: "green",
+    icon: <PersonAdd />,
+    text: CREATE_NEW_TENANT,
+  },
+];
 
 export default function CreateTenantMenu({
   apartmentId,
@@ -19,23 +37,6 @@ export default function CreateTenantMenu({
 }: CreateTenantMenuProps) {
   const [newTenant, setNewTenant] = useState<string>("");
   const [document, setDocument] = useState<File | null>(null);
-
-  // Constans
-  const CHOOSE_TENANT_FROM_LIST = "בחר דייר מתוך רשימה";
-  const CREATE_NEW_TENANT = "צור דייר חדש";
-
-  const editOptionsButtons = [
-    {
-      color: "blue",
-      icon: <Groups />,
-      text: CHOOSE_TENANT_FROM_LIST,
-    },
-    {
-      color: "green",
-      icon: <PersonAdd />,
-      text: CREATE_NEW_TENANT,
-    },
-  ];
 
   const onCancel = () => {
     changeOption(-1);

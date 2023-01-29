@@ -12,7 +12,7 @@ const EN_STEPPER = {
 const MY_APARTMENT = {
     HE: {
         createBtn: "צור/י דירה חדשה",
-        viewMore: "ראה/י עוד",
+        viewMore: "נתונים נוספים",
         free: "פנויה",
         rent: "מושכרת",
     },

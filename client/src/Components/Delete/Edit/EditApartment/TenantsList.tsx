@@ -8,6 +8,7 @@ import { maleImage } from "../../../../Assets/StaticImages";
 import { AuthContext } from "../../../../Contexts/AuthContext";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../../../Data/types/Auth";
+import { useError403 } from "../../../../Services/Utils/useError403";
 import EditPdf from "../../../Delete/CreateDelete/ManageFiles/EditPdf";
 import TenantsCard from "../../../Delete/DeleteApartmentProfile/TenantsCard";
 import EditButtons from "../EditButtons";
@@ -60,6 +61,7 @@ export default function TenantsList({
                     width={40}
                     alt="profile-pic"
                     className="profile-img"
+                    onError={useError403}
                   />
                 </ListItemIcon>
                 <ListItemText

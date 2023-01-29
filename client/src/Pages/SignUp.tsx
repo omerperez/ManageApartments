@@ -15,6 +15,7 @@ import { registerRequest } from "../Services/Api/AuthApi";
 import { getInputType } from "../Services/FormService";
 import { getSubmitFormValues } from "../Services/Global";
 import { SignUpLabelsForm } from "../Services/Translate/SignIn";
+import { useError403 } from "../Services/Utils/useError403";
 
 export default function SignUp() {
   const isMobileDesign = useMobieDesign();
@@ -66,7 +67,7 @@ export default function SignUp() {
       <div className="login-card">
         <div className="register-card-grid">
           <div className="text-center">
-            <img src={loginLogoError} alt="register" />
+            <img src={loginLogoError} alt="register" onError={useError403} />
             {isMobileDesign && <div className="mt-3">{SYSTEM_NAME}</div>}
           </div>
           <Grid container className="mt-md-4 mt-1">

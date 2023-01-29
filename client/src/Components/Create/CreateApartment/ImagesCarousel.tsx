@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Grid } from "@mui/material";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useError403 } from "../../../Services/Utils/useError403";
@@ -107,6 +108,7 @@ export default function ImagesCarousel({
             mainImageIndex === getPrevImage() ? "active-image-carousel" : ""
           }`}
           onClick={() => setCurrentImage(getPrevImage())}
+          onError={useError403}
         />
       </Grid>
       <Grid item xs={8}>
@@ -121,6 +123,7 @@ export default function ImagesCarousel({
             mainImageIndex === getNextImage() ? "active-image-carousel" : ""
           }`}
           onClick={() => setCurrentImage(getNextImage())}
+          onError={useError403}
         />
       </Grid>
       <ImagesCarouselActions

@@ -1,4 +1,3 @@
-import { LinearProgress } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 interface LoadingProps {
@@ -7,7 +6,7 @@ interface LoadingProps {
 export default function Loading({ text }: LoadingProps) {
   return (
     <div className="loading">
-      <CircularProgress size={80} />
+      <CircularProgress size={100} />
       <div className="loading-text">{text ?? "טוען נתונים..."}</div>
     </div>
   );

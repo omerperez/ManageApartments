@@ -12,6 +12,7 @@ import { tenantContentCardProperties } from "../../../Assets/Profile";
 import { maleImage } from "../../../Assets/StaticImages";
 import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
+import { useError403 } from "../../../Services/Utils/useError403";
 
 type TenantsCardProps = {
   currentTenant: Tenant | null | undefined;
@@ -63,6 +64,7 @@ export default function TenantsCard({
           width={100}
           alt="profile-pic"
           className="profile-img"
+          onError={useError403}
         />
       </div>
       <Typography

@@ -2,7 +2,11 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import { othersDetailsFields } from "../../Assets/Profile";
 import { Apartment } from "../../Data/builders/Apartment";
+import useMobieDesign from "../../Hooks/useMobile";
 import SideDetailsMenu from "./SideDetailsMenu";
+
+// Constans
+const OTHER_DETAILS_COMMENT = "תיאור נוסף";
 
 type ApartmentOtherDetailsProps = {
   apartment: Apartment;
@@ -10,19 +14,29 @@ type ApartmentOtherDetailsProps = {
 export default function ApartmentOtherDetails({
   apartment,
 }: ApartmentOtherDetailsProps) {
+  const isMobileScreen = useMobieDesign();
   const [activeButton, setActiveButton] = useState<number>(0);
 
   const changeActiveButton = (index: number) => {
     setActiveButton(index);
   };
 
-  const OTHER_DETAILS_COMMENT = "תיאור נוסף";
+  const apartmentDetailsMenu = (
+    <Grid item xs={12} sm={3} display="flex" justifyContent={"center"}>
+      <SideDetailsMenu
+        activeButton={activeButton}
+        changeActiveButton={changeActiveButton}
+      />
+    </Grid>
+  );
+
   return (
     <>
-      <Grid item sm={9}>
+      {isMobileScreen && apartmentDetailsMenu}
+      <Grid item xs={12} sm={9}>
         <Grid container spacing={0}>
           {othersDetailsFields.map((field, index) => (
-            <Grid item sm={4} key={`moreDetailPropItem-${index}`}>
+            <Grid item xs={5.5} sm={4} key={`moreDetailPropItem-${index}`}>
               <div className="apartment-details-others-label">
                 {field.he_label}
               </div>
@@ -31,22 +45,22 @@ export default function ApartmentOtherDetails({
               </b>
             </Grid>
           ))}
-          <Grid item sm={4}>
+          <Grid item xs={12} sm={4}>
             <b className="apartment-details-others-value">
               {OTHER_DETAILS_COMMENT}
             </b>
           </Grid>
-          <Grid item sm={8} className="apartment-details-others-label mt-2">
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            className="apartment-details-others-label mb-3"
+          >
             <span>{apartment.comments}</span>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item sm={3} display="flex" justifyContent={"center"}>
-        <SideDetailsMenu
-          activeButton={activeButton}
-          changeActiveButton={changeActiveButton}
-        />
-      </Grid>
+      {!isMobileScreen && apartmentDetailsMenu}
     </>
   );
 }

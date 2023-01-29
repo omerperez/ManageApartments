@@ -2,9 +2,7 @@ import { Button, Grid } from "@mui/material";
 import { useContext } from "react";
 import IConstans from "../../../../Assets/IConstans";
 import { AuthContext } from "../../../../Contexts/AuthContext";
-import { PrivateContext } from "../../../../Contexts/Private";
 import { AuthContextType } from "../../../../Data/types/Auth";
-import { PrivateContextType } from "../../../../Data/types/Private";
 
 interface StepperBtnsProps {
   next: () => void;

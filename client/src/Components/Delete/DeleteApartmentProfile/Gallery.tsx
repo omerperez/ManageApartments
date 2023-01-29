@@ -14,6 +14,7 @@ export default function Gallery({ images, mainImageIndex }: GalleryProps) {
           className="img-style"
           src={images[mainImageIndex ?? 0]}
           alt="main-apartment"
+          onError={useError403}
         />
       </Grid>
       <Grid item sm={3} lg={2.5} xl={3} className="w-100">

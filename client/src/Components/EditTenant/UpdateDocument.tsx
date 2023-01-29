@@ -2,6 +2,10 @@ import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import { ChangeEvent } from "react";
 
+// CONSTANS
+const REMOVE_NEW_FILE = "חזור לחוזה מקורי";
+const UPLOAD_NEW_FILE = "עדכן חוזה";
+
 interface UpdateDocumentProps {
   document: string;
   newDocument: File | null;
@@ -13,10 +17,6 @@ export default function UpdateDocument({
   newDocument,
   changeDocument,
 }: UpdateDocumentProps) {
-  // CONSTANS
-  const REMOVE_NEW_FILE = "חזור לחוזה מקורי";
-  const UPLOAD_NEW_FILE = "עדכן חוזה";
-
   const handleChangeFiles = (file: File) => {
     changeDocument(file);
   };

@@ -11,12 +11,13 @@ export default function ApartmentDetails({ apartment }: ApartmentDetailsProps) {
   const price = `${apartment.price} ש״ח`;
   return (
     <Grid container spacing={1} className="mt-2">
-      <Grid item sm={9}>
+      <Grid item xs={12} sm={9}>
         <div className="apartment-details-address">{address}</div>
         <div className="apartment-details-floor">{floor}</div>
+        <div className="apartment-price">{price}</div>
         <Divider className="apartment-details-divider mt-2" />
       </Grid>
-      <Grid item sm={3} className="apartment-details-price">
+      <Grid item xs={12} sm={3} className="apartment-details-price">
         {price}
       </Grid>
       <ApartmentOtherDetails apartment={apartment} />

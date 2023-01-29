@@ -11,6 +11,14 @@ import EditTenantMenu from "../../../EditTenant/EditTenantMenu";
 import ButtonIcon from "../../../Global/ButtonIcon";
 import GenericDialog from "../../../Global/GenericDialog";
 
+// Constans
+const ADD_TENANT_BTN_TEXT = "הוסף דייר";
+const EDIT_TENANT_BTN_TEXT = "עריכה";
+const WHATSAPP_TENANT_BTN_TEXT = "וואטסאפ";
+const DOWNLOAD_AGREEMENT = "חוזה";
+const EDIT_TENANT_DIALOG_TITLE = "עריכת דייר";
+const AGREEMENT_DIALOG_TITLE = "צפה בחוזה";
+
 interface TenantActionsCardProps {
   tenant?: Tenant;
   isTenantHistory?: boolean;
@@ -20,14 +28,6 @@ export default function TenantActionsCard({
   isTenantHistory,
 }: TenantActionsCardProps) {
   const [searchParams] = useSearchParams();
-
-  // Constans
-  const ADD_TENANT_BTN_TEXT = "הוסף דייר";
-  const EDIT_TENANT_BTN_TEXT = "עריכה";
-  const WHATSAPP_TENANT_BTN_TEXT = "וואטסאפ";
-  const DOWNLOAD_AGREEMENT = "חוזה";
-  const EDIT_TENANT_DIALOG_TITLE = "עריכת דייר";
-  const AGREEMENT_DIALOG_TITLE = "צפה בחוזה";
 
   const [option, setOption] = useState<number>(-1);
   const { setLoading } = useContext(AuthContext) as AuthContextType;
@@ -40,7 +40,7 @@ export default function TenantActionsCard({
     return (
       <GenericDialog
         children={
-          <Button fullWidth className="add-tenant-btn" onClick={() => {}}>
+          <Button fullWidth className="add-tenant-btn">
             <Grid container spacing={2}>
               <Grid item sm={6.5} textAlign="end">
                 {ADD_TENANT_BTN_TEXT}
@@ -115,7 +115,7 @@ export default function TenantActionsCard({
 
   return (
     <Grid container>
-      <Grid item sm={4}>
+      <Grid item xs={4} sm={4}>
         <GenericDialog
           children={
             <ButtonIcon
@@ -131,14 +131,14 @@ export default function TenantActionsCard({
           isShowCloseButton={true}
         />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item xs={4} sm={4}>
         <ButtonIcon
           text={WHATSAPP_TENANT_BTN_TEXT}
           icon={<WhatsApp className="tenant-card-btn-icon" />}
           className="whatsapp-btn tenant-card-btn"
         />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item xs={4} sm={4}>
         <GenericDialog
           children={
             <ButtonIcon

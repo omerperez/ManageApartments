@@ -14,6 +14,7 @@ import Input from "../Global/FormComponents/Input";
 import Select from "../Global/FormComponents/Select";
 import UpdateDocument from "./UpdateDocument";
 
+const EDIT_TENANT_LOADING = "עורך פרטי דייר...";
 interface EditTenantFormProps {
   tenant: Tenant;
   onCancel: () => void;
@@ -65,13 +66,13 @@ export default function EditTenantForm({
   const language = authState.language ?? "he";
 
   if (editLoading) {
-    return <Loading text={"עורך פרטי דייר..."} />;
+    return <Loading text={EDIT_TENANT_LOADING} />;
   }
 
   return (
     <>
-      <Grid container style={{ height: "450px" }} spacing={3}>
-        <Grid item sm={4}>
+      <Grid container className="edit-current-tenant-container" spacing={3}>
+        <Grid item xs={12} sm={4}>
           <UpdateDocument
             document={tenant.currentAgreement}
             newDocument={document}
@@ -80,11 +81,12 @@ export default function EditTenantForm({
             }}
           />
         </Grid>
-        <Grid item sm={8} className="rtl">
+        <Grid item xs={12} sm={8} className="rtl">
           <Grid container spacing={2}>
             {tenantsFormLabels.map((item, index) => (
               <Grid
                 item
+                xs={item.gridSize >= 4 ? 12 : 6}
                 sm={item.gridSize}
                 key={item.en_label}
                 className="mt-2"

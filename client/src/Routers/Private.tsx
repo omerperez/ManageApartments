@@ -1,13 +1,10 @@
 import { Grid } from "@mui/material";
-import { Stack } from "@mui/system";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthContext";
 import { AuthContextType } from "../Data/types/Auth";
-import LanguageBtn from "../Layout/LanguageBtn";
 import Loading from "../Layout/Loading";
-import LogoutBtn from "../Layout/LogoutBtn";
-import SideBar from "../Layout/SideBar";
+import SideBar from "../Layout/Navigation/SideBar";
 import { verifyToken } from "../Services/Api/AuthApi";
 import CookieService from "../Services/CookieService";
 
@@ -43,12 +40,11 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
           logout();
         }
       }
-
       setLoading(false);
     };
     verifyUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authState]);
 
   if (loading) return <Loading />;
 
@@ -57,7 +53,7 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
       <div className={`home-layout-${authState.language}`}>
         <Grid container>
           <SideBar />
-          <Grid item sm={10.5} style={{ padding: "0 10px 10px 10px" }}>
+          <Grid item sm={10.5} className="private-route-children">
             {children}
           </Grid>
         </Grid>

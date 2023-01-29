@@ -16,10 +16,10 @@ export default function ButtonIcon({
   return (
     <Button fullWidth className={className} onClick={onClick}>
       <Grid container spacing={1}>
-        <Grid item sm={7.5} textAlign="end">
+        <Grid item xs={7.5} textAlign="end">
           {text}
         </Grid>
-        <Grid item sm={4.5} textAlign="start">
+        <Grid item xs={4.5} textAlign="start">
           {icon}
         </Grid>
       </Grid>

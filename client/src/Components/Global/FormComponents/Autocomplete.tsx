@@ -42,7 +42,9 @@ function AutocompleteInput(
 
   useEffect(() => {
     if (isCityAutocomplete) {
-      HttpService.getAllCities().then((results) => setCurrentList(results));
+      HttpService.getAllCities().then((results) => {
+        setCurrentList(results as ISelectMenuItem[]);
+      });
     }
     if (isStreetAutocomplete && !disabled) {
       HttpService.getStreetsByCity(isStreetAutocomplete).then((results) => {
@@ -52,21 +54,24 @@ function AutocompleteInput(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isStreetAutocomplete, disabled]);
 
-  const getCurrentValue = (currentValue: string) => {
-    return {
-      label: currentValue,
-      value: currentValue,
-    };
+  const getCurrentValue = (value: string) => {
+    return currentList.find((item) => item.label.includes(value));
+    // return findItem;
   };
 
   const onChange = (
     event: SyntheticEvent<Element, Event>,
     newInputValue: string,
   ) => {
+    console.log(newInputValue);
     setState && setState(newInputValue);
     setCurrentValue(newInputValue);
     // return newInputValue;
   };
+
+  if (currentList.length === 0) {
+    return null;
+  }
 
   return (
     <FormLayout label={label} error={error}>
@@ -75,8 +80,7 @@ function AutocompleteInput(
         disabled={disabled}
         className={error ? "error-border autocomplete" : "autocomplete"}
         options={currentList}
-        value={getCurrentValue(currentValue)}
-        onInputChange={onChange}
+        placeholder={currentValue}
         renderInput={(params) => <TextField {...params} inputRef={ref} />}
       />
     </FormLayout>

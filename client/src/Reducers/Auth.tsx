@@ -21,7 +21,7 @@ export default function authReducer(
     }
     case "logout": {
       CookieService.removeUserObj();
-      return (authState = {
+      return {
         firstName: "",
         lastName: "",
         email: "",
@@ -29,7 +29,7 @@ export default function authReducer(
         token: "",
         language: "",
         loading: false,
-      });
+      };
     }
     case "loading": {
       return (authState = {

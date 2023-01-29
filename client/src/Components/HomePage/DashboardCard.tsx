@@ -12,10 +12,10 @@ export default function DashboardCard({ card, language, body }: TopCardProps) {
   return (
     <div className={`${card.backgroundColor} dashboard-card-layout`}>
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={9} className={`top-card-title-${language}`}>
+        <Grid item xs={12} sm={8.5} className={`top-card-title-${language}`}>
           {card[`${language}_title`]}
         </Grid>
-        <Grid item xs={12} sm={3} className="dashboard-card-icon">
+        <Grid item xs={12} sm={2.5} className="dashboard-card-icon">
           {card.icon}
         </Grid>
       </Grid>

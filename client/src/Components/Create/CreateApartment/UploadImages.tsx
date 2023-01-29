@@ -2,7 +2,7 @@ import { AddPhotoAlternate, HighlightOff } from "@mui/icons-material";
 import { Button, Fab, Grid, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import useMobieDesign from "../../../Hooks/useMobile";
-import { AddFabBtnMui } from "../../../Layout/Mui/Create";
+import { useError403 } from "../../../Services/Utils/useError403";
 import ImagesCarousel from "./ImagesCarousel";
 
 interface UploadImagesProps {
@@ -123,6 +123,7 @@ export default function UploadImages({
                 className={
                   index === mainImages ? "user-active-image" : "user-image"
                 }
+                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton

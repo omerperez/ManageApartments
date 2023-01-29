@@ -10,12 +10,40 @@ import EditTenantForm from "./EditTenantForm";
 import RemoveTenant from "./RemoveTenant";
 import "../../Layout/CSS/EditTenant.css";
 
+// Constans
+const REMOVE_TENANT = "הסר דייר";
+const CHOOSE_TENANT_FROM_LIST = "בחר דייר מתוך רשימה";
+const CREATE_NEW_TENANT = "צור דייר חדש";
+const EDIT_TENANT = "עריכת פרטי דייר";
+
+const editOptionsButtons = [
+  {
+    color: "red",
+    icon: <PersonOff />,
+    text: REMOVE_TENANT,
+  },
+  {
+    color: "blue",
+    icon: <Groups />,
+    text: CHOOSE_TENANT_FROM_LIST,
+  },
+  {
+    color: "green",
+    icon: <PersonAdd />,
+    text: CREATE_NEW_TENANT,
+  },
+  {
+    color: "blue",
+    icon: <Groups />,
+    text: EDIT_TENANT,
+  },
+];
+
 interface EditTenantMenuProps {
   tenant?: Tenant;
   currentOption: number;
   changeOption: (option: number) => void;
 }
-
 export default function EditTenantMenu({
   tenant,
   currentOption,
@@ -24,38 +52,7 @@ export default function EditTenantMenu({
   const [newTenant, setNewTenant] = useState<string>(tenant?._id ?? "");
   const [document, setDocument] = useState<File | null>(null);
 
-  // Constans
-  const REMOVE_TENANT = "הסר דייר";
-  const CHOOSE_TENANT_FROM_LIST = "בחר דייר מתוך רשימה";
-  const CREATE_NEW_TENANT = "צור דייר חדש";
-  const EDIT_TENANT = "עריכת פרטי דייר";
-
-  const editOptionsButtons = [
-    {
-      color: "red",
-      icon: <PersonOff />,
-      text: REMOVE_TENANT,
-    },
-    {
-      color: "blue",
-      icon: <Groups />,
-      text: CHOOSE_TENANT_FROM_LIST,
-    },
-    {
-      color: "green",
-      icon: <PersonAdd />,
-      text: CREATE_NEW_TENANT,
-    },
-    {
-      color: "blue",
-      icon: <Groups />,
-      text: EDIT_TENANT,
-    },
-  ];
-
-  if (!tenant) {
-    return <Loading />;
-  }
+  if (!tenant) return <Loading />;
 
   const onCancel = () => {
     changeOption(-1);
@@ -78,7 +75,7 @@ export default function EditTenantMenu({
     return (
       <Grid container spacing={3}>
         {editOptionsButtons.map((button, index) => (
-          <Grid item sm={3} key={`options-menu-${index}`}>
+          <Grid item xs={12} sm={3} key={`options-menu-${index}`}>
             <ChangeTenantButton
               color={button.color}
               onClick={() => changeOption(index)}

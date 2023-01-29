@@ -8,9 +8,10 @@ import { IErrosListObject } from "../../../../Data/interfaces/IValidation";
 import { AuthContextType } from "../../../../Data/types/Auth";
 import { getInputType, getSelectList } from "../../../../Services/FormService";
 import { getSubmitFormValues } from "../../../../Services/Global";
-import Autocomplete from "../../../Global/FormComponents/Autocomplete";
+import CityAutocomplete from "../../../Global/FormComponents/CityAutocomplete";
 import Input from "../../../Global/FormComponents/Input";
 import Select from "../../../Global/FormComponents/Select";
+import StreetAutocomplete from "../../../Global/FormComponents/StreetAutocomplete";
 import EditButtons from "../EditButtons";
 
 interface ApartmentPartProps {
@@ -68,16 +69,23 @@ export default function EditApartmentForm({
             </Grid>
           ) : item.type.fieldType === "autocomplete" ? (
             <Grid item sm={item.gridSize} key={item.en_label}>
-              <Autocomplete
-                label={item[`${authState.language}_label`]}
-                error={errorList[item.key]}
-                disabled={item.key === "street" && !city ? true : false}
-                ref={refs.current[index]}
-                setState={setCity}
-                defaultValue={editApartment[item.key]}
-                isCityAutocomplete={item.key === "city"}
-                isStreetAutocomplete={item.key === "street" ? city : ""}
-              />
+              {item.key === "city" ? (
+                <CityAutocomplete
+                  label={item[`${authState.language}_label`]}
+                  error={errorList[item.key]}
+                  defaultValue={editApartment[item.key]}
+                  setState={setCity}
+                  ref={refs.current[index]}
+                />
+              ) : (
+                <StreetAutocomplete
+                  label={item[`${authState.language}_label`]}
+                  error={errorList[item.key]}
+                  city={city}
+                  defaultValue={editApartment[item.key]}
+                  ref={refs.current[index]}
+                />
+              )}
             </Grid>
           ) : (
             <Grid item sm={item.gridSize} key={item.en_label}>

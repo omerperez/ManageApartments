@@ -1,7 +1,9 @@
 import { HighlightOff } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useError403 } from "../../../../Services/Utils/useError403";
 
+const UPLOAD_DOC = "העלאת חוזה";
 interface UploadPdfProps {
   pdf: File | null;
   setPdf: Dispatch<SetStateAction<File | null>>;
@@ -29,14 +31,14 @@ export default function UploadPDF({
 
   if (!pdf) {
     return (
-      <div className="h-100 p-4 pb-5">
+      <div className="upload-doc-btn-position">
         <Button
           variant="contained"
           fullWidth
           className="file-btn"
           component="label"
         >
-          <h1>{textButton ?? "העלאת חוזה"}</h1>
+          <h1>{textButton ?? UPLOAD_DOC}</h1>
           <input
             hidden
             accept=".pdf"
@@ -51,12 +53,13 @@ export default function UploadPDF({
   }
 
   return (
-    <div className="relative h-100 p-4 pb-1">
+    <div className="relative">
       <iframe
         src={readFile(pdf)}
         title={`user-doc`}
-        width={"100%"}
+        width={"80vw"}
         className="h-100"
+        onError={useError403}
       />
       <div className="remove-pos">
         <IconButton

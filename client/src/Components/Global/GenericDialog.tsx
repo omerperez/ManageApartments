@@ -7,6 +7,23 @@ import { TransitionProps } from "@mui/material/transitions";
 import { cloneElement, forwardRef, ReactElement, Ref, useState } from "react";
 import GenericDialogTitle from "./GenericDialogTitle";
 
+// MUI
+const DialogMui = {
+  zIndex: 1200,
+  direction: "rtl",
+  "& .muirtl-1t1j96h-MuiPaper-root-MuiDialog-paper": {
+    maxWidth: 1600,
+    width: 1200,
+    border: "solid 2px #809fff",
+  },
+  "& .css-1t1j96h-MuiPaper-root-MuiDialog-paper": {
+    maxWidth: 1600,
+    width: 1200,
+    border: "solid 2px #809fff",
+    //   height: "600px",
+  },
+};
+
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: ReactElement<any, any>;
@@ -55,22 +72,6 @@ export default function GenericDialog({
       return setOpen(onCancel());
     }
     setOpen(false);
-  };
-
-  const DialogMui = {
-    zIndex: 1200,
-    direction: "rtl",
-    "& .muirtl-1t1j96h-MuiPaper-root-MuiDialog-paper": {
-      maxWidth: 1600,
-      width: 1200,
-      border: "solid 2px #809fff",
-    },
-    "& .css-1t1j96h-MuiPaper-root-MuiDialog-paper": {
-      maxWidth: 1600,
-      width: 1200,
-      border: "solid 2px #809fff",
-      //   height: "600px",
-    },
   };
 
   return (

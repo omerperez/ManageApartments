@@ -1,10 +1,28 @@
-.edit-tenant-document-btn {
-  font-size: medium !important;
-  text-align: center !important;
-  font-size: 18px !important;
-  color: white !important;
-  border-radius: 8px !important;
-  margin-bottom: 10px !important;
+@media screen and (min-width: 601px) {
+  .edit-tenant-document-btn {
+    font-size: medium !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    color: white !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px !important;
+    font-family: "Rubik", sans-serif !important;
+  }
+
+  .edit-current-tenant-container {
+    max-height: 450px !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .edit-tenant-document-btn {
+    text-align: center !important;
+    font-size: 15px !important;
+    color: white !important;
+    margin: 0 3px !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px !important;
+    font-family: "Rubik", sans-serif !important;
+  }
 }
 
 .upload-new-document {

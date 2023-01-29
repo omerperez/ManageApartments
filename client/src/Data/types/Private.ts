@@ -1,18 +1,11 @@
-import { IApartment, IContext } from "../interfaces/IApartment";
-import { ITenant } from "../interfaces/ITenant";
+import { IAppContext } from "../interfaces/IApartment";
 
-type PrivateAction =
-    | { type: "setApartment"; apartment: IApartment }
-    | { type: "setTenant"; tenant: ITenant }
-    | { type: "setStep", index: number }
-// { type: "changeStepStatus"; key: "apartment" | "tenant" | "files", status: boolean }
+type ApplicationContextAction =
+    | { type: "onChangeMobileDashboard"; isOpen: boolean }
 
-type PrivateContextType = {
-    privateState: IContext;
-    setApartment: (apartment: IApartment) => void;
-    setTenant: (tenant: ITenant) => void;
-    setStep: (step: number) => void;
-    // changeStepStatus: (stepKey: "apartment" | "tenant" | "files", status: boolean) => void;
+type AppContextType = {
+    appState: IAppContext;
+    onChangeMobileDashboard: (isOpen: boolean) => void;
 };
 
-export type { PrivateAction, PrivateContextType, };
+export type { ApplicationContextAction, AppContextType, };

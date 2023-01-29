@@ -29,10 +29,11 @@ interface IApartment {
   owner: string;
 }
 
-interface IContext {
-  apartment: IApartment;
-  tenant: ITenant;
-  activeStep: number;
+interface IAppContext {
+  // apartment: IApartment;
+  // tenant: ITenant;
+  // activeStep: number;
+  isOpenDashboardMobile: boolean;
 }
 
 interface IApartmentCardButton {
@@ -42,4 +43,9 @@ interface IApartmentCardButton {
   icon: JSX.Element;
 }
 
-export type { IApartment, IContext, PrivatePoviderProps, IApartmentCardButton };
+export type {
+  IApartment,
+  IAppContext,
+  PrivatePoviderProps,
+  IApartmentCardButton,
+};

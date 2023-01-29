@@ -13,6 +13,11 @@
     padding: 4% 4% 5% 4%;
   }
 
+  .upload-doc-btn-position {
+    height: 100%;
+    padding: 4% 4% 5% 4%;
+  }
+
   .files-container {
     overflow: auto !important;
     max-height: 380px !important;
@@ -60,6 +65,10 @@
 
   .upload-image-btn-position {
     margin-bottom: 15px;
+  }
+
+  .upload-doc-btn-position {
+    padding: 20px 10px !important;
   }
 
   .files-container {
@@ -124,6 +133,17 @@
     font-size: 18px !important;
     font-weight: bolder !important;
   }
+}
+
+.carousel-icon-btn {
+  background-color: #0b6efe !important;
+  color: white !important;
+  border: white 2px solid !important;
+  padding: 10px !important;
+}
+
+.carousel-btn {
+  font-size: 30px !important;
 }
 
 .create-grid-layout {

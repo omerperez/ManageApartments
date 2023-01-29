@@ -8,7 +8,11 @@ import {
 import { useState } from "react";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
+import { useError403 } from "../../../../Services/Utils/useError403";
 import TenantCard from "../TenantCard";
+
+// Constans
+const AGREEMENT_TITLE = "חוזה אחרון";
 
 interface TenantHistoryContentProps {
   tenants: Tenant[];
@@ -16,17 +20,13 @@ interface TenantHistoryContentProps {
 export default function TenantHistoryContent({
   tenants,
 }: TenantHistoryContentProps) {
-  // Constans
-  const AGREEMENT_TITLE = "חוזה אחרון";
   const [currentIndex, setCurrentIndex] = useState<number>(tenants.length - 1);
 
-  if (currentIndex < 0) {
-    return null;
-  }
+  if (currentIndex < 0) return null;
 
   return (
-    <Grid container spacing={4} style={{ direction: "rtl" }}>
-      <Grid item sm={4}>
+    <Grid container spacing={4} className="rtl">
+      <Grid item xs={12} sm={4}>
         <List component="nav" aria-label="history-dialog">
           {tenants.map((tenant, index) => (
             <ListItemButton
@@ -39,22 +39,24 @@ export default function TenantHistoryContent({
               <ListItemIcon>
                 <img
                   src={+tenant.gender === 2 ? famaleImage : maleImage}
+                  onError={useError403}
                   width={40}
                   alt="profile-pic"
                   className="profile-img"
                 />
               </ListItemIcon>
               <ListItemText
+                className="text-start"
                 primary={`${tenant.firstName} ${tenant.lastName}`}
               />
             </ListItemButton>
           ))}
         </List>
       </Grid>
-      <Grid item sm={4}>
+      <Grid item xs={12} sm={4}>
         <TenantCard tenant={tenants[currentIndex]} hideActions={true} />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={4} xs={12}>
         <h5>{AGREEMENT_TITLE}</h5>
         <iframe
           src={tenants[currentIndex].currentAgreement}

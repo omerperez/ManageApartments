@@ -19,6 +19,12 @@ import Date from "../../Global/FormComponents/Date";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
 
+// Constans
+const CREATE_TENANT_TITLE = "פרטי הדייר";
+const EMPTY_DOC_ERROR = "בבקשה צרף חוזה";
+const CREATE_TENANT_LOADING = "יוצר דייר...";
+const ADD_TENANT = "הוסף דייר";
+
 interface CreateTenantProps {
   apartmentId: string;
   onCancel?: () => void;
@@ -29,9 +35,7 @@ export default function CreateTenant({
 }: CreateTenantProps) {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
 
-  // Constans
   const language = authState.language ?? "he";
-  const CREATE_TENANT_TITLE = "פרטי הדייר";
 
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const refs: Ref<any> = useRef(tenantsFormLabels.map(() => createRef()));
@@ -72,10 +76,9 @@ export default function CreateTenant({
     if (document || Object.keys(errorList).length === 0) {
       return "";
     }
-    return "בבקשה צרף חוזה";
+    return EMPTY_DOC_ERROR;
   }
 
-  const CREATE_TENANT_LOADING = "יוצר דייר...";
   if (createLoading) {
     return <Loading text={CREATE_TENANT_LOADING} />;
   }
@@ -89,13 +92,18 @@ export default function CreateTenant({
           {<div className="input-error fs-5 mt-2">{getDocumentError()}</div>}
         </>
       }
-      saveBtnText={"הוסף דייר"}
+      saveBtnText={ADD_TENANT}
       onSubmit={onSubmit}
       onCancel={onCancel ? onCancel : () => {}}
     >
-      <Grid container spacing={1.5}>
+      <Grid container spacing={1.5} className="padding-creates-form">
         {tenantsFormLabels.map((item, index) => (
-          <Grid item sm={item.gridSize} key={item.en_label}>
+          <Grid
+            item
+            xs={item.gridSize >= 4 ? 12 : 6}
+            sm={item.gridSize}
+            key={item.en_label}
+          >
             {item.type.fieldType === "date" ? (
               <Date
                 label={item[`${language}_label`]}

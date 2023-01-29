@@ -1,6 +1,10 @@
 import { Add, HighlightOff } from "@mui/icons-material";
 import { Button, Fab, Grid, IconButton } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import useMobieDesign from "../../Hooks/useMobile";
+import { useError403 } from "../../Services/Utils/useError403";
+import ChangeImagesViewBtn from "../Global/Buttons/ChangeImagesViewBtn";
+import EditImagesCarousel from "./EditImagesCarousel";
 
 interface EditImagesProps {
   images: string[];
@@ -19,6 +23,9 @@ export default function EditImages({
   newImages,
   changeNewImages,
 }: EditImagesProps) {
+  const isMobileScreen = useMobieDesign();
+  const [isCarouselView, setIsCarouselView] = useState<boolean>(true);
+
   const handleChangeFiles = (files: File[]) => {
     changeNewImages(files);
   };
@@ -65,8 +72,37 @@ export default function EditImages({
     );
   }
 
+  const changeImagesView = (
+    <div className="mb-2">
+      <ChangeImagesViewBtn
+        onHandleClickChange={() => {
+          setIsCarouselView((prevState) => !prevState);
+        }}
+        isCarouselView={isCarouselView}
+      />
+    </div>
+  );
+
+  if (isMobileScreen && isCarouselView) {
+    return (
+      <>
+        {changeImagesView}
+        <EditImagesCarousel
+          databaseImages={images}
+          onRemoveDatabaseImage={removeImage}
+          newImages={newImages}
+          onRemoveNewImage={removeNewImage}
+          mainImageIndex={mainImageIndex}
+          onChangeMainImage={changeMainImageIndex}
+          addNewImage={changeFiles}
+        />
+      </>
+    );
+  }
+
   return (
     <>
+      {isMobileScreen && changeImagesView}
       <Grid container className="files-container-edit">
         {images.map((img, index) => (
           <Grid
@@ -84,6 +120,7 @@ export default function EditImages({
                 className={
                   index === mainImageIndex ? "user-active-image" : "user-image"
                 }
+                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton
@@ -120,6 +157,7 @@ export default function EditImages({
                     ? "user-active-image"
                     : "user-image"
                 }
+                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton

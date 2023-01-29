@@ -1,5 +1,9 @@
 import { Button, DialogActions } from "@mui/material";
 
+// Constans
+const SAVE_CHANGES = "שמור שינויים";
+const BACK_TO_MENU = "חזור לתפריט";
+
 interface DialogActionButtonsProps {
   onSubmit: () => void;
   onCancel: () => void;
@@ -8,10 +12,6 @@ export default function DialogActionButtons({
   onSubmit,
   onCancel,
 }: DialogActionButtonsProps) {
-  // Constans
-  const SAVE_CHANGES = "שמור שינויים";
-  const BACK_TO_MENU = "חזור לתפריט";
-
   return (
     <DialogActions sx={{ marginTop: 5 }}>
       <Button

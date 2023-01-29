@@ -1,3 +1,126 @@
+@media screen and (min-width: 601px) {
+  .apartment-details-address {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+  }
+
+  .apartment-details-floor {
+    font-weight: 100;
+    font-size: 18px;
+    color: #7e8989;
+  }
+  .apartment-details-price {
+    color: #15b37a !important;
+    text-align: center !important;
+    font-weight: bolder !important;
+  }
+
+  .apartment-price {
+    display: none;
+  }
+  .side-image {
+    height: 180px;
+    width: auto;
+    max-width: 100%;
+    border: solid 1px black !important;
+    border-bottom: none !important;
+  }
+
+  .apartment-details-buttons-menu {
+    background: #f3f5f3;
+    width: 100px !important;
+    padding: 20px 25px !important;
+    border-radius: 50px;
+  }
+
+  .edit-from-list {
+    max-height: 45vh !important;
+    overflow: auto !important;
+  }
+
+  .tenant-card {
+    border-radius: 8px !important;
+    min-width: 350px !important;
+    max-width: 420px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .apartment-details-address {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+  }
+
+  .apartment-details-floor {
+    font-weight: 100;
+    font-size: 16px;
+    color: #7e8989;
+  }
+
+  .apartment-price {
+    font-size: 20px !important;
+    color: #15b37a !important;
+    font-weight: bolder !important;
+  }
+
+  .apartment-details-price {
+    display: none !important;
+  }
+
+  .side-image {
+    height: 180px;
+    width: 100%;
+    border: solid 1px black !important;
+    border-bottom: none !important;
+  }
+
+  .apartment-details-buttons-menu {
+    background: #f3f5f3;
+    padding: 8px !important;
+    border-radius: 20px;
+    border: solid 3px white !important;
+  }
+
+  .change-images-view {
+    font-size: 18px !important;
+    color: #0b6efe !important;
+    border: solid 1px #0b6efe !important;
+    font-family: "Rubik", sans-serif !important;
+  }
+
+  .hide-title-mobile {
+    display: none;
+  }
+
+  .edit-from-list {
+    max-height: 25vh !important;
+    overflow: auto !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+      0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  }
+
+  .tenant-card {
+    border-radius: 8px !important;
+    max-width: 420px !important;
+  }
+}
+
+.apartment-details-button-active {
+  color: #06b074 !important;
+  border: none !important;
+  background-color: white !important;
+  border-radius: 50% !important;
+  box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.75) !important;
+}
+
+.apartment-details-button-non-active {
+  color: #a0a9a9 !important;
+  border: none !important;
+  background-color: none !important;
+  border-radius: 50% !important;
+}
+
 .apartment-details {
   padding-top: 15px;
 }
@@ -261,56 +384,8 @@ th {
   max-height: 50vh !important;
 }
 
-.side-image {
-  height: 180px;
-  width: auto;
-  max-width: 100%;
-  border: solid 1px black !important;
-  border-bottom: none !important;
-}
-
-.apartment-details-address {
-  /* margin: 0 0 20px 0 !important; */
-  font-size: 24px !important;
-  font-weight: 700 !important;
-}
-
-.apartment-details-floor {
-  font-weight: 100;
-  font-size: 18px;
-  color: #7e8989;
-}
-
-.apartment-details-price {
-  color: #15b37a !important;
-  text-align: center !important;
-  font-weight: bolder !important;
-}
-
 .apartment-details-divider {
   background: black !important;
-}
-
-.apartment-details-buttons-menu {
-  background: #f3f5f3;
-  width: 100px !important;
-  padding: 20px 25px !important;
-  border-radius: 50px;
-}
-
-.apartment-details-button-active {
-  color: #06b074 !important;
-  border: none !important;
-  background-color: white !important;
-  border-radius: 50% !important;
-  box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.75) !important;
-}
-
-.apartment-details-button-non-active {
-  color: #a0a9a9 !important;
-  border: none !important;
-  background-color: none !important;
-  border-radius: 50% !important;
 }
 
 .apartment-details-others-value {
@@ -321,17 +396,6 @@ th {
 .apartment-details-others-label {
   color: #7e8989;
   font-size: 16px;
-}
-
-.edit-from-list {
-  max-height: 45vh !important;
-  overflow: auto !important;
-}
-
-.tenant-card {
-  border-radius: 8px !important;
-  min-width: 350px !important;
-  max-width: 420px !important;
 }
 
 .tenant-card-content {

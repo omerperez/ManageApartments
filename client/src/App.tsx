@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPovider from "./Contexts/AuthContext";
-import PrivatePovider from "./Contexts/Private";
+import PrivatePovider from "./Contexts/ApplicationContext";
 import PrivateRouter from "./Routers/Private";
 import PublicRouter from "./Routers/Public";
 import ApartmentDetailsPage from "./Pages/ApartmentView";

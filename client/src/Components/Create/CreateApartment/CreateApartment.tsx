@@ -17,9 +17,10 @@ import { AuthContextType } from "../../../Data/types/Auth";
 import useMobieDesign from "../../../Hooks/useMobile";
 import CreateFormLayout from "../../../Layout/CreateFormLayout";
 import { getInputType, getSelectList } from "../../../Services/FormService";
-import Autocomplete from "../../Global/FormComponents/Autocomplete";
+import CityAutocomplete from "../../Global/FormComponents/CityAutocomplete";
 import Input from "../../Global/FormComponents/Input";
 import Select from "../../Global/FormComponents/Select";
+import StreetAutocomplete from "../../Global/FormComponents/StreetAutocomplete";
 import UploadImages from "./UploadImages";
 
 interface CreateApartmentFormProps {
@@ -27,15 +28,15 @@ interface CreateApartmentFormProps {
   setApartmentId: Dispatch<SetStateAction<string>>;
 }
 
+// Constans
+const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+const CREATE_APARTMENT_BTN = "צור דירה";
+const IMAGES_ERROR = "אנא הוסף תמונות";
+
 export default function CreateApartment({
   setLoading,
   setApartmentId,
 }: CreateApartmentFormProps) {
-  // Constans
-  const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
-  const CREATE_APARTMENT_BTN = "צור דירה";
-  const IMAGES_ERROR = "אנא הוסף תמונות";
-
   const isMobileDesign = useMobieDesign();
   const { authState } = useContext(AuthContext) as AuthContextType;
   const navigate = useNavigate();
@@ -130,16 +131,21 @@ export default function CreateApartment({
                   required={true}
                   ref={refs.current[index]}
                 />
-              ) : (
-                <Autocomplete
+              ) : item.key === "city" ? (
+                <CityAutocomplete
                   label={item[`${authState.language}_label`]}
                   error={errorList[item.key]}
-                  disabled={item.key === "street" && !city ? true : false}
+                  defaultValue={""}
+                  setState={setCity}
+                  ref={refs.current[index]}
+                />
+              ) : (
+                <StreetAutocomplete
+                  label={item[`${authState.language}_label`]}
+                  error={errorList[item.key]}
+                  city={city}
                   defaultValue={""}
                   ref={refs.current[index]}
-                  setState={setCity}
-                  isCityAutocomplete={item.key === "city"}
-                  isStreetAutocomplete={item.key === "street" ? city : ""}
                 />
               )}
             </Grid>

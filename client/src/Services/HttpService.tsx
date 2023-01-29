@@ -85,11 +85,8 @@ const getAllCities = async () => {
   if (response) {
     const results = response.data.result.records;
     if (results)
-      return results.map((city: { שם_ישוב: string }) => {
-        return {
-          label: city.שם_ישוב,
-          value: city.שם_ישוב,
-        };
+      return results.map((city: { שם_ישוב: string; סמל_ישוב: string }) => {
+        return city.שם_ישוב;
       });
   }
   return null;
@@ -101,10 +98,7 @@ const getStreetsByCity = async (city: string) => {
     const results = response.data.result.records;
     if (results)
       return results.map((street: { שם_רחוב: string }) => {
-        return {
-          label: street.שם_רחוב,
-          value: street.שם_רחוב,
-        };
+        return street.שם_רחוב;
       });
   }
   return null;

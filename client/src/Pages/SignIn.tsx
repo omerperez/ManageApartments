@@ -20,6 +20,7 @@ import CookieService from "../Services/CookieService";
 import { getInputType } from "../Services/FormService";
 import { getRefValue } from "../Services/Global";
 import { SignInLabelsForm } from "../Services/Translate/SignIn";
+import { useError403 } from "../Services/Utils/useError403";
 
 export default function SignIn() {
   const { login } = useContext(AuthContext) as AuthContextType;
@@ -77,7 +78,11 @@ export default function SignIn() {
       <div className="login-card">
         <div className="login-card-grid">
           <div className="text-center">
-            <img src={error ? loginLogoError : loginLogo} alt="login" />
+            <img
+              src={error ? loginLogoError : loginLogo}
+              onError={useError403}
+              alt="login"
+            />
           </div>
           <div className="login-error">{error && <span>{error}</span>}</div>
           {SignInLabelsForm.map((item, index) => (

@@ -14,6 +14,10 @@ import "../Layout/CSS/Profile.css";
 import Loading from "../Layout/Loading";
 import { getApartmentView } from "../Services/Api/ApartmentApi";
 
+// Constans
+const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+const TENANT_DETAILS_TITLE = "דייר נוכחי";
+
 export default function ApartmentView() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [searchParams] = useSearchParams();
@@ -25,7 +29,6 @@ export default function ApartmentView() {
     const currentApartmentId = searchParams.get("apartmentId") as string;
     setApartmentId(currentApartmentId);
     getApartmentView(currentApartmentId).then((data) => {
-      console.log(data);
       setLoading(true);
       setTenant(data.tenant);
       setTenantsHistory(data.tenantHistory);
@@ -37,7 +40,6 @@ export default function ApartmentView() {
   useMemo(() => {
     if (authState.loading && apartmentId) {
       getApartmentView(apartmentId).then((data) => {
-        console.log(data);
         setLoading(true);
         setTenant(data.tenant);
         setTenantsHistory(data.tenantHistory);
@@ -51,13 +53,9 @@ export default function ApartmentView() {
     return <Loading />;
   }
 
-  // Constans
-  const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
-  const TENANT_DETAILS_TITLE = "דייר נוכחי";
-
   return (
     <Grid container className="apartment-details street-text">
-      <Grid item xs={4} className="tenant-details-side">
+      <Grid item sm={4} className="tenant-details-side">
         <div>
           {TENANT_DETAILS_TITLE}
           <div className="mt-2">
@@ -69,8 +67,8 @@ export default function ApartmentView() {
           <TenantHistory tenants={tenantsHistory} />
         </div>
       </Grid>
-      <Grid item xs={8} className="apartment-details-side">
-        <div>{APARTMENT_DETAILS_TITLE}</div>
+      <Grid item sm={8} className="apartment-details-side">
+        <div className="hide-title-mobile">{APARTMENT_DETAILS_TITLE}</div>
         <div className="mt-3">
           <ApartmentImages
             images={currentApartment.images}

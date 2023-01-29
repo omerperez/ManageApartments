@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useContext, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MY_APARTMENT } from "../Assets/IConstans";
+import CreateApartmentBtn from "../Components/Global/Buttons/CreateApartmentBtn";
 import ApartmentCard from "../Components/HomePage/ApartmentCard/Card";
 import HomeDashboard from "../Components/HomePage/ApartmentCard/HomeDashboard";
 import { AuthContext } from "../Contexts/AuthContext";
@@ -15,7 +14,6 @@ import { getTextByCurrentTime } from "../Services/Utils/timeTextFunction";
 export default function Home() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,17 +60,11 @@ export default function Home() {
         authState,
       )}`}</div>
       <Grid container spacing={2}>
-        <Grid item xs={6} sm={12}>
+        <Grid item sm={12} className="hide-dashboard-mobile">
           <HomeDashboard language={authState.language} />
         </Grid>
-        <Grid item xs={6} sm={12}>
-          <Button
-            className="home-action-btn"
-            fullWidth={true}
-            onClick={() => navigate("/create-apartment")}
-          >
-            {MY_APARTMENT[authState.language.toUpperCase()].createBtn}
-          </Button>
+        <Grid item sm={12} className="hide-dashboard-mobile">
+          <CreateApartmentBtn />
         </Grid>
         {apartments.map((item, key) => (
           <Grid item xs={12} sm={3} key={`${item.name}-${key}`}>

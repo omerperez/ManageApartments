@@ -3,8 +3,10 @@ import { useContext, useEffect } from "react";
 import { apartmentFormLabels } from "../Assets/Create";
 import EditImages from "../Components/EditApartment/EditImages";
 import Autocomplete from "../Components/Global/FormComponents/Autocomplete";
+import CityAutocomplete from "../Components/Global/FormComponents/CityAutocomplete";
 import Input from "../Components/Global/FormComponents/Input";
 import Select from "../Components/Global/FormComponents/Select";
+import StreetAutocomplete from "../Components/Global/FormComponents/StreetAutocomplete";
 import { AuthContext } from "../Contexts/AuthContext";
 import { EditApartmentDto } from "../Data/interfaces/dto/EditApartment.dto";
 import { IErrosListObject } from "../Data/interfaces/IValidation";
@@ -16,10 +18,10 @@ import Loading from "../Layout/Loading";
 import { getApartmentView } from "../Services/Api/ApartmentApi";
 import { getInputType, getSelectList } from "../Services/FormService";
 
-export default function EditApartment() {
-  // Constans
-  const APARTMENT_EDIT_TITLE = "עריכת דירה";
+// Constans
+const APARTMENT_EDIT_TITLE = "עריכת דירה";
 
+export default function EditApartment() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const { editData, functions } = useEditApartmentData();
 
@@ -31,6 +33,7 @@ export default function EditApartment() {
     getApartmentView(currentApartmentId).then((data) => {
       functions.initEditData(data.apartment);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editData.searchParams]);
 
   const onSubmit = async () => {
@@ -98,7 +101,12 @@ export default function EditApartment() {
         <Grid container spacing={1.5}>
           {apartmentFormLabels.map((item, index) =>
             item.type.fieldType !== "textarea" ? (
-              <Grid item sm={item.gridSize} key={item.en_label}>
+              <Grid
+                item
+                xs={item.gridSize >= 4 ? 12 : 6}
+                sm={item.gridSize}
+                key={item.en_label}
+              >
                 {item.type.fieldType === "select" ? (
                   <Select
                     label={item.he_label}
@@ -117,19 +125,20 @@ export default function EditApartment() {
                     required={true}
                     ref={editData.editFormRefs.current[index]}
                   />
-                ) : (
-                  <Autocomplete
+                ) : item.key === "city" ? (
+                  <CityAutocomplete
                     label={item.he_label}
                     error={editData.errorList[item.key]}
-                    disabled={
-                      item.key === "street" && !editData.city ? true : false
-                    }
                     defaultValue={getDefaultValue(item.key)}
                     setState={functions.setCity}
-                    isCityAutocomplete={item.key === "city"}
-                    isStreetAutocomplete={
-                      item.key === "street" ? editData.city : ""
-                    }
+                    ref={editData.editFormRefs.current[index]}
+                  />
+                ) : (
+                  <StreetAutocomplete
+                    label={item.he_label}
+                    error={editData.errorList[item.key]}
+                    city={editData.city}
+                    defaultValue={getDefaultValue(item.key)}
                     ref={editData.editFormRefs.current[index]}
                   />
                 )}

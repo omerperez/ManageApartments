@@ -1,13 +1,99 @@
+@media screen and (min-width: 601px) {
+  .lan-btn-design {
+    color: #2a2561 !important;
+    text-transform: lowercase !important;
+    font-size: 20px !important;
+  }
+  .private-route-children {
+    padding: 10px !important;
+    padding-top: 0 !important;
+  }
+  .logout-btn {
+    color: #2a2561 !important;
+    text-transform: lowercase !important;
+    font-size: 20px !important;
+  }
+  .lan-icon {
+    font-size: 26px !important;
+  }
+
+  .dialog-btn {
+    text-transform: capitalize !important;
+    font-size: 20px !important;
+    border-radius: 8px !important;
+    height: 40px !important;
+    font-family: "Rubik", sans-serif !important;
+    color: white !important;
+    padding: 25px !important;
+  }
+
+  .dialog-save-btn {
+    background-color: #809fff !important;
+    margin: 0 15px !important;
+  }
+
+  .dialog-cancel-btn {
+    background-color: #ff5370 !important;
+    margin-left: 15px !important;
+  }
+
+  .label-form {
+    font-size: 18px !important;
+    font-family: "Rubik", sans-serif !important;
+    color: #2a2561 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 5px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .lan-btn-design {
+    color: white !important;
+    text-transform: lowercase !important;
+    font-size: 20px !important;
+  }
+  .private-route-children {
+    padding: 0 10px 50px 10px !important;
+  }
+  .logout-btn {
+    color: white !important;
+    text-transform: lowercase !important;
+    font-size: 20px !important;
+  }
+  .lan-icon {
+    font-size: 24px !important;
+  }
+  .language-btn-text {
+    font-size: 12px;
+    text-align: center;
+  }
+  .dialog-btn {
+    text-transform: capitalize !important;
+    font-size: 15px !important;
+    border-radius: 8px !important;
+    height: 40px !important;
+    font-family: "Rubik", sans-serif !important;
+    color: white !important;
+  }
+  .dialog-save-btn {
+    background-color: #809fff !important;
+    margin: 0 5px !important;
+  }
+  .dialog-cancel-btn {
+    background-color: #ff5370 !important;
+    margin-left: 5px !important;
+  }
+  .label-form {
+    font-size: 16px !important;
+    font-family: "Rubik", sans-serif !important;
+    color: #2a2561 !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 3px !important;
+  }
+}
+
 .project-font {
   font-family: "Rubik", sans-serif !important;
-}
-
-.project-sec-font {
-  font-family: "Rubik", sans-serif !important;
-}
-
-.fs-44 {
-  font-size: 44px;
 }
 
 .ltr {
@@ -18,28 +104,12 @@
   direction: rtl !important;
 }
 
-.ml-5 {
-  margin-left: 5px !important;
-}
-
 .text-start {
   text-align: start !important;
 }
 
-.ml-10 {
-  margin-left: 10px !important;
-}
-
-.mr-10 {
-  margin-right: 10px !important;
-}
-
 .nowrap {
   white-space: nowrap;
-}
-
-.mw-100 {
-  min-width: 100% !important;
 }
 
 .p-0 {
@@ -51,29 +121,12 @@
 }
 
 .router-layout {
-  /* padding: 0 5% !important; */
   background-color: #e1e6ed;
   min-height: 100vh !important;
 }
 
-.lan-btn {
-  /* background-color: #e1e6ed; */
-  display: flex;
-  position: sticky;
-  width: 100%;
-  direction: rtl !important;
-}
-
 .bg-white {
   background: white !important;
-}
-
-.label-form {
-  font-size: 18px !important;
-  font-family: "Rubik", sans-serif !important;
-  color: black !important;
-  letter-spacing: 1px !important;
-  margin-bottom: 5px !important;
 }
 
 .area-input {
@@ -85,20 +138,19 @@
   width: 100%;
 }
 
-.white-logout-btn {
-  color: white !important;
-  text-transform: lowercase !important;
-  font-size: 20px !important;
+.application-nav-name {
+  font-family: "Galada", cursive !important;
+  font-size: 28px !important;
 }
 
-.lan-btn-design {
-  color: #2a2561 !important;
-  text-transform: lowercase !important;
-  font-size: 20px !important;
-}
-
-.lan-icon {
-  font-size: 26px !important;
+.mobile-bottom-nav {
+  position: fixed !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  z-index: 1 !important;
+  direction: rtl !important;
+  left: 0 !important;
+  right: 0 !important;
 }
 
 .w-85 {
@@ -191,7 +243,10 @@
 }
 
 .loading {
-  margin: 20% 0;
+  position: absolute;
+  top: 40%;
+  width: 100vw;
+  /* right: 50%; */
   text-align: center;
 }
 
@@ -258,24 +313,4 @@
   font-family: "Rubik", sans-serif !important;
   letter-spacing: 1.5px !important;
   margin-top: 5px;
-}
-
-.dialog-btn {
-  text-transform: capitalize !important;
-  font-size: 20px !important;
-  border-radius: 8px !important;
-  height: 40px !important;
-  font-family: "Rubik", sans-serif !important;
-  color: white !important;
-  padding: 25px !important;
-}
-
-.dialog-save-btn {
-  background-color: #809fff !important;
-  margin: 0 15px !important;
-}
-
-.dialog-cancel-btn {
-  background-color: #ff5370 !important;
-  margin-left: 15px !important;
 }

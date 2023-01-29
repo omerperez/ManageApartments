@@ -15,11 +15,15 @@ export default function GenericDialogTitle({
     return (
       <DialogTitle>
         <Grid container>
-          <Grid item md={isShowCloseButton ? 11 : 12}>
+          <Grid
+            item
+            xs={isShowCloseButton ? 10 : 12}
+            md={isShowCloseButton ? 11 : 12}
+          >
             <h2 className="dialog-title">{title}</h2>
           </Grid>
           {isShowCloseButton && (
-            <Grid item md={1}>
+            <Grid item xs={2} md={1}>
               <div className="text-end">
                 <IconButton aria-label="close" onClick={handleClose}>
                   <Close className="dialog-close-btn-top" />

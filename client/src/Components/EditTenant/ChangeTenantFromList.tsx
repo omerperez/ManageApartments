@@ -11,9 +11,14 @@ import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { AuthContextType } from "../../Data/types/Auth";
 import Loading from "../../Layout/Loading";
 import TenantApiService from "../../Services/Api/TenantApi";
+import { useError403 } from "../../Services/Utils/useError403";
 import TenantCard from "../ApartmentView/Tenant/TenantCard";
 import DialogActionButtons from "../Global/DialogActionButtons";
 import UpdateDocument from "./UpdateDocument";
+
+// Constans
+const NO_ANOTHER_TENANTS = "לא נמצאו דיירים נוספים";
+const LOADING_TENANTS_LIST = "טוען רשימת דיירים...";
 
 interface ChangeTenantFromListProps {
   tenantId: string;
@@ -36,12 +41,13 @@ export default function ChangeTenantFromList({
   const [editLoading, setEditLoading] = useState<string>("");
 
   useEffect(() => {
-    setEditLoading("טוען רשימת דיירים...");
+    setEditLoading(LOADING_TENANTS_LIST);
     TenantApiService.getTenantsHistory(authState.mobile).then((response) => {
       setTenants(response);
       setLoading(false);
       setEditLoading("");
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = () => {
@@ -62,14 +68,14 @@ export default function ChangeTenantFromList({
   if (tenants.length === 0)
     return (
       <div>
-        <h1>לא נמצאו דיירים נוספים.</h1>
+        <h1>{NO_ANOTHER_TENANTS}</h1>
       </div>
     );
 
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item sm={4}>
+        <Grid item xs={12} sm={4}>
           <List component="nav" className="edit-from-list">
             {tenants.map((tenant, index) => (
               <ListItemButton
@@ -85,6 +91,7 @@ export default function ChangeTenantFromList({
                     width={40}
                     alt="profile-pic"
                     className="profile-img"
+                    onError={useError403}
                   />
                 </ListItemIcon>
                 <ListItemText
@@ -94,7 +101,7 @@ export default function ChangeTenantFromList({
             ))}
           </List>
         </Grid>
-        <Grid item sm={4}>
+        <Grid item xs={12} sm={4}>
           <TenantCard
             tenant={tenants.find((tenant) => {
               return tenant._id === tenantId;

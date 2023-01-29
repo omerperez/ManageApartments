@@ -1,11 +1,13 @@
 import { Groups, PersonAdd, PersonOff } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import { Tenant } from "../../../Data/interfaces/entities/Tenant.entity";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import ChangeTenantButton from "../../Delete/Edit/EditApartment/ChangeTenantButton";
 import TenantsList from "../../Delete/Edit/EditApartment/TenantsList";
 import CreateTenantForm from "./CreateTenant";
+
+// Constans
+const ADD_TENANT = "הוספת דייר";
 
 interface ChooseTenantOptionsProps {
   apartmentId: string;
@@ -13,8 +15,6 @@ interface ChooseTenantOptionsProps {
 export default function ChooseTenantOptions({
   apartmentId,
 }: ChooseTenantOptionsProps) {
-  const [tenantsList, setTenantList] = useState<Tenant[]>([]);
-  const [tenant, setTenant] = useState<Tenant | null>(null);
   const [option, setOption] = useState<number>(-1);
 
   const optionsBtns = [
@@ -36,28 +36,24 @@ export default function ChooseTenantOptions({
   ];
 
   const options = [
-    <TenantsList
-      isShowOnly={false}
-      tenantsList={tenantsList}
-      setEditTenant={setTenant}
-    />,
+    <TenantsList isShowOnly={false} tenantsList={[]} />,
     <CreateTenantForm apartmentId={apartmentId} />,
   ];
 
   if (option === -1) {
     return (
       <div className="edit-form">
-        <div className="sub-page-title mb-3">{"הוספת דייר"}</div>
+        <div className="sub-page-title mb-3">{ADD_TENANT}</div>
         <ThemeStyleRTL>
           <Grid container spacing={3}>
             {optionsBtns.map((button, index) => (
-              <Grid item sm={4}>
+              <Grid item xs={12} sm={4}>
                 <ChangeTenantButton
                   color={button.color}
                   onClick={() => setOption(index)}
                   icon={button.icon}
                   text={button.text}
-                  disabled={index === 0 && tenantsList.length === 0}
+                  disabled={index === 0 && [].length === 0}
                 />
               </Grid>
             ))}
