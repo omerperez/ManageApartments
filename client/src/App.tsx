@@ -10,6 +10,7 @@ import HomePage from "./Pages/Home";
 import Apartments from "./Pages/MyApartments";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import MyApartments from "./Pages/MyApartments";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
             <Route
               path="/apartments"
               element={<PrivateRouter children={<Apartments />} />}
+            />
+            <Route
+              path="my-apartment"
+              element={
+                <PrivateRouter>
+                  <MyApartments />
+                </PrivateRouter>
+              }
             />
             <Route
               path="/apartment/*"

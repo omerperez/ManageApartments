@@ -1,53 +1,73 @@
-import { Button, Grid } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MY_APARTMENT } from "../Assets/IConstans";
-import { defaultApartment } from "../Assets/StaticData";
-import Card from "../Components/HomePage/ApartmentCard/Card";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Grid } from "@mui/material";
+import { useContext, useEffect, useMemo, useState } from "react";
+import CreateApartmentBtn from "../Components/Global/Buttons/CreateApartmentBtn";
+import ApartmentCard from "../Components/HomePage/ApartmentCard/Card";
+import HomeDashboard from "../Components/HomePage/ApartmentCard/HomeDashboard";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Apartment } from "../Data/builders/Apartment";
 import { AuthContextType } from "../Data/types/Auth";
-import "../Layout/CSS/MyApartment.css";
+import "../Layout/CSS/Home.css";
+import Loading from "../Layout/Loading";
 
 export default function MyApartments() {
-  const { authState } = useContext(AuthContext) as AuthContextType;
+  const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [apartments, setApartments] = useState<Apartment[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    setApartments([
-      defaultApartment,
-      defaultApartment,
-      defaultApartment,
-      defaultApartment,
-    ]);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const { getAllApartments } = await import(
+          "../Services/Api/ApartmentApi"
+        );
+        const apartments = await getAllApartments(authState.mobile);
+        setApartments(apartments);
+      } catch (error) {
+        setApartments([]);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
-  return (
-    <div className={`my-apartment-${authState.language}`}>
-      <div className="my-apartment-layout">
-        <Grid container>
-          <Grid item sm={6}>
-            <h1>הדירות שלי</h1>
-          </Grid>
-          <Grid item sm={6} className="create-btn-position">
-            <Button
-              className="my-apartment-create-btn"
-              onClick={() => navigate("/create-apartment")}
-            >
-              {MY_APARTMENT[authState.language.toUpperCase()].createBtn}
-            </Button>
-          </Grid>
-        </Grid>
+  useMemo(() => {
+    if (authState.loading && apartments.length > 0) {
+      const fetchData = async () => {
+        try {
+          const { getAllApartments } = await import(
+            "../Services/Api/ApartmentApi"
+          );
+          const apartments = await getAllApartments(authState.mobile);
+          setApartments(apartments);
+        } catch (error) {
+          console.log(error);
+        }
+        setLoading(false);
+      };
+      fetchData();
+    }
+  }, [authState.loading]);
 
-        <Grid container spacing={2} className="my-apartment-cards">
-          {apartments.map((item, key) => (
-            <Grid item xs={6} sm={3} key={`${item.name}-${key}`}>
-              <Card apartment={item} language={authState.language} />
-            </Grid>
-          ))}
+  if (authState.loading) {
+    return <Loading />;
+  }
+
+  return (
+    <div className="home-page">
+      <Grid container spacing={2}>
+        <Grid item sm={12} className="hide-dashboard-mobile">
+          <HomeDashboard language={authState.language} />
         </Grid>
-      </div>
+        <Grid item sm={12} className="hide-dashboard-mobile">
+          <CreateApartmentBtn />
+        </Grid>
+        {apartments.map((item, key) => (
+          <Grid item xs={12} sm={3} key={`${item.name}-${key}`}>
+            <ApartmentCard apartment={item} language={authState.language} />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }

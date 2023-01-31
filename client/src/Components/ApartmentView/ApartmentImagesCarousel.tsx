@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { useState } from "react";
 import { useError403 } from "../../Services/Utils/useError403";
 import ImagesCarouselActions from "../Create/CreateApartment/ImagesCarouselActions";
+import { PanoramaFishEye, RadioButtonChecked } from "@mui/icons-material";
 
 interface ApartmentImagesCarouselProps {
   images: string[];
@@ -82,6 +83,24 @@ export default function ApartmentImagesCarousel({
           />
         </Grid>
       )}
+      <Grid item xs={12} textAlign="center">
+        {images.map((image, index) =>
+          index === currentImage ? (
+            <RadioButtonChecked
+              color="primary"
+              className="circle-index-carousel"
+              key={`circle-index-image-location-${index}`}
+            />
+          ) : (
+            <PanoramaFishEye
+              color="primary"
+              className="circle-index-carousel"
+              // className="circle-index-carousel"
+              key={`circle-index-image-location-${index}`}
+            />
+          ),
+        )}
+      </Grid>
       <ImagesCarouselActions
         handleClickNext={handleClickNext}
         handleClickPrev={handleClickPrev}

@@ -136,6 +136,33 @@
   min-width: 100% !important;
 }
 
+.apartment-card-btn {
+  font-size: 16px !important;
+  border-radius: 0 !important;
+  color: white !important;
+  font-family: "Rubik", sans-serif !important;
+  border-top: solid 2px black !important;
+}
+.button-bg-delete {
+  background-color: #db5454 !important;
+  border-right: solid 2px black !important;
+}
+
+.button-bg-view {
+  background-color: #809fff !important;
+}
+
+.button-bg-edit {
+  background-color: #7d7d7d !important;
+  border-right: solid 2px black !important;
+}
+
+.apartment-card-icon {
+  font-size: medium !important;
+  margin: auto !important;
+  color: white !important;
+}
+
 .bg-red {
   background-color: #ff5370 !important;
 }
@@ -232,4 +259,8 @@
 .apartment-card-actions {
   margin: -5px 20px 5px 20px;
   text-align: center;
+}
+
+.circle-index-carousel {
+  font-size: 20px !important;
 }

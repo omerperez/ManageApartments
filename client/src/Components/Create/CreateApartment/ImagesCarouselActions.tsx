@@ -28,7 +28,7 @@ export default function ImagesCarouselActions({
   return (
     <Grid container className="carousel-action-btns">
       <Grid item xs={3}>
-        <IconButton onClick={handleClickNext}>
+        <IconButton onClick={handleClickPrev}>
           <ArrowForwardIos className="carousel-btn-icon" />
         </IconButton>
       </Grid>
@@ -63,7 +63,7 @@ export default function ImagesCarouselActions({
         )}
       </Grid>
       <Grid item xs={3} textAlign="end">
-        <IconButton onClick={handleClickPrev}>
+        <IconButton onClick={handleClickNext}>
           <ArrowBackIos className="carousel-btn-icon" />
         </IconButton>
       </Grid>
