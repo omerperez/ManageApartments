@@ -1,10 +1,12 @@
 import { Add, HighlightOff } from "@mui/icons-material";
 import { Button, Fab, Grid, IconButton } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import useMobieDesign from "../../Hooks/useMobile";
-import { useError403 } from "../../Services/Utils/useError403";
-import ChangeImagesViewBtn from "../Global/Buttons/ChangeImagesViewBtn";
-import EditImagesCarousel from "./EditImagesCarousel";
+import ApartmentMobileImages from "../Global/Mobile/Images/ApartmentMobileImages";
+import Image from "../Global/Mobile/Images/Image";
+
+// Constans
+const EDIT_IMAGES_TITLE = "עריכת תמונות";
 
 interface EditImagesProps {
   images: string[];
@@ -24,33 +26,42 @@ export default function EditImages({
   changeNewImages,
 }: EditImagesProps) {
   const isMobileScreen = useMobieDesign();
-  const [isCarouselView, setIsCarouselView] = useState<boolean>(true);
+  const [apartmentImages, setApartmentImages] = useState<(string | File)[]>([
+    ...images,
+    ...newImages,
+  ]);
 
-  const handleChangeFiles = (files: File[]) => {
-    changeNewImages(files);
+  useMemo(() => {
+    setApartmentImages([...newImages, ...images]);
+  }, [newImages, images]);
+
+  const onClickRemove = (imageIndex: number) => {
+    const removeImage = apartmentImages[imageIndex];
+    if (typeof removeImage === "string") {
+      const filter = images.filter((img) => img !== removeImage);
+      changeImages(filter);
+    } else {
+      const filter = newImages.filter((img) => img !== removeImage);
+      changeNewImages(filter);
+    }
   };
-  const removeImage = (image: string) => {
-    const removeImages = images.filter((img) => img !== image);
-    changeImages(removeImages);
-  };
-  const removeNewImage = (image: any) => {
-    let removeImages = newImages.filter((img) => img !== image);
-    changeNewImages(removeImages);
-  };
-  const readFile = (image: File) => {
-    return URL.createObjectURL(image);
-  };
-  const changeFiles = (e: ChangeEvent<HTMLInputElement>) => {
+
+  // const onRemoveImageFile = (image: any) => {
+  //   let removeImages = newImages.filter((img) => img !== image);
+  //   changeNewImages(removeImages);
+  // };
+
+  const onAddNewImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       let files: File[] = [];
       for (let i = 0; i < e.target.files.length; i++) {
         files.push(e.target.files[i]);
       }
-      handleChangeFiles(files);
+      changeNewImages(files);
     }
   };
 
-  if (images.length === 0 && newImages.length === 0) {
+  if (apartmentImages.length === 0) {
     return (
       <div className="h-100 p-4 pb-5">
         <Button
@@ -65,44 +76,28 @@ export default function EditImages({
             accept="image/*"
             multiple
             type="file"
-            onChange={changeFiles}
+            onChange={onAddNewImage}
           />
         </Button>
       </div>
     );
   }
 
-  const changeImagesView = (
-    <div className="mb-2">
-      <ChangeImagesViewBtn
-        onHandleClickChange={() => {
-          setIsCarouselView((prevState) => !prevState);
-        }}
-        isCarouselView={isCarouselView}
-      />
-    </div>
-  );
-
-  if (isMobileScreen && isCarouselView) {
+  if (isMobileScreen) {
     return (
-      <>
-        {changeImagesView}
-        <EditImagesCarousel
-          databaseImages={images}
-          onRemoveDatabaseImage={removeImage}
-          newImages={newImages}
-          onRemoveNewImage={removeNewImage}
-          mainImageIndex={mainImageIndex}
-          onChangeMainImage={changeMainImageIndex}
-          addNewImage={changeFiles}
-        />
-      </>
+      <ApartmentMobileImages
+        title={EDIT_IMAGES_TITLE}
+        images={apartmentImages}
+        mainImageIndex={mainImageIndex}
+        onChangeMainImage={changeMainImageIndex}
+        onClickRemove={onClickRemove}
+        onAddNewImage={onAddNewImage}
+      />
     );
   }
 
   return (
     <>
-      {isMobileScreen && changeImagesView}
       <Grid container className="files-container-edit">
         {images.map((img, index) => (
           <Grid
@@ -112,7 +107,7 @@ export default function EditImages({
             key={`apartment-images-${index}`}
           >
             <div className="relative">
-              <img
+              <Image
                 onClick={() => changeMainImageIndex(index)}
                 src={img}
                 alt={`preview-img-${index}`}
@@ -120,11 +115,10 @@ export default function EditImages({
                 className={
                   index === mainImageIndex ? "user-active-image" : "user-image"
                 }
-                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton
-                  onClick={() => removeImage(img)}
+                  onClick={() => onClickRemove(index)}
                   size="large"
                   color="primary"
                   aria-label="upload picture"
@@ -147,9 +141,9 @@ export default function EditImages({
             key={`apartment-new-images-${index}`}
           >
             <div className="relative">
-              <img
+              <Image
                 onClick={() => changeMainImageIndex(images.length + index)}
-                src={readFile(img)}
+                src={img}
                 alt={`preview-img-${index}`}
                 width={"100%"}
                 className={
@@ -157,11 +151,10 @@ export default function EditImages({
                     ? "user-active-image"
                     : "user-image"
                 }
-                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton
-                  onClick={() => removeNewImage(img)}
+                  onClick={() => onClickRemove(images.length + index)}
                   size="large"
                   color="primary"
                   aria-label="upload picture"
@@ -193,7 +186,7 @@ export default function EditImages({
           accept="image/*"
           multiple
           type="file"
-          onChange={changeFiles}
+          onChange={onAddNewImage}
         />
       </Fab>
     </>

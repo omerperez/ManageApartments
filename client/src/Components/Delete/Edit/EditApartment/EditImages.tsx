@@ -60,7 +60,7 @@ export default function EditImages({
               <UploadImages
                 images={images}
                 setImages={setImages}
-                mainImages={mainImageIndex}
+                mainImageIndex={mainImageIndex}
                 handleChangeMainImage={changeMainImage}
                 isEditDialog={true}
               />

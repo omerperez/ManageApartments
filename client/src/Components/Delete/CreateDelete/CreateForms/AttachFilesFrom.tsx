@@ -69,7 +69,7 @@ export default function AttachFilesForm({
               <UploadImages
                 images={images}
                 setImages={setImages}
-                mainImages={mainImages}
+                mainImageIndex={mainImages}
                 handleChangeMainImage={changeMainImage}
                 error={error.images}
               />

@@ -95,7 +95,7 @@ export default function CreateApartment({
         <UploadImages
           images={apartmentImages}
           setImages={setApartmentImages}
-          mainImages={mainImageIndex}
+          mainImageIndex={mainImageIndex}
           handleChangeMainImage={setMainImageIndex}
           error={errorList.images}
         />

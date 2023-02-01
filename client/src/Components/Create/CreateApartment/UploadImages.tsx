@@ -2,13 +2,17 @@ import { AddPhotoAlternate, HighlightOff } from "@mui/icons-material";
 import { Button, Fab, Grid, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import useMobieDesign from "../../../Hooks/useMobile";
-import { useError403 } from "../../../Services/Utils/useError403";
-import ImagesCarousel from "./ImagesCarousel";
+import ApartmentMobileImages from "../../Global/Mobile/Images/ApartmentMobileImages";
+import Image from "../../Global/Mobile/Images/Image";
+
+// Constans
+const UPLOAD_IMAGES_BTN = "צרף תמונות";
+const MAIN_IMAGE = "תמונה ראשית";
 
 interface UploadImagesProps {
   images: File[] | [];
   setImages: Dispatch<SetStateAction<File[]>>;
-  mainImages: number;
+  mainImageIndex: number;
   handleChangeMainImage: (index: number) => void;
   isEditDialog?: boolean;
   error?: string;
@@ -17,7 +21,7 @@ interface UploadImagesProps {
 export default function UploadImages({
   images,
   setImages,
-  mainImages,
+  mainImageIndex,
   handleChangeMainImage,
   isEditDialog,
   error,
@@ -28,16 +32,13 @@ export default function UploadImages({
     setImages((images as File[]).concat(files));
   };
 
-  const removeImage = (removeImage: File) => {
-    let removeImages = images.filter((image) => image !== removeImage);
-    setImages(removeImages);
+  const onClickRemoveImage = (index: number) => {
+    const removeImage = images[index];
+    const filter = images.filter((img) => img !== removeImage);
+    setImages(filter);
   };
 
-  const readFile = (image: File) => {
-    return URL.createObjectURL(image);
-  };
-
-  const changeFiles = (e: ChangeEvent<HTMLInputElement>) => {
+  const onAddNewImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       let files: File[] = [];
       for (let i = 0; i < e.target.files.length; i++) {
@@ -46,10 +47,6 @@ export default function UploadImages({
       handleChangeFiles(files);
     }
   };
-
-  // Constans
-  const UPLOAD_IMAGES_BTN = "צרף תמונות";
-  const MAIN_IMAGE = "תמונה ראשית";
 
   if (!images || images.length === 0) {
     return (
@@ -66,7 +63,7 @@ export default function UploadImages({
             accept="image/*"
             multiple
             type="file"
-            onChange={changeFiles}
+            onChange={onAddNewImage}
           />
         </Button>
         {error && <div className="input-error fs-5 mt-2">{error}</div>}
@@ -77,12 +74,12 @@ export default function UploadImages({
   if (isMobileScreen) {
     return (
       <div className="image-carousel">
-        <ImagesCarousel
-          removeImage={removeImage}
-          addFiles={changeFiles}
+        <ApartmentMobileImages
           images={images}
+          onClickRemove={onClickRemoveImage}
+          mainImageIndex={mainImageIndex}
           onChangeMainImage={handleChangeMainImage}
-          mainImageIndex={mainImages}
+          onAddNewImage={onAddNewImage}
         />
       </div>
     );
@@ -108,26 +105,25 @@ export default function UploadImages({
               accept="image/*"
               multiple
               type="file"
-              onChange={changeFiles}
+              onChange={onAddNewImage}
             />
           </Fab>
         </Grid>
         {images.map((img: File, index: number) => (
           <Grid item sm={4} className="padding-img">
             <div className="relative">
-              <img
+              <Image
                 onClick={() => handleChangeMainImage(index)}
-                src={readFile(img)}
+                src={img}
                 alt={`preview-img-${index}`}
                 width={"100%"}
                 className={
-                  index === mainImages ? "user-active-image" : "user-image"
+                  index === mainImageIndex ? "user-active-image" : "user-image"
                 }
-                onError={useError403}
               />
               <div className="remove-pos">
                 <IconButton
-                  onClick={() => removeImage(img)}
+                  onClick={() => onClickRemoveImage(index)}
                   size="large"
                   color="primary"
                   aria-label="upload picture"
@@ -137,7 +133,7 @@ export default function UploadImages({
                 </IconButton>
               </div>
             </div>
-            {index === mainImages && (
+            {index === mainImageIndex && (
               <h4 className="active-image-text">{MAIN_IMAGE}</h4>
             )}
           </Grid>

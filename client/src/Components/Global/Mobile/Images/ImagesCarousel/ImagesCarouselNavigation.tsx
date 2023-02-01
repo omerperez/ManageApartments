@@ -6,25 +6,24 @@ import { ChangeEvent } from "react";
 const ADD_IMAGE_BTN = "הוסף תמונות";
 const CHANGE_VIEW = "שנה תצוגה";
 
-interface ImagesCarouselActionsProps {
+interface ImagesCarouselNavigationProps {
   handleClickNext: () => void;
   handleClickPrev: () => void;
   addFiles?: (event: ChangeEvent<HTMLInputElement>) => void;
   onHandleClickChange?: () => void;
 }
 
-export default function ImagesCarouselActions({
+export default function ImagesCarouselNavigation({
   handleClickNext,
   handleClickPrev,
   addFiles,
   onHandleClickChange,
-}: ImagesCarouselActionsProps) {
+}: ImagesCarouselNavigationProps) {
   const onClickChangeView = () => {
     if (onHandleClickChange) {
       onHandleClickChange();
     }
   };
-
   return (
     <Grid container className="carousel-action-btns">
       <Grid item xs={3}>
