@@ -38,6 +38,7 @@ function CityAutocomplete(
     newInputValue: string,
   ) => {
     setState(newInputValue);
+    setValue(newInputValue);
   };
 
   return (

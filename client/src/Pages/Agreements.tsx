@@ -4,6 +4,8 @@ import { AuthContextType } from "../Data/types/Auth";
 import Loading from "../Layout/Loading";
 import TenantApiService from "../Services/Api/TenantApi";
 import { FolderShared } from "@mui/icons-material";
+import { Grid } from "@mui/material";
+import DocumentCard from "../Components/Documents/DocumentCard";
 
 export default function AgreementsPage() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
@@ -40,10 +42,15 @@ export default function AgreementsPage() {
   //   if (agreementsData.length === 0) return null;
 
   return (
-    <div>
-      {agreementsData.map((tenant) => (
-        <h1>{tenant.name}</h1>
-      ))}
+    <div style={{ padding: 50 }}>
+      <h1>המסמכים שלי</h1>
+      <Grid container spacing={4}>
+        {agreementsData.map((tenant) => (
+          <Grid item xs={12} sm={2} marginTop={2}>
+            <DocumentCard documentsCount={tenant.agreementsCount} {...tenant} />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }

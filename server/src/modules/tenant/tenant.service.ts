@@ -2,7 +2,7 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Schema as MongooseSchema } from 'mongoose';
 import { TenantRepository } from 'src/repositories/tenant.repository';
 import { ApartmentService } from '../apartment/apartment.service';
-import { FileUploaderService } from '../fileUploader/fileUploader.service';
+import { FileUploaderService } from '../../services/fileUploader.service';
 import { UserService } from '../user/user.service';
 import { ChangeTenantDto } from './dto/changeTenant.dto';
 import { CreateTenantDto } from './dto/createTenant.dto';

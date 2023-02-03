@@ -42,7 +42,7 @@ export class UserRepository {
     }
 
     async getUserByMobile(mobile: string) {
-        let user;
+        let user: User | undefined = undefined;
         try {
             user = await this.userModel.findOne({ mobile: mobile });
         } catch (error) {

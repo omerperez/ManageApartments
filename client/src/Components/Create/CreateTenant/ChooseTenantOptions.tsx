@@ -1,6 +1,7 @@
 import { Groups, PersonAdd, PersonOff } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import ChangeTenantButton from "../../Delete/Edit/EditApartment/ChangeTenantButton";
 import TenantsList from "../../Delete/Edit/EditApartment/TenantsList";
@@ -16,6 +17,7 @@ export default function ChooseTenantOptions({
   apartmentId,
 }: ChooseTenantOptionsProps) {
   const [option, setOption] = useState<number>(-1);
+  const navigate = useNavigate();
 
   const optionsBtns = [
     {
@@ -40,6 +42,12 @@ export default function ChooseTenantOptions({
     <CreateTenantForm apartmentId={apartmentId} />,
   ];
 
+  const handleClick = (index: number) => {
+    setOption(index);
+    if (index === 2) {
+      navigate(`/apartment?apartmentId=${apartmentId}`);
+    }
+  };
   if (option === -1) {
     return (
       <div className="edit-form">
@@ -50,7 +58,7 @@ export default function ChooseTenantOptions({
               <Grid item xs={12} sm={4}>
                 <ChangeTenantButton
                   color={button.color}
-                  onClick={() => setOption(index)}
+                  onClick={() => handleClick(index)}
                   icon={button.icon}
                   text={button.text}
                   disabled={index === 0 && [].length === 0}

@@ -89,7 +89,12 @@ export class TenantController {
     @Get('/agreements')
     async getAgreements(@Query() query: { owner: string }, @Res() response: Response) {
         const docsData = await this.dashboardService.getAgreementsData(query.owner);
-        console.log(docsData)
+        return response.status(HttpStatus.OK).send(docsData);
+    }
+
+    @Get('/agreements-statistics')
+    async getAgreementsCountForEachTenant(@Query() query: { owner: string }, @Res() response: Response) {
+        const docsData = await this.dashboardService.getAgreementsCountForEachTenant(query.owner);
         return response.status(HttpStatus.OK).send(docsData);
     }
 }

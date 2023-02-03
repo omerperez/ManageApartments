@@ -29,8 +29,20 @@ export class DashboardService {
                 }]
             result.set(tenant.firstName, update);
         })
-        console.log(result)
         return Promise.resolve(Array.from(result.values()));
-        // return agreementsData;
+    }
+
+    async getAgreementsCountForEachTenant(ownerId: string) {
+        const tenantList: Tenant[] = await this.tenantService.getTenantHistory(ownerId);
+        const result: { id: string; name: string; agreementsCount: number; isActive: boolean }[] = [];
+        tenantList.map((tenant) => {
+            result.push({
+                id: tenant.id,
+                name: `${tenant.firstName} ${tenant.lastName}`,
+                agreementsCount: tenant.agreement.length + 1,
+                isActive: false
+            })
+        });
+        return result;
     }
 }

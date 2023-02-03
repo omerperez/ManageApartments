@@ -12,7 +12,6 @@ export class AuthController {
     @Post('/login')
     async login(@Headers() headers, @Ip() ip: string, @Body() loginAuthDto: LoginAuthDto) {
         try {
-
             const results = await this.authService.login(loginAuthDto, {
                 ipAddress: ip,
                 userAgent: headers['user-agent'],
