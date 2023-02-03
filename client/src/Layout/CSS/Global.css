@@ -4,7 +4,7 @@
     text-transform: lowercase !important;
     font-size: 20px !important;
   }
-  .private-route-children {
+  .private-route-body {
     padding: 10px !important;
     padding-top: 0 !important;
   }
@@ -52,7 +52,7 @@
     text-transform: lowercase !important;
     font-size: 20px !important;
   }
-  .private-route-children {
+  .private-route-body {
     padding: 0 10px 50px 10px !important;
   }
   .logout-btn {

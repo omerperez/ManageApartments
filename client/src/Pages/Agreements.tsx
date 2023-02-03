@@ -2,23 +2,25 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { AuthContextType } from "../Data/types/Auth";
 import Loading from "../Layout/Loading";
+import TenantApiService from "../Services/Api/TenantApi";
+import { FolderShared } from "@mui/icons-material";
 
 export default function AgreementsPage() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [agreementsData, setAgreementsData] = useState<
     {
+      id: string;
       name: string;
-      agreements: string[];
-      currentAgreement: string;
-    }[][]
+      agreementsCount: number;
+      isActive: boolean;
+    }[]
   >([]);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const tenantApiService = await import("../Services/Api/TenantApi");
-        const data = await tenantApiService.default.getAgreementsData(
+        const data = await TenantApiService.getAgreemntsCountForEactTenant(
           authState.mobile,
         );
         // console.log(JSON.parse(data));
@@ -39,17 +41,9 @@ export default function AgreementsPage() {
 
   return (
     <div>
-      {agreementsData.map((tenant) =>
-        tenant.map((data) => (
-          <iframe
-            src={`${data.currentAgreement}`}
-            title={`user-doc`}
-            width="100%"
-            height="500px"
-            className="user-image"
-          />
-        )),
-      )}
+      {agreementsData.map((tenant) => (
+        <h1>{tenant.name}</h1>
+      ))}
     </div>
   );
 }

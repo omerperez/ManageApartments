@@ -9,6 +9,19 @@ const TENANT_HISTORY_API = 'tenant/tenants_history';
 const CHANGE_TENANT_API = "tenant/change_tenant";
 const EDIT_TENANT_API = "tenant/edit";
 
+async function getAgreemntsCountForEactTenant(owner: string) {
+    const { data } = await HttpService.getRequestWithSearchParams(
+        'tenant/agreements-statistics',
+        { owner: owner }
+    );
+    // return data as { tenantId: string; agreements: string[]; currentAgreement: string }[];
+    return data as {
+        id: string;
+        name: string;
+        agreementsCount: number;
+        isActive: boolean;
+    }[];
+}
 
 async function getAgreementsData(owner: string) {
     const { data } = await HttpService.getRequestWithSearchParams(
@@ -63,4 +76,5 @@ async function changeTenant(owner: string, newTenantId: string, apartmentId: str
 };
 
 
-export default { getAgreementsData, getTenantsHistory, createTenant, updateTenant, changeTenant };
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { getAgreemntsCountForEactTenant, getAgreementsData, getTenantsHistory, createTenant, updateTenant, changeTenant };

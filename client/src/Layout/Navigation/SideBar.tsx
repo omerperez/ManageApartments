@@ -20,7 +20,7 @@ export default function SideBar() {
   }
 
   return (
-    <Grid item sm={1.5} className="side-nav">
+    <>
       <Stack direction="row" spacing={2} className="justify-content-center">
         <LogoutBtn />
         <LanguageBtn />
@@ -48,6 +48,6 @@ export default function SideBar() {
           ))}
         </div>
       </div>
-    </Grid>
+    </>
   );
 }
