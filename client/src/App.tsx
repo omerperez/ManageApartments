@@ -12,6 +12,7 @@ import {
 } from "./Pages/MyApartments";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import TenantDocument from "./Pages/TenantDocument";
 import PrivateRouter from "./Routers/Private";
 import PublicRouter from "./Routers/Public";
 
@@ -64,6 +65,10 @@ function App() {
             <Route
               path="/files"
               element={<PrivateRouter children={<AgreementsPage />} />}
+            />
+            <Route
+              path="/tenant-agreement/*"
+              element={<PrivateRouter children={<TenantDocument />} />}
             />
           </Routes>
         </PrivatePovider>

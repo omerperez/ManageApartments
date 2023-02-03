@@ -1,6 +1,11 @@
 import { FolderShared } from "@mui/icons-material";
-import { Stack, IconButton, Grid } from "@mui/material";
+import { IconButton } from "@mui/material";
 import React from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
+
+// Constans
+const TOTLA = "סה״כ";
+const DOCUMENTS = "מסמכים";
 
 interface Props {
   id: string;
@@ -15,13 +20,21 @@ const DocumentCard: React.FC<Props> = ({
   documentsCount,
   isActive,
 }) => {
-  const TOTLA = "סה״כ";
-  const DOCUMENTS = "מסמכים";
+  const navigate = useNavigate();
+  const handleClick = () => {
+    return navigate({
+      pathname: "/tenant-agreement",
+      search: createSearchParams({
+        tenantId: id,
+      }).toString(),
+    });
+  };
 
   return (
     <div className="text-center">
       <div style={{ fontSize: "28px", color: "black" }}>{name}</div>
       <IconButton
+        onClick={handleClick}
         color={isActive ? "primary" : "default"}
         sx={{ maxHeight: 155 }}
       >

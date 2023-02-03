@@ -37,6 +37,10 @@ export class TenantService {
         return await this.tenantRepository.getTenantHistory(owner);
     }
 
+    async getTenantsByFilter(tenantsBySearchParams?: { [key: string]: boolean | number | string[] | string | MongooseSchema.Types.ObjectId }, objectFields?: string) {
+        return await this.tenantRepository.getTenantsByFilter(tenantsBySearchParams, objectFields);
+    }
+
     async changeTenant(data: ChangeTenantDto) {
         return await this.tenantRepository.changeTenant(data);
     }

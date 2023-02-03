@@ -10,26 +10,31 @@ export class DashboardService {
         private readonly tenantService: TenantService,
     ) { }
 
-    async getAgreementsData(ownerId: string) {
-        const tenantList: Tenant[] = await this.tenantService.getTenantHistory(ownerId);
-        const result = new Map<string, {
-            agreements: string[],
-            currentAgreement: string
-        }[]>();
-        tenantList.map((tenant) => {
-            if (!result.has(tenant.firstName)) {
-                result.set(tenant.firstName, [])
-            }
-            const update = [
-                ...result.get(tenant.firstName),
-                {
-                    name: tenant.firstName + ' ' + tenant.lastName,
-                    agreements: tenant.agreement,
-                    currentAgreement: tenant.currentAgreement
-                }]
-            result.set(tenant.firstName, update);
-        })
-        return Promise.resolve(Array.from(result.values()));
+    async getAgreementsData(tenantId: string) {
+        return await this.tenantService.getTenantsByFilter(
+            { id: tenantId }, 'id firstName lastName agreement'
+        );
+        // const tenantList: { _id: string; firstName: string; lastName: string; agreement: string[] }[] = await this.tenantService.getTenantsByFilter(
+        //     { _id: ownerId }, 'firstName lastName agreement'
+        // );
+        // const result = new Map<string, {
+        //     agreements: string[],
+        //     currentAgreement: string
+        // }[]>();
+        // tenantList.map((tenant) => {
+        //     if (!result.has(tenant.firstName)) {
+        //         result.set(tenant.firstName, [])
+        //     }
+        //     const update = [
+        //         ...result.get(tenant.firstName),
+        //         {
+        //             name: tenant.firstName + ' ' + tenant.lastName,
+        //             agreements: tenant.agreement,
+        //             currentAgreement: tenant.currentAgreement
+        //         }]
+        //     result.set(tenant.firstName, update);
+        // })
+        // return Promise.resolve(Array.from(result.values()));
     }
 
     async getAgreementsCountForEachTenant(ownerId: string) {

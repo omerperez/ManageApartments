@@ -122,6 +122,22 @@ export class TenantRepository {
         }
         return apartment;
     }
+
+    async getTenantsByFilter(tenantsBySearchParams?: { [key: string]: boolean | number | string[] | string | MongooseSchema.Types.ObjectId }, objectFields?: string) {
+        let tenantsResults: Tenant[] | undefined = undefined;
+        try {
+            if (objectFields) {
+                tenantsResults = await this.tenantModel.find(tenantsBySearchParams).select(objectFields);
+            } else {
+                tenantsResults = await this.tenantModel.find(tenantsBySearchParams);
+            }
+        } catch (error) {
+            throw new InternalServerErrorException('Error al consultar la BD', error);
+        }
+        return tenantsResults;
+
+    }
+
     // async getClients(query: GetQueryDto) {
     //     let from = query.from || 0;
     //     from = Number(from);

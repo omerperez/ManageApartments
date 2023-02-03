@@ -87,8 +87,8 @@ export class TenantController {
     }
 
     @Get('/agreements')
-    async getAgreements(@Query() query: { owner: string }, @Res() response: Response) {
-        const docsData = await this.dashboardService.getAgreementsData(query.owner);
+    async getAgreements(@Query() query: { id: string }, @Res() response: Response) {
+        const docsData = await this.dashboardService.getAgreementsData(query.id);
         return response.status(HttpStatus.OK).send(docsData);
     }
 

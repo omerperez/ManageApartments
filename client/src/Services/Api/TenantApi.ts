@@ -23,17 +23,20 @@ async function getAgreemntsCountForEactTenant(owner: string) {
     }[];
 }
 
-async function getAgreementsData(owner: string) {
-    const { data } = await HttpService.getRequestWithSearchParams(
+async function getAgreementsData(tenantId: string) {
+    const response = await HttpService.getRequestWithSearchParams(
         'tenant/agreements',
-        { owner: owner }
+        { id: tenantId }
     );
-    // return data as { tenantId: string; agreements: string[]; currentAgreement: string }[];
+    const [data] = response.data;
+
     return data as {
-        name: string;
-        agreements: string[];
+        id: string;
+        firstName: string;
+        lastName: string;
+        agreement: string[];
         currentAgreement: string;
-    }[][];
+    };
 }
 
 async function getTenantsHistory(owner: string) {
