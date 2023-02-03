@@ -1,19 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AuthPovider from "./Contexts/AuthContext";
 import PrivatePovider from "./Contexts/ApplicationContext";
-import PrivateRouter from "./Routers/Private";
-import PublicRouter from "./Routers/Public";
+import AuthPovider from "./Contexts/AuthContext";
+import AgreementsPage from "./Pages/Agreements";
 import ApartmentDetailsPage from "./Pages/ApartmentView";
 import Create from "./Pages/Create";
 import EditApartment from "./Pages/EditApartment";
 import HomePage from "./Pages/Home";
-import Apartments from "./Pages/MyApartments";
+import {
+  default as Apartments,
+  default as MyApartments,
+} from "./Pages/MyApartments";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
-import MyApartments from "./Pages/MyApartments";
-import BarcodeScanner from "./Components/Global/Mobile/Images/ImagesCarousel/ChatGPT";
-import { useState } from "react";
-import AgreementsPage from "./Pages/Agreements";
+import PrivateRouter from "./Routers/Private";
+import PublicRouter from "./Routers/Public";
 
 function App() {
   return (
