@@ -75,9 +75,9 @@
     padding: 10px 20px !important;
   }
 
-  .image-carousel {
+  /* .image-carousel {
     padding: 10px 0;
-  }
+  } */
 
   .user-image {
     border-radius: 8px;
@@ -100,7 +100,7 @@
   }
 
   .prev-image-carousel {
-    transform: rotate3d(0, 1, 0, 30deg);
+    /* transform: rotate3d(0, 1, 0, 30deg); */
     border-radius: 8px;
     height: 100%;
     overflow-x: hidden;

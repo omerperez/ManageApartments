@@ -39,6 +39,8 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
         } catch (error) {
           logout();
         }
+      } else {
+        logout();
       }
       setLoading(false);
     };

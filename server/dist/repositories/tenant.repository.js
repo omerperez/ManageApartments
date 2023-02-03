@@ -76,7 +76,7 @@ let TenantRepository = class TenantRepository {
     }
     async getTenantHistory(owner) {
         const currentUser = await this.userService.getUserByMobile(owner);
-        let tenantsHistory;
+        let tenantsHistory = [];
         try {
             if (currentUser) {
                 const apartments = await this.apartmentService.getUserApartmentsId(currentUser._id);

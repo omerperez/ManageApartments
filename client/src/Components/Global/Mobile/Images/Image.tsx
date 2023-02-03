@@ -7,6 +7,7 @@ interface ImageProps {
   className?: string;
   onClick?: () => void;
   height?: string | number;
+  style?: any;
 }
 
 export default function Image({
@@ -16,6 +17,7 @@ export default function Image({
   className,
   onClick,
   height,
+  style,
 }: ImageProps) {
   const readFile = (image: string | File) => {
     if (typeof image !== "string") {
@@ -33,6 +35,7 @@ export default function Image({
       height={height}
       className={className}
       onError={useError403}
+      style={style}
     />
   );
 }

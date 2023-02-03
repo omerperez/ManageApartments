@@ -15,14 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TenantController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
+const dashboard_service_1 = require("../../services/dashboard.service");
 const apartment_service_1 = require("../apartment/apartment.service");
 const user_service_1 = require("../user/user.service");
 const tenant_service_1 = require("./tenant.service");
 let TenantController = class TenantController {
-    constructor(tenantService, apartmentService, userService) {
+    constructor(tenantService, apartmentService, userService, dashboardService) {
         this.tenantService = tenantService;
         this.apartmentService = apartmentService;
         this.userService = userService;
+        this.dashboardService = dashboardService;
     }
     async createClient(body, doc, res) {
         try {
@@ -63,6 +65,11 @@ let TenantController = class TenantController {
     async changeTenant(body, response) {
         const editApartment = await this.tenantService.changeTenant(body);
         return response.status(common_1.HttpStatus.OK).send(editApartment);
+    }
+    async getAgreements(query, response) {
+        const docsData = await this.dashboardService.getAgreementsData(query.owner);
+        console.log(docsData);
+        return response.status(common_1.HttpStatus.OK).send(docsData);
     }
 };
 __decorate([
@@ -109,11 +116,20 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], TenantController.prototype, "changeTenant", null);
+__decorate([
+    (0, common_1.Get)('/agreements'),
+    __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], TenantController.prototype, "getAgreements", null);
 TenantController = __decorate([
     (0, common_1.Controller)('tenant'),
     __metadata("design:paramtypes", [tenant_service_1.TenantService,
         apartment_service_1.ApartmentService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        dashboard_service_1.DashboardService])
 ], TenantController);
 exports.TenantController = TenantController;
 //# sourceMappingURL=tenant.controller.js.map

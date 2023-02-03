@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const apartment_entity_1 = require("../../entities/apartment.entity");
 const tenant_entity_1 = require("../../entities/tenant.entity");
+const dashboard_service_1 = require("../../services/dashboard.service");
 const user_entity_1 = require("../../entities/user.entity");
 const tenant_repository_1 = require("../../repositories/tenant.repository");
 const apartment_module_1 = require("../apartment/apartment.module");
@@ -33,7 +34,7 @@ TenantModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: "Tenant", schema: tenant_entity_1.TenantSchema }]),
         ],
         controllers: [tenant_controller_1.TenantController],
-        providers: [tenant_service_1.TenantService, tenant_repository_1.TenantRepository, user_service_1.UserService, apartment_service_1.ApartmentService],
+        providers: [tenant_service_1.TenantService, tenant_repository_1.TenantRepository, user_service_1.UserService, apartment_service_1.ApartmentService, dashboard_service_1.DashboardService],
         exports: [tenant_service_1.TenantService, tenant_repository_1.TenantRepository],
     })
 ], TenantModule);

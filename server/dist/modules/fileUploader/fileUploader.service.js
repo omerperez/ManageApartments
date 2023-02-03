@@ -18,7 +18,7 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const aws_sdk_1 = require("aws-sdk");
 const process_1 = require("process");
-const s3_modules_1 = require("../../s3/modules/s3.modules");
+const UploaderFile_module_1 = require("./modules/UploaderFile.module");
 const typeorm_2 = require("typeorm");
 const uuid_1 = require("uuid");
 let FileUploaderService = class FileUploaderService {
@@ -67,7 +67,7 @@ let FileUploaderService = class FileUploaderService {
 };
 FileUploaderService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(s3_modules_1.PublicFile)),
+    __param(0, (0, typeorm_1.InjectRepository)(UploaderFile_module_1.UploaderFile)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         config_1.ConfigService])
 ], FileUploaderService);

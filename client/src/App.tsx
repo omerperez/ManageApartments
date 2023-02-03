@@ -11,6 +11,9 @@ import Apartments from "./Pages/MyApartments";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import MyApartments from "./Pages/MyApartments";
+import BarcodeScanner from "./Components/Global/Mobile/Images/ImagesCarousel/ChatGPT";
+import { useState } from "react";
+import AgreementsPage from "./Pages/Agreements";
 
 function App() {
   return (
@@ -57,6 +60,10 @@ function App() {
             <Route
               path="/edit-apartment/*"
               element={<PrivateRouter children={<EditApartment />} />}
+            />
+            <Route
+              path="/files"
+              element={<PrivateRouter children={<AgreementsPage />} />}
             />
           </Routes>
         </PrivatePovider>

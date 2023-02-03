@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { S3 } from 'aws-sdk';
 import { env } from 'process';
-import { PublicFile } from 'src/s3/modules/s3.modules';
+import { UploaderFile } from './modules/UploaderFile.module';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
@@ -11,8 +11,8 @@ import { v4 as uuid } from 'uuid';
 @Injectable()
 export class FileUploaderService {
     constructor(
-        @InjectRepository(PublicFile)
-        private publicFilesRepository: Repository<PublicFile>,
+        @InjectRepository(UploaderFile)
+        private publicFilesRepository: Repository<UploaderFile>,
         private readonly configService: ConfigService
     ) { }
 

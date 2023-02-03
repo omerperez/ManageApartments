@@ -32,25 +32,6 @@ export default function Carousel({
     }
   };
 
-  const removeImageSrcFromArray = (index: number) => {
-    if (onRemoveImage) {
-      onRemoveImage(index);
-      chagneCarouselCurrentImageIndexOnRemove(index, images.length);
-    }
-
-    // const dbImagesLength = databaseImages.length;
-    // if (index < dbImagesLength) {
-    //   if (onRemoveDatabaseImage) {
-    //     onRemoveDatabaseImage(databaseImages[index]);
-    //   }
-    // } else {
-    //   if (onRemoveImageFile) {
-    //     const fileIndex = index - dbImagesLength;
-    //     onRemoveImageFile(fileImages[fileIndex]);
-    //   }
-    // }
-  };
-
   const onHandleClickRemove = (imageIndex: number) => {
     if (onRemoveImage) {
       onRemoveImage(imageIndex);
@@ -82,7 +63,7 @@ export default function Carousel({
         mainImageIndex={mainImageIndex}
         onChangeCurrentImage={(index: number) => setCurrentImage(index)}
         onChangeMainImage={onChangeMainImage}
-        handleClickRemove={onHandleClickRemove}
+        handleClickRemove={onRemoveImage ? onHandleClickRemove : undefined}
       />
       <CounterImagesCarousel images={images} currentImageIndex={currentImage} />
       <ImagesCarouselNavigation

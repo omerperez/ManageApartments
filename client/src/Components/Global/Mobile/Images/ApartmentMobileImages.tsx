@@ -76,7 +76,7 @@ export default function ApartmentMobileImages({
         <Carousel
           images={images}
           mainImageIndex={mainImageIndex}
-          onRemoveImage={onHandleClickRemove}
+          onRemoveImage={onClickRemove ? onHandleClickRemove : undefined}
           onChangeMainImage={onChangeMainImage}
           onAddNewImage={onAddNewImage}
           onHandleClickChangeView={onHandleClickChangeView}

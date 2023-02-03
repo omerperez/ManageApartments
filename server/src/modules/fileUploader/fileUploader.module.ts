@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PublicFile } from 'src/s3/modules/s3.modules';
-import { FileUploaderController } from './fileUploader.controller';
+import { UploaderFile } from './modules/UploaderFile.module';
 import { FileUploaderService } from './fileUploader.service';
-import { UploaderFile } from './modules/uploaderFile.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([PublicFile])],
-    controllers: [FileUploaderController],
+    imports: [TypeOrmModule.forFeature([UploaderFile])],
     providers: [FileUploaderService,],
     exports: [FileUploaderService],
 })

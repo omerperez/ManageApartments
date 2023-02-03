@@ -74,7 +74,7 @@ export class TenantRepository {
 
     async getTenantHistory(owner: string) {
         const currentUser = await this.userService.getUserByMobile(owner);
-        let tenantsHistory;
+        let tenantsHistory: Tenant[] = [];
         try {
             if (currentUser) {
                 const apartments = await this.apartmentService.getUserApartmentsId(currentUser._id);

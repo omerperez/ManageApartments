@@ -9,6 +9,20 @@ const TENANT_HISTORY_API = 'tenant/tenants_history';
 const CHANGE_TENANT_API = "tenant/change_tenant";
 const EDIT_TENANT_API = "tenant/edit";
 
+
+async function getAgreementsData(owner: string) {
+    const { data } = await HttpService.getRequestWithSearchParams(
+        'tenant/agreements',
+        { owner: owner }
+    );
+    // return data as { tenantId: string; agreements: string[]; currentAgreement: string }[];
+    return data as {
+        name: string;
+        agreements: string[];
+        currentAgreement: string;
+    }[][];
+}
+
 async function getTenantsHistory(owner: string) {
     const response = await HttpService.getRequestWithSearchParams(
         TENANT_HISTORY_API,
@@ -49,4 +63,4 @@ async function changeTenant(owner: string, newTenantId: string, apartmentId: str
 };
 
 
-export default { getTenantsHistory, createTenant, updateTenant, changeTenant };
+export default { getAgreementsData, getTenantsHistory, createTenant, updateTenant, changeTenant };

@@ -9,15 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileUploaderModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const s3_modules_1 = require("../../s3/modules/s3.modules");
-const fileUploader_controller_1 = require("./fileUploader.controller");
+const UploaderFile_module_1 = require("./modules/UploaderFile.module");
 const fileUploader_service_1 = require("./fileUploader.service");
 let FileUploaderModule = class FileUploaderModule {
 };
 FileUploaderModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([s3_modules_1.PublicFile])],
-        controllers: [fileUploader_controller_1.FileUploaderController],
+        imports: [typeorm_1.TypeOrmModule.forFeature([UploaderFile_module_1.UploaderFile])],
         providers: [fileUploader_service_1.FileUploaderService,],
         exports: [fileUploader_service_1.FileUploaderService],
     })

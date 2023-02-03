@@ -63,11 +63,11 @@ export default function ImagesCarouselView({
         onClick={() => handleChangeMainImage(mainCaruselImageIndex)}
         src={images[mainCaruselImageIndex]}
         alt={`Current-Img-${mainCaruselImageIndex}`}
-        height={300}
+        // height={300}
         width={"100%"}
         className={getImageClassName(mainCaruselImageIndex, true)}
       />
-      {handleClickRemove !== undefined ? (
+      {handleClickRemove ? (
         <div className="remove-image-carousel-pos">
           <Button
             onClick={() => {
@@ -90,9 +90,70 @@ export default function ImagesCarouselView({
     return mainImage;
   }
 
+  const getrotateY = (index: number) => {
+    const value = ((index - mainCaruselImageIndex) * 360) / images.length;
+    if (value < 0) {
+      return value + 360;
+    }
+    return value;
+  };
+
   return (
     <>
-      <Grid item xs={2}>
+      <div className="scene">
+        <div className="carousel">
+          {images.map((img, index) => (
+            <div
+              className="carousel__cell"
+              style={{
+                transform: `rotateY(${getrotateY(index)}deg) translateZ(288px)`,
+              }}
+            >
+              {index !== mainCaruselImageIndex ? (
+                <Image
+                  src={img}
+                  alt={`apartments-images`}
+                  width={"250px"}
+                  height={"180px"}
+                  className="image-carousel"
+                  // onClick={() => handl(index)}
+                  // onClick={() => onChangeCurrentImage(prevImageIndex)}
+                />
+              ) : (
+                <div className={handleClickRemove ? "relative" : ""}>
+                  <Image
+                    onClick={() => handleChangeMainImage(mainCaruselImageIndex)}
+                    src={img}
+                    alt={`Current-Img-${mainCaruselImageIndex}`}
+                    height={"180px"}
+                    width={"250px"}
+                    className="image-carousel"
+                    // className={getImageClassName(mainCaruselImageIndex, true)}
+                  />
+                  {handleClickRemove ? (
+                    <div className="remove-image-carousel-pos">
+                      <Button
+                        onClick={() => {
+                          setPrevImageIndex((prevState) =>
+                            prevState === 0 ? images.length - 1 : prevState - 1,
+                          );
+                          handleClickRemove(mainCaruselImageIndex);
+                        }}
+                        variant="contained"
+                        className="remove-btn-carousel"
+                      >
+                        {REMOVE_IMAGE}
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* <Grid item xs={3}>
         <Image
           src={images[prevImageIndex]}
           alt={`Preview-Img-${prevImageIndex}`}
@@ -104,10 +165,10 @@ export default function ImagesCarouselView({
           onClick={() => onChangeCurrentImage(prevImageIndex)}
         />
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={6}>
         {mainImage}
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <Image
           src={images[nextImageIndex]}
           alt={`Next-Img-${nextImageIndex}`}
@@ -118,7 +179,7 @@ export default function ImagesCarouselView({
           )}`}
           onClick={() => onChangeCurrentImage(nextImageIndex)}
         />
-      </Grid>
+      </Grid> */}
     </>
   );
 }
