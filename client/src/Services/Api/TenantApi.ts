@@ -14,7 +14,6 @@ async function getAgreemntsCountForEactTenant(owner: string) {
         'tenant/agreements-statistics',
         { owner: owner }
     );
-    // return data as { tenantId: string; agreements: string[]; currentAgreement: string }[];
     return data as {
         id: string;
         name: string;
@@ -29,7 +28,6 @@ async function getAgreementsData(tenantId: string) {
         { id: tenantId }
     );
     const [data] = response.data;
-
     return data as {
         id: string;
         firstName: string;

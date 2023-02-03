@@ -9,11 +9,9 @@ export class UserRepository {
 
     async registerUser(registerUserDto: RegisterUserDto) {
         let user = await this.getUserByMobile(registerUserDto.mobile);
-
         if (user) {
             throw new ConflictException('User already exists');
         }
-
         user = new this.userModel(registerUserDto);
         try {
             user = await user.save();

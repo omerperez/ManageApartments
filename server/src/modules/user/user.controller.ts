@@ -10,6 +10,7 @@ export class UserController {
     async registerUser(@Body() createUserDto: RegisterUserDto, @Res() res: Response) {
         try {
             const newUser: any = await this.userService.registerUser(createUserDto);
+            console.log(newUser);
             return res.status(HttpStatus.CREATED).send(newUser);
         } catch (error) {
             throw new BadRequestException(error);

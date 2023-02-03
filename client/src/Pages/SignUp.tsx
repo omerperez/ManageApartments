@@ -40,7 +40,7 @@ export default function SignUp() {
       const values = formValues as IErrosListObject;
       const dataRequest: IUserReq = {
         mobile: values.mobile,
-        firstName: values.firsName,
+        firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
         password: values.password,
