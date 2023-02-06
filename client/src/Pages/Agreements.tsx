@@ -24,7 +24,6 @@ export default function AgreementsPage() {
         const data = await TenantApiService.getAgreemntsCountForEactTenant(
           authState.mobile,
         );
-        // console.log(JSON.parse(data));
         setAgreementsData(data);
       } catch (error) {
         setAgreementsData([]);
@@ -32,6 +31,7 @@ export default function AgreementsPage() {
       setLoading(false);
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (authState.loading) {

@@ -4,20 +4,25 @@ import { CreateApartmentDto } from "../../Data/interfaces/dto/CreateApartment.dt
 import { EditApartmentDto } from "../../Data/interfaces/dto/EditApartment.dto";
 import { Tenant } from "../../Data/interfaces/entities/Tenant.entity";
 import { IApartmentServerCreateRequest, ITenantCreateForm } from "../../Data/interfaces/Form.interface";
-import { IApartment } from "../../Data/interfaces/IApartment";
+import { IApartment, IOwnerStatisticsData } from "../../Data/interfaces/IApartment";
 import HttpService from "../HttpService";
 
 const getAllApartments = async (mobile: string) => {
-    const response = await HttpService.getRequestWithSearchParams(
+    const { data } = await HttpService.getRequestWithSearchParams(
         API_CONSTANS.OWNER_APARTMENTS_API,
         { mobile: mobile }
     );
-    const data = response.data as IApartment[];
-    let results: Apartment[] = [];
-    data.forEach((apartment) => {
-        results.push(new Apartment(apartment));
+    const { apartments, dashboardResults } = data;
+    let apartmentsResults: Apartment[] = [];
+    (apartments as IApartment[]).forEach((apartment) => {
+        apartmentsResults.push(new Apartment(apartment));
     });
-    return results;
+    return {
+        apartmentsResults,
+        dashboardResults
+    } as {
+        apartmentsResults: Apartment[]; dashboardResults: IOwnerStatisticsData
+    };
 };
 
 const getApartmentView = async (apartmentId: string) => {

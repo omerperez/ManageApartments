@@ -4,9 +4,7 @@ import { othersDetailsFields } from "../../Assets/Profile";
 import { Apartment } from "../../Data/builders/Apartment";
 import useMobieDesign from "../../Hooks/useMobile";
 import SideDetailsMenu from "./SideDetailsMenu";
-
-// Constans
-const OTHER_DETAILS_COMMENT = "תיאור נוסף";
+import { OTHER_DETAILS_COMMENT } from "../../Assets/IConstans";
 
 type ApartmentOtherDetailsProps = {
   apartment: Apartment;

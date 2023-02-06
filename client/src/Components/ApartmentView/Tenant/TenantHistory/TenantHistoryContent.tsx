@@ -6,13 +6,11 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useState } from "react";
+import { TENANT_HISTORY } from "../../../../Assets/IConstans";
 import { famaleImage, maleImage } from "../../../../Assets/StaticImages";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
 import { useError403 } from "../../../../Services/Utils/useError403";
 import TenantCard from "../TenantCard";
-
-// Constans
-const AGREEMENT_TITLE = "חוזה אחרון";
 
 interface TenantHistoryContentProps {
   tenants: Tenant[];
@@ -57,7 +55,7 @@ export default function TenantHistoryContent({
         <TenantCard tenant={tenants[currentIndex]} hideActions={true} />
       </Grid>
       <Grid item sm={4} xs={12}>
-        <h5>{AGREEMENT_TITLE}</h5>
+        <h5>{TENANT_HISTORY.LAST_AGREEMENT}</h5>
         <iframe
           src={tenants[currentIndex].currentAgreement}
           title={`tenant-agreement`}

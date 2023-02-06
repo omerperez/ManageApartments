@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import ImagesCarouselNavigation from "./ImagesCarouselNavigation";
 import CounterImagesCarousel from "./CounterImagesCarousel";
+import ImagesCarouselNavigation from "./ImagesCarouselNavigation";
 import ImagesCarouselView from "./ImagesCarouselView";
 
 interface CarouselProps {

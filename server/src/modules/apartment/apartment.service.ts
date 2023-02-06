@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Schema as MongooseSchema } from 'mongoose';
+import { Apartment } from 'src/entities/apartment.entity';
 import { ApartmentRepository } from 'src/repositories/apartment.repository';
+import { DashboardService } from 'src/services/dashboard.service';
 import { FileUploaderService } from '../../services/fileUploader.service';
 import { CreateApartmentDto } from './dto/createApartment.dto';
 import { UpdateApartmentDto } from './dto/updateApartment.dto';
@@ -9,11 +11,38 @@ import { UpdateApartmentDto } from './dto/updateApartment.dto';
 export class ApartmentService {
     constructor(
         private apartmentRepository: ApartmentRepository,
-        private fileUploaderService: FileUploaderService
+        private fileUploaderService: FileUploaderService,
     ) { }
 
     async getUserApartments(mobile: string) {
-        return await this.apartmentRepository.getUserApartments(mobile);
+        const apartments = await this.apartmentRepository.getUserApartments(mobile);
+        let dashboardResults;
+        if (apartments) {
+            dashboardResults = this.getDashboardCards(apartments);
+        }
+        console.log(dashboardResults);
+        return {
+            dashboardResults, apartments
+        }
+    }
+
+    getDashboardCards(apartments: Apartment[] | undefined) {
+
+        let results = {
+            availability: 0,
+            revenues: 0,
+            count: apartments.length,
+            expiringContractscount: 0
+        }
+        if (apartments) {
+            apartments.map((apartment) => {
+                if (apartment.tenant) {
+                    results.availability += 1;
+                    results.revenues += apartment.price;
+                }
+            })
+        }
+        return results;
     }
 
     async getUserApartmentsId(owner: MongooseSchema.Types.ObjectId) {

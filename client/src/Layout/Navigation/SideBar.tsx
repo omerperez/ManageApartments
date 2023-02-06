@@ -1,9 +1,9 @@
-import { Divider, Grid, IconButton, Stack } from "@mui/material";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Divider, IconButton, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { SideMenuButtons } from "../../Assets/HomePage";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import LogoutBtn from "../../Components/Global/Buttons/LogoutBtn";
 import LanguageBtn from "../../Components/Global/Buttons/LanguageBtn";
+import LogoutBtn from "../../Components/Global/Buttons/LogoutBtn";
 import MobileNavigation from "./MobileNavigation";
 
 // Constans

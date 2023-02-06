@@ -77,5 +77,5 @@ async function changeTenant(owner: string, newTenantId: string, apartmentId: str
 };
 
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { getAgreemntsCountForEactTenant, getAgreementsData, getTenantsHistory, createTenant, updateTenant, changeTenant };
+const TenantApi = { getAgreemntsCountForEactTenant, getAgreementsData, getTenantsHistory, createTenant, updateTenant, changeTenant };
+export default TenantApi;

@@ -23,6 +23,11 @@
     width: 100%;
     border: solid 1px black !important;
     border-bottom: none !important;
+    object-fit: cover;
+  }
+
+  .last-side-image {
+    border-bottom: solid 1px black !important;
   }
 
   .apartment-details-buttons-menu {
@@ -376,6 +381,7 @@ th {
 .main-image {
   height: 50vh;
   width: 100%;
+  object-fit: cover;
 }
 
 .grid-side-images {

@@ -34,6 +34,7 @@ export default function TenantDocument() {
       setLoading(false);
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (authState.loading) {

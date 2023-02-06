@@ -46,19 +46,13 @@ export default function EditImages({
     }
   };
 
-  // const onRemoveImageFile = (image: any) => {
-  //   let removeImages = newImages.filter((img) => img !== image);
-  //   changeNewImages(removeImages);
-  // };
-
-  const onAddNewImage = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      let files: File[] = [];
-      for (let i = 0; i < e.target.files.length; i++) {
-        files.push(e.target.files[i]);
-      }
-      changeNewImages(files);
-    }
+  const onAddNewImage = (event: ChangeEvent<HTMLInputElement>) => {
+    import("../../Services/Utils/formats").then(
+      ({ getMultipleFileAsFilesArray }) => {
+        const files = getMultipleFileAsFilesArray(event);
+        changeNewImages(files);
+      },
+    );
   };
 
   if (apartmentImages.length === 0) {

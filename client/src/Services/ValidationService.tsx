@@ -26,9 +26,11 @@ const isMobilePropper = (mobile?: string) => {
   return false;
 };
 
-export default {
+const ValidationService = {
   isNotEmpty,
   isValueIncludes,
   isPositiveNumber,
   isMobilePropper,
 };
+
+export default ValidationService;

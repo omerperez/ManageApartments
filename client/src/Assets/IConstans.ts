@@ -36,6 +36,51 @@ const API_CONSTANS = {
     VERIFY_TOKEN_API: 'auth/verify',
     REGISTER_API: 'user/register'
 };
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { EN_STEPPER, HE_STEPPER };
-export { MY_APARTMENT, API_CONSTANS };
+const STEPPER = { EN_STEPPER, HE_STEPPER };
+
+const EDIT = "עריכה";
+
+// defults 
+const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+
+const OTHER_DETAILS_COMMENT = "תיאור נוסף";
+
+const TENANTS_HISTORY_EMPTY_TITLE = "לא קיימים דיירי עבר";
+const TENANTS_HISTORY_TITLE = "היסטוריית דיירים";
+const TENANTS_HISTORY_VIEW_MORE = "ראה עוד";
+const LAST_AGREEMENT = "חוזה אחרון";
+
+const TENANT_HISTORY = {
+    EMPTY_TITLE: TENANTS_HISTORY_EMPTY_TITLE,
+    TITLE: TENANTS_HISTORY_TITLE,
+    VIEW_MORE: TENANTS_HISTORY_VIEW_MORE,
+    LAST_AGREEMENT
+};
+
+const ADD_TENANT_BTN_TEXT = "הוסף דייר";
+const EDIT_TENANT_BTN_TEXT = "עריכה";
+const WHATSAPP_TENANT_BTN_TEXT = "וואטסאפ";
+const DOWNLOAD_AGREEMENT = "חוזה";
+const EDIT_TENANT_DIALOG_TITLE = "עריכת דייר";
+const AGREEMENT_DIALOG_TITLE = "צפה בחוזה";
+
+const TENANT_ACTION_CARD = {
+    ADD_BTN: ADD_TENANT_BTN_TEXT,
+    EDIT_BTN: EDIT_TENANT_BTN_TEXT,
+    WHATSAPP_BTN: WHATSAPP_TENANT_BTN_TEXT,
+    AGREEMENT: DOWNLOAD_AGREEMENT,
+    EDIT_TITLE: EDIT_TENANT_DIALOG_TITLE,
+    AGREEMENT_TITLE: AGREEMENT_DIALOG_TITLE
+};
+
+const CREATE_APARTMENT_BTN = "צור דירה";
+const IMAGES_ERROR = "אנא הוסף תמונות";
+
+const CREATE_APARTMENT = {
+    TITLE: APARTMENT_DETAILS_TITLE,
+    CREATE_BTN: CREATE_APARTMENT_BTN,
+    IMAGES_ERROR
+};
+
+export default STEPPER;
+export { MY_APARTMENT, API_CONSTANS, OTHER_DETAILS_COMMENT, TENANT_HISTORY, TENANT_ACTION_CARD, CREATE_APARTMENT };

@@ -3,6 +3,7 @@ import PrivatePovider from "./Contexts/ApplicationContext";
 import AuthPovider from "./Contexts/AuthContext";
 import AgreementsPage from "./Pages/Agreements";
 import ApartmentDetailsPage from "./Pages/ApartmentView";
+import CalculatorPage from "./Pages/CalculatorPage";
 import Create from "./Pages/Create";
 import EditApartment from "./Pages/EditApartment";
 import HomePage from "./Pages/Home";
@@ -69,6 +70,10 @@ function App() {
             <Route
               path="/tenant-agreement/*"
               element={<PrivateRouter children={<TenantDocument />} />}
+            />
+            <Route
+              path="/electric-calc"
+              element={<PrivateRouter children={<CalculatorPage />} />}
             />
           </Routes>
         </PrivatePovider>

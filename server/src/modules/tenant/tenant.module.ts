@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApartmentSchema } from 'src/entities/apartment.entity';
 import { TenantSchema } from 'src/entities/tenant.entity';
-import { ApartmentRepository } from 'src/repositories/apartment.repository';
 import { DashboardService } from 'src/services/dashboard.service';
 import { FileUploaderService } from 'src/services/fileUploader.service';
-
 import { UserSchema } from '../../entities/user.entity';
 import { TenantRepository } from '../../repositories/tenant.repository';
 import { ApartmentModule } from '../apartment/apartment.module';
@@ -24,7 +22,7 @@ import { TenantService } from './tenant.service';
         MongooseModule.forFeature([{ name: "Tenant", schema: TenantSchema }]),
     ],
     controllers: [TenantController],
-    providers: [TenantService, TenantRepository, UserService, ApartmentService, DashboardService, FileUploaderService],
+    providers: [TenantService, TenantRepository, UserService, ApartmentService, DashboardService, FileUploaderService,],
     exports: [TenantService, TenantRepository],
 })
 export class TenantModule { }

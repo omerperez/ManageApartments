@@ -4,7 +4,6 @@ import { Response } from 'express';
 import { Schema } from 'mongoose';
 import { DashboardService } from 'src/services/dashboard.service';
 import { ApartmentService } from '../apartment/apartment.service';
-import { UserService } from '../user/user.service';
 import { ChangeTenantDto } from './dto/changeTenant.dto';
 import { CreateTenantDto } from './dto/createTenant.dto';
 import { EditTenantDto } from './dto/editTenant.dto';
@@ -15,7 +14,6 @@ export class TenantController {
     constructor(
         private tenantService: TenantService,
         private apartmentService: ApartmentService,
-        private userService: UserService,
         private dashboardService: DashboardService
     ) { }
 
@@ -94,6 +92,7 @@ export class TenantController {
 
     @Get('/agreements-statistics')
     async getAgreementsCountForEachTenant(@Query() query: { owner: string }, @Res() response: Response) {
+
         const docsData = await this.dashboardService.getAgreementsCountForEachTenant(query.owner);
         return response.status(HttpStatus.OK).send(docsData);
     }

@@ -1,6 +1,7 @@
 import { createContext, useReducer } from "react";
 import {
   IAppContext,
+  IOwnerStatisticsData,
   PrivatePoviderProps,
 } from "../Data/interfaces/IApartment";
 import { AppContextType } from "../Data/types/Private";
@@ -20,9 +21,19 @@ export default function ApplicationPovider({ children }: PrivatePoviderProps) {
     privateDispatch({ type: "onChangeMobileDashboard", isOpen: isOpen });
   }
 
+  function setOwnerStatisticsData(
+    ownerStatisticsData: IOwnerStatisticsData | undefined,
+  ) {
+    privateDispatch({
+      type: "setOwnerStatisticsData",
+      ownerStatisticsData: ownerStatisticsData as IOwnerStatisticsData,
+    });
+  }
+
   const value = {
     appState: appState,
     onChangeMobileDashboard: onChangeMobileDashboard,
+    setOwnerStatisticsData: setOwnerStatisticsData,
   };
 
   return (

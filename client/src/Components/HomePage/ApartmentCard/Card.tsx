@@ -19,8 +19,10 @@ type ApartmentCardProps = {
   language: string;
 };
 
+// Constans
 const RENT = "תפוסה";
 const FREE = "פנויה";
+
 export default function ApartmentCard({
   apartment,
   language,
@@ -78,7 +80,7 @@ export default function ApartmentCard({
           </Card>
         </ThemeStyleRTL>
       </div>
-      {apartment.isRent() ? (
+      {apartment.currentTenantId ? (
         <div className="busy">{RENT}</div>
       ) : (
         <div className="available">{FREE}</div>

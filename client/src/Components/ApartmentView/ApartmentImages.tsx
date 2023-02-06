@@ -24,8 +24,7 @@ export default function ApartmentImages({
     setMainImage(images[mainImageIndex]);
     const otherImages = images.filter((img) => img !== images[mainImageIndex]);
     setSideImages(otherImages);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [images, mainImageIndex]);
 
   if (isMobileScreen) {
     return (
@@ -54,7 +53,9 @@ export default function ApartmentImages({
               src={src}
               onError={useError403}
               alt={`apartment_image_${key}`}
-              className="side-image"
+              className={`side-image ${
+                key === sideImages.length - 1 ? "last-side-image" : ""
+              }`}
             />
           </div>
         ))}

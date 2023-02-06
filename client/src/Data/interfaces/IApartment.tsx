@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { ITenant } from "./ITenant";
 
 interface PrivatePoviderProps {
   children: JSX.Element | ReactNode;
@@ -29,10 +28,15 @@ interface IApartment {
   owner: string;
 }
 
+interface IOwnerStatisticsData {
+  availability: number;
+  revenues: number;
+  count: number;
+  expiringContractscount: number;
+}
+
 interface IAppContext {
-  // apartment: IApartment;
-  // tenant: ITenant;
-  // activeStep: number;
+  ownerStatisticsData: IOwnerStatisticsData;
   isOpenDashboardMobile: boolean;
 }
 
@@ -48,4 +52,5 @@ export type {
   IAppContext,
   PrivatePoviderProps,
   IApartmentCardButton,
+  IOwnerStatisticsData,
 };

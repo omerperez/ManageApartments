@@ -7,9 +7,16 @@ export default function privateReducer(
 ) {
   switch (action.type) {
     case "onChangeMobileDashboard": {
-      return {
+      return (appState = {
+        ...appState,
         isOpenDashboardMobile: action.isOpen,
-      };
+      });
+    }
+    case "setOwnerStatisticsData": {
+      return (appState = {
+        ...appState,
+        ownerStatisticsData: action.ownerStatisticsData,
+      });
     }
 
     default:

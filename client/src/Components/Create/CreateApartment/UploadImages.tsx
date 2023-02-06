@@ -28,7 +28,7 @@ export default function UploadImages({
 }: UploadImagesProps) {
   const isMobileScreen = useMobieDesign();
 
-  const handleChangeFiles = (files: File[], addFiles?: Boolean) => {
+  const handleChangeFiles = (files: File[]) => {
     setImages((images as File[]).concat(files));
   };
 
@@ -38,14 +38,13 @@ export default function UploadImages({
     setImages(filter);
   };
 
-  const onAddNewImage = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      let files: File[] = [];
-      for (let i = 0; i < e.target.files.length; i++) {
-        files.push(e.target.files[i]);
-      }
-      handleChangeFiles(files);
-    }
+  const onAddNewImage = (event: ChangeEvent<HTMLInputElement>) => {
+    import("../../../Services/Utils/formats").then(
+      ({ getMultipleFileAsFilesArray }) => {
+        const files = getMultipleFileAsFilesArray(event);
+        handleChangeFiles(files);
+      },
+    );
   };
 
   if (!images || images.length === 0) {

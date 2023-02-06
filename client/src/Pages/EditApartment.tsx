@@ -1,8 +1,7 @@
 import { Grid, TextareaAutosize } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { apartmentFormLabels } from "../Assets/Create";
 import EditImages from "../Components/EditApartment/EditImages";
-import Autocomplete from "../Components/Global/FormComponents/Autocomplete";
 import CityAutocomplete from "../Components/Global/FormComponents/CityAutocomplete";
 import Input from "../Components/Global/FormComponents/Input";
 import Select from "../Components/Global/FormComponents/Select";
@@ -15,7 +14,6 @@ import { useEditApartmentData } from "../Hooks/useMetaData";
 import CreateFormLayout from "../Layout/CreateFormLayout";
 import "../Layout/CSS/EditApartment.css";
 import Loading from "../Layout/Loading";
-import { getApartmentView } from "../Services/Api/ApartmentApi";
 import { getInputType, getSelectList } from "../Services/FormService";
 
 // Constans
@@ -24,17 +22,6 @@ const APARTMENT_EDIT_TITLE = "עריכת דירה";
 export default function EditApartment() {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const { editData, functions } = useEditApartmentData();
-
-  useEffect(() => {
-    functions.changeLoading(true);
-    const currentApartmentId = editData.searchParams.get(
-      "apartmentId",
-    ) as string;
-    getApartmentView(currentApartmentId).then((data) => {
-      functions.initEditData(data.apartment);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editData.searchParams]);
 
   const onSubmit = async () => {
     const { getSubmitFormValues } = await import("../Services/Global");
@@ -70,13 +57,6 @@ export default function EditApartment() {
     }
   };
 
-  const getDefaultValue = (key: string) => {
-    if (editData.apartment) {
-      return editData.apartment[key];
-    }
-    return "";
-  };
-
   if (editData.loading || !editData.apartment) {
     return <Loading text="טוען נתונים" />;
   }
@@ -110,7 +90,7 @@ export default function EditApartment() {
                 {item.type.fieldType === "select" ? (
                   <Select
                     label={item.he_label}
-                    value={getDefaultValue(item.key)}
+                    value={functions.getDefaultValue(item.key)}
                     error={editData.errorList[item.key]}
                     disabled={false}
                     list={getSelectList(item)}
@@ -120,7 +100,7 @@ export default function EditApartment() {
                   <Input
                     textType={getInputType(item)}
                     label={item.he_label}
-                    value={getDefaultValue(item.key)}
+                    value={functions.getDefaultValue(item.key)}
                     error={editData.errorList[item.key]}
                     required={true}
                     ref={editData.editFormRefs.current[index]}
@@ -129,7 +109,7 @@ export default function EditApartment() {
                   <CityAutocomplete
                     label={item.he_label}
                     error={editData.errorList[item.key]}
-                    defaultValue={getDefaultValue(item.key)}
+                    defaultValue={functions.getDefaultValue(item.key)}
                     setState={functions.setCity}
                     ref={editData.editFormRefs.current[index]}
                   />
@@ -138,7 +118,7 @@ export default function EditApartment() {
                     label={item.he_label}
                     error={editData.errorList[item.key]}
                     city={editData.city}
-                    defaultValue={getDefaultValue(item.key)}
+                    defaultValue={functions.getDefaultValue(item.key)}
                     ref={editData.editFormRefs.current[index]}
                   />
                 )}
@@ -149,7 +129,7 @@ export default function EditApartment() {
                 className="area-input"
                 aria-label={`${item.he_label}-label`}
                 minRows={5}
-                defaultValue={getDefaultValue(item.key)}
+                defaultValue={functions.getDefaultValue(item.key)}
                 placeholder={item.he_label}
                 ref={editData.editFormRefs.current[index]}
               />

@@ -1,32 +1,95 @@
-import React, { useState } from "react";
+import { Button } from "@mui/material";
+import Image from "../Image";
 
-interface Props {
-  onDetected: (barcode: string) => void;
+// Constans
+const REMOVE_IMAGE = "הסרה";
+
+interface ImagesCarouselViewProps {
+  images: (string | File)[];
+  mainCaruselImageIndex: number;
+  onChangeCurrentImage: (index: number) => void;
+  mainImageIndex?: number;
+  onChangeMainImage?: (index: number) => void;
+  handleClickRemove?: (index: number) => void;
 }
-
-const BarcodeScanner: React.FC<Props> = ({ onDetected }) => {
-  const [permission, setPermission] = useState(false);
-
-  const requestPermission = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
-      });
-      setPermission(true);
-    } catch (error) {
-      console.error(error);
+export default function GPT({
+  images,
+  mainCaruselImageIndex,
+  onChangeCurrentImage,
+  onChangeMainImage,
+  mainImageIndex,
+  handleClickRemove,
+}: ImagesCarouselViewProps) {
+  const handleChangeMainImage = (index: number) => {
+    if (onChangeMainImage) {
+      onChangeMainImage(index);
     }
   };
 
-  return (
-    <div>
-      {permission ? (
-        <video />
-      ) : (
-        <button onClick={requestPermission}>Request permission</button>
-      )}
-    </div>
-  );
-};
+  if (images.length === 0) {
+    return null;
+  }
 
-export default BarcodeScanner;
+  const onImageClick = (index: number) => {
+    if (index === mainCaruselImageIndex) {
+      return handleChangeMainImage(mainCaruselImageIndex);
+    }
+    return onChangeCurrentImage(index);
+  };
+
+  const getrotateY = (index: number) => {
+    const value = ((index - mainCaruselImageIndex) * 360) / images.length;
+    if (value < 0) {
+      return value + 360;
+    }
+    return value;
+  };
+
+  return (
+    <>
+      <div className="scene">
+        <div className="carousel">
+          {images.map((img, index) => (
+            <div
+              className="carousel__cell"
+              style={{
+                transform: `rotateY(${getrotateY(index)}deg) translateZ(288px)`,
+              }}
+            >
+              <div className={handleClickRemove ? "relative" : ""}>
+                <Image
+                  onClick={() => onImageClick(index)}
+                  src={img}
+                  alt={`Current-Img-${mainCaruselImageIndex}`}
+                  height={"180px"}
+                  width={"250px"}
+                  className={`image-carousel${
+                    index === mainImageIndex ? "-active" : ""
+                  }`}
+                  style={
+                    index === mainCaruselImageIndex
+                      ? { zIndex: "1000000" }
+                      : null
+                  }
+                />
+                {index === mainCaruselImageIndex && handleClickRemove ? (
+                  <div className="remove-image-carousel-pos">
+                    <Button
+                      onClick={() => {
+                        handleClickRemove(mainCaruselImageIndex);
+                      }}
+                      variant="contained"
+                      className="remove-btn-carousel"
+                    >
+                      {REMOVE_IMAGE}
+                    </Button>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}

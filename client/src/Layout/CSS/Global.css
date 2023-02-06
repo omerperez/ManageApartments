@@ -322,7 +322,7 @@
   left: 10px;
   top: 10px;
   border-radius: 8px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   transition: transform 1s, opacity 1s;
 }
 
@@ -331,6 +331,17 @@
   border: 2px solid black;
   overflow-x: hidden;
   cursor: pointer;
+  object-fit: contain;
+  background-color: black;
+}
+
+.image-carousel-active {
+  border-radius: 8px;
+  border: 3px solid #0cce80;
+  overflow-x: hidden;
+  cursor: pointer;
+  object-fit: contain;
+  background-color: black;
 }
 
 .scene {

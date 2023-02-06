@@ -46,14 +46,8 @@ class Apartment implements IApartment {
         this.owner = apartment.owner;
     }
 
-    isRent() {
-        const today: Date = new Date();
-        return true;
-        // return this.releaseDate > today;
-    }
-
     getDateFormat = (date: Date) => {
-        return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`
+        return `${date.getDay()}.${date.getMonth()}.${date.getFullYear()}`;
     };
 
     getContentProperties() {

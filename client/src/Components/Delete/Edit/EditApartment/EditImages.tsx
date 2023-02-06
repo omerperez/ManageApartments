@@ -4,6 +4,11 @@ import { DialogImagesMui } from "../../../../Layout/Mui/Edit";
 import ThemeStyleRTL from "../../../../Layout/ThemeStyleRTL";
 import UploadImages from "../../../Create/CreateApartment/UploadImages";
 
+// Constans
+const EDIT_IMAGES_TEXT = "עריכת תמונות";
+const CANCEL_CAHNGES = "ביטול שינויים";
+const SAVE_CHANGES = "שמור שינויים";
+
 interface EditImagesProps {
   prevImages: File[] | [];
   images: File[];
@@ -24,9 +29,11 @@ export default function EditImages({
   setOpen,
 }: EditImagesProps) {
   const [imagesBackup, setImagesBackup] = useState<File[]>(prevImages);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const changeMainImage = (index: number) => {
     setMainImageIndex(index);
   };
@@ -41,12 +48,10 @@ export default function EditImages({
     setOpen(false);
   };
 
-  const editImagesText = "עריכת תמונות";
-
   return (
     <>
       <Button className="edit-images-btn" onClick={handleClickOpen}>
-        {editImagesText}
+        {EDIT_IMAGES_TEXT}
       </Button>
       <ThemeStyleRTL>
         <Dialog
@@ -73,7 +78,7 @@ export default function EditImages({
               className="edit-cancel-btn"
               onClick={cancelChanges}
             >
-              ביטול שינויים
+              {CANCEL_CAHNGES}
             </Button>
             <Button
               fullWidth
@@ -82,7 +87,7 @@ export default function EditImages({
               className="edit-save-btn"
               onClick={saveChanges}
             >
-              שמור שינויים
+              {SAVE_CHANGES}
             </Button>
           </DialogActions>
         </Dialog>

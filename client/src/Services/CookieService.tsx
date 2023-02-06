@@ -1,5 +1,4 @@
 import Cookie from "universal-cookie";
-import { IUser } from "../Data/interfaces/IAuthentication";
 
 const cookie = new Cookie();
 
@@ -17,10 +16,7 @@ const initUser = (id: string, token: string) => {
 };
 
 const setUserId = (userId: string) => {
-  // cookie.set("firstName", user.firstName);
-  // cookie.set("lastName", user.lastName);
   cookie.set("userId", userId);
-  // cookie.set("mobile", user.mobile);
   return;
 };
 
@@ -31,9 +27,6 @@ const removeUserId = () => {
 const removeUserObj = () => {
   cookie.remove("token");
   cookie.remove("userId");
-  // cookie.remove("firstName");
-  // cookie.remove("lastName");
-  // cookie.remove("mobile");
   return;
 };
 
@@ -42,18 +35,6 @@ const getToken = () => {
 };
 
 const CookieService = {
-  getCookie: cookie,
-  getUserId: getUserId,
-  setToken: setToken,
-  getToken: getToken,
-  removeUserId: removeUserId,
-  setUserId: setUserId,
-  removeUserObj: removeUserObj,
-  initUser: initUser,
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
   getUserId,
   getToken,
   setUserId,
@@ -62,3 +43,5 @@ export default {
   removeUserObj,
   initUser,
 };
+
+export default CookieService;

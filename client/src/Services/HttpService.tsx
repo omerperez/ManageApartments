@@ -112,8 +112,7 @@ const numbersList = [...new Array(100)].map((each, index) => {
   };
 });
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const HttpService = {
   getAllCities,
   getStreetsByCity,
   numbersList,
@@ -124,3 +123,5 @@ export default {
   serverPostFormDataRequest,
   deleteRequestWithSearchParams,
 };
+
+export default HttpService;

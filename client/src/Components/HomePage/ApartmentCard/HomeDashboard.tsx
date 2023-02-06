@@ -1,5 +1,8 @@
 import { Grid } from "@mui/material";
+import { useContext } from "react";
 import { topDashboardTitles } from "../../../Assets/HomePage";
+import { ApplicationContext } from "../../../Contexts/ApplicationContext";
+import { AppContextType } from "../../../Data/types/Private";
 import DashboardCard from "../DashboardCard";
 
 interface DashboardProps {
@@ -7,6 +10,8 @@ interface DashboardProps {
 }
 
 export default function HomeDashboard({ language }: DashboardProps) {
+  const { appState } = useContext(ApplicationContext) as AppContextType;
+
   return (
     <Grid container spacing={2}>
       {topDashboardTitles.map((card, index) => (
@@ -20,7 +25,7 @@ export default function HomeDashboard({ language }: DashboardProps) {
             <DashboardCard
               language={language}
               card={card}
-              body={index !== 1 ? 10 * index : 3000}
+              body={appState ? appState.ownerStatisticsData[card.objectKey] : 0}
             />
           </div>
         </Grid>

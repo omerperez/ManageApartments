@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { apartmentFormLabels } from "../../../Assets/Create";
+import { CREATE_APARTMENT } from "../../../Assets/IConstans";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { CreateApartmentDto } from "../../../Data/interfaces/dto/CreateApartment.dto";
 import { IErrosListObject } from "../../../Data/interfaces/IValidation";
@@ -27,11 +28,6 @@ interface CreateApartmentFormProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   setApartmentId: Dispatch<SetStateAction<string>>;
 }
-
-// Constans
-const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
-const CREATE_APARTMENT_BTN = "צור דירה";
-const IMAGES_ERROR = "אנא הוסף תמונות";
 
 export default function CreateApartment({
   setLoading,
@@ -76,7 +72,7 @@ export default function CreateApartment({
       if (apartmentImages.length === 0) {
         return setErrorList({
           ...(errorList as IErrosListObject),
-          images: IMAGES_ERROR,
+          images: CREATE_APARTMENT.IMAGES_ERROR,
         });
       }
       setErrorList(errorList as IErrosListObject);
@@ -90,7 +86,7 @@ export default function CreateApartment({
   return (
     <CreateFormLayout
       ref={scrollRef}
-      title={APARTMENT_DETAILS_TITLE}
+      title={CREATE_APARTMENT.TITLE}
       secondPart={
         <UploadImages
           images={apartmentImages}
@@ -100,7 +96,7 @@ export default function CreateApartment({
           error={errorList.images}
         />
       }
-      saveBtnText={CREATE_APARTMENT_BTN}
+      saveBtnText={CREATE_APARTMENT.CREATE_BTN}
       onSubmit={onSubmit}
       onCancel={onCancel}
     >

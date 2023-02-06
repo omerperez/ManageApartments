@@ -12,7 +12,7 @@ export class ApartmentRepository {
     ) { }
 
     async getUserApartments(mobile: string) {
-        let apartments: any[];
+        let apartments: Apartment[] | undefined = [];
         const currentUser = await this.userService.getUserByMobile(mobile);
         try {
             if (currentUser) {
@@ -24,7 +24,7 @@ export class ApartmentRepository {
         if (!apartments || apartments.length === 0) {
             throw new NotFoundException('User dont have any apartment yet');
         }
-        return apartments;
+        return apartments
     }
 
     async getUserApartmentsId(owner: MongooseSchema.Types.ObjectId) {
