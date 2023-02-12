@@ -1,15 +1,11 @@
 import {
-  Apartment,
   AttachMoney,
-  Calculate,
   HolidayVillage,
-  Home,
-  InsertDriveFile,
   ReplyAll,
   RequestPage,
 } from "@mui/icons-material";
-import { ISideButton, ITopDashboardCard } from "../Data/interfaces/IHome";
-import { MuiCardIcon, MuiIcon } from "../Layout/Mui/Home";
+import { ITopDashboardCard } from "../Data/interfaces/IHome";
+import { MuiCardIcon } from "../Layout/Mui/Home";
 
 const topDashboardTitles: ITopDashboardCard[] = [
   {
@@ -42,23 +38,4 @@ const topDashboardTitles: ITopDashboardCard[] = [
   },
 ];
 
-const SideMenuButtons: ISideButton[] = [
-  {
-    icon: <Home sx={MuiIcon} />,
-    to: "/",
-  },
-  {
-    icon: <Apartment sx={MuiIcon} />,
-    to: "/apartments",
-  },
-  {
-    icon: <InsertDriveFile sx={MuiIcon} />,
-    to: "/files",
-  },
-  {
-    icon: <Calculate sx={MuiIcon} />,
-    to: "/electric-calc",
-  },
-];
-
-export { topDashboardTitles, SideMenuButtons };
+export { topDashboardTitles };

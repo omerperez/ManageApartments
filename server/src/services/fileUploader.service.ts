@@ -51,7 +51,6 @@ export class FileUploaderService {
         uploadFiles.push(currentUrl);
       })
     );
-
     return uploadFiles;
   }
 }

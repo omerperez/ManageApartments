@@ -24,6 +24,7 @@ export default function ApplicationPovider({ children }: PrivatePoviderProps) {
   function setOwnerStatisticsData(
     ownerStatisticsData: IOwnerStatisticsData | undefined,
   ) {
+    console.log(ownerStatisticsData);
     privateDispatch({
       type: "setOwnerStatisticsData",
       ownerStatisticsData: ownerStatisticsData as IOwnerStatisticsData,

@@ -46,6 +46,7 @@
     border-radius: 8px !important;
     min-width: 350px !important;
     max-width: 420px !important;
+    border: solid 1px #919191 !important;
   }
 }
 
@@ -105,6 +106,7 @@
   }
 
   .tenant-card {
+    border: solid 1px #919191 !important;
     border-radius: 8px !important;
     max-width: 420px !important;
   }
@@ -212,7 +214,7 @@ th {
 }
 
 .area-values {
-  color: #2a2561;
+  color: black;
   font-size: 18px;
 }
 
@@ -232,7 +234,7 @@ th {
 }
 
 .tenant-values {
-  color: #2a2561;
+  color: black;
   font-size: 18px;
 }
 
@@ -242,11 +244,12 @@ th {
 
 .tenant-card-btn {
   font-size: 16px !important;
-  border-radius: 0 !important;
+  border-radius: 0px !important;
   color: white !important;
   font-family: "Rubik", sans-serif !important;
-  border-top: solid 2px black !important;
   text-transform: capitalize !important;
+  box-shadow: none !important;
+  padding: 10px 0 !important;
 }
 
 .tenant-card-btn-icon {
@@ -260,9 +263,8 @@ th {
   border-radius: 0 !important;
   color: white !important;
   font-family: "Rubik", sans-serif !important;
-  border-top: solid 2px black !important;
   text-transform: capitalize !important;
-  background-color: #809fff !important;
+  background-color: #0080ff !important;
 }
 
 .tenant-card-add-btn-icon {
@@ -270,22 +272,21 @@ th {
   margin: auto !important;
   background-color: white !important;
   font-size: 25px !important;
-  color: #809fff !important;
+  color: #0080ff !important;
   border-radius: 50% !important;
 }
 
 .whatsapp-btn {
-  background-color: #319e88 !important;
-  border: solid 2px black !important;
+  background-color: #00bd91 !important;
   border-bottom: none !important;
 }
 
 .edit-tenant-btn {
-  background-color: #7d7d7d !important;
+  background-color: #ff9900 !important;
 }
 
 .docs-btn {
-  background-color: #809fff !important;
+  background-color: #0080ff !important;
 }
 
 .card-page {
@@ -318,7 +319,6 @@ th {
 }
 
 .card-actions {
-  /* background-color: #f3f5f3; */
   padding: 0 45px;
   border-top: solid 1px rgb(209, 216, 216);
 }
@@ -356,24 +356,9 @@ th {
   text-decoration: underline !important;
 }
 
-/* .edit-tenant-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-} */
-
-/* .edit-btn {
-  font-size: 40px !important;
-  padding: 3px !important;
-  color: #999999 !important;
-  border-radius: 50% !important;
-  background-color: white !important;
-  border: solid 2px #999999 !important;
-} */
-
 .tenant-name {
   font-family: "Rubik", sans-serif !important;
-  color: #2a2561 !important;
+  color: black !important;
   text-align: center !important;
   margin: 5px 0 0 0 !important;
 }
@@ -394,7 +379,7 @@ th {
 }
 
 .apartment-details-others-value {
-  color: #2a2561;
+  color: black;
   font-size: 18px;
 }
 
@@ -410,4 +395,8 @@ th {
 .tenant-history {
   width: 100% !important;
   background-color: white !important;
+}
+
+.grey-border {
+  border: solid 1px #919191 !important;
 }

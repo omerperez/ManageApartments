@@ -54,7 +54,7 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
     <div className="router-layout project-font">
       <div className={`home-layout-${authState.language}`}>
         <Grid container>
-          <Grid item sm={1.5} className="side-nav">
+          <Grid item sm={1.5}>
             <SideBar />
           </Grid>
           <Grid item sm={10.5} className="private-route-body">

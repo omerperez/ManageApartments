@@ -8,9 +8,5 @@ interface ITopDashboardCard {
     objectKey: keyof IOwnerStatisticsData;
 }
 
-interface ISideButton {
-    icon: JSX.Element;
-    to: string;
-}
 
-export type { ITopDashboardCard, ISideButton };
+export type { ITopDashboardCard, };

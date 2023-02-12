@@ -1,5 +1,8 @@
 import { SxProps, Theme } from "@mui/material";
 const MuiCard: SxProps<Theme> = {
+  boxShadow: "none",
+  border: "solid 1px #919191",
+  borderRadius: "4px",
   "& .MuiTypography-root": {
     fontFamily: "Tahoma",
     fontSize: 14,
@@ -23,6 +26,4 @@ const SwipeableDrawerMui: SxProps<Theme> = {
   },
 };
 
-const MuiIcon = { color: "#2A2561", fontSize: 42 };
-
-export { MuiCard, MuiCardIcon, MuiIcon, SwipeableDrawerMui };
+export { MuiCard, MuiCardIcon, SwipeableDrawerMui };

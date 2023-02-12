@@ -18,7 +18,8 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     top: 20,
     border: `1px solid white`,
     padding: "0 5px",
-    background: "#4099ff",
+    background: "#0080FF",
+    color: "white",
     textTransform: "uppercase",
   },
 }));

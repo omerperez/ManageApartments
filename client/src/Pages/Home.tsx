@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import CreateApartmentBtn from "../Components/Global/Buttons/CreateApartmentBtn";
 import ApartmentCard from "../Components/HomePage/ApartmentCard/Card";
 import HomeDashboard from "../Components/HomePage/ApartmentCard/HomeDashboard";

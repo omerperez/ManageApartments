@@ -1,6 +1,6 @@
 @media screen and (min-width: 601px) {
   .lan-btn-design {
-    color: #2a2561 !important;
+    color: white !important;
     text-transform: lowercase !important;
     font-size: 20px !important;
   }
@@ -9,7 +9,7 @@
     padding-top: 0 !important;
   }
   .logout-btn {
-    color: #2a2561 !important;
+    color: white !important;
     text-transform: lowercase !important;
     font-size: 20px !important;
   }
@@ -121,7 +121,6 @@
 }
 
 .router-layout {
-  background-color: #e1e6ed;
   min-height: 100vh !important;
 }
 
@@ -155,11 +154,6 @@
 
 .w-85 {
   width: 85% !important;
-}
-
-.side-nav {
-  background-color: white !important;
-  min-height: 100vh !important;
 }
 
 .d-center {
@@ -199,7 +193,7 @@
 
 .show-more-btn {
   color: white !important;
-  background-color: #4c66e6 !important;
+  background-color: #0080ff !important;
   font-family: "Rubik", sans-serif !important;
   font-weight: bolder !important;
   font-size: 12px !important;
@@ -217,7 +211,7 @@
 }
 
 .available {
-  background-color: #3e9e5b;
+  background-color: #00bd91;
   font-weight: 700;
   position: absolute;
   top: 10px;
@@ -230,7 +224,7 @@
 }
 
 .busy {
-  background-color: #ff5370;
+  background-color: #e90404;
   font-weight: 700;
   position: absolute;
   top: 10px;
@@ -246,7 +240,6 @@
   position: absolute;
   top: 40%;
   width: 100vw;
-  /* right: 50%; */
   text-align: center;
 }
 
@@ -322,7 +315,6 @@
   left: 10px;
   top: 10px;
   border-radius: 8px;
-  /* border: 2px solid black; */
   transition: transform 1s, opacity 1s;
 }
 
@@ -360,5 +352,4 @@
   position: absolute;
   transform: translateZ(-500px);
   transform-style: preserve-3d;
-  /* transition: transform 1s; */
 }

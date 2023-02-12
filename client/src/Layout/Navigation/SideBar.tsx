@@ -1,7 +1,7 @@
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Divider, IconButton, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { SideMenuButtons } from "../../Assets/HomePage";
+import { sideMenuButtons } from "../../Assets/Menu";
 import LanguageBtn from "../../Components/Global/Buttons/LanguageBtn";
 import LogoutBtn from "../../Components/Global/Buttons/LogoutBtn";
 import MobileNavigation from "./MobileNavigation";
@@ -20,8 +20,8 @@ export default function SideBar() {
   }
 
   return (
-    <>
-      <Stack direction="row" spacing={2} className="justify-content-center">
+    <div className="side-menu-bg">
+      <Stack direction="row" className="justify-content-center">
         <LogoutBtn />
         <LanguageBtn />
       </Stack>
@@ -32,7 +32,7 @@ export default function SideBar() {
           <Divider className="side-nav-divider" />
         </div>
         <div className="side-nav-icons">
-          {SideMenuButtons.map((button, key) => (
+          {sideMenuButtons.map((button, key) => (
             <div
               className="side-nav-icons-space"
               key={`homepage-btn-sidebar${key}`}
@@ -44,10 +44,11 @@ export default function SideBar() {
               >
                 {button.icon}
               </IconButton>
+              <div className="color-white">{button.text}</div>
             </div>
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

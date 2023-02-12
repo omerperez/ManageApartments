@@ -43,7 +43,7 @@ export default function ApartmentCard({
     <div className="relative">
       <div className="block">
         <ThemeStyleRTL>
-          <Card sx={MuiCard} className="card-layout">
+          <Card sx={MuiCard}>
             <div style={backgroundCard} className="card-bg-img">
               <div className="d-end">
                 <Button
