@@ -57,16 +57,16 @@ class Apartment implements IApartment {
                 en_label: "area",
                 value: `${this.area} מ״ר`,
             }, {
-                he_label: "שכר דירה",
+                he_label: "שכ״ד",
                 en_label: "Price",
                 value: `${this.price} ש״ח`,
             }, {
-                he_label: "תאריך כניסה",
+                he_label: "כניסה",
                 en_label: "Entery date",
                 value: "20/01/2022"
                 // this.getDateFormat(this.enteryDate),
             }, {
-                he_label: "תאריך סיום חוזה",
+                he_label: "יציאה",
                 en_label: "Date of release",
                 value: "20/01/2022"
                 // value: this.getDateFormat(this.releaseDate),

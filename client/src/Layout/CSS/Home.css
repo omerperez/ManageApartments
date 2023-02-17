@@ -20,13 +20,14 @@
   }
 
   .dashboard-card-layout {
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
       rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    border: 3px solid white !important;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    border: 3px solid white !important; */
+    /* border-radius: 8px; */
+    margin-bottom: 15px;
+    border-radius: 4px;
     color: white;
-    padding: 10px 15px;
+    padding: 30px;
   }
 
   .home-page {
@@ -135,10 +136,18 @@
 }
 
 .apartment-card-btn {
-  font-size: 16px !important;
-  border-radius: 0 !important;
-  color: white !important;
+  font-size: 20px !important;
+  /* border-radius: 0 !important; */
+  /* color: white !important; */
+  color: #444444 !important;
+  font-weight: bolder !important;
   font-family: "Rubik", sans-serif !important;
+}
+
+.card-btn-container {
+  padding: 0 50px !important;
+  border-top: #7f858e solid 1px !important;
+  /* border-bottom: #7f858e solid 1px !important; */
 }
 
 .button-bg-delete {
@@ -154,25 +163,30 @@
 }
 
 .apartment-card-icon {
-  font-size: medium !important;
+  font-size: 36px !important;
   margin: auto !important;
-  color: white !important;
+  /* color: white !important; */
+  color: #7f858e !important;
 }
 
 .bg-red {
-  background-color: #ff5370 !important;
+  /* background-color: #ff5370 !important; */
+  background-color: #e90404 !important;
 }
 
 .bg-yellow {
-  background-color: #ffb64d !important;
+  /* background-color: #ffb64d !important; */
+  background-color: #ff9900 !important;
 }
 
 .bg-blue {
-  background-color: #4099ff !important;
+  /* background-color: #4099ff !important; */
+  background-color: #0080ff !important;
 }
 
 .bg-green {
-  background-color: #2dd8b6 !important;
+  /* background-color: #2dd8b6 !important; */
+  background-color: #15b37a !important;
 }
 
 .color-red {
@@ -189,22 +203,6 @@
 
 .color-green {
   color: #319e88 !important;
-}
-
-.bg-red {
-  background: #ff5370;
-}
-
-.bg-yellow {
-  background: #ffb64d;
-}
-
-.bg-blue {
-  background: #4099ff;
-}
-
-.bg-green {
-  background: #2dd8b6;
 }
 
 .tenants-card {
@@ -234,16 +232,16 @@
 }
 
 .side-nav-logo-part {
-  margin-top: 100px;
+  margin-top: 70px;
   text-align: center;
 }
 
-.side-nav-icons {
-  margin: 50% 0;
+.side-nav-icons-container {
+  margin: 15% 0;
 }
 
 .side-nav-icons-space {
-  margin: 50px;
+  margin: 30px;
   text-align: center;
 }
 
@@ -266,4 +264,64 @@
   width: 12.5%;
   min-height: 100vh;
   background-color: #0080ff;
+}
+
+.card-container {
+  background-color: rgba(179, 203, 235, 0.578);
+}
+
+.apartment-card {
+  color: black;
+  background-color: #f4f7ff;
+  border-radius: 12px;
+}
+
+.apartment-card-body {
+  padding: 20px;
+}
+
+.apartment-card-title {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.apartment-card-subtitle {
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.apartment-card-details {
+  margin-top: 4px !important;
+  font-family: "Rubik", sans-serif !important;
+  font-size: 18px !important;
+}
+
+.card-bg-img {
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 300px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.card-action-btn-edit {
+  background-color: white !important;
+  color: #0080ff !important;
+  border: solid 3px #0080ff !important;
+}
+
+.card-action-btn-delete {
+  background-color: white !important;
+  color: #e90404 !important;
+  border: solid 3px #e90404 !important;
+}
+
+.card-action-btn-space {
+  margin-left: 15px !important;
+}
+
+.apartment-card-btn-icon {
+  font-size: 32px !important;
 }

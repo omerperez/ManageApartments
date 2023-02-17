@@ -1,12 +1,13 @@
 import { AddPhotoAlternate, HighlightOff } from "@mui/icons-material";
-import { Button, Fab, Grid, IconButton } from "@mui/material";
+import { Fab, Grid, IconButton } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import useMobieDesign from "../../../Hooks/useMobile";
+import UploadImagesBtn from "../../Global/Buttons/UploadImagesBtn";
 import ApartmentMobileImages from "../../Global/Mobile/Images/ApartmentMobileImages";
 import Image from "../../Global/Mobile/Images/Image";
 
 // Constans
-const UPLOAD_IMAGES_BTN = "צרף תמונות";
+const UPLOAD_IMAGES_BTN = "לחץ עבור העלאת תמונות";
 const MAIN_IMAGE = "תמונה ראשית";
 
 interface UploadImagesProps {
@@ -50,21 +51,11 @@ export default function UploadImages({
   if (!images || images.length === 0) {
     return (
       <div className="upload-image-btn-position">
-        <Button
-          variant="contained"
-          fullWidth
-          className="file-btn"
-          component="label"
-        >
-          <h1>{UPLOAD_IMAGES_BTN}</h1>
-          <input
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={onAddNewImage}
-          />
-        </Button>
+        <UploadImagesBtn
+          text={UPLOAD_IMAGES_BTN}
+          accept="image/*"
+          onChange={onAddNewImage}
+        />
         {error && <div className="input-error fs-5 mt-2">{error}</div>}
       </div>
     );

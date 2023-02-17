@@ -15,12 +15,7 @@ export default function HomeDashboard({ language }: DashboardProps) {
   return (
     <Grid container spacing={2}>
       {topDashboardTitles.map((card, index) => (
-        <Grid
-          item
-          xs={12}
-          sm={3}
-          key={`topDashboardTitle-${card.en_title + index}`}
-        >
+        <Grid item xs={12} sm={3} key={`topDashboardTitle-${card.en_title}`}>
           <div>
             <DashboardCard
               language={language}

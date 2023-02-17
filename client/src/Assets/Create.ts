@@ -27,8 +27,8 @@ const apartmentFormLabels: IField[] = [
     he_label: "שם הדירה",
     en_label: "Apartment Name",
     key: "name",
-    gridSize: 4,
-    type: { fieldType: 'input', inputType: 'text' },
+    gridSize: 12,
+    type: { fieldType: 'input', inputType: 'text', variant: 'standard' },
     validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
@@ -45,7 +45,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Neighborhood",
     key: "neighborhood",
     gridSize: 4,
-    type: { fieldType: 'input', inputType: 'text' },
+    type: { fieldType: 'input', inputType: 'text', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "שדה חובה"
   },
@@ -61,8 +61,8 @@ const apartmentFormLabels: IField[] = [
     he_label: "מספר בית",
     en_label: "House number",
     key: "number",
-    gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    gridSize: 3,
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -70,8 +70,8 @@ const apartmentFormLabels: IField[] = [
     he_label: "קומה",
     en_label: "Floor",
     key: "floor",
-    gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    gridSize: 3,
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -79,8 +79,8 @@ const apartmentFormLabels: IField[] = [
     he_label: "מספר דירה",
     en_label: "Number",
     key: "apartmentNumber",
-    gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    gridSize: 3,
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -88,8 +88,8 @@ const apartmentFormLabels: IField[] = [
     he_label: "מיקוד",
     en_label: "Post Code",
     key: "postCode",
-    gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    gridSize: 3,
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -98,7 +98,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Price (ILS)",
     key: "price",
     gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -107,7 +107,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Area (m)",
     key: "area",
     gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -116,7 +116,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Bedrooms",
     key: "bedrooms",
     gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },
@@ -125,7 +125,7 @@ const apartmentFormLabels: IField[] = [
     en_label: "Toilets",
     key: "toilet",
     gridSize: 2,
-    type: { fieldType: 'input', inputType: 'number' },
+    type: { fieldType: 'input', inputType: 'number', variant: 'outlined' },
     validationFunction: ValidationService.isNotEmpty,
     error: "אנא אזן ערך חוקי"
   },

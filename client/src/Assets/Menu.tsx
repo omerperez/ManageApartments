@@ -1,4 +1,5 @@
 import {
+  AddCircleOutline,
   Apartment,
   Assessment,
   Bloodtype,
@@ -14,6 +15,7 @@ import { MuiSideMenuButtonIcon } from "../Layout/Mui/Menu";
 
 // Constans
 const HOME_PAGE = "בית";
+const CREATE_APARTMENT = "יצירת דירה";
 const MY_ASSETS = "הנכסים שלי";
 const ELECTRIC_CALC = "חשמל";
 const WATER_CALC = "מים";
@@ -52,6 +54,11 @@ const sideMenuButtons: ISideMenuButton[] = [
     icon: <Home sx={MuiSideMenuButtonIcon} />,
     to: "/",
     text: "בית",
+  },
+  {
+    icon: <AddCircleOutline sx={MuiSideMenuButtonIcon} />,
+    to: "/create-apartment",
+    text: CREATE_APARTMENT,
   },
   {
     icon: <Apartment sx={MuiSideMenuButtonIcon} />,

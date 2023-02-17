@@ -1,6 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
 const MuiCard: SxProps<Theme> = {
-  boxShadow: "none",
   border: "solid 1px #919191",
   borderRadius: "4px",
   "& .MuiTypography-root": {
@@ -14,9 +13,7 @@ const MuiCard: SxProps<Theme> = {
 
 const MuiCardIcon: SxProps<Theme> = {
   fontSize: 40,
-  background: "white",
-  borderRadius: "50%",
-  padding: 1,
+  color: "white",
 };
 
 const SwipeableDrawerMui: SxProps<Theme> = {

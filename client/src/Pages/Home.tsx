@@ -30,9 +30,6 @@ export default function Home() {
         <Grid item sm={12} className="hide-dashboard-mobile">
           <HomeDashboard language={authState.language} />
         </Grid>
-        <Grid item sm={12} className="hide-dashboard-mobile">
-          <CreateApartmentBtn />
-        </Grid>
         {apartments.map((item, key) => (
           <Grid item xs={12} sm={3} key={`${item.name}-${key}`}>
             <ApartmentCard apartment={item} language={authState.language} />

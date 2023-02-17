@@ -20,17 +20,17 @@ export default function FormButtons({
   return (
     <Stack direction={"row"} spacing={2} className="ltr">
       <Button
-        fullWidth
+        // fullWidth
         variant="contained"
-        className="edit-btn edit-save-btn"
+        className="form-btn bg-blue"
         onClick={onSave}
       >
         {saveText ?? SAVE}
       </Button>
       <Button
-        fullWidth
+        // fullWidth
         variant="contained"
-        className="edit-btn edit-cancel-btn"
+        className="form-btn bg-red"
         onClick={onCancel}
       >
         {cancelText ?? CANCEL}

@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Fragment, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { MY_APARTMENT } from "../../../Assets/IConstans";
 import { Apartment } from "../../../Data/builders/Apartment";
 import { MuiCard } from "../../../Layout/Mui/Home";
@@ -27,64 +28,56 @@ export default function ApartmentCard({
   apartment,
   language,
 }: ApartmentCardProps) {
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const onClickApartmentView = () => {
+    return navigate({
+      pathname: "/apartment",
+      search: createSearchParams({
+        apartmentId: apartment.id,
+      }).toString(),
+    });
   };
 
   if (apartment === null) return null;
 
-  const backgroundCard = {
-    backgroundImage: `url(${apartment.images[apartment.mainImageIndex]})`,
-  };
-
   return (
-    <div className="relative">
-      <div className="block">
-        <ThemeStyleRTL>
-          <Card sx={MuiCard}>
-            <div style={backgroundCard} className="card-bg-img">
-              <div className="d-end">
-                <Button
-                  size="large"
-                  variant="outlined"
-                  className="show-more-btn"
-                  onClick={handleExpandClick}
-                >
-                  {MY_APARTMENT[language.toUpperCase()].viewMore}
-                </Button>
-              </div>
-            </div>
-            <CardHeader
-              title={<h5>{apartment.name}</h5>}
-              subheader={apartment.getFullAddress()}
-            />
-            <CardMenuActions apartmentId={apartment.id} />
-            <Collapse in={expanded} timeout="auto">
-              <CardContent>
-                <Grid container spacing={1} className="card-design">
-                  {apartment.getContentProperties().map((prop, key) => (
-                    <Fragment key={`body-card-${key}`}>
-                      <Grid item xs={5.5}>
-                        <Typography>{prop[`${language}_label`]}</Typography>
-                      </Grid>
-                      <Grid item xs={6.5}>
-                        <Typography variant="body2">{prop.value}</Typography>
-                      </Grid>
-                    </Fragment>
-                  ))}
-                </Grid>
-              </CardContent>
-            </Collapse>
-          </Card>
-        </ThemeStyleRTL>
+    <div className="apartment-card">
+      <img
+        onClick={onClickApartmentView}
+        src={apartment.images[apartment.mainImageIndex]}
+        alt="apartment-profile"
+        className="card-bg-img"
+      />
+      <div className="apartment-card-body">
+        <div className="apartment-card-title">{apartment.name}</div>
+        <div className="apartment-card-subtitle">
+          {apartment.getFullAddress()}
+        </div>
+        <Grid container spacing={1} className="apartment-card-details">
+          {apartment.getContentProperties().map((prop, key) => (
+            <Fragment key={`body-card-${key}`}>
+              <Grid item xs={2}>
+                <b>{prop[`${language}_label`]}</b>
+              </Grid>
+              <Grid item xs={4}>
+                <span>{prop.value}</span>
+              </Grid>
+            </Fragment>
+          ))}
+        </Grid>
+        <div style={{ marginTop: 16 }}>
+          <CardMenuActions apartmentId={apartment.id} />
+        </div>
       </div>
-      {apartment.currentTenantId ? (
-        <div className="busy">{RENT}</div>
-      ) : (
-        <div className="available">{FREE}</div>
-      )}
     </div>
   );
 }
+
+//  {
+//    /* {apartment.currentTenantId ? (
+//       <div className="busy">{RENT}</div>
+//     ) : (
+//       <div className="available">{FREE}</div>
+//     )} */
+//  }

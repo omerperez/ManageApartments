@@ -1,14 +1,20 @@
-import { Button, Grid } from "@mui/material";
+import { DeleteOutlineOutlined, EditOutlined } from "@mui/icons-material";
+import { IconButton, Tooltip } from "@mui/material";
 import { useContext } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { ApartmentCardButtons } from "../../../Assets/MyApartments";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { AuthContextType } from "../../../Data/types/Auth";
 import GenericDialog from "../../Global/GenericDialog";
 
+// Constans
+const DELETE_APARTMENT_DIALOG_TEXT = "האם אתה בטוח שברצונך למחוק את הדירה?";
+const EDIT_APARTMENT = "עריכת דירה";
+const DELETE_APARTMENT = "מחיקת דירה";
+
 type CardMenuActionsProps = {
   apartmentId: string;
 };
+
 export default function CardMenuActions({ apartmentId }: CardMenuActionsProps) {
   const navigate = useNavigate();
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
@@ -33,37 +39,30 @@ export default function CardMenuActions({ apartmentId }: CardMenuActionsProps) {
     return false;
   };
 
-  const DELETE_APARTMENT_DIALOG_TEXT = "האם אתה בטוח שברצונך למחוק את הדירה?";
-
   return (
-    <Grid container className="mt-2">
-      {ApartmentCardButtons.map((btn, key) => (
-        <Grid item xs={4} key={`CardMenuActions-${key}`}>
-          {btn.to === "delete" ? (
-            <GenericDialog
-              onSubmit={onDelete}
-              content={
-                <div className="rtl text-center">
-                  <h1>{DELETE_APARTMENT_DIALOG_TEXT}</h1>
-                </div>
-              }
-            >
-              <Button fullWidth className={btn.className} endIcon={btn.icon}>
-                {btn.text}
-              </Button>
-            </GenericDialog>
-          ) : (
-            <Button
-              fullWidth
-              className={btn.className}
-              endIcon={btn.icon}
-              onClick={() => handleClickMenuBtn(btn.to)}
-            >
-              {btn.text}
-            </Button>
-          )}
-        </Grid>
-      ))}
-    </Grid>
+    <div className="d-flex">
+      <GenericDialog
+        onSubmit={onDelete}
+        content={
+          <div className="rtl text-center">
+            <h1>{DELETE_APARTMENT_DIALOG_TEXT}</h1>
+          </div>
+        }
+      >
+        <Tooltip title={DELETE_APARTMENT}>
+          <IconButton className="card-action-btn-delete card-action-btn-space">
+            <DeleteOutlineOutlined className="apartment-card-btn-icon" />
+          </IconButton>
+        </Tooltip>
+      </GenericDialog>
+      <Tooltip title={EDIT_APARTMENT}>
+        <IconButton
+          className="card-action-btn-edit"
+          onClick={() => handleClickMenuBtn("edit-apartment")}
+        >
+          <EditOutlined className="apartment-card-btn-icon" />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 }

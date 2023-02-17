@@ -1,16 +1,55 @@
 @media screen and (min-width: 601px) {
+  .create-form-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #f4f7ff;
+    min-height: 100vh;
+  }
+
+  .create-form-postion {
+    margin-top: 3%;
+    width: 50%;
+    min-width: 1000px;
+  }
+
+  .form-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px 40px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+
   .file-btn {
-    border: dotted 5px #809fff !important;
+    border: dashed 3px #0080ff !important;
     background-color: white !important;
-    background-color: #e1e6ed !important;
-    color: #809fff !important;
+    color: #0080ff !important;
     font-family: "Rubik", sans-serif !important;
-    height: 100% !important;
+    box-shadow: none !important;
+    padding: 20px !important;
+  }
+
+  .file-btn :hover {
+    background-color: #0b6efe !important;
+    visibility: visible !important;
+  }
+
+  .upload-image-btn-text {
+    font-size: 26px;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .upload-image-btn-subtext {
+    font-size: 18px;
+    font-weight: bold;
+    color: #919191;
   }
 
   .upload-image-btn-position {
     height: 100%;
-    padding: 4% 4% 5% 4%;
+    padding: 0.5% 0;
   }
 
   .upload-doc-btn-position {
@@ -37,6 +76,11 @@
 }
 
 @media screen and (max-width: 601px) {
+  .form-box {
+    background-color: white;
+    padding: 30px 20px;
+  }
+
   .image-carousel {
     border-radius: 8px;
     border: 2px solid black;
@@ -45,12 +89,25 @@
   }
 
   .file-btn {
-    font-size: 22px !important;
-    color: white !important;
-    background-color: #0b6efe !important;
+    border: dashed 3px #b3b2b2 !important;
+    background-color: white !important;
+    color: #0080ff !important;
     font-family: "Rubik", sans-serif !important;
-    height: 80px !important;
-    border-radius: 8px !important;
+    box-shadow: none !important;
+    padding: 15px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .upload-image-btn-text {
+    font-size: 28px;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  .upload-image-btn-subtext {
+    font-size: 18px;
+    font-weight: bold;
+    color: #919191;
   }
 
   .carousel-action-btns {
@@ -190,7 +247,7 @@
 }
 
 .create-form-layout {
-  padding: 2% 3%;
+  /* padding: 2% 3%; */
 }
 
 .padding-files-btn {
@@ -257,11 +314,16 @@
 }
 
 .sub-page-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin: 8px 0;
+  font-size: 32px;
+  font-family: Tahoma;
+  font-weight: 400;
+  margin: 12px 0;
 }
 
 .padding-creates-form {
   padding: 0 3%;
+}
+
+.close-form-btn {
+  margin: -10px 0 0 -20px !important;
 }

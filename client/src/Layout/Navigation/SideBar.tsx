@@ -31,7 +31,7 @@ export default function SideBar() {
           <span className="side-nav-text">{APPLICATION_NAME}</span>
           <Divider className="side-nav-divider" />
         </div>
-        <div className="side-nav-icons">
+        <div className="side-nav-icons-container">
           {sideMenuButtons.map((button, key) => (
             <div
               className="side-nav-icons-space"

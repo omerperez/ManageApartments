@@ -100,7 +100,7 @@ export default function CreateApartment({
       onSubmit={onSubmit}
       onCancel={onCancel}
     >
-      <Grid container spacing={1.5}>
+      <Grid container spacing={2}>
         {apartmentFormLabels.map((item, index) =>
           item.type.fieldType !== "textarea" ? (
             <Grid
@@ -123,6 +123,7 @@ export default function CreateApartment({
                   textType={getInputType(item)}
                   label={item[`${authState.language}_label`]}
                   value={""}
+                  variant={item.type.variant}
                   error={errorList[item.key]}
                   required={true}
                   ref={refs.current[index]}
@@ -146,15 +147,17 @@ export default function CreateApartment({
               )}
             </Grid>
           ) : (
-            <TextareaAutosize
-              key={`textarea-apartment-${index}`}
-              className="area-input"
-              aria-label={`${item[authState.language]}-label`}
-              minRows={isMobileDesign ? 10 : 5}
-              defaultValue={""}
-              placeholder={item[`${authState.language}_label`]}
-              ref={refs.current[index]}
-            />
+            <Grid item xs={12}>
+              <TextareaAutosize
+                key={`textarea-apartment-${index}`}
+                className="area-input"
+                aria-label={`${item[authState.language]}-label`}
+                minRows={isMobileDesign ? 8 : 3}
+                defaultValue={""}
+                placeholder={item[`${authState.language}_label`]}
+                ref={refs.current[index]}
+              />
+            </Grid>
           ),
         )}
       </Grid>

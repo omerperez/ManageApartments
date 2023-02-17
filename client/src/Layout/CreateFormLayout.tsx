@@ -1,6 +1,9 @@
-import { Grid } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { Button, Grid, IconButton } from "@mui/material";
 import { forwardRef, ReactNode, Ref } from "react";
-import FormButtons from "../Components/Delete/Edit/EditButtons";
+
+// Constans
+const SAVE = "שמירה";
 
 interface CreateFormLayoutProps {
   title: string;
@@ -24,23 +27,35 @@ function CreateFormLayout(
   ref: Ref<HTMLDivElement>,
 ) {
   return (
-    <div className="edit-form" ref={ref} id="scroll">
-      <div className="sub-page-title">{title}</div>
-      <Grid container spacing={1.5}>
-        <Grid item xs={12} sm={8}>
-          {children}
-        </Grid>
-        <Grid xs={12} item sm={4}>
-          {secondPart}
-        </Grid>
-      </Grid>
-      <div className="mt-2">
-        <FormButtons
-          saveText={saveBtnText}
-          cancelText={cancelBtnText}
-          onSave={onSubmit}
-          onCancel={onCancel}
-        />
+    <div className="create-form-layout">
+      <div className="create-form-postion">
+        <div className="form-box">
+          <Grid container>
+            <Grid item xs={10}>
+              <div className="sub-page-title">{title}</div>
+            </Grid>
+            <Grid item xs={2} textAlign="end">
+              <IconButton
+                onClick={onCancel}
+                color="error"
+                className="close-form-btn"
+              >
+                <Close sx={{ fontSize: 40 }} />
+              </IconButton>
+            </Grid>
+          </Grid>
+          <div>{children}</div>
+          <div>{secondPart}</div>
+          <div className="mt-3 text-end">
+            <Button
+              variant="contained"
+              className="form-btn bg-blue"
+              onClick={onSubmit}
+            >
+              {saveBtnText ?? SAVE}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

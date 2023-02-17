@@ -1,12 +1,14 @@
 import { Add, HighlightOff } from "@mui/icons-material";
-import { Button, Fab, Grid, IconButton } from "@mui/material";
+import { Fab, Grid, IconButton } from "@mui/material";
 import { ChangeEvent, useMemo, useState } from "react";
 import useMobieDesign from "../../Hooks/useMobile";
+import UploadImagesBtn from "../Global/Buttons/UploadImagesBtn";
 import ApartmentMobileImages from "../Global/Mobile/Images/ApartmentMobileImages";
 import Image from "../Global/Mobile/Images/Image";
 
 // Constans
 const EDIT_IMAGES_TITLE = "עריכת תמונות";
+const EDIT_IMAGES_BTN = "לחץ עבור הוספת תמונות";
 
 interface EditImagesProps {
   images: string[];
@@ -57,22 +59,12 @@ export default function EditImages({
 
   if (apartmentImages.length === 0) {
     return (
-      <div className="h-100 p-4 pb-5">
-        <Button
-          variant="contained"
-          fullWidth
-          className="file-btn"
-          component="label"
-        >
-          <h1>העלאת תמונות</h1>
-          <input
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={onAddNewImage}
-          />
-        </Button>
+      <div className="h-100 pt-2 pb-2">
+        <UploadImagesBtn
+          text={EDIT_IMAGES_BTN}
+          accept="image/*"
+          onChange={onAddNewImage}
+        />
       </div>
     );
   }

@@ -4,18 +4,11 @@ import CreateApartmentBtn from "../../Components/Global/Buttons/CreateApartmentB
 import LanguageBtn from "../../Components/Global/Buttons/LanguageBtn";
 import LogoutBtn from "../../Components/Global/Buttons/LogoutBtn";
 import MobileDashboardCard from "../../Components/Global/Mobile/MobileDashboardCard";
+import { MuiMobileBarContainer } from "../Mui/Menu";
 import MobileBottomNavigation from "./MobileBottomNavigation";
 
 // Constans
 const SYSTEM_NAME = "AM";
-// MUI
-const mobileAppBarContainerMui = {
-  width: "100%",
-  height: 50,
-  "& .css-11b3ww9-MuiPaper-root-MuiAppBar-root": {
-    backgroundColor: "#0b6efe",
-  },
-};
 
 export default function MobileNavigation() {
   const navigate = useNavigate();
@@ -25,7 +18,7 @@ export default function MobileNavigation() {
   };
 
   return (
-    <Box sx={mobileAppBarContainerMui} className="ltr">
+    <Box sx={MuiMobileBarContainer} className="ltr">
       <AppBar position="fixed">
         <Toolbar>
           <Typography

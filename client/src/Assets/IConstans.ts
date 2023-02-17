@@ -41,7 +41,7 @@ const STEPPER = { EN_STEPPER, HE_STEPPER };
 const EDIT = "עריכה";
 
 // defults 
-const APARTMENT_DETAILS_TITLE = "פרטי הדירה";
+const APARTMENT_DETAILS_TITLE = "יצירת דירה חדשה";
 
 const OTHER_DETAILS_COMMENT = "תיאור נוסף";
 

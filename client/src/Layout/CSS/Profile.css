@@ -323,12 +323,6 @@ th {
   border-top: solid 1px rgb(209, 216, 216);
 }
 
-.card-bg-img {
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 250px !important;
-}
-
 .he-map {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;

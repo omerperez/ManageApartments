@@ -34,9 +34,18 @@ const MuiMobileMenuButtonActive = {
   },
 };
 
+const MuiMobileBarContainer = {
+  width: "100%",
+  height: 50,
+  "& .css-11b3ww9-MuiPaper-root-MuiAppBar-root": {
+    backgroundColor: "#0b6efe",
+  },
+};
+
 export {
   MuiSideMenuButtonIcon,
   MuiMobileMenuButton,
   MuiPapperMobileMenu,
   MuiMobileMenuButtonActive,
+  MuiMobileBarContainer,
 };
