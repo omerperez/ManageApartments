@@ -6,8 +6,12 @@ import { env } from 'process';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  const app = await NestFactory.create(AppModule, {
+    cors: true
+  });
+  // app.enableCors({
+  //   origin: ""
+  // });
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   AWS.config.update({

@@ -7,8 +7,9 @@ const bodyParser = require("body-parser");
 const process_1 = require("process");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, {
+        cors: true
+    });
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     AWS.config.update({
