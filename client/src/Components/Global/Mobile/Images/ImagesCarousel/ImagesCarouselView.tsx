@@ -46,50 +46,45 @@ export default function ImagesCarouselView({
   };
 
   return (
-    <>
-      <div className="scene">
-        <div className="carousel">
-          {images.map((img, index) => (
-            <div
-              className="carousel__cell"
-              style={{
-                transform: `rotateY(${getrotateY(index)}deg) translateZ(288px)`,
-              }}
-            >
-              <div className={handleClickRemove ? "relative" : ""}>
-                <Image
-                  onClick={() => onImageClick(index)}
-                  src={img}
-                  alt={`Current-Img-${mainCaruselImageIndex}`}
-                  height={"180px"}
-                  width={"250px"}
-                  className={`image-carousel${
-                    index === mainImageIndex ? "-active" : ""
-                  }`}
-                  style={
-                    index === mainCaruselImageIndex
-                      ? { zIndex: "1000000" }
-                      : null
-                  }
-                />
-                {index === mainCaruselImageIndex && handleClickRemove ? (
-                  <div className="remove-image-carousel-pos">
-                    <Button
-                      onClick={() => {
-                        handleClickRemove(mainCaruselImageIndex);
-                      }}
-                      variant="contained"
-                      className="remove-btn-carousel"
-                    >
-                      {REMOVE_IMAGE}
-                    </Button>
-                  </div>
-                ) : null}
-              </div>
+    <div className="scene">
+      <div className="carousel">
+        {images.map((img, index) => (
+          <div
+            className="carousel__cell"
+            style={{
+              transform: `rotateY(${getrotateY(index)}deg) translateZ(288px)`,
+            }}
+          >
+            <div className={handleClickRemove ? "relative" : ""}>
+              <Image
+                onClick={() => onImageClick(index)}
+                src={img}
+                alt={`Current-Img-${mainCaruselImageIndex}`}
+                height={"180px"}
+                className={`image-carousel${
+                  index === mainImageIndex ? "-active" : ""
+                }`}
+                style={
+                  index === mainCaruselImageIndex ? { zIndex: "1000000" } : null
+                }
+              />
+              {index === mainCaruselImageIndex && handleClickRemove ? (
+                <div className="remove-image-carousel-pos">
+                  <Button
+                    onClick={() => {
+                      handleClickRemove(mainCaruselImageIndex);
+                    }}
+                    variant="contained"
+                    className="remove-btn-carousel"
+                  >
+                    {REMOVE_IMAGE}
+                  </Button>
+                </div>
+              ) : null}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }

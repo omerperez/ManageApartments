@@ -56,7 +56,7 @@ export default function Carousel({
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ maxWidth: "100%" }}>
       <ImagesCarouselView
         images={images}
         mainCaruselImageIndex={currentImage}

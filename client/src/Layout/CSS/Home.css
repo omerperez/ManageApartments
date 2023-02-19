@@ -20,14 +20,9 @@
   }
 
   .dashboard-card-layout {
-    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
-      rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    border: 3px solid white !important; */
-    /* border-radius: 8px; */
-    margin-bottom: 15px;
     border-radius: 4px;
     color: white;
-    padding: 30px;
+    padding: 4.5%;
   }
 
   .home-page {
@@ -42,6 +37,22 @@
     font-family: "Rubik", sans-serif;
     font-size: 50px;
     text-align: center;
+  }
+
+  .apartment-card-btn-icon {
+    font-size: 32px !important;
+  }
+
+  .card-action-btn-edit {
+    background-color: white !important;
+    color: #0080ff !important;
+    border: solid 3px #0080ff !important;
+  }
+
+  .card-action-btn-delete {
+    background-color: white !important;
+    color: #e90404 !important;
+    border: solid 3px #e90404 !important;
   }
 }
 
@@ -90,6 +101,22 @@
 
   .hide-dashboard-mobile {
     display: none !important;
+  }
+
+  .apartment-card-btn-icon {
+    font-size: 24px !important;
+  }
+
+  .card-action-btn-edit {
+    background-color: white !important;
+    color: #0080ff !important;
+    border: solid 2px #0080ff !important;
+  }
+
+  .card-action-btn-delete {
+    background-color: white !important;
+    color: #e90404 !important;
+    border: solid 2px #e90404 !important;
   }
 }
 
@@ -306,22 +333,6 @@
   cursor: pointer;
 }
 
-.card-action-btn-edit {
-  background-color: white !important;
-  color: #0080ff !important;
-  border: solid 3px #0080ff !important;
-}
-
-.card-action-btn-delete {
-  background-color: white !important;
-  color: #e90404 !important;
-  border: solid 3px #e90404 !important;
-}
-
 .card-action-btn-space {
   margin-left: 15px !important;
-}
-
-.apartment-card-btn-icon {
-  font-size: 32px !important;
 }

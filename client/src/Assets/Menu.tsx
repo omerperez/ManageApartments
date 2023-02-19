@@ -16,7 +16,7 @@ import { MuiSideMenuButtonIcon } from "../Layout/Mui/Menu";
 // Constans
 const HOME_PAGE = "בית";
 const CREATE_APARTMENT = "יצירת דירה";
-const MY_ASSETS = "הנכסים שלי";
+const MY_ASSETS = "נכסים";
 const ELECTRIC_CALC = "חשמל";
 const WATER_CALC = "מים";
 const ASSESSMENT = "מדדים";

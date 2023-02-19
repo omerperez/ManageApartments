@@ -1,18 +1,8 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Collapse,
-  Grid,
-  Typography,
-} from "@mui/material";
-import { Fragment, useState } from "react";
+import { Grid } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Fragment } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { MY_APARTMENT } from "../../../Assets/IConstans";
 import { Apartment } from "../../../Data/builders/Apartment";
-import { MuiCard } from "../../../Layout/Mui/Home";
-import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import CardMenuActions from "./CardMenuActions";
 
 type ApartmentCardProps = {
@@ -29,6 +19,7 @@ export default function ApartmentCard({
   language,
 }: ApartmentCardProps) {
   const navigate = useNavigate();
+  const isSmallWidthScreen = useMediaQuery("(max-width:1750px)");
 
   const onClickApartmentView = () => {
     return navigate({
@@ -57,10 +48,10 @@ export default function ApartmentCard({
         <Grid container spacing={1} className="apartment-card-details">
           {apartment.getContentProperties().map((prop, key) => (
             <Fragment key={`body-card-${key}`}>
-              <Grid item xs={2}>
+              <Grid item xs={4} md={isSmallWidthScreen ? 4 : 2}>
                 <b>{prop[`${language}_label`]}</b>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={8} md={isSmallWidthScreen ? 8 : 4}>
                 <span>{prop.value}</span>
               </Grid>
             </Fragment>
@@ -73,11 +64,3 @@ export default function ApartmentCard({
     </div>
   );
 }
-
-//  {
-//    /* {apartment.currentTenantId ? (
-//       <div className="busy">{RENT}</div>
-//     ) : (
-//       <div className="available">{FREE}</div>
-//     )} */
-//  }

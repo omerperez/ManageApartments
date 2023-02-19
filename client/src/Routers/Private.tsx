@@ -19,6 +19,7 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    console.log("here");
     const verifyUser = async () => {
       const token = CookieService.getToken();
       if (token) {
@@ -46,7 +47,7 @@ export default function PrivateRouter({ children }: PrivateRouterProps) {
     };
     verifyUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authState]);
+  }, []);
 
   if (loading) return <Loading />;
 
