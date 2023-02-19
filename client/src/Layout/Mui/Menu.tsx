@@ -12,7 +12,7 @@ const MuiPapperMobileMenu = {
   left: 0,
   right: 0,
   zIndex: 10,
-  height: 50,
+  height: 56,
 };
 
 const MuiMobileMenuButton = {
@@ -20,10 +20,16 @@ const MuiMobileMenuButton = {
   "& .css-imwso6-MuiBottomNavigationAction-label": {
     color: "#b9e1ff",
   },
+  "& .css-vubbuv": {
+    color: "#b9e1ff",
+  },
   "& .css-i4bv87-MuiSvgIcon-root": {
     color: "#b9e1ff",
   },
   "& .css-6f4m11.Mui-selected": {
+    color: "white",
+  },
+  ".css-5efxf5.Mui-selected": {
     color: "white",
   },
 };
@@ -33,6 +39,9 @@ const MuiMobileMenuButtonActive = {
     color: "white",
   },
   "& .css-i4bv87-MuiSvgIcon-root": {
+    color: "white",
+  },
+  ".css-5efxf5.Mui-selected": {
     color: "white",
   },
   "& .css-6f4m11.Mui-selected": {
