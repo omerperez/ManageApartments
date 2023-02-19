@@ -25,8 +25,8 @@ const MY_APARTMENT = {
 };
 
 const API_CONSTANS = {
-    // SERVER_BASE_URL: 'http://54.144.80.90/',
-    SERVER_BASE_URL: 'http://localhost:3001/',
+    SERVER_BASE_URL: 'http://54.144.80.90/',
+    // SERVER_BASE_URL: 'http://localhost:3001/',
     OWNER_APARTMENTS_API: 'apartment/my-apartments',
     APARTMENT_VIEW_API: 'tenant/find',
     // APARTMENT_VIEW_API: 'apartment/find',
