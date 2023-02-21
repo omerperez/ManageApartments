@@ -44,7 +44,7 @@ export default function CardMenuActions({ apartmentId }: CardMenuActionsProps) {
       <GenericDialog
         onSubmit={onDelete}
         content={
-          <div className="rtl text-center">
+          <div className="rtl">
             <h1>{DELETE_APARTMENT_DIALOG_TEXT}</h1>
           </div>
         }

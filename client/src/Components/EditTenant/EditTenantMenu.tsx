@@ -33,7 +33,7 @@ const editOptionsButtons = [
     text: CREATE_NEW_TENANT,
   },
   {
-    color: "blue",
+    color: "yellow",
     icon: <Groups />,
     text: EDIT_TENANT,
   },

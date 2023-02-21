@@ -52,6 +52,17 @@
     font-weight: 700;
     margin: 12px 0;
   }
+
+  .change-tenant-dialog-btn {
+    text-transform: capitalize !important;
+    font-size: 20px !important;
+    font-family: "Rubik", sans-serif !important;
+    border-radius: 8px !important;
+    background-color: #f4f7ff !important;
+    font-weight: 700 !important;
+    padding: 50px !important;
+    text-decoration: none !important;
+  }
 }
 
 @media screen and (max-width: 601px) {
@@ -95,6 +106,17 @@
   .tenant-options-dialog-container {
     margin: 0 20px 30px 20px;
   }
+
+  .change-tenant-dialog-btn {
+    text-transform: capitalize !important;
+    font-size: 18px !important;
+    font-family: "Rubik", sans-serif !important;
+    border-radius: 8px !important;
+    background-color: #f4f7ff !important;
+    font-weight: 700 !important;
+    padding: 10px !important;
+    text-decoration: none !important;
+  }
 }
 
 .edit-layout {
@@ -137,36 +159,25 @@
 }
 
 .blue-border {
-  border: solid 3px #809fff !important;
+  border: solid 3px #0080ff !important;
 }
 
 .green-border {
-  border: solid 3px #80ffdd !important;
+  border: solid 3px #15b37a !important;
 }
 
 .yellow-border {
-  border: solid 3px #ffc480 !important;
+  border: solid 3px #ff9900 !important;
 }
 
 .red-border {
-  border: solid 3px #ff5370 !important;
+  border: solid 3px #e90404 !important;
 }
 
 .change-tenant-icon {
   color: black !important;
   font-size: 60px !important;
   margin-bottom: 10px !important;
-}
-
-.change-tenant-dialog-btn {
-  text-transform: capitalize !important;
-  font-size: 20px !important;
-  font-family: "Rubik", sans-serif !important;
-  border-radius: 8px !important;
-  background-color: whitesmoke !important;
-  font-weight: 700 !important;
-  padding: 50px !important;
-  text-decoration: none !important;
 }
 
 .text-black {
