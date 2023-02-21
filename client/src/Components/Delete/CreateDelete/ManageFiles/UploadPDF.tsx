@@ -1,22 +1,18 @@
-import { HighlightOff } from "@mui/icons-material";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useError403 } from "../../../../Services/Utils/useError403";
 
-const UPLOAD_DOC = "העלאת חוזה";
+// CONSTANS
+const REMOVE_DOC = "הסרת חוזה";
+const UPLOAD_DOC = "צרף חוזה";
+
 interface UploadPdfProps {
   pdf: File | null;
   setPdf: Dispatch<SetStateAction<File | null>>;
   textButton?: string;
-  buttonClassName?: string;
 }
 
-export default function UploadPDF({
-  pdf,
-  setPdf,
-  buttonClassName,
-  textButton,
-}: UploadPdfProps) {
+export default function UploadPDF({ pdf, setPdf, textButton }: UploadPdfProps) {
   const handleChangeFiles = (file: File) => {
     setPdf(file);
   };
@@ -53,25 +49,21 @@ export default function UploadPDF({
   }
 
   return (
-    <div className="relative">
+    <div className="upload-file-container">
+      <Button
+        variant="contained"
+        className="form-btn bg-red"
+        onClick={removePdfFile}
+      >
+        {REMOVE_DOC}
+      </Button>
       <iframe
         src={readFile(pdf)}
         title={`user-doc`}
-        width={"80vw"}
-        className="h-100"
+        // width={"80vw"}
+        className="upload-file-frame"
         onError={useError403}
       />
-      <div className="remove-pos">
-        <IconButton
-          onClick={removePdfFile}
-          size="large"
-          color="primary"
-          aria-label="upload picture"
-          component="label"
-        >
-          <HighlightOff fontSize="large" className="remove-icon" />
-        </IconButton>
-      </div>
     </div>
   );
 }

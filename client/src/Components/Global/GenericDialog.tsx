@@ -14,13 +14,12 @@ const DialogMui = {
   "& .muirtl-1t1j96h-MuiPaper-root-MuiDialog-paper": {
     maxWidth: 1600,
     width: 1200,
-    border: "solid 2px #809fff",
+    border: "solid 2px #0080ff",
   },
   "& .css-1t1j96h-MuiPaper-root-MuiDialog-paper": {
     maxWidth: 1600,
     width: 1200,
-    border: "solid 2px #809fff",
-    //   height: "600px",
+    border: "solid 2px #0080ff",
   },
 };
 

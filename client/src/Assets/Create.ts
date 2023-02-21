@@ -227,7 +227,7 @@ const tenantsFormLabels: IField[] = [
     error: "שדה חובה"
   },
   {
-    he_label: "תאריך כניסה לדירה",
+    he_label: "כניסה לדירה",
     en_label: "Entry date",
     key: "startDate",
     gridSize: 3.25,
@@ -236,7 +236,7 @@ const tenantsFormLabels: IField[] = [
     error: "שדה חובה"
   },
   {
-    he_label: "תאריך סיום חוזה",
+    he_label: "סיום חוזה",
     en_label: "End date",
     key: "endDate",
     gridSize: 3.25,

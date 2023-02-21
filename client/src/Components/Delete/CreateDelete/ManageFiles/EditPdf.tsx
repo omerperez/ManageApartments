@@ -37,7 +37,7 @@ export default function EditPdf({
         className={buttonClassName ?? "file-btn"}
         component="label"
       >
-        <h1>{textButton ?? "העלאת חוזה"}</h1>
+        <h1>{textButton ?? "צרף חוזה"}</h1>
         <input
           hidden
           accept=".pdf"

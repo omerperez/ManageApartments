@@ -100,7 +100,7 @@ export default function UploadImages({
           </Fab>
         </Grid>
         {images.map((img: File, index: number) => (
-          <Grid item sm={4} className="padding-img">
+          <Grid item sm={4} className="padding-img" key={`img-${img.text}`}>
             <div className="relative">
               <Image
                 onClick={() => handleChangeMainImage(index)}

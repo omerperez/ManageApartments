@@ -25,7 +25,7 @@ interface ChangeTenantFromListProps {
   changeTenant: (tenantId: string) => void;
   newDocument: File | null;
   changeDocument: (document: File | null) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
 }
 
 export default function ChangeTenantFromList({
@@ -74,8 +74,20 @@ export default function ChangeTenantFromList({
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={4}>
+      <Grid container>
+        <Grid item xs={12} sm={6}>
+          <div className="d-flex justify-content-center">
+            <div>
+              <TenantCard
+                tenant={tenants.find((tenant) => {
+                  return tenant._id === tenantId;
+                })}
+                hideActions={true}
+              />
+            </div>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6} className="edit-from-tenant-list-container">
           <List component="nav" className="edit-from-list">
             {tenants.map((tenant, index) => (
               <ListItemButton
@@ -100,26 +112,6 @@ export default function ChangeTenantFromList({
               </ListItemButton>
             ))}
           </List>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <TenantCard
-            tenant={tenants.find((tenant) => {
-              return tenant._id === tenantId;
-            })}
-            hideActions={true}
-          />
-        </Grid>
-        <Grid item sm={4}>
-          <h5>חוזה</h5>
-          <UpdateDocument
-            document={
-              tenants.find((tenant) => {
-                return tenant._id === tenantId;
-              })?.currentAgreement ?? ""
-            }
-            newDocument={newDocument}
-            changeDocument={changeDocument}
-          />
         </Grid>
       </Grid>
       <DialogActionButtons onSubmit={onSubmit} onCancel={onCancel} />

@@ -32,6 +32,9 @@ const MuiMobileMenuButton = {
   ".css-5efxf5.Mui-selected": {
     color: "white",
   },
+  "& .css-14bcf2k.Mui-selected": {
+    color: "white",
+  },
 };
 
 const MuiMobileMenuButtonActive = {
@@ -42,6 +45,9 @@ const MuiMobileMenuButtonActive = {
     color: "white",
   },
   ".css-5efxf5.Mui-selected": {
+    color: "white",
+  },
+  "& .css-14bcf2k.Mui-selected": {
     color: "white",
   },
   "& .css-6f4m11.Mui-selected": {

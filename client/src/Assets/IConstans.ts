@@ -24,12 +24,12 @@ const MY_APARTMENT = {
     }
 };
 
+const { NODE_ENV, REACT_APP_BASE_URL: BASE_URL, REACT_APP_LOCAL_SERVER_URL: LOCAL_SERVER_URL } = process.env;
+
 const API_CONSTANS = {
-    SERVER_BASE_URL: 'http://54.144.80.90/',
-    // SERVER_BASE_URL: 'http://localhost:3001/',
+    SERVER_BASE_URL: NODE_ENV === 'production' ? `${BASE_URL}` : `${LOCAL_SERVER_URL}`,
     OWNER_APARTMENTS_API: 'apartment/my-apartments',
     APARTMENT_VIEW_API: 'tenant/find',
-    // APARTMENT_VIEW_API: 'apartment/find',
     CREATE_APARTMENT_API: 'apartment/create',
     UPDATE_APARTMENT_API: 'apartment/edit',
     CREATE_TENANT_API: 'tenant/create',

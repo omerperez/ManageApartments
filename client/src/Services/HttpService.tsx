@@ -1,20 +1,15 @@
 import axios from "axios";
 import { API_CONSTANS } from "../Assets/IConstans";
 
-const citiesApi =
-  "https://data.gov.il/api/3/action/datastore_search?resource_id=5c78e9fa-c2e2-4771-93ff-7f400a12f7ba&limit=100000";
-const streetsApi =
-  "https://data.gov.il/api/3/action/datastore_search?resource_id=9ad3862c-8391-4b2f-84a4-2d4c68625f4b&limit=10000&q=";
-const baseUrl = "http://54.144.80.90/";
-// const baseUrl = "http://localhost:3001/";
 const jsonHeader = { "Content-Type": "application/json" };
+const { SERVER_BASE_URL } = API_CONSTANS;
 
 const serverPostRequest = async (
   api: string,
   data: { [key: string]: any },
   header?: { [key: string]: string },
 ) => {
-  return await axios.post(baseUrl.concat(api), data, {
+  return await axios.post(SERVER_BASE_URL.concat(api), data, {
     headers: header ?? jsonHeader,
   });
 };
@@ -23,7 +18,7 @@ const getRequestWithSearchParams = async (
   api: string,
   searchParamsObject: { [key: string]: string },
 ) => {
-  return await axios.get(API_CONSTANS.SERVER_BASE_URL.concat(api), {
+  return await axios.get(SERVER_BASE_URL.concat(api), {
     params: searchParamsObject,
   });
 };
@@ -32,13 +27,13 @@ const deleteRequestWithSearchParams = async (
   api: string,
   searchParamsObject: { [key: string]: string },
 ) => {
-  return await axios.delete(API_CONSTANS.SERVER_BASE_URL.concat(api), {
+  return await axios.delete(SERVER_BASE_URL.concat(api), {
     params: searchParamsObject,
   });
 };
 
 const serverPostFormDataRequest = async (api: string, formData: FormData) => {
-  return await axios.post(baseUrl.concat(api), formData, {
+  return await axios.post(SERVER_BASE_URL.concat(api), formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -46,21 +41,13 @@ const serverPostFormDataRequest = async (api: string, formData: FormData) => {
 };
 
 const postFormData = async (api: string, formData: FormData) => {
-  return await axios.post(baseUrl.concat(api), formData, {
+  return await axios.post(SERVER_BASE_URL.concat(api), formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 };
 
-// ({
-//   method: "post",
-//   url: baseUrl.concat(api),
-//   data: formData,
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//   },
-// });
 const serverPostRequestAttachFiles = async (
   api: string,
   body: any,
@@ -73,7 +60,7 @@ const serverPostRequestAttachFiles = async (
   }
   formData.append("document", document);
   // formData.append("body", JSON.stringify(body));
-  return await axios.post(baseUrl.concat(api), body, {
+  return await axios.post(SERVER_BASE_URL.concat(api), body, {
     data: formData,
     headers: {
       "Content-Type": "application/json",
@@ -82,7 +69,8 @@ const serverPostRequestAttachFiles = async (
 };
 
 const getAllCities = async () => {
-  const response = await axios.get(citiesApi);
+  const { REACT_APP_CITIES_URL } = process.env;
+  const response = await axios.get(REACT_APP_CITIES_URL as string);
   if (response) {
     const results = response.data.result.records;
     if (results)
@@ -94,7 +82,10 @@ const getAllCities = async () => {
 };
 
 const getStreetsByCity = async (city: string) => {
-  const response = await axios.get(streetsApi.concat(city));
+  const { REACT_APP_STREETS_URL } = process.env;
+  const response = await axios.get(
+    (REACT_APP_STREETS_URL as string).concat(city),
+  );
   if (response) {
     const results = response.data.result.records;
     if (results)

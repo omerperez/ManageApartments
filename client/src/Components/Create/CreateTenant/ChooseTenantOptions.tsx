@@ -1,8 +1,7 @@
 import { Groups, PersonAdd, PersonOff } from "@mui/icons-material";
 import { Grid } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ThemeStyleRTL from "../../../Layout/ThemeStyleRTL";
 import ChangeTenantButton from "../../Delete/Edit/EditApartment/ChangeTenantButton";
 import TenantsList from "../../Delete/Edit/EditApartment/TenantsList";
 import CreateTenantForm from "./CreateTenant";
@@ -50,12 +49,12 @@ export default function ChooseTenantOptions({
   };
   if (option === -1) {
     return (
-      <div className="edit-form">
-        <div className="sub-page-title mb-3">{ADD_TENANT}</div>
-        <ThemeStyleRTL>
-          <Grid container spacing={3}>
-            {optionsBtns.map((button, index) => (
-              <Grid item xs={12} sm={4}>
+      <div className="choose-tenant-option-container">
+        <div className="add-tenant-title-dialog">{ADD_TENANT}</div>
+        <Grid container className="choose-tenant-option-btns">
+          {optionsBtns.map((button, index) => (
+            <Grid item xs={12} sm={4} key={button.text}>
+              <div className="tenant-options-dialog-container">
                 <ChangeTenantButton
                   color={button.color}
                   onClick={() => handleClick(index)}
@@ -63,10 +62,10 @@ export default function ChooseTenantOptions({
                   text={button.text}
                   disabled={index === 0 && [].length === 0}
                 />
-              </Grid>
-            ))}
-          </Grid>
-        </ThemeStyleRTL>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
       </div>
     );
   }

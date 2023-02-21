@@ -147,9 +147,8 @@ export default function CreateApartment({
               )}
             </Grid>
           ) : (
-            <Grid item xs={12}>
+            <Grid item xs={12} key={`textarea-apartment-${index}`}>
               <TextareaAutosize
-                key={`textarea-apartment-${index}`}
                 className="area-input"
                 aria-label={`${item[authState.language]}-label`}
                 minRows={isMobileDesign ? 8 : 3}

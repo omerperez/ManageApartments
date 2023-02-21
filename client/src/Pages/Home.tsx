@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Grid } from "@mui/material";
 import { useEffect } from "react";
-import CreateApartmentBtn from "../Components/Global/Buttons/CreateApartmentBtn";
 import ApartmentCard from "../Components/HomePage/ApartmentCard/Card";
 import HomeDashboard from "../Components/HomePage/ApartmentCard/HomeDashboard";
 import { useApartmentsMetaData } from "../Hooks/useMetaData";
@@ -26,7 +25,7 @@ export default function Home() {
       <div className="welcome-title">{`${getTextByCurrentTime(
         authState,
       )}`}</div>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item sm={12} className="hide-dashboard-mobile">
           <HomeDashboard language={authState.language} />
         </Grid>

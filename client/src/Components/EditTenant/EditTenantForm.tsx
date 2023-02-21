@@ -17,12 +17,8 @@ import UpdateDocument from "./UpdateDocument";
 const EDIT_TENANT_LOADING = "עורך פרטי דייר...";
 interface EditTenantFormProps {
   tenant: Tenant;
-  onCancel: () => void;
 }
-export default function EditTenantForm({
-  tenant,
-  onCancel,
-}: EditTenantFormProps) {
+export default function EditTenantForm({ tenant }: EditTenantFormProps) {
   const { authState, setLoading } = useContext(AuthContext) as AuthContextType;
   const [errorList, setErrorList] = useState<IErrosListObject>({});
   const editTenantRefs: Ref<any> = useRef(
@@ -72,15 +68,6 @@ export default function EditTenantForm({
   return (
     <>
       <Grid container className="edit-current-tenant-container" spacing={3}>
-        <Grid item xs={12} sm={4}>
-          <UpdateDocument
-            document={tenant.currentAgreement}
-            newDocument={document}
-            changeDocument={(newDoc: File | null) => {
-              setDocument(newDoc);
-            }}
-          />
-        </Grid>
         <Grid item xs={12} sm={8} className="rtl">
           <Grid container spacing={2}>
             {tenantsFormLabels.map((item, index) => (
@@ -122,9 +109,18 @@ export default function EditTenantForm({
             ))}
           </Grid>
         </Grid>
+        <Grid item xs={12} sm={4}>
+          <UpdateDocument
+            document={tenant.currentAgreement}
+            newDocument={document}
+            changeDocument={(newDoc: File | null) => {
+              setDocument(newDoc);
+            }}
+          />
+        </Grid>
       </Grid>
       <div className="rtl">
-        <DialogActionButtons onSubmit={onSubmit} onCancel={onCancel} />
+        <DialogActionButtons onSubmit={onSubmit} />
       </div>
     </>
   );

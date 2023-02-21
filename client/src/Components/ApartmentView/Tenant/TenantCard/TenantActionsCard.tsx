@@ -117,6 +117,10 @@ export default function TenantActionsCard({
               className="edit-tenant-btn tenant-card-btn"
             />
           }
+          onCancel={() => {
+            changeOption(-1);
+            return false;
+          }}
           content={editContent}
           title={option !== 2 ? TENANT_ACTION_CARD.EDIT_TITLE : ""}
           cancelActionsButtons={true}

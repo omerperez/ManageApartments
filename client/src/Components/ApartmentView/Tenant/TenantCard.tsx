@@ -29,7 +29,7 @@ export default function TenantCard({
   };
 
   return (
-    <Card className="tenant-card" sx={{ boxShadow: "none" }}>
+    <Card className="tenant-card">
       <TopTenantCard
         firstName={tenant?.firstName}
         lastName={tenant?.lastName}

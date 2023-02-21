@@ -10,9 +10,14 @@ import Loading from "../Layout/Loading";
 import ApiService from "../Services/Api/OtherApi";
 import TenantApiService from "../Services/Api/TenantApi";
 
+// Constans
+const ELECTRIC_TITLE = "חישוב חשמל";
+const WATER_TITLE = "חישוב מים";
+
 interface Props {
   type: "water" | "electric";
 }
+
 export default function Bills({ type }: Props) {
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -63,9 +68,6 @@ export default function Bills({ type }: Props) {
     return <Loading />;
   }
 
-  const ELECTRIC_TITLE = "חישוב חשמל";
-  const WATER_TITLE = "חישוב מים";
-
   const onClickMultipleCalc = () => {
     if (type === "water") {
       return setIsShowTotalPrice({
@@ -102,9 +104,9 @@ export default function Bills({ type }: Props) {
             unit={"קוט״ש"}
             onClickMultipleCalc={onClickMultipleCalc}
           />
-          <Grid container className="bill-tenant-row-container">
+          <Grid container>
             {agreementsData.map((tenant, index) => (
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} key={tenant.id}>
                 <BillTenantRow
                   key={`bill-electric-row${tenant.id}`}
                   name={tenant.name}
@@ -129,21 +131,22 @@ export default function Bills({ type }: Props) {
               onClickMultipleCalc={onClickMultipleCalc}
             />
           </div>
-          <div className="bill-tenant-row-container mb-5">
+          <Grid container>
             {agreementsData.map((tenant, index) => (
-              <BillTenantRow
-                key={`bill-water-row${tenant.id}`}
-                name={tenant.name}
-                previousMonthAppointed={53534}
-                currentMonthAppointed={index % 2 === 0 ? 56543 : undefined}
-                price={lowWaterPrice}
-                type={"water"}
-                ref={waterRefs[index]}
-                isShowTotalPrice={isShowTotalPrice.water}
-                initIsShowTotalPrice={initIsShowTotalPrice}
-              />
+              <Grid item xs={12} sm={6} key={`bill-water-row${tenant.id}`}>
+                <BillTenantRow
+                  name={tenant.name}
+                  previousMonthAppointed={53534}
+                  currentMonthAppointed={index % 2 === 0 ? 56543 : undefined}
+                  price={lowWaterPrice}
+                  type={"water"}
+                  ref={waterRefs[index]}
+                  isShowTotalPrice={isShowTotalPrice.water}
+                  initIsShowTotalPrice={initIsShowTotalPrice}
+                />
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </>
       )}
     </div>

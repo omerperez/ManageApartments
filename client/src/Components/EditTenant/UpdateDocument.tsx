@@ -1,9 +1,8 @@
 import { Button } from "@mui/material";
-import { Stack } from "@mui/system";
 import { ChangeEvent } from "react";
 
 // CONSTANS
-const REMOVE_NEW_FILE = "חזור לחוזה מקורי";
+const REMOVE_NEW_FILE = "בטל שינויים";
 const UPLOAD_NEW_FILE = "עדכן חוזה";
 
 interface UpdateDocumentProps {
@@ -34,7 +33,7 @@ export default function UpdateDocument({
 
   return (
     <div>
-      <Stack direction={"row"} spacing={1}>
+      <div className="d-flex w-100">
         <Button
           variant="contained"
           fullWidth
@@ -59,7 +58,7 @@ export default function UpdateDocument({
             }}
           />
         </Button>
-      </Stack>
+      </div>
       <iframe
         src={readFile(newDocument)}
         title={`user-doc`}

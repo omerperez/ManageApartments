@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import {
   ChangeEvent,
   forwardRef,
@@ -94,50 +94,49 @@ const BillTenantRow = (
   }
 
   return (
-    <div className="rtl">
-      <div>
-        <div className="input-label" style={{ fontSize: "24px" }}>
-          {name}
-        </div>
+    <div>
+      <div className="input-label" style={{ fontSize: "24px" }}>
+        {name}
       </div>
-      <Stack direction="row">
-        <div className="price-to-pay-container">
-          <div className="m-3">
-            <div className="input-label">
-              {PREV_MONTH_LABEL}
-              <span className="unit-text">
-                {type === "electric" ? ELCETRIC_UNIT_TEXT : WATER_UNIT_TEXT}
-              </span>
-            </div>
-            <input
-              disabled
-              value={previousMonthAppointed}
-              className="bills-input disabled-bg"
-            />
+      <Grid container className="price-to-pay-container">
+        <Grid item xs={12} sm={4} className="bills-input-container">
+          <div className="input-label">
+            {PREV_MONTH_LABEL}
+            <span className="unit-text">
+              {type === "electric" ? ELCETRIC_UNIT_TEXT : WATER_UNIT_TEXT}
+            </span>
           </div>
-          <div className="m-3">
-            <div className="input-label">
-              {CURRENT_MONTH_LABEL}
-              <span className="unit-text">
-                {type === "electric" ? ELCETRIC_UNIT_TEXT : WATER_UNIT_TEXT}
-              </span>
-            </div>
-            <input
-              className="bills-input"
-              value={value}
-              ref={ref}
-              onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                setValue(+event.target.value)
-              }
-            />
+          <input
+            disabled
+            value={previousMonthAppointed}
+            className="bills-input disabled-bg"
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} className="bills-input-container">
+          <div className="input-label">
+            {CURRENT_MONTH_LABEL}
+            <span className="unit-text">
+              {type === "electric" ? ELCETRIC_UNIT_TEXT : WATER_UNIT_TEXT}
+            </span>
           </div>
-          <div className="btn-container">
-            <button className={`calc-btn ${type}-bg`} onClick={handleClick}>
-              {CALCULATE_BTN}
-            </button>
-          </div>
-        </div>
-      </Stack>
+          <input
+            className="bills-input"
+            value={value}
+            ref={ref}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setValue(+event.target.value)
+            }
+          />
+        </Grid>
+        <Grid item xs={12} sm={4} className="m-lg-auto text-lg-center">
+          <button
+            className={`calc-btn ${type}-bg mt-lg-4`}
+            onClick={handleClick}
+          >
+            {CALCULATE_BTN}
+          </button>
+        </Grid>
+      </Grid>
     </div>
   );
 };

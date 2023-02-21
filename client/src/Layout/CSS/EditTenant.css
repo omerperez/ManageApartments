@@ -1,10 +1,12 @@
 @media screen and (min-width: 601px) {
   .edit-tenant-document-btn {
     font-size: medium !important;
+    font-weight: bolder !important;
     text-align: center !important;
     font-size: 18px !important;
     color: white !important;
-    border-radius: 8px !important;
+    margin: 2px !important;
+    border-radius: 4px !important;
     margin-bottom: 10px !important;
     font-family: "Rubik", sans-serif !important;
   }
@@ -17,18 +19,19 @@
   .edit-tenant-document-btn {
     text-align: center !important;
     font-size: 15px !important;
+    font-weight: bolder !important;
     color: white !important;
     margin: 0 3px !important;
-    border-radius: 8px !important;
+    border-radius: 4px !important;
     margin-bottom: 10px !important;
     font-family: "Rubik", sans-serif !important;
   }
 }
 
 .upload-new-document {
-  background-color: #809fff !important;
+  background-color: #0080ff !important;
 }
 
 .remove-new-document {
-  background-color: #ff5370 !important;
+  background-color: #e90404 !important;
 }

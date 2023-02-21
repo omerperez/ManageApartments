@@ -6,18 +6,13 @@ import {
   PersonAdd,
 } from "@mui/icons-material";
 import { Button, Dialog, DialogContent, Grid, IconButton } from "@mui/material";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { defaultTenant2 } from "../../../../Assets/StaticData";
-import { AuthContext } from "../../../../Contexts/AuthContext";
 import { Tenant } from "../../../../Data/interfaces/entities/Tenant.entity";
-import { ITenant } from "../../../../Data/interfaces/ITenant";
-import { AuthContextType } from "../../../../Data/types/Auth";
 import { DialogSelectEditTenantTypeMui } from "../../../../Layout/Mui/Edit";
 import ThemeStyleRTL from "../../../../Layout/ThemeStyleRTL";
 import EditButtons from "../EditButtons";
-import EditTenant from "../EditTenant/EditTenant";
 import EditTenantForm from "../EditTenant/EditTenantForm";
-import ExtendAgreement from "../EditTenant/ExtendAgreement";
 import ChangeTenantButton from "./ChangeTenantButton";
 import TenantsList from "./TenantsList";
 
@@ -38,8 +33,6 @@ export default function ChangeTenant({
   const [option, setOption] = useState<number>(-1);
   // const [editTenant, setEditTenant] = useState<ITenant | null>(null);
   const [tenantsList, setTenantList] = useState<Tenant[]>([]);
-
-  const { authState } = useContext(AuthContext) as AuthContextType;
 
   const chooseTenantFromList = () => {
     //fetch - get all tenant that free -> prop: apartmentId

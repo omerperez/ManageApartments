@@ -44,6 +44,7 @@ interface EditTenantMenuProps {
   currentOption: number;
   changeOption: (option: number) => void;
 }
+
 export default function EditTenantMenu({
   tenant,
   currentOption,
@@ -65,17 +66,16 @@ export default function EditTenantMenu({
       changeTenant={(id: string) => setNewTenant(id)}
       newDocument={document}
       changeDocument={(doc: File | null) => setDocument(doc)}
-      onCancel={onCancel}
     />,
     <CreateTenant apartmentId={tenant.apartment} onCancel={onCancel} />,
-    <EditTenantForm tenant={tenant} onCancel={onCancel} />,
+    <EditTenantForm tenant={tenant} />,
   ];
 
   if (currentOption === -1) {
     return (
       <Grid container spacing={3}>
         {editOptionsButtons.map((button, index) => (
-          <Grid item xs={12} sm={3} key={`options-menu-${index}`}>
+          <Grid item xs={12} sm={3} key={button.text}>
             <ChangeTenantButton
               color={button.color}
               onClick={() => changeOption(index)}
